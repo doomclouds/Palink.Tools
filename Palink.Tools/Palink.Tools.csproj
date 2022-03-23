@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<!-- <Nullable>enable</Nullable> -->
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+		<PackageReference Include="SerialPortStream" Version="2.4.0" />
+		<PackageReference Include="TaskScheduler" Version="2.10.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Extensions\Enumeration\" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageId>Palink.Tools</PackageId>
+		<Title>Palink.Tools</Title>
+		<PackageVersion>0.1.3</PackageVersion>
+		<Authors>Palink</Authors>
+		<Description>个人开发常用工具</Description>
+		<Copyright>copyright 2022</Copyright>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
+		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
+		<PackageReleaseNotes>增加Base64、MD5、SHA相关加密扩展方法</PackageReleaseNotes>
+		<DocumentationFile>C:\Resources\BaiduNetdiskWorkspace\CSharp DLL\MyLibs\Palink.Tools\Palink.Tools\Palink.Tools.xml</DocumentationFile>
+	</PropertyGroup>
+
+</Project>

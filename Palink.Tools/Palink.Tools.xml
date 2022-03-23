@@ -1,0 +1,1847 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Palink.Tools</name>
+    </assembly>
+    <members>
+        <member name="T:Palink.Tools.Communication.Adapter.SerialPortAdapter">
+            <summary>
+            SerialPortAdapter
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.#ctor(RJCP.IO.Ports.SerialPortStream)">
+            <summary>
+            SerialPortAdapter
+            </summary>
+            <param name="serialPortStream"></param>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.SerialPortAdapter.InfiniteTimeout">
+            <summary>
+            InfiniteTimeout
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.SerialPortAdapter.ReadTimeout">
+            <summary>
+            读数据超时时间
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.SerialPortAdapter.WriteTimeout">
+            <summary>
+            写数据超时时间
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.DiscardInBuffer">
+            <summary>
+            清空缓存
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.Dispose">
+            <summary>
+            释放对象
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.SerialPortAdapter.Dispose(System.Boolean)">
+            <summary>
+            释放对象
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="T:Palink.Tools.Communication.Adapter.TcpClientAdapter">
+            <summary>
+            TcpClientAdapter
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.#ctor(System.Net.Sockets.TcpClient)">
+            <summary>
+            TcpClientAdapter
+            </summary>
+            <param name="tcpClient"></param>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.TcpClientAdapter.InfiniteTimeout">
+            <summary>
+            InfiniteTimeout
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.TcpClientAdapter.ReadTimeout">
+            <summary>
+            读数据超时时间
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.TcpClientAdapter.WriteTimeout">
+            <summary>
+            写数据超时时间
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="size"></param>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.DiscardInBuffer">
+            <summary>
+            清空缓存
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.Dispose">
+            <summary>
+            释放对象
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.TcpClientAdapter.Dispose(System.Boolean)">
+            <summary>
+            释放对象
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Communication.Adapter.UdpClientAdapter">
+            <summary>
+            UdpClientAdapter
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.#ctor(System.Net.Sockets.UdpClient)">
+            <summary>
+            UdpClientAdapter
+            </summary>
+            <param name="udpClient"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.UdpClientAdapter.InfiniteTimeout">
+            <summary>
+            InfiniteTimeout
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.UdpClientAdapter.ReadTimeout">
+            <summary>
+            读数据超时时间
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Adapter.UdpClientAdapter.WriteTimeout">
+            <summary>
+            写数据超时时间
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.DiscardInBuffer">
+            <summary>
+            清空缓存
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.Dispose">
+            <summary>
+            释放对象
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Adapter.UdpClientAdapter.Dispose(System.Boolean)">
+            <summary>
+            释放对象
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Communication.Device.BaseMaster">
+            <summary>
+            基础Master
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Device.BaseMaster.ReadWriteTimes">
+            <summary>
+            读写次数
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.Logging.IPlLogger)">
+            <summary>
+            BaseMaster
+            </summary>
+            <param name="streamResource"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="P:Palink.Tools.Communication.Device.BaseMaster.StreamResource">
+            <summary>
+            StreamResource
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Device.BaseMaster.PlLogger">
+            <summary>
+            日志
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.SendData(Palink.Tools.Communication.Interface.IMessage,System.Boolean)">
+            <summary>
+            发送数据
+            </summary>
+            <param name="message"></param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.InitTimeout">
+            <summary>
+            虚方法，初始化读写超时
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean)">
+            <summary>
+            单播命令
+            </summary>
+            <param name="message"></param>
+            <param name="useHexLog"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.CheckData(Palink.Tools.Communication.Interface.IMessage)">
+            <summary>
+            数据校验
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.CreateFrame(System.ValueTuple{System.Byte,System.Byte,System.Byte[]})">
+            <summary>
+            创建发送数据体
+            </summary>
+            <param name="noCheckFrame"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.CreateStringFrame(System.String)">
+            <summary>
+            创建字符串发送数据体
+            </summary>
+            <param name="frame"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Communication.Interface.IMessage">
+            <summary>
+            信息存储类
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IMessage.Data">
+            <summary>
+            发送区
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IMessage.Buffer">
+            <summary>
+            接收区
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IMessage.ReadBytes">
+            <summary>
+            读取字节数
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IMessage.SendBytes">
+            <summary>
+            发送字节数
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Communication.Interface.IStreamResource">
+            <summary>
+            StreamResource
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IStreamResource.InfiniteTimeout">
+            <summary>
+            InfiniteTimeout
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IStreamResource.ReadTimeout">
+            <summary>
+            读数据超时时间
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Interface.IStreamResource.WriteTimeout">
+            <summary>
+            写数据超时时间
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Interface.IStreamResource.DiscardInBuffer">
+            <summary>
+            清空缓存
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Interface.IStreamResource.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            读取数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Interface.IStreamResource.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            写数据
+            </summary>
+            <param name="buffer"></param>
+            <param name="offset"></param>
+            <param name="count"></param>
+        </member>
+        <member name="T:Palink.Tools.Communication.Master">
+            <summary>
+            Master
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Communication.Master.Locker">
+            <summary>
+            线程锁
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Master.IgnoreStringList">
+            <summary>
+            需要忽略的数据帧
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Master.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.Logging.IPlLogger)">
+            <summary>
+            Master
+            </summary>
+            <param name="streamResource"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Palink.Tools.Communication.Master.InitTimeout">
+            <summary>
+            虚方法，初始化读写超时
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Communication.Master.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean)">
+            <summary>
+            单播命令
+            </summary>
+            <param name="message"></param>
+            <param name="useHexLog"></param>
+            <returns></returns>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:Palink.Tools.Communication.Message.BaseMessage">
+            <summary>
+            基本消息体
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Message.BaseMessage.Data">
+            <summary>
+            发送区
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Message.BaseMessage.Buffer">
+            <summary>
+            接收区
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Message.BaseMessage.ReadBytes">
+            <summary>
+            读取字节数
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Communication.Message.BaseMessage.SendBytes">
+            <summary>
+            发送字节数
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Extensions.AttributeExtensions">
+            <summary>
+            特性扩展方法
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.AttributeExtensions.GetDescription(System.Enum)">
+            <summary>
+            获取枚举描述信息
+            </summary>
+            <param name="enumValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.ConvertExtensions">
+            <summary>
+            转换器扩展类
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToInt(System.Object,System.Int32)">
+            <summary>
+            string转int
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToLong(System.Object,System.Int64)">
+            <summary>
+            string转long
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDouble(System.Object,System.Double)">
+            <summary>
+            string转double
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDecimal(System.Object,System.Decimal)">
+            <summary>
+            string转decimal
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToFloat(System.Object,System.Single)">
+            <summary>
+            string转decimal
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToBool(System.Object,System.Boolean,System.String,System.String)">
+            <summary>
+            string转bool
+            </summary>
+            <param name="input">输入</param>
+            <param name="falseVal"></param>
+            <param name="defaultBool">转换失败默认值</param>
+            <param name="trueVal"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToString(System.ValueType,System.String)">
+            <summary>
+            值类型转string
+            </summary>
+            <param name="inputObj">输入</param>
+            <param name="defaultStr">转换失败默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String,System.DateTime)">
+            <summary>
+            字符串转时间
+            </summary>
+            <param name="inputStr">输入</param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String,System.String,System.DateTime)">
+            <summary>
+            字符串转时间
+            </summary>
+            <param name="inputStr">输入</param>
+            <param name="formatter"></param>
+            <param name="defaultValue">默认值</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String)">
+            <summary>
+            时间戳转时间
+            </summary>
+            <param name="timestamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.DateTime,System.String,System.String)">
+            <summary>
+            时间格式转换为字符串
+            </summary>
+            <param name="date"></param>
+            <param name="formatter"></param>
+            <param name="cultureInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToTrim(System.String)">
+            <summary>
+            字符串去空格
+            </summary>
+            <param name="inputStr">输入</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToEnum``1(System.String,``0)">
+            <summary>
+            字符串转枚举
+            </summary>
+            <typeparam name="T">输入</typeparam>
+            <param name="str"></param>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToList(System.Type)">
+            <summary>
+            将枚举类型转换为List
+            </summary>
+            <param name="enumType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.EncryptExtensions">
+            <summary>
+            EncryptExtensions
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeBase64String(System.String,System.String)">
+            <summary>
+            将字符串使用base64算法编码 
+            </summary>
+            <param name="encodingName">编码类型（编码名称）</param>
+            <param name="inputStr">待加密的字符串</param>
+            <returns>加密后的字符串</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.DecodeBase64String(System.String,System.String)">
+            <summary> 
+            将字符串使用base64算法解码
+            </summary> 
+            <param name="encodingName">编码类型</param> 
+            <param name="base64String">已用base64算法加密的字符串</param> 
+            <returns>解密后的字符串</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeMd5String(System.String)">
+            <summary>
+            将字符串使用MD5算法加密
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha1String(System.String)">
+            <summary>
+            将字符串使用SHA1算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha256String(System.String)">
+            <summary>
+            将字符串使用SHA256算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha384String(System.String)">
+            <summary>
+            将字符串使用SHA384算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha512String(System.String)">
+            <summary>
+            将字符串使用SHA512算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.Enumeration.EnumResponse">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Key">
+            <summary>
+            Key
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Value">
+            <summary>
+            Value
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Description">
+            <summary>
+            描述
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Extensions.LoggingExtensions">
+            <summary>
+            日志扩展
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Trace(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Trace
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Debug(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Debug
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Information(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Information
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Warning(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Warning
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Error(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Error
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Critical(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
+            <summary>
+            Critical
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.Logging.BaseLogger">
+            <summary>
+            BaseLogger
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.#ctor(Palink.Tools.Extensions.Logging.LoggingLevel)">
+            <summary>
+            BaseLogger
+            </summary>
+            <param name="minimumLoggingLevel"></param>
+        </member>
+        <member name="P:Palink.Tools.Extensions.Logging.BaseLogger.MinimumLoggingLevel">
+            <summary>
+            最小日志级别
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.ShouldLog(Palink.Tools.Extensions.Logging.LoggingLevel)">
+            <summary>
+            是否需要打印该级别日志
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.Log(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+            <summary>
+            输出日志
+            </summary>
+            <param name="level"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.LogCore(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+            <summary>
+            打印日志核心方法
+            </summary>
+            <param name="level"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.Logging.ConsoleLogger">
+            <summary>
+            ConsoleLogger
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.ConsoleLogger.#ctor(Palink.Tools.Extensions.Logging.LoggingLevel)">
+            <summary>
+            ConsoleLogger
+            </summary>
+            <param name="minimumLoggingLevel"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.ConsoleLogger.LogCore(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+            <summary>
+            打印日志核心方法
+            </summary>
+            <param name="level"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.Logging.LoggingLevel">
+            <summary>
+            LoggingLevel
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Trace">
+            <summary>
+            Trace = 0
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Debug">
+            <summary>
+            Debug = 1
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Information">
+            <summary>
+            Information = 2
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Warning">
+            <summary>
+            Warning = 3
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Error">
+            <summary>
+            Error = 4
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Critical">
+            <summary>
+            Critical = 5
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.Extensions.Logging.IPlLogger">
+            <summary>
+            IPlLogger
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.IPlLogger.Log(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+            <summary>
+            输出日志
+            </summary>
+            <param name="level"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.Logging.IPlLogger.ShouldLog(Palink.Tools.Extensions.Logging.LoggingLevel)">
+            <summary>
+            日志最低级别
+            </summary>
+            <param name="level"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.NetExtensions">
+            <summary>
+            网络功能扩展
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.NetExtensions.Ping(System.String)">
+            <summary>
+            Ping
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.ObjectExtensions">
+            <summary>
+            对象判断扩展类
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsNull(System.Object)">
+            <summary>
+            判断对象是否为空
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsNotNull(System.Object)">
+            <summary>
+            判断对象是否不为空
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.ObjectExtensions.ThrowIfNull(System.Object)">
+            <summary>
+            对象为空则抛出异常
+            </summary>
+            <param name="obj"></param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.SerializeExtensions">
+            <summary>
+            实体序列化扩展
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.SerializeExtensions.ToJson(System.Object,System.Boolean)">
+            <summary>
+            实体对象转JSON字符串
+            </summary>
+            <param name="obj"></param>
+            <param name="ignoreNull"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.SerializeExtensions.FromJson``1(System.String)">
+            <summary>
+            JSON字符串转实体对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="jsonStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.SerializeExtensions.SerializeUtf8(System.String)">
+            <summary>
+            字符串序列化成字节序列
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.SerializeExtensions.DeserializeUtf8(System.Byte[])">
+            <summary>
+            字节序列序列化成字符串
+            </summary>
+            <param name="stream"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.SerializeExtensions.FromJsonFile``1(System.String,System.String)">
+            <summary>
+            根据key将json文件内容转换为指定对象
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="filePath"></param>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.StringExtensions">
+            <summary>
+            字符判断扩展类
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNullOrEmpty(System.String)">
+            <summary>
+            字符串为空或空字符
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            字符串为空或只包含空格
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNotNullOrEmpty(System.String)">
+            <summary>
+            字符串非空且非空字符
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNotNullOrWhiteSpace(System.String)">
+            <summary>
+            字符串非空且不包含空格
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsChinese(System.String)">
+            <summary>
+            是否中文
+            </summary>
+            <param name="str"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsEmail(System.String)">
+            <summary>
+            是否为邮箱名
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsMobile(System.String)">
+            <summary>
+            是否为手机号
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsPhone(System.String)">
+            <summary>
+            是否为固话号
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsIp(System.String)">
+            <summary>
+            是否为IP
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsIdCard(System.String)">
+            <summary>
+            是否是身份证号
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsDate(System.String)">
+            <summary>
+            是否为日期
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNumeric(System.String)">
+            <summary>
+            是否是数值(包括整数和小数)
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsZipCode(System.String)">
+            <summary>
+            是否为邮政编码
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.IsImgFileName(System.String)">
+            <summary>
+            是否是图片文件名
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.Sub(System.String,System.Int32)">
+            <summary>
+            Sub
+            </summary>
+            <param name="inputStr"></param>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.TryReplace(System.String,System.String,System.String)">
+            <summary>
+            TryReplace
+            </summary>
+            <param name="inputStr"></param>
+            <param name="oldStr"></param>
+            <param name="newStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.RegexReplace(System.String,System.String,System.String)">
+            <summary>
+            RegexReplace
+            </summary>
+            <param name="inputStr"></param>
+            <param name="pattern"></param>
+            <param name="replacement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object,System.Object)">
+            <summary>
+            Format
+            </summary>
+            <param name="format"></param>
+            <param name="arg0"></param>
+            <param name="arg1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object[])">
+            <summary>
+            Format
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            Format
+            </summary>
+            <param name="format"></param>
+            <param name="arg0"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object)">
+            <summary>
+            Format
+            </summary>
+            <param name="format"></param>
+            <param name="arg0"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object[])">
+            <summary>
+            FormatWith
+            </summary>
+            <param name="this"></param>
+            <param name="values"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object,System.Object,System.Object)">
+            <summary>
+            FormatWith
+            </summary>
+            <param name="this"></param>
+            <param name="arg0"></param>
+            <param name="arg1"></param>
+            <param name="arg2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object,System.Object)">
+            <summary>
+            FormatWith
+            </summary>
+            <param name="this"></param>
+            <param name="arg0"></param>
+            <param name="arg1"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object)">
+            <summary>
+            FormatWith
+            </summary>
+            <param name="this"></param>
+            <param name="arg0"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.EcmMessage">
+            <summary>
+            EcmMessage
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.Name">
+            <summary>
+            展品编号
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.InfoType">
+            <summary>
+            信息类型 E、M
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.InfoCode">
+            <summary>
+            信息代码000-999
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.InfoContent">
+            <summary>
+            信息内容
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.CmdType">
+            <summary>
+            命令类型
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.#ctor">
+            <summary>
+            EcmMessage
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.BeatsInstance(System.String)">
+            <summary>
+            心跳
+            </summary>
+            <param name="exhibitNo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.InteractionInstance(System.String)">
+            <summary>
+            互动
+            </summary>
+            <param name="exhibitNo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.MonitorInstance(System.String,System.String,System.String,System.String)">
+            <summary>
+            监控
+            </summary>
+            <param name="exhibitNo"></param>
+            <param name="infoType"></param>
+            <param name="infoCode"></param>
+            <param name="infoContent"></param>
+            <returns></returns>
+            <exception cref="T:System.OperationCanceledException"></exception>
+        </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.CmdType">
+            <summary>
+            命令类型
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.CmdType.Beats">
+            <summary>
+            心跳
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.CmdType.Monitor">
+            <summary>
+            监控
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.CmdType.Interaction">
+            <summary>
+            互动
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.EcmTransferStation">
+            <summary>
+            EcmTransferStation
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmTransferStation.SendDataToEcm(Palink.Tools.PanShi.CloudMonitor.EcmMessage,System.String)">
+            <summary>
+            发送数据
+            </summary>
+            <param name="msg"></param>
+            <param name="urlStart"></param>
+        </member>
+        <member name="T:Palink.Tools.Utils.CoreTool">
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+            <summary>
+            CoreTool
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.SetForegroundWindow(System.IntPtr)">
+            <summary>
+            设置为前景窗口
+            </summary>
+            <param name="hwnd"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsExistDirectory(System.String)">
+            <summary>  
+            检测指定目录是否存在  
+            </summary>  
+            <param name="directoryPath">目录的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsExistFile(System.String)">
+            <summary>  
+            检测指定文件是否存在,如果存在则返回true。  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsEmptyDirectory(System.String)">
+            <summary>  
+            检测指定目录是否为空  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Contains(System.String,System.String)">
+            <summary>  
+            检测指定目录中是否存在指定的文件,若要搜索子目录请使用重载方法.  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+            <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。  
+            范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Contains(System.String,System.String,System.Boolean)">
+            <summary>  
+            检测指定目录中是否存在指定的文件  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+            <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。  
+            范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>   
+            <param name="isSearchChild">是否搜索子目录</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CreateDirectory(System.String)">
+            <summary>  
+            创建一个目录  
+            </summary>  
+            <param name="directoryPath">目录的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CreateFile(System.String)">
+            <summary>  
+            创建一个文件。  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CreateFile(System.String,System.Byte[])">
+            <summary>  
+            创建一个文件,并将字节流写入文件。  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+            <param name="buffer">二进制流数据</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetLineCount(System.String)">
+            <summary>  
+            获取文本文件的行数  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSize(System.String)">
+            <summary>  
+            获取一个文件的长度,单位为Byte  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByKB(System.String)">
+            <summary>  
+            获取一个文件的长度,单位为KB  
+            </summary>  
+            <param name="filePath">文件的路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByMB(System.String)">
+            <summary>  
+            获取一个文件的长度,单位为MB  
+            </summary>  
+            <param name="filePath">文件的路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileNames(System.String)">
+            <summary>  
+            获取指定目录中所有文件列表  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileNames(System.String,System.String,System.Boolean)">
+            <summary>  
+            获取指定目录及子目录中所有文件列表  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+            <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。  
+            范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>  
+            <param name="isSearchChild">是否搜索子目录</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDirectories(System.String)">
+            <summary>  
+            获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDirectories(System.String,System.String,System.Boolean)">
+            <summary>  
+            获取指定目录及子目录中所有子目录列表  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+            <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。  
+            范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>  
+            <param name="isSearchChild">是否搜索子目录</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.WriteText(System.String,System.String)">
+            <summary>  
+            向文本文件中写入内容  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+            <param name="content">写入的内容</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.AppendText(System.String,System.String)">
+            <summary>  
+            向文本文件的尾部追加内容  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+            <param name="content">写入的内容</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Copy(System.String,System.String)">
+            <summary>  
+            将源文件的内容复制到目标文件中  
+            </summary>  
+            <param name="sourceFilePath">源文件的绝对路径</param>  
+            <param name="destFilePath">目标文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Move(System.String,System.String)">
+            <summary>  
+            将文件移动到指定目录  
+            </summary>  
+            <param name="sourceFilePath">需要移动的源文件的绝对路径</param>  
+            <param name="descDirectoryPath">移动到的目录的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.StreamToBytes(System.IO.Stream)">
+            <summary>  
+            将流读取到缓冲区中  
+            </summary>  
+            <param name="stream">原始流</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.FileToBytes(System.String)">
+            <summary>  
+            将文件读取到缓冲区中  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.FileToString(System.String)">
+            <summary>  
+            将文件读取到字符串中  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.FileToString(System.String,System.Text.Encoding)">
+            <summary>  
+            将文件读取到字符串中  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+            <param name="encoding">字符编码</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetParentDirectoryName(System.String,System.Int32)">
+            <summary>
+            获取上级文件夹名称
+            </summary>
+            <param name="path">路径</param>
+            <param name="degree">级数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetParentDirectory(System.String,System.Int32)">
+            <summary>
+            获取上级文件夹路径
+            </summary>
+            <param name="path">路径</param>
+            <param name="degree">级数</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileName(System.String)">
+            <summary>  
+            从文件的绝对路径中获取文件名( 包含扩展名 )  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileNameNoExtension(System.String)">
+            <summary>  
+            从文件的绝对路径中获取文件名( 不包含扩展名 )  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetExtension(System.String)">
+            <summary>  
+            从文件的绝对路径中获取扩展名  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>          
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.ClearDirectory(System.String)">
+            <summary>  
+            清空指定目录下所有文件及子目录,但该目录依然保存.  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.ClearFile(System.String)">
+            <summary>  
+            清空文件内容  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DeleteFile(System.String)">
+            <summary>  
+            删除指定文件  
+            </summary>  
+            <param name="filePath">文件的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DeleteDirectory(System.String)">
+            <summary>  
+            删除指定目录及其所有子目录  
+            </summary>  
+            <param name="directoryPath">指定目录的绝对路径</param>  
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.SetWindowsHookEx(System.Int32,Palink.Tools.Utils.CoreTool.HookProc,System.IntPtr,System.Int32)">
+            <summary>
+            安装钩子
+            </summary>
+            <param name="idHook"></param>
+            <param name="lpfn"></param>
+            <param name="pInstance"></param>
+            <param name="threadId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UnhookWindowsHookEx(System.IntPtr)">
+            <summary>
+            卸载钩子
+            </summary>
+            <param name="pHookHandle"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CallNextHookEx(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
+            <summary>
+            CallNextHookEx
+            </summary>
+            <param name="hhk"></param>
+            <param name="nCode"></param>
+            <param name="wParam"></param>
+            <param name="lParam"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Utils.CoreTool.HookProc">
+            <summary>
+            钩子委托声明
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.Utils.CoreTool.MouseExecute">
+            <summary>
+            MouseExecute
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.InsertKeyboardHook">
+            <summary>
+            InsertKeyboardHook
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.InsertMouseHook">
+            <summary>
+            InsertMouseHook
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.RemoveKeyboardHook">
+            <summary>
+            RemoveKeyboardHook
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.RemoveMouseHook">
+            <summary>
+            RemoveMouseHook
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDouble(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+                Converts four UInt16 values into a IEEE 64 floating point format.
+            </summary>
+            <param name="b3">Highest-order ushort value.</param>
+            <param name="b2">Second-to-highest-order ushort value.</param>
+            <param name="b1">Second-to-lowest-order ushort value.</param>
+            <param name="b0">Lowest-order ushort value.</param>
+            <returns>IEEE 64 floating point value.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetSingle(System.UInt16,System.UInt16)">
+            <summary>
+                Converts two UInt16 values into a IEEE 32 floating point format.
+            </summary>
+            <param name="highOrderValue">High order ushort value.</param>
+            <param name="lowOrderValue">Low order ushort value.</param>
+            <returns>IEEE 32 floating point value.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetUInt32(System.UInt16,System.UInt16)">
+            <summary>
+                Converts two UInt16 values into a UInt32.
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetAsciiBytes(System.Byte[])">
+            <summary>
+                Converts an array of bytes to an ASCII byte array.
+            </summary>
+            <param name="numbers">The byte array.</param>
+            <returns>An array of ASCII byte values.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetAsciiBytes(System.UInt16[])">
+            <summary>
+                Converts an array of UInt16 to an ASCII byte array.
+            </summary>
+            <param name="numbers">The ushort array.</param>
+            <returns>An array of ASCII byte values.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.NetworkBytesToHostUInt16(System.Byte[])">
+            <summary>
+                Converts a network order byte array to an array of UInt16 values in host order.
+            </summary>
+            <param name="networkBytes">The network order byte array.</param>
+            <returns>The host order ushort array.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.HexToBytes(System.String)">
+            <summary>
+                Converts a hex string to a byte array.
+            </summary>
+            <param name="hex">The hex string.</param>
+            <returns>Array of bytes.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CalculateLrc(System.Byte[])">
+            <summary>
+                Calculate Longitudinal Redundancy Check.
+            </summary>
+            <param name="data">The data used in LRC.</param>
+            <returns>LRC value.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CalculateCrc(System.Byte[])">
+            <summary>
+                Calculate Cyclical Redundancy Check.
+            </summary>
+            <param name="data">The data used in CRC.</param>
+            <returns>CRC value.</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GenerateString(System.Int32)">
+            <summary>
+            随机字符串，包含在0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CreateFolderInLocalMachine(System.String)">
+            <summary>
+            CreateFolderInLocalMachine
+            </summary>
+            <param name="targetPath"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DeleteFolderInLocalMachine(System.String)">
+            <summary>
+            DeleteFolderInLocalMachine
+            </summary>
+            <param name="targetPath"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.SetupKeyValueInLocalMachine(System.String,System.String,System.Object,Microsoft.Win32.RegistryValueKind)">
+            <summary>
+            SetupKeyValueInLocalMachine
+            </summary>
+            <param name="targetPath"></param>
+            <param name="key"></param>
+            <param name="value"></param>
+            <param name="kind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.SoftwareMutex(System.Threading.Mutex@)">
+            <summary>
+            软件多开锁
+            </summary>
+            <param name="appMutex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.AutoStart(System.String,System.String,System.String,System.TimeSpan,System.Boolean)">
+            <summary>
+            设置开机自启，需要在管理员模式下运行才可有效
+            </summary>
+            <param name="taskName">计划任务名称</param>
+            <param name="exeFullName">exe文件全路径</param>
+            <param name="desc">描述</param>
+            <param name="delay">延时启动时间</param>
+            <param name="used">是否开机自启</param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.TopMost(System.Nullable{System.IntPtr},System.Int32)">
+            <summary>
+            窗口置顶
+            </summary>
+            <param name="hwnd"></param>
+            <param name="delay"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.AllowEdgeSwipe(System.Boolean)">
+            <summary>
+            边缘侧滑
+            </summary>
+            <param name="status"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Palink.Tools.Utils.CoreTool.HexCharacterCountNotEven">
+            <summary>
+            十六进制字符串必须有偶数个字符
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.CoreTool.NetworkBytesNotEven">
+            <summary>
+            数组networkBytes必须包含偶数个字节
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.AddTask(System.String,System.String,System.String,System.TimeSpan)">
+            <summary>
+            添加计划任务
+            </summary>
+            <param name="taskName"></param>
+            <param name="exeFullName"></param>
+            <param name="description"></param>
+            <param name="delay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.ExitTask(System.String,System.String,System.TimeSpan)">
+            <summary>
+            修改已存在计划任务
+            </summary>
+            <param name="taskName"></param>
+            <param name="description"></param>
+            <param name="delay"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DeleteTask(System.String)">
+            <summary>
+            删除计划任务
+            </summary>
+            <param name="taskName"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Get1970ToNowMilliseconds">
+            <summary>
+            获取1970-1-1到现在的毫秒数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.Get1970ToDateTimeMilliseconds(System.DateTime)">
+            <summary>
+            获取毫秒数
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.BeijingTimeToUnixTimeStamp10(System.DateTime)">
+            <summary>
+            北京时间转换成unix时间戳(10位/秒)
+            Unix 时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数，不考虑闰秒
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UtcTimeToUnixTimeStamp10(System.DateTime)">
+            <summary>
+            格林威治时间转换成unix时间戳(10位/秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.BeijingTimeToUnixTimeStamp13(System.DateTime)">
+            <summary>
+            北京时间转换成unix时间戳(13位/毫秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UtcTimeToUnixTimeStamp13(System.DateTime)">
+            <summary>
+            格林威治时间转换成unix时间戳(13位/毫秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp10ToBeijingTime(System.Int64)">
+            <summary>
+            10位unix时间戳转换成北京时间
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp10ToUtcTime(System.Int64)">
+            <summary>
+            10位unix时间戳转换成格林威治
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp13ToBeijingTime(System.Int64)">
+            <summary>
+            13位unix时间戳转换成北京时间
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp13ToUtcTime(System.Int64)">
+            <summary>
+            13位unix时间戳转换成格林威治
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDayStart(System.DateTime)">
+            <summary>
+            获取本日开始时间（0点0分0秒）
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDayEnd(System.DateTime)">
+            <summary>
+            获取本日结束时间（23点59分59秒）
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekStart(System.DateTime)">
+            <summary>
+            获取本周开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekEnd(System.DateTime)">
+            <summary>
+            获取本周结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetMonthStart(System.DateTime)">
+            <summary>
+            获取本月开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetMonthEnd(System.DateTime)">
+            <summary>
+            获取本月结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetSeasonStart(System.DateTime)">
+            <summary>
+            获取本季度开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetSeasonEnd(System.DateTime)">
+            <summary>
+            获取本季度结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetYearStart(System.DateTime)">
+            <summary>
+            获取本年开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetYearEnd(System.DateTime)">
+            <summary>
+            获取本年结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFirstWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
+            <summary>
+            当前日期所在月份第一个指定星期几的日期
+            </summary>
+            <param name="date">给定日期</param>
+            <param name="dayOfWeek">星期几</param>
+            <returns>所对应的日期</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetLastWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
+            <summary>
+            当前日期所在月份最后1个指定星期几的日期
+            </summary>
+            <param name="date">给定日期</param>
+            <param name="dayOfWeek">星期几</param>
+            <returns>所对应的日期</returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsBefore(System.DateTime,System.DateTime)">
+            <summary>
+            判断是否比指定之间早
+            </summary>
+            <param name="date"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsAfter(System.DateTime,System.DateTime)">
+            <summary>
+            判断是否比指定时间晚
+            </summary>
+            <param name="date"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetCountDaysOfMonth(System.DateTime)">
+            <summary>
+            给定日期所在月份共有多少天
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsDateEqual(System.DateTime,System.DateTime)">
+            <summary>
+            当前日期与给定日期是否是同一天
+            </summary>
+            <param name="date">当前日期</param>
+            <param name="dateToCompare">给定日期</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsWeekend(System.DateTime)">
+            <summary>
+            是否是周未
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsWeekDay(System.DateTime)">
+            <summary>
+            是否是工作日
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsToday(System.DateTime)">
+            <summary>
+            判断是否为今天
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.IsLeap(System.DateTime)">
+            <summary>
+            判定公历闰年遵循的一般规律为：四年一闰，百年不闰，四百年再闰。
+            公历闰年的精确计算方法：（按一回归年365天5小时48分45.5秒）
+            普通年能被4整除而不能被100整除的为闰年。 （如2004年就是闰年，1900年不是闰年）
+            世纪年能被400整除而不能被3200整除的为闰年。 (如2000年是闰年，3200年不是闰年)
+            对于数值很大的年份能整除3200,但同时又能整除172800则又是闰年。(如172800年是闰年，86400年不是闰年）
+            公元前闰年规则如下：
+            非整百年：年数除4余数为1是闰年，即公元前1、5、9……年；
+            整百年：年数除400余数为1是闰年，年数除3200余数为1，不是闰年,年数除172800余1又为闰年，即公元前401、801……年。
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetDaysByYear(System.DateTime)">
+            <summary>
+            获取当前年天数
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekCountByYear(System.DateTime)">
+            <summary>
+            获取当前年天数
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Utils.MouseStatus">
+            <summary>
+            鼠标状态
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.MouseStatus.Move">
+            <summary>
+            移动
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.MouseStatus.LeftDown">
+            <summary>
+            左键按下
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.MouseStatus.LeftUp">
+            <summary>
+            左键抬起
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.MouseStatus.RightDown">
+            <summary>
+            右键按下
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Utils.MouseStatus.RightUp">
+            <summary>
+            右键抬起
+            </summary>
+        </member>
+    </members>
+</doc>
