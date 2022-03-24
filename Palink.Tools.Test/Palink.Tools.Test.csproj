@@ -26,6 +26,8 @@
 
   <ItemGroup>
     <Folder Include="PanShi\CloudMonitor\" />
+    <Folder Include="Communication\" />
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

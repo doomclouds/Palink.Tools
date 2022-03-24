@@ -1,11 +1,4 @@
-# Palink.Tools
-
-#### 通讯
-
-位于`Palink.Tools.Communication`名称空间下的`Master.cs`类是一个可以进行单播命令和广播命令的封装。通讯可以使用TCP、UDP及串口。
-
-```c#
-using System;
+﻿using System;
 using System.Net.Sockets;
 using Palink.Tools.Communication;
 using Palink.Tools.Communication.Adapter;
@@ -112,67 +105,3 @@ public class MyMaster : Master
         }
     }
 }
-```
-
-#### 数组扩展
-
-- ForEach提供便利同时可以对数组进行操作
-
-#### 特性扩展
-
-- GetDescription：获取枚举描述信息
-
-#### Convert扩展
-
-- TryToInt&TryToLong&TryToDouble&TryToDecimal&TryToFloat&TryToBool：string转int/long/double/decimal/float/bool
-- TryToString：值类型转string
-- TryToDateTime：字符串转时间
-- TryToDateTime：时间戳转时间
-- TryToDateTime：时间格式转换为字符串
-- TryToEnum：字符串去空格
-- TryToEnum：字符串转枚举
-- TryToList：将枚举类型转换为List
-
-#### Encrypt扩展
-
-包含Base64、MD5与SHA的相关加密解密方法
-
-#### 网络功能扩展
-
-- Ping：判断是否可以ping同该ip地址
-
-#### 对象扩展
-
-- IsPrimitive：判断对象是否是原始对象
-- DeepClone：深度Clone
-- IsNullOrEmpty&IsNotNull&ThrowIfNull:非空与不非空判断
-- ReferenceEquals：引用是否相同判断
-- IsDefaultValue：是否是默认值判断
-
-#### 序列化扩展
-
-- ToJson：实体转JSON
-- FromJson：JSON转实体
-- SerializeUtf8&DeserializeUtf8：字符串序列化成字节序列&字节序列序列化成字符串
-- FromJsonFile：根据key将json文件内容转换为指定对象
-
-#### 字符串扩展
-
-- IsNullOrEmpty&IsNullOrWhiteSpace&IsNotNullOrEmpty&IsNotNullOrWhiteSpace：空判断
-- 常用正则表达式判断：IsChinese&IsEmail&IsMobile&IsPhone&IsIp&IsIdCard&IsDate&IsNumeric&IsZipCode&IsImgFileName
-- 字符串截取：TryReplace&Sub&RegexReplace
-- Format&FormatWith：字符串格式化
-
-#### 工具类
-
-使用CoreTool去调用静态方法
-
-- 文件及文件目录操作
-- Win32 Api相关
-- 全局鼠标键盘钩子(Hook)
-- Modbus：CRC、LRC、HEX转Byte[]、Byte[]转ushort等
-- Random：随机字符生成
-- 注册表操作
-- Windows任务计划操作
-- 时间格式转化
-- 软件相关：开机自启、防止多开、置顶、禁止触摸屏边缘侧滑等
