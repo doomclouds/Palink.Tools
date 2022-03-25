@@ -230,5 +230,39 @@ namespace Palink.Tools.Extensions
 
             return result;
         }
+
+        /// <summary>
+        /// 根据类型名返回一个Type类型
+        /// </summary>
+        /// <param name="typeName">类型的名称</param>
+        /// <returns>Type对象</returns>
+        public static Type ConvertType(this string typeName) =>
+            typeName.ToLower().Replace("system.", "") switch
+            {
+                "boolean" => typeof(bool),
+                "bool" => typeof(bool),
+                "int16" => typeof(short),
+                "short" => typeof(short),
+                "int32" => typeof(int),
+                "int" => typeof(int),
+                "long" => typeof(long),
+                "int64" => typeof(long),
+                "uint16" => typeof(ushort),
+                "ushort" => typeof(ushort),
+                "uint32" => typeof(uint),
+                "uint" => typeof(uint),
+                "uint64" => typeof(ulong),
+                "ulong" => typeof(ulong),
+                "single" => typeof(float),
+                "float" => typeof(float),
+                "string" => typeof(string),
+                "guid" => typeof(Guid),
+                "decimal" => typeof(decimal),
+                "double" => typeof(double),
+                "datetime" => typeof(DateTime),
+                "byte" => typeof(byte),
+                "char" => typeof(char),
+                _ => typeof(string)
+            };
     }
 }

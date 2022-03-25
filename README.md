@@ -116,7 +116,7 @@ public class MyMaster : Master
 
 #### 数组扩展
 
-- ForEach提供便利同时可以对数组进行操作
+- ForEach提供遍历同时可以对数组进行操作、支持多维数组
 
 #### 特性扩展
 
@@ -132,14 +132,15 @@ public class MyMaster : Master
 - TryToEnum：字符串去空格
 - TryToEnum：字符串转枚举
 - TryToList：将枚举类型转换为List
+- ConvertType：根据类型名返回一个Type类型
 
 #### Encrypt扩展
 
-包含Base64、MD5与SHA的相关加密解密方法
+包含Base64、MD5、DES、AES、哈希加密与SHA的相关加密解密方法
 
 #### 网络功能扩展
 
-- Ping：判断是否可以ping同该ip地址
+- Ping：判断是否可以ping通该ip地址
 
 #### 对象扩展
 
@@ -162,6 +163,26 @@ public class MyMaster : Master
 - 常用正则表达式判断：IsChinese&IsEmail&IsMobile&IsPhone&IsIp&IsIdCard&IsDate&IsNumeric&IsZipCode&IsImgFileName
 - 字符串截取：TryReplace&Sub&RegexReplace
 - Format&FormatWith：字符串格式化
+
+#### 随机数扩展
+
+- StrictNext：生成真正的随机数
+- NextGauss：产生正态分布的随机数
+
+#### 反射扩展
+
+- InvokeMethod：执行方法
+- SetField：设置字段
+- GetField：获取字段
+- GetFields：获取所有的字段信息
+- SetProperty：设置属性
+- GetProperty：获取属性
+- GetProperties：获取所有的属性信息
+- GetInstance：获取默认实例
+
+#### 系统类
+
+- HiPerfTimer：纳秒级计时器，仅支持Windows系统
 
 #### 工具类
 
