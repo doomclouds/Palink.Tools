@@ -4,6 +4,47 @@ using Newtonsoft.Json;
 namespace Palink.Tools.PanShi.CloudMonitor;
 
 /// <summary>
+/// 消息类别
+/// </summary>
+public enum MessageType
+{
+    /// <summary>
+    /// 普通消息收到就发送给服务器，不判断是否成功
+    /// </summary>
+    Normal,
+
+    /// <summary>
+    /// 该消息一经收到必须发送成功，失败后缓存
+    /// </summary>
+    Needed,
+
+    /// <summary>
+    /// 该消息5min内重复发送只发一次，必须成功
+    /// </summary>
+    FiveMinOnce = 5,
+
+    /// <summary>
+    /// 该消息10min内重复发送只发一次，必须成功
+    /// </summary>
+    TenMinOnce = 10,
+
+    /// <summary>
+    /// 该消息半小时重复发送只发送一次，必须成功
+    /// </summary>
+    HalfHourOnce = 30,
+
+    /// <summary>
+    /// 该消息1小时重复发送只发送一次，必须成功
+    /// </summary>
+    OneHourOnce = 60,
+
+    /// <summary>
+    /// 永久只发一次，必须成功
+    /// </summary>
+    ForeverOnce
+}
+
+/// <summary>
 /// EcmMessage
 /// </summary>
 public class EcmMessage
@@ -39,54 +80,105 @@ public class EcmMessage
     public CmdType CmdType { get; set; }
 
     /// <summary>
-    /// EcmMessage
+    /// 消息类型，用于区别如何处理该消息
     /// </summary>
-    public EcmMessage()
+    [JsonProperty("message_type")]
+    public MessageType MessageType { get; set; }
+
+
+    /// <summary>
+    /// 服务器URL
+    /// </summary>
+    [JsonProperty("url")]
+    public string Url { get; set; }
+
+    /// <summary>
+    /// 类唯一编码
+    /// </summary>
+    [JsonProperty("id")]
+    public string Id { get; set; }
+
+    /// <summary>
+    /// 是否发送成功
+    /// </summary>
+    [JsonProperty("send_succeed")]
+    public bool SendSucceed { get; set; }
+
+    private EcmMessage()
     {
     }
 
-    private EcmMessage(string name, string infoType, string infoCode,
-        string infoContent, CmdType cmdType)
+    /// <summary>
+    /// EcmMessage构造器
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="infoType"></param>
+    /// <param name="infoCode"></param>
+    /// <param name="infoContent"></param>
+    /// <param name="cmdType"></param>
+    /// <param name="messageType"></param>
+    public EcmMessage(string name, string infoType, string infoCode,
+        string infoContent, CmdType cmdType, MessageType messageType)
     {
         Name = name;
         InfoType = infoType;
         InfoCode = infoCode;
         InfoContent = infoContent;
         CmdType = cmdType;
+        MessageType = messageType;
+        Id = Guid.NewGuid().ToString("N");
     }
+}
 
+/// <summary>
+/// ECM消息工厂
+/// </summary>
+public static class EcmMessageFactory
+{
     /// <summary>
     /// 心跳
     /// </summary>
-    /// <param name="exhibitNo"></param>
+    /// <param name="service"></param>
+    /// <param name="type"></param>
     /// <returns></returns>
-    public static EcmMessage BeatsInstance(string exhibitNo)
+    public static EcmMessage BeatsInstance(this EcmService service, MessageType type)
     {
-        return new EcmMessage(exhibitNo, "M", "001", "心跳", CmdType.Beats);
+        var em = new EcmMessage(service.ExhibitNo, "M", "001", "心跳", CmdType.Beats, type)
+        {
+            Url = service.Url
+        };
+        return em;
     }
 
     /// <summary>
     /// 互动
     /// </summary>
-    /// <param name="exhibitNo"></param>
+    /// <param name="service"></param>
+    /// <param name="type"></param>
     /// <returns></returns>
-    public static EcmMessage InteractionInstance(string exhibitNo)
+    public static EcmMessage InteractionInstance(this EcmService service,
+        MessageType type)
     {
-        return new EcmMessage(exhibitNo, "M", "101", "互动次数",
-            CmdType.Interaction);
+        var em = new EcmMessage(service.ExhibitNo, "M", "101", "互动次数",
+            CmdType.Interaction, type)
+        {
+            Url = service.Url
+        };
+        return em;
     }
 
     /// <summary>
     /// 监控
     /// </summary>
-    /// <param name="exhibitNo"></param>
+    /// <param name="service"></param>
     /// <param name="infoType"></param>
     /// <param name="infoCode"></param>
     /// <param name="infoContent"></param>
+    /// <param name="type"></param>
     /// <returns></returns>
     /// <exception cref="OperationCanceledException"></exception>
-    public static EcmMessage MonitorInstance(string exhibitNo, string infoType,
-        string infoCode, string infoContent)
+    public static EcmMessage MonitorInstance(this EcmService service, string infoType,
+        string infoCode, string infoContent, MessageType type)
     {
         if (infoType != "M" && infoType != "E")
         {
@@ -99,7 +191,11 @@ public class EcmMessage
             throw new OperationCanceledException("M类型的信息代码000-101已被系统使用");
         }
 
-        return new EcmMessage(exhibitNo, infoType, infoCode, infoContent,
-            CmdType.Monitor);
+        var em = new EcmMessage(service.ExhibitNo, infoType, infoCode, infoContent,
+            CmdType.Monitor, type)
+        {
+            Url = service.Url
+        };
+        return em;
     }
 }

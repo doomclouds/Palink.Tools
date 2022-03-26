@@ -1265,6 +1265,46 @@
             <param name="arg0"></param>
             <returns></returns>
         </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.MessageType">
+            <summary>
+            消息类别
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.Normal">
+            <summary>
+            普通消息收到就发送给服务器，不判断是否成功
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.Needed">
+            <summary>
+            该消息一经收到必须发送成功，失败后缓存
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.FiveMinOnce">
+            <summary>
+            该消息5min内重复发送只发一次，必须成功
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.TenMinOnce">
+            <summary>
+            该消息10min内重复发送只发一次，必须成功
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.HalfHourOnce">
+            <summary>
+            该消息半小时重复发送只发送一次，必须成功
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.OneHourOnce">
+            <summary>
+            该消息1小时重复发送只发送一次，必须成功
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.PanShi.CloudMonitor.MessageType.ForeverOnce">
+            <summary>
+            永久只发一次，必须成功
+            </summary>
+        </member>
         <member name="T:Palink.Tools.PanShi.CloudMonitor.EcmMessage">
             <summary>
             EcmMessage
@@ -1295,35 +1335,103 @@
             命令类型
             </summary>
         </member>
-        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.#ctor">
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.MessageType">
             <summary>
-            EcmMessage
+            消息类型，用于区别如何处理该消息
             </summary>
         </member>
-        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.BeatsInstance(System.String)">
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.Url">
             <summary>
-            心跳
+            服务器URL
             </summary>
-            <param name="exhibitNo"></param>
-            <returns></returns>
         </member>
-        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.InteractionInstance(System.String)">
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.Id">
             <summary>
-            互动
+            类唯一编码
             </summary>
-            <param name="exhibitNo"></param>
-            <returns></returns>
         </member>
-        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.MonitorInstance(System.String,System.String,System.String,System.String)">
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmMessage.SendSucceed">
             <summary>
-            监控
+            是否发送成功
             </summary>
-            <param name="exhibitNo"></param>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessage.#ctor(System.String,System.String,System.String,System.String,Palink.Tools.PanShi.CloudMonitor.CmdType,Palink.Tools.PanShi.CloudMonitor.MessageType)">
+            <summary>
+            EcmMessage构造器
+            </summary>
+            <param name="name"></param>
             <param name="infoType"></param>
             <param name="infoCode"></param>
             <param name="infoContent"></param>
+            <param name="cmdType"></param>
+            <param name="messageType"></param>
+        </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.EcmMessageFactory">
+            <summary>
+            ECM消息工厂
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessageFactory.BeatsInstance(Palink.Tools.PanShi.CloudMonitor.EcmService,Palink.Tools.PanShi.CloudMonitor.MessageType)">
+            <summary>
+            心跳
+            </summary>
+            <param name="service"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessageFactory.InteractionInstance(Palink.Tools.PanShi.CloudMonitor.EcmService,Palink.Tools.PanShi.CloudMonitor.MessageType)">
+            <summary>
+            互动
+            </summary>
+            <param name="service"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmMessageFactory.MonitorInstance(Palink.Tools.PanShi.CloudMonitor.EcmService,System.String,System.String,System.String,Palink.Tools.PanShi.CloudMonitor.MessageType)">
+            <summary>
+            监控
+            </summary>
+            <param name="service"></param>
+            <param name="infoType"></param>
+            <param name="infoCode"></param>
+            <param name="infoContent"></param>
+            <param name="type"></param>
             <returns></returns>
             <exception cref="T:System.OperationCanceledException"></exception>
+        </member>
+        <member name="T:Palink.Tools.PanShi.CloudMonitor.EcmService">
+            <summary>
+            云监控服务
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmService.ExhibitNo">
+            <summary>
+            展品编号
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmService.Url">
+            <summary>
+            服务器URL
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PanShi.CloudMonitor.EcmService.MessageCount">
+            <summary>
+            队列消息数量
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmService.#ctor(System.Double,System.String,System.String)">
+            <summary>
+            EcmService构造器
+            </summary>
+            <param name="minDelay">心跳间隔，单位分钟</param>
+            <param name="exhibitNo">展品编号</param>
+            <param name="url">服务器地址</param>
+        </member>
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmService.AddMessage(Palink.Tools.PanShi.CloudMonitor.EcmMessage)">
+            <summary>
+            向消息队列添加新消息
+            </summary>
+            <param name="message"></param>
         </member>
         <member name="T:Palink.Tools.PanShi.CloudMonitor.CmdType">
             <summary>
@@ -1350,12 +1458,12 @@
             EcmTransferStation
             </summary>
         </member>
-        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmTransferStation.SendDataToEcm(Palink.Tools.PanShi.CloudMonitor.EcmMessage,System.String)">
+        <member name="M:Palink.Tools.PanShi.CloudMonitor.EcmTransferStation.SendDataToEcm(Palink.Tools.PanShi.CloudMonitor.EcmMessage,System.Boolean)">
             <summary>
             发送数据
             </summary>
-            <param name="msg"></param>
-            <param name="urlStart"></param>
+            <param name="msg">消息体</param>
+            <param name="wait">是否等待服务器返回值</param>
         </member>
         <member name="T:Palink.Tools.Security.Encrypt">
             <summary>
@@ -1675,6 +1783,21 @@
             </summary>
             <param name="security">需要加密的字符串</param>
             <returns>加密后的数据</returns>
+        </member>
+        <member name="T:Palink.Tools.Systems.BaseAppSettings">
+            <summary>
+            appsettings.json配置文件数据读取类
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Systems.BaseAppSettings.Config">
+            <summary>
+            配置文件的根节点
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Systems.BaseAppSettings.#cctor">
+            <summary>
+            Constructor
+            </summary>
         </member>
         <member name="T:Palink.Tools.Systems.HiPerfTimer">
             <summary>

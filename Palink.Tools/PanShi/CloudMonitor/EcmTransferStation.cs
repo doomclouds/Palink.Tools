@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net;
 using System.Net.Http;
 using Palink.Tools.Extensions;
 
@@ -35,14 +36,14 @@ public static class EcmTransferStation
     /// <summary>
     /// 发送数据
     /// </summary>
-    /// <param name="msg"></param>
-    /// <param name="urlStart"></param>
-    public static void SendDataToEcm(this EcmMessage msg, string urlStart)
+    /// <param name="msg">消息体</param>
+    /// <param name="wait">是否等待服务器返回值</param>
+    public static bool SendDataToEcm(this EcmMessage msg, bool wait = false)
     {
         try
         {
             var authHost =
-                $"{urlStart}{msg.CmdType.GetDescription()}";
+                $"{msg.Url}{msg.CmdType.GetDescription()}";
             var client = new HttpClient();
             var paraList = new List<KeyValuePair<string, string>>
             {
@@ -55,14 +56,19 @@ public static class EcmTransferStation
             var response = client
                 .PostAsync(authHost, new FormUrlEncodedContent(paraList))
                 .Result;
-            //var result = response.Content.ReadAsStringAsync().Result;
 
-            //return result == "ok";
+            if (!wait)
+            {
+                return false;
+            }
+
+            return response.StatusCode == HttpStatusCode.OK;
+
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            // return false;
-            return;
+            Console.WriteLine(e.Message);
+            return false;
         }
     }
 }
