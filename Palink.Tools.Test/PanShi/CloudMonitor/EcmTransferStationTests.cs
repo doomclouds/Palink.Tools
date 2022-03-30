@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Palink.Tools.PanShi.Monitor;
 using Palink.Tools.PanShi.Monitor.Ecm;
 using Xunit;
@@ -12,20 +14,13 @@ public class EcmTransferStationTests
     {
         const string exhibitNo = "001001001BH0027-38";
         const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url);
+        var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
         // var ret = service.BeatsInstance(MessageType.Normal)
         //     .SendDataToEcm();
-        service.AddMessage(service.BeatsInstance(MessageType.Normal));
+        service.AddMessage(EcmMessage.BeatsInstance(exhibitNo));
 
-        var count = 10;
-        while (service.MessageCount != 0 && count > 0)
-        {
-            await Task.Delay(3000);
-            count--;
-        }
-
-        Assert.Equal(count > 0, true);
+        await Task.Delay(3000);
     }
 
     [Fact]
@@ -33,18 +28,12 @@ public class EcmTransferStationTests
     {
         const string exhibitNo = "001001001BH0027-38";
         const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url);
+        var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
-        service.AddMessage(service.InteractionInstance(MessageType.Needed));
+        service.AddMessage(
+            EcmMessage.InteractionInstance(exhibitNo, TimeSpan.FromHours(1)));
 
-        var count = 10;
-        while (service.MessageCount != 0 && count > 0)
-        {
-            await Task.Delay(3000);
-            count--;
-        }
-
-        Assert.Equal(count > 0, true);
+        await Task.Delay(3000);
     }
 
     [Fact]
@@ -52,18 +41,11 @@ public class EcmTransferStationTests
     {
         const string exhibitNo = "001001001BH0027-38";
         const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url);
+        var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
-        service.AddMessage(service.MonitorInstance("E", "100", "打败守卫测试异常输出",
-            MessageType.ForeverOnce));
+        service.AddMessage(EcmMessage.MonitorInstance(exhibitNo, "打败守卫测试Error", "E",
+            TimeSpan.FromMinutes(3), MessageTag.AutoExpire));
 
-        var count = 10;
-        while (service.MessageCount != 0 && count > 0)
-        {
-            await Task.Delay(3000);
-            count--;
-        }
-
-        Assert.Equal(count > 0, true);
+        await Task.Delay(3000);
     }
 }

@@ -1,46 +1,33 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using Palink.Tools.Extensions;
 
 namespace Palink.Tools.PanShi.Monitor;
 
 /// <summary>
-/// 消息类别
+/// 消息标签
 /// </summary>
-public enum MessageType
+public enum MessageTag
 {
     /// <summary>
-    /// 普通消息收到就发送给服务器，不判断是否成功
+    /// 只发送一次
     /// </summary>
-    Normal,
+    Once,
 
     /// <summary>
-    /// 该消息一经收到必须发送成功，失败后缓存
+    /// 直到发送成功为止，无论之前是否发送过
     /// </summary>
     Needed,
 
     /// <summary>
-    /// 该消息5min内重复发送只发一次，必须成功
+    /// 只发送一次，过期时间内不重复发送
     /// </summary>
-    FiveMinOnce = 5,
+    AutoExpire,
 
     /// <summary>
-    /// 该消息10min内重复发送只发一次，必须成功
+    /// 直到发送成功为止，过期时间内不重复发送
     /// </summary>
-    TenMinOnce = 10,
-
-    /// <summary>
-    /// 该消息半小时重复发送只发送一次，必须成功
-    /// </summary>
-    HalfHourOnce = 30,
-
-    /// <summary>
-    /// 该消息1小时重复发送只发送一次，必须成功
-    /// </summary>
-    OneHourOnce = 60,
-
-    /// <summary>
-    /// 永久只发一次，必须成功
-    /// </summary>
-    ForeverOnce
+    AutoExpireNeeded
 }
 
 /// <summary>
@@ -48,6 +35,13 @@ public enum MessageType
 /// </summary>
 public abstract class Message
 {
+    private const string TagKey = "{0}:{1}";
+
+    /// <summary>
+    /// 消息唯一标识
+    /// </summary>
+    public string Id { get; set; }
+
     /// <summary>
     /// 信息类型 E、M
     /// </summary>
@@ -67,27 +61,29 @@ public abstract class Message
     public string InfoContent { get; set; }
 
     /// <summary>
-    /// 消息类型，用于区别如何处理该消息
+    /// 消息有效时长
     /// </summary>
-    [JsonProperty("message_type")]
-    public MessageType MessageType { get; set; }
+    [JsonProperty("eTime")]
+    public TimeSpan ETime { get; set; }
 
     /// <summary>
-    /// 类唯一编码
+    /// 消息标签
     /// </summary>
-    [JsonProperty("id")]
-    public string Id { get; set; }
+    [JsonProperty("tang")]
+    public MessageTag Tag { get; set; }
 
     /// <summary>
     /// 是否发送成功
     /// </summary>
-    [JsonProperty("send_succeed")]
     public bool SendSucceed { get; set; }
-}
 
-/// <summary>
-/// ECM消息工厂
-/// </summary>
-public static class MessageFactory
-{
+    /// <summary>
+    /// 获取当前消息缓存的标签
+    /// </summary>
+    /// <returns></returns>
+    public string GetTag()
+    {
+        InfoContent.TryToEnum<MessageTag>();
+        return TagKey.FormatWith(Tag.ToString(), InfoContent);
+    }
 }

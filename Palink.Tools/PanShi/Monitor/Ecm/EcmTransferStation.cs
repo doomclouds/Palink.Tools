@@ -37,13 +37,14 @@ public static class EcmTransferStation
     /// 发送数据
     /// </summary>
     /// <param name="msg">消息体</param>
+    /// <param name="url">服务器地址</param>
     /// <param name="wait">是否等待服务器返回值</param>
-    public static bool SendDataToEcm(this EcmMessage msg, bool wait = false)
+    public static bool SendDataToEcm(this EcmMessage msg, string url, bool wait = false)
     {
         try
         {
             var authHost =
-                $"{msg.Url}{msg.CmdType.EnumDescription()}";
+                $"{url}{msg.CmdType.EnumDescription()}";
             using var client = new HttpClient();
             var paraList = new List<KeyValuePair<string, string>>
             {

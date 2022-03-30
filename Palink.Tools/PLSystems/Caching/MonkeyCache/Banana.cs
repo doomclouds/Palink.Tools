@@ -1,4 +1,5 @@
 ﻿using System;
+using SQLite;
 
 namespace Palink.Tools.PLSystems.Caching.MonkeyCache;
 
@@ -10,6 +11,7 @@ internal class Banana
 	/// <summary>
 	/// Unique Identifier
 	/// </summary>
+	[PrimaryKey]
 	public string Id { get; set; }
 
 

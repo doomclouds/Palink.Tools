@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Timers;
 using Palink.Tools.Extensions;
+using Palink.Tools.PLSystems.Caching.MonkeyCache;
 using Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite;
 using Task = System.Threading.Tasks.Task;
 
@@ -13,25 +13,20 @@ namespace Palink.Tools.PanShi.Monitor.Ecm;
 /// </summary>
 public class EcmService
 {
-    private Timer BeatsTimer { get; set; }
-    private Timer MessageTimer { get; set; }
+    private Timer BeatsTimer { get; }
+    private Timer MessageTimer { get; }
 
     /// <summary>
     /// 展品编号
     /// </summary>
-    public string ExhibitNo { get; private set; }
+    public string ExhibitNo { get; }
 
     /// <summary>
     /// 服务器URL
     /// </summary>
-    public string Url { get; private set; }
+    public string Url { get; }
 
-    /// <summary>
-    /// 队列消息数量
-    /// </summary>
-    public int MessageCount => ConcurrentQueue.Count;
-
-    private ConcurrentQueue<EcmMessage> ConcurrentQueue { get; } = new();
+    private readonly IBarrel _barrel;
 
     /// <summary>
     /// EcmService构造器
@@ -39,13 +34,16 @@ public class EcmService
     /// <param name="minDelay">心跳间隔，单位分钟</param>
     /// <param name="exhibitNo">展品编号</param>
     /// <param name="url">服务器地址</param>
-    public EcmService(double minDelay, string exhibitNo, string url)
+    /// <param name="cacheAppId">缓存位置唯一标识</param>
+    public EcmService(double minDelay, string exhibitNo, string url, string cacheAppId)
     {
-        Barrel.ApplicationId = "palink_tools_ecm_message_caching";
+        Barrel.ApplicationId = cacheAppId;
+        _barrel = Barrel.Create($"{AppDomain.CurrentDomain.BaseDirectory}");
+
         BeatsTimer = new Timer(minDelay * 60 * 1000);
         BeatsTimer.Elapsed += BeatsTimer_Elapsed;
         BeatsTimer.Start();
-        MessageTimer = new Timer(100);
+        MessageTimer = new Timer(1000);
         MessageTimer.Elapsed += MessageTimer_Elapsed;
         MessageTimer.Start();
 
@@ -57,20 +55,9 @@ public class EcmService
         ExhibitNo = exhibitNo;
         Url = url;
 
-        Barrel.Current.EmptyExpired();
-        var keys = Barrel.Current.GetKeys();
-        foreach (var key in keys)
-        {
-            var message = Barrel.Current.Get<EcmMessage>(key);
-            if (message.MessageType == MessageType.Needed)
-            {
-                ConcurrentQueue.Enqueue(message);
-            }
-        }
-
         Task.Run(() =>
         {
-            this.BeatsInstance(MessageType.Normal).SendDataToEcm();
+            EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url);
         });
     }
 
@@ -78,57 +65,34 @@ public class EcmService
     {
         MessageTimer.Stop();
 
-        if (ConcurrentQueue.Any())
+        _barrel.EmptyExpired();
+
+        var keys = _barrel.GetKeys();
+
+        foreach (var key in keys)
         {
-            if (GetMessage(out var message))
+            var msg = _barrel.Get<EcmMessage>(key);
+
+            if (!msg.SendSucceed && msg.Tag != MessageTag.Needed &&
+                msg.Tag != MessageTag.AutoExpireNeeded)
             {
-                switch (message.MessageType)
+                msg.SendDataToEcm(Url);
+                msg.SendSucceed = true;
+                // _barrel.Empty(msg.Id);
+                _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
+            }
+            else if (!msg.SendSucceed)
+            {
+                if (msg.SendDataToEcm(Url, true))
                 {
-                    case MessageType.Needed:
-                        if (!message.SendDataToEcm(true))
-                        {
-                            AddMessage(message);
-                        }
+                    msg.SendSucceed = true;
+                    // _barrel.Empty(msg.Id);
+                    _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
 
-                        break;
-                    case MessageType.FiveMinOnce:
-                    case MessageType.TenMinOnce:
-                    case MessageType.HalfHourOnce:
-                    case MessageType.OneHourOnce:
-                        if (!message.SendDataToEcm(true))
-                        {
-                            AddMessage(message);
-                        }
-                        else
-                        {
-                            //更新缓存为发送成功
-                            message.SendSucceed = true;
-                            Barrel.Current.Empty($"Unrepeated:{message.InfoContent}");
-                            Barrel.Current.Add($"Unrepeated:{message.InfoContent}",
-                                message,
-                                TimeSpan.FromMinutes((double)message.MessageType));
-                        }
-
-                        break;
-                    case MessageType.ForeverOnce:
-                        if (!message.SendDataToEcm(true))
-                        {
-                            AddMessage(message);
-                        }
-                        else
-                        {
-                            //更新缓存为发送成功
-                            message.SendSucceed = true;
-                            Barrel.Current.Empty($"ForeverOnce:{message.InfoContent}");
-                            Barrel.Current.Add($"ForeverOnce:{message.InfoContent}",
-                                message, TimeSpan.FromDays(30));
-                        }
-
-                        break;
-                    case MessageType.Normal:
-                    default:
-                        message.SendDataToEcm();
-                        break;
+                    if (msg.Tag == MessageTag.Needed)
+                    {
+                        _barrel.Empty(msg.Id);
+                    }
                 }
             }
         }
@@ -140,7 +104,7 @@ public class EcmService
     {
         BeatsTimer.Stop();
 
-        this.BeatsInstance(MessageType.Normal).SendDataToEcm();
+        EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url);
 
         BeatsTimer.Start();
     }
@@ -151,78 +115,26 @@ public class EcmService
     /// <param name="message"></param>
     public void AddMessage(EcmMessage message)
     {
-        Barrel.Current.EmptyExpired();
-        var min = 60 * 12;
-        if (message.MessageType == MessageType.Needed)
+        _barrel.EmptyExpired();
+        
+        switch (message.Tag)
         {
-            var cachingMsg =
-                Barrel.Current.Get<EcmMessage>(message.Id);
-            var keys = Barrel.Current.GetKeys();
-            if (cachingMsg == null)
-            {
-                Barrel.Current.Add(message.Id, message,
-                    TimeSpan.FromDays(30));
-            }
-        }
-        else if (message.MessageType != MessageType.Normal &&
-                 message.MessageType != MessageType.ForeverOnce &&
-                 message.MessageType != MessageType.Needed)
-        {
-            min = message.MessageType switch
-            {
-                MessageType.FiveMinOnce => 5,
-                MessageType.TenMinOnce => 10,
-                MessageType.HalfHourOnce => 30,
-                MessageType.OneHourOnce => 60,
-                _ => min
-            };
-
-            var cachingMsg =
-                Barrel.Current.Get<EcmMessage>($"Unrepeated:{message.InfoContent}");
-            switch (cachingMsg)
-            {
-                case { SendSucceed: true }:
+            default:
+            case MessageTag.Once:
+            case MessageTag.Needed:
+                break;
+            case MessageTag.AutoExpire:
+            case MessageTag.AutoExpireNeeded:
+                //判断该消息是否存在
+                var keys = _barrel.GetKeys(message.GetTag());
+                if (keys.Any())
+                {
                     return;
-                case null:
-                    Barrel.Current.Add($"Unrepeated:{message.InfoContent}", message,
-                        TimeSpan.FromMinutes(min));
-                    break;
-            }
-        }
-        else if (message.MessageType == MessageType.ForeverOnce)
-        {
-            var cachingMsg =
-                Barrel.Current.Get<EcmMessage>($"ForeverOnce:{message.InfoContent}");
+                }
 
-            switch (cachingMsg)
-            {
-                case { SendSucceed: true }:
-                    return;
-                case null:
-                    Barrel.Current.Add($"ForeverOnce:{message.InfoContent}", message,
-                        TimeSpan.FromDays(30));
-                    break;
-            }
+                break;
         }
 
-        ConcurrentQueue.Enqueue(message);
-    }
-
-    private bool GetMessage(out EcmMessage msg)
-    {
-        Barrel.Current.EmptyExpired();
-        if (ConcurrentQueue.TryDequeue(out var message))
-        {
-            if (message.MessageType == MessageType.Needed)
-            {
-                Barrel.Current.Empty(message.Id);
-            }
-
-            msg = message;
-            return true;
-        }
-
-        msg = null;
-        return false;
+        _barrel.Add(message.Id, message, message.ETime, message.GetTag());
     }
 }
