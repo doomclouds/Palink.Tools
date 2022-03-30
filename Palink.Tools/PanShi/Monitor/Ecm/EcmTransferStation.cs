@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Palink.Tools.Extensions;
 
-namespace Palink.Tools.PanShi.CloudMonitor;
+namespace Palink.Tools.PanShi.Monitor.Ecm;
 
 /// <summary>
 /// 命令类型
@@ -43,8 +43,8 @@ public static class EcmTransferStation
         try
         {
             var authHost =
-                $"{msg.Url}{msg.CmdType.GetDescription()}";
-            var client = new HttpClient();
+                $"{msg.Url}{msg.CmdType.EnumDescription()}";
+            using var client = new HttpClient();
             var paraList = new List<KeyValuePair<string, string>>
             {
                 new("no", msg.Name),
@@ -59,11 +59,10 @@ public static class EcmTransferStation
 
             if (!wait)
             {
-                return false;
+                return true;
             }
 
             return response.StatusCode == HttpStatusCode.OK;
-
         }
         catch (Exception e)
         {

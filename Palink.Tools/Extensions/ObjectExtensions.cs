@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 
 namespace Palink.Tools.Extensions
@@ -241,6 +242,42 @@ namespace Palink.Tools.Extensions
             {
                 throw new ArgumentNullException(nameof(obj));
             }
+        }
+
+        /// <summary>
+        /// 获取属性描述信息
+        /// </summary>
+        /// <param name="object"></param>
+        /// <param name="name">属性名称</param>
+        /// <returns></returns>
+        public static string PropertyDescription(this object @object, string name)
+        {
+            var value = @object.ToString();
+            var prop = @object.GetType().GetProperty(name);
+            var obj =
+                prop?.GetCustomAttributes(typeof(DescriptionAttribute), false); //获取描述属性
+            if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
+                return value;
+            var descriptionAttribute = (DescriptionAttribute)obj[0];
+            return descriptionAttribute.Description;
+        }
+
+        /// <summary>
+        /// 获取属性显示名称
+        /// </summary>
+        /// <param name="object"></param>
+        /// <param name="name">属性名称</param>
+        /// <returns></returns>
+        public static string PropertyDisplayName(this object @object, string name)
+        {
+            var value = @object.ToString();
+            var prop = @object.GetType().GetProperty(value);
+            var obj =
+                prop?.GetCustomAttributes(typeof(DisplayNameAttribute), false); //获取显示名称
+            if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
+                return value;
+            var displayNameAttribute = (DisplayNameAttribute)obj[0];
+            return displayNameAttribute.DisplayName;
         }
     }
 

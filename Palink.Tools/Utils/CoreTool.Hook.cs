@@ -10,16 +10,16 @@ public partial class CoreTool
 {
     internal struct KeyboardLlHookData
     {
-        public uint VkCode;
-        public uint ScanCode;
-        public uint Flags;
-        public uint Time;
-        public IntPtr ExtraInfo;
+        // public uint VkCode;
+        // public uint ScanCode;
+        // public uint Flags;
+        // public uint Time;
+        // public IntPtr ExtraInfo;
     }
 
     internal struct MouseLlHookData
     {
-        internal long Yx;
+        // internal long Yx;
         // internal readonly int MouseData;
         // internal readonly uint Flags;
         // internal readonly uint Time;
@@ -77,9 +77,9 @@ public partial class CoreTool
             return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
-        var khd =
-            (KeyboardLlHookData)Marshal.PtrToStructure(lParam,
-                typeof(KeyboardLlHookData))!;
+        // var khd =
+        //     (KeyboardLlHookData)Marshal.PtrToStructure(lParam,
+        //         typeof(KeyboardLlHookData))!;
         // System.Diagnostics.Debug.WriteLine(
         //     $"key event:{wParam}, key code:{khd.VkCode}, event time:{khd.Time}");
 
@@ -98,8 +98,8 @@ public partial class CoreTool
             return CallNextHookEx(IntPtr.Zero, code, wParam, lParam);
         }
 
-        var mhd =
-            (MouseLlHookData)Marshal.PtrToStructure(lParam, typeof(MouseLlHookData))!;
+        // var mhd =
+        //     (MouseLlHookData)Marshal.PtrToStructure(lParam, typeof(MouseLlHookData))!;
 
         MouseExecute?.Invoke(wParam);
 

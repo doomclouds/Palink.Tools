@@ -1,5 +1,6 @@
 ﻿using Palink.Tools.Extensions;
-using Palink.Tools.Systems;
+using Palink.Tools.PLSystems;
+using Palink.Tools.PLSystems.Configuration;
 using Xunit;
 
 namespace Palink.Tools.Test.Systems;

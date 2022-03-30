@@ -4,11 +4,12 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Palink.Tools.Systems;
+namespace Palink.Tools.PLSystems;
 
 /// <summary>
 /// 纳秒级计时器，仅支持Windows系统
 /// </summary>
+[Obsolete("好像和Stopwatch一样，就先废弃了")]
 public class HiPerfTimer
 {
     [DllImport("Kernel32.dll")]
@@ -56,6 +57,7 @@ public class HiPerfTimer
     /// <summary>
     /// 停止计时器
     /// </summary>
+    /// <returns>计时器记录的时间</returns>
     public double Stop()
     {
         QueryPerformanceCounter(out _stopTime);
@@ -73,39 +75,31 @@ public class HiPerfTimer
         return timer;
     }
 
+    private long GetCurrentTime()
+    {
+        QueryPerformanceCounter(out _stopTime);
+        return _stopTime;
+    }
+
     /// <summary>
     /// 时器经过时间(单位：秒)
     /// </summary>
-    public double Duration => (_stopTime - _startTime) / (double)_exFreq;
+    public double Duration => (GetCurrentTime() - _startTime) / (double)_exFreq;
 
     /// <summary>
     /// 时器经过的总时间(单位：纳秒)
     /// </summary>
-    private double DurationNanoseconds => _stopTime - _startTime;
+    private double DurationNanoseconds => GetCurrentTime() - _startTime;
 
     /// <summary>
     /// 时器经过的总时间(单位：秒)
     /// </summary>
-    public double Elapsed
-    {
-        get
-        {
-            Stop();
-            return Duration;
-        }
-    }
+    public double Elapsed => Duration;
 
     /// <summary>
     /// 时器经过的总时间(单位：纳秒)
     /// </summary>
-    public double ElapsedNanoseconds
-    {
-        get
-        {
-            Stop();
-            return DurationNanoseconds;
-        }
-    }
+    public double ElapsedNanoseconds => DurationNanoseconds;
 
     /// <summary>
     /// 执行一个方法并测试执行时间

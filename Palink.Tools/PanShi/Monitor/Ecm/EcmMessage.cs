@@ -1,48 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Palink.Tools.PanShi.CloudMonitor;
-
-/// <summary>
-/// 消息类别
-/// </summary>
-public enum MessageType
-{
-    /// <summary>
-    /// 普通消息收到就发送给服务器，不判断是否成功
-    /// </summary>
-    Normal,
-
-    /// <summary>
-    /// 该消息一经收到必须发送成功，失败后缓存
-    /// </summary>
-    Needed,
-
-    /// <summary>
-    /// 该消息5min内重复发送只发一次，必须成功
-    /// </summary>
-    FiveMinOnce = 5,
-
-    /// <summary>
-    /// 该消息10min内重复发送只发一次，必须成功
-    /// </summary>
-    TenMinOnce = 10,
-
-    /// <summary>
-    /// 该消息半小时重复发送只发送一次，必须成功
-    /// </summary>
-    HalfHourOnce = 30,
-
-    /// <summary>
-    /// 该消息1小时重复发送只发送一次，必须成功
-    /// </summary>
-    OneHourOnce = 60,
-
-    /// <summary>
-    /// 永久只发一次，必须成功
-    /// </summary>
-    ForeverOnce
-}
+namespace Palink.Tools.PanShi.Monitor.Ecm;
 
 /// <summary>
 /// EcmMessage

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Palink.Tools.PanShi.CloudMonitor;
+using Palink.Tools.PanShi.Monitor;
+using Palink.Tools.PanShi.Monitor.Ecm;
 using Xunit;
 
 namespace Palink.Tools.Test.PanShi.CloudMonitor;

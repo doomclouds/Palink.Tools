@@ -2,11 +2,11 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Timers;
-using MonkeyCache.SQLite;
 using Palink.Tools.Extensions;
+using Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite;
 using Task = System.Threading.Tasks.Task;
 
-namespace Palink.Tools.PanShi.CloudMonitor;
+namespace Palink.Tools.PanShi.Monitor.Ecm;
 
 /// <summary>
 /// 云监控服务
@@ -45,7 +45,6 @@ public class EcmService
         BeatsTimer = new Timer(minDelay * 60 * 1000);
         BeatsTimer.Elapsed += BeatsTimer_Elapsed;
         BeatsTimer.Start();
-
         MessageTimer = new Timer(100);
         MessageTimer.Elapsed += MessageTimer_Elapsed;
         MessageTimer.Start();
@@ -58,11 +57,6 @@ public class EcmService
         ExhibitNo = exhibitNo;
         Url = url;
 
-        Task.Run(() =>
-        {
-            this.BeatsInstance(MessageType.Normal).SendDataToEcm();
-        });
-
         Barrel.Current.EmptyExpired();
         var keys = Barrel.Current.GetKeys();
         foreach (var key in keys)
@@ -73,6 +67,11 @@ public class EcmService
                 ConcurrentQueue.Enqueue(message);
             }
         }
+
+        Task.Run(() =>
+        {
+            this.BeatsInstance(MessageType.Normal).SendDataToEcm();
+        });
     }
 
     private void MessageTimer_Elapsed(object sender, ElapsedEventArgs e)

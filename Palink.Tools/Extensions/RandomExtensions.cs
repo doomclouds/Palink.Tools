@@ -11,12 +11,15 @@ public static class RandomExtensions
     /// 生成真正的随机数
     /// </summary>
     /// <param name="r"></param>
+    /// <param name="minValue"></param>
     /// <param name="maxValue"></param>
     /// <returns></returns>
-    public static int StrictNext(this Random r, int maxValue = int.MaxValue)
+    public static int StrictNext(this Random r, int minValue = int.MinValue,
+        int maxValue = int.MaxValue)
     {
         return new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0)).Next(
-            maxValue);
+            minValue
+            , maxValue);
     }
 
     /// <summary>

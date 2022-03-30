@@ -209,7 +209,7 @@ ECM云监控系统：心跳
 public void BeatsTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
+    const string url = "http://127.0.0.1";
     var service = new EcmService(5, exhibitNo, url);
 	
     //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
@@ -227,7 +227,7 @@ ECM云监控：互动
 public void InteractionTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
+    const string url = "http://127.0.0.1";
     var service = new EcmService(5, exhibitNo, url);
 
     //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
@@ -244,7 +244,7 @@ ECM云监控：监控信息
 public void ErrorTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
+    const string url = "http://127.0.0.1";
     var service = new EcmService(5, exhibitNo, url);
 	
     //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
@@ -260,5 +260,5 @@ public void ErrorTest()
 
 - Normal：发送后不判断是否成功，不缓存
 - Needed：发送必须成功，如果失败会自动缓存等待下次执行
-- ForeverOnce：发送必须成功，如果失败会自动缓存等待西祠执行，但是该消息内容只能发送一次，相同内容30天内重复发送会被自动过滤
-- FiveMinOnce&TenMinOnce&HalfHourOnce&OneHourOnce：和Forever类型相似，只是间隔时间不同。目前有5min、10min、30min、60min。如果该消息被指定为TenMinOnce的类型，10min内相同消息内容的都会被过滤掉，而且发送不成功只能在这10min内进行重发操作。所有操作由EcmService内部执行，并且数据是存储于数据库内，重启软件仍然可以重发必须发送的消息
+- ForeverOnce：发送必须成功，如果失败会自动缓存等待下次执行，但是该消息内容只能发送一次，相同内容30天内重复发送会被自动过滤
+- FiveMinOnce&TenMinOnce&HalfHourOnce&OneHourOnce：和Forever类型相似，只是间隔时间不同。目前有5min、10min、30min、60min。如果该消息被指定为TenMinOnce的类型，10min内相同消息内容的都会被过滤掉，而且发送不成功只能在这10min内进行重发操作。所有操作由EcmService内部执行，并且数据是存储于数据库内，重启软件仍然可以重发必须发送的消息。

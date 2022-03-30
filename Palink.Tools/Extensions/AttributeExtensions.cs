@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Palink.Tools.Extensions
 {
@@ -12,7 +13,7 @@ namespace Palink.Tools.Extensions
         /// </summary>
         /// <param name="enumValue"></param>
         /// <returns></returns>
-        public static string GetDescription(this System.Enum enumValue)
+        public static string EnumDescription(this Enum enumValue)
         {
             var value = enumValue.ToString();
             var field = enumValue.GetType().GetField(value);
@@ -22,6 +23,23 @@ namespace Palink.Tools.Extensions
                 return value;
             var descriptionAttribute = (DescriptionAttribute)obj[0];
             return descriptionAttribute.Description;
+        }
+
+         /// <summary>
+        /// 获取显示名称
+        /// </summary>
+        /// <param name="enumValue"></param>
+        /// <returns></returns>
+        public static string EnumDisplayName(this Enum enumValue)
+        {
+            var value = enumValue.ToString();
+            var field = enumValue.GetType().GetField(value);
+            var obj =
+                field?.GetCustomAttributes(typeof(DisplayNameAttribute), false); //获取显示名称
+            if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
+                return value;
+            var displayNameAttribute = (DisplayNameAttribute)obj[0];
+            return displayNameAttribute.DisplayName;
         }
     }
 }

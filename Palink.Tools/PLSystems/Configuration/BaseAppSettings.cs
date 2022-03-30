@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Palink.Tools.Systems;
+namespace Palink.Tools.PLSystems.Configuration;
 
 /// <summary>
 /// appsettings.json配置文件数据读取类
@@ -11,7 +11,7 @@ public abstract class BaseAppSettings
     /// <summary>
     /// 配置文件的根节点
     /// </summary>
-    protected static readonly IConfigurationRoot Config;
+    public static readonly IConfigurationRoot Config;
 
     /// <summary>
     /// Constructor

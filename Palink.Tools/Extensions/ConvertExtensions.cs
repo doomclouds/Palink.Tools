@@ -18,6 +18,7 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
+        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static int TryToInt(this object input, int defaultNum = 0)
         {
             if (input == null)
@@ -32,6 +33,7 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
+        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static long TryToLong(this object input, long defaultNum = 0)
         {
             if (input == null)
@@ -46,6 +48,7 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
+        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static double TryToDouble(this object input, double defaultNum = 0)
         {
             if (input == null)
@@ -60,6 +63,7 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
+        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static decimal TryToDecimal(this object input, decimal defaultNum = 0)
         {
             if (input == null)
@@ -74,6 +78,7 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
+        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static float TryToFloat(this object input, float defaultNum = 0)
         {
             if (input == null)
@@ -264,5 +269,111 @@ namespace Palink.Tools.Extensions
                 "char" => typeof(char),
                 _ => typeof(string)
             };
+
+        /// <summary>
+        /// 类型直转
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static T ConvertTo<T>(this IConvertible value) where T : IConvertible
+        {
+            return (T)ConvertTo(value, typeof(T));
+        }
+
+        /// <summary>
+        /// 类型直转
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="defaultValue">转换失败的默认值</param>
+        /// <returns></returns>
+        public static T TryConvertTo<T>(this IConvertible value, T defaultValue = default)
+            where T : IConvertible
+        {
+            try
+            {
+                return (T)ConvertTo(value, typeof(T));
+            }
+            catch
+            {
+                return defaultValue;
+            }
+        }
+
+        /// <summary>
+        /// 类型直转
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <param name="result">转换失败的默认值</param>
+        /// <returns></returns>
+        public static bool TryConvertTo<T>(this IConvertible value, out T result)
+            where T : IConvertible
+        {
+            try
+            {
+                result = (T)ConvertTo(value, typeof(T));
+                return true;
+            }
+            catch
+            {
+                result = default;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 类型直转
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="type">目标类型</param>
+        /// <param name="result">转换失败的默认值</param>
+        /// <returns></returns>
+        public static bool TryConvertTo(this IConvertible value, Type type,
+            out object result)
+        {
+            try
+            {
+                result = ConvertTo(value, type);
+                return true;
+            }
+            catch
+            {
+                result = default;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 类型直转
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="type">目标类型</param>
+        /// <returns></returns>
+        public static object ConvertTo(this IConvertible value, Type type)
+        {
+            if (null == value)
+            {
+                return default;
+            }
+
+            if (type.IsEnum)
+            {
+                return Enum.Parse(type, value.ToString(CultureInfo.InvariantCulture));
+            }
+
+            if (type.IsGenericType &&
+                type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                var underlyingType = Nullable.GetUnderlyingType(type);
+                return underlyingType!.IsEnum
+                    ? Enum.Parse(underlyingType,
+                        value.ToString(CultureInfo.CurrentCulture))
+                    : Convert.ChangeType(value, underlyingType);
+            }
+
+            return Convert.ChangeType(value, type);
+        }
     }
 }
