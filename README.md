@@ -213,7 +213,8 @@ var _barrel = Barrel.Create($"{AppDomain.CurrentDomain.BaseDirectory}{Barrel.App
 _barrel.Add(message.Id, message, message.ETime, message.GetTag());
 //删除缓存
 _barrel.Empty(msg.Id);
-
+//获取缓存
+var msg = _barrel.Get<EcmMessage>(key);
 ```
 
 #### 磐石内部

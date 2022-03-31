@@ -2481,12 +2481,42 @@
             <summary>
             CoreTool
             </summary>
+            <summary>
+            CoreTool
+            </summary>
         </member>
         <member name="M:Palink.Tools.Utils.CoreTool.SetForegroundWindow(System.IntPtr)">
             <summary>
             设置为前景窗口
             </summary>
             <param name="hwnd"></param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DelayShutdown(System.Int32)">
+            <summary>
+            延时关机
+            </summary>
+            <param name="delay">延时时间/秒</param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.DelayRestart(System.Int32)">
+            <summary>
+            延时重启
+            </summary>
+            <param name="delay">延时时间/秒</param>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.TimedShutDown(System.DateTime)">
+            <summary>
+            定时关机
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.TimedRestart(System.DateTime)">
+            <summary>
+            定时关机
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Utils.CoreTool.CancelShutDown">
+            <summary>
+            取消关机
+            </summary>
         </member>
         <member name="M:Palink.Tools.Utils.CoreTool.IsExistDirectory(System.String)">
             <summary>  

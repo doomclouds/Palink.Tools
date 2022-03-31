@@ -77,7 +77,7 @@ public static class NewtonsoftHttpClientExtensions
             throw new ArgumentNullException(nameof(httpClient));
         }
 
-        if (string.IsNullOrWhiteSpace(uri))
+        if (uri.IsNullOrWhiteSpace())
         {
             throw new ArgumentException("Can't be null or empty", nameof(uri));
         }
