@@ -819,6 +819,35 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions">
+            <summary>
+            Newtonsoft HttpClient扩展
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.GetFromJsonAsync``1(System.Net.Http.HttpClient,System.String,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+            <summary>
+            GetFromJsonAsync
+            </summary>
+            <param name="httpClient"></param>
+            <param name="uri"></param>
+            <param name="settings"></param>
+            <param name="cancellationToken"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+            <summary>
+            PostAsJsonAsync
+            </summary>
+            <param name="httpClient"></param>
+            <param name="uri"></param>
+            <param name="value"></param>
+            <param name="settings"></param>
+            <param name="cancellationToken"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
         <member name="T:Palink.Tools.Extensions.ObjectExtensions">
             <summary>
             对象判断扩展类
@@ -1463,7 +1492,7 @@
         </member>
         <member name="T:Palink.Tools.PanShi.Monitor.Message">
             <summary>
-            Message
+            继承此类子类使用CreateMessage方法构造，该方法4个参数必须存在
             </summary>
         </member>
         <member name="P:Palink.Tools.PanShi.Monitor.Message.Id">
@@ -1501,28 +1530,49 @@
             是否发送成功
             </summary>
         </member>
+        <member name="P:Palink.Tools.PanShi.Monitor.Message.Url">
+            <summary>
+            将消息发送到服务器的URL地址
+            </summary>
+        </member>
         <member name="M:Palink.Tools.PanShi.Monitor.Message.GetTag">
             <summary>
             获取当前消息缓存的标签
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.PanShi.Monitor.MonitorService">
+        <member name="M:Palink.Tools.PanShi.Monitor.Message.SetupExpirationTime(System.TimeSpan)">
             <summary>
-            MonitorService
+            设置消息过期时间,不设置默认为30s
             </summary>
+        </member>
+        <member name="T:Palink.Tools.PanShi.Monitor.PostCacheService`1">
+            <summary>
+            CachePostService
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Monitor.PostCacheService`1.#ctor(System.String)">
+            <summary>
+            EcmService构造器
+            </summary>
+            <param name="cacheAppId">缓存位置唯一标识</param>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Monitor.PostCacheService`1.AddMessage(`0)">
+            <summary>
+            向消息队列添加新消息
+            </summary>
+            <param name="message"></param>
         </member>
         <member name="T:Palink.Tools.PanShi.Monitor.TransferStation">
             <summary>
             TransferStation
             </summary>
         </member>
-        <member name="M:Palink.Tools.PanShi.Monitor.TransferStation.PostJsonToServer``1(``0,System.String,System.Boolean)">
+        <member name="M:Palink.Tools.PanShi.Monitor.TransferStation.PostJsonToServer``1(``0,System.Boolean)">
             <summary>
             发送数据
             </summary>
             <param name="msg">消息体</param>
-            <param name="url"></param>
             <param name="wait">是否等待服务器返回值</param>
         </member>
         <member name="T:Palink.Tools.PLSystems.Attribute.OcrWriteResolver">

@@ -20,7 +20,6 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 		<PackageReference Include="SerialPortStream" Version="2.4.0" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
-		<PackageReference Include="System.Net.Http.Json" Version="6.0.0" />
 		<PackageReference Include="TaskScheduler" Version="2.10.1" />
 	</ItemGroup>
 
@@ -34,7 +33,7 @@
 	<PropertyGroup>
 		<PackageId>Palink.Tools</PackageId>
 		<Title>Palink.Tools</Title>
-		<PackageVersion>0.1.6</PackageVersion>
+		<PackageVersion>0.1.8</PackageVersion>
 		<Authors>Palink</Authors>
 		<Description>开发常用工具</Description>
 		<Copyright>copyright 2022</Copyright>
@@ -42,7 +41,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>优化云监控数据发送系统(发送数据更方便，增加多种数据类型来应对不同策略模式如：必须发送成功的数据，5min内只发一次的数据等)、增加appsetting.json配置</PackageReleaseNotes>
+		<PackageReleaseNotes>增加本地缓存Barrel类，支持Sqlite和文件缓存；优化ECM系统数据；废弃一些不常用的方法</PackageReleaseNotes>
 		<DocumentationFile>C:\Resources\BaiduNetdiskWorkspace\CSharp DLL\MyLibs\Palink.Tools\Palink.Tools\Palink.Tools.xml</DocumentationFile>
 	</PropertyGroup>
 

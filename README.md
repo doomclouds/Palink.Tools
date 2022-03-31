@@ -199,6 +199,23 @@ public class MyMaster : Master
 - 时间格式转化
 - 软件相关：开机自启、防止多开、置顶、禁止触摸屏边缘侧滑等
 
+#### Barrel
+
+位于Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite和Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore分别是Sqlite缓存与文件缓存
+
+```c#
+//使用默认对象
+var barrel = Barrel.Current;
+//自定义对象
+var _barrel = Barrel.Create($"{AppDomain.CurrentDomain.BaseDirectory}{Barrel.ApplicationId}");
+
+//增加缓存
+_barrel.Add(message.Id, message, message.ETime, message.GetTag());
+//删除缓存
+_barrel.Empty(msg.Id);
+
+```
+
 #### 磐石内部
 
 ##### 云监控
@@ -206,59 +223,107 @@ public class MyMaster : Master
 ECM云监控系统：心跳
 
 ```c#
-public void BeatsTest()
+public async void BeatsTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://127.0.0.1";
-    var service = new EcmService(5, exhibitNo, url);
-	
-    //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
-    service.AddMessage(service.BeatsInstance(MessageType.Normal));
-    var ret = service.BeatsInstance(MessageType.Normal)
-        .SendDataToEcm();
+    const string url = "http://127.0.0.1/";
+    var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
-    Assert.Equal(ret, true);
+    // var ret = service.BeatsInstance(MessageType.Normal)
+    //     .SendDataToEcm();
+    service.AddMessage(EcmMessage.BeatsInstance(exhibitNo));
+
+    await Task.Delay(3000);
 }
 ```
 
 ECM云监控：互动
 
 ```c#
-public void InteractionTest()
+public async void InteractionTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://127.0.0.1";
-    var service = new EcmService(5, exhibitNo, url);
+    const string url = "http://127.0.0.1/";
+    var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
-    //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
-    service.AddMessage(service.InteractionInstance(MessageType.Needed));
-    var ret = service.InteractionInstance(MessageType.Needed)
-        .SendDataToEcm(true);
-    Assert.Equal(ret, true);
+    service.AddMessage(
+        EcmMessage.InteractionInstance(exhibitNo, TimeSpan.FromHours(1)));
+
+    await Task.Delay(3000);
 }
 ```
 
 ECM云监控：监控信息
 
 ```c#
-public void ErrorTest()
+public async void ErrorTest()
 {
     const string exhibitNo = "001001001BH0027-38";
-    const string url = "http://127.0.0.1";
-    var service = new EcmService(5, exhibitNo, url);
-	
-    //这里是测试发送，实际上只需要调用Add方法将Message加到EcmService的队列中即可，service会自动发送
-    service.AddMessage(service.MonitorInstance("E", "100", "打败守卫测试异常输出", MessageType.Needed));
-    var ret = service.MonitorInstance("E", "100", "打败守卫测试异常输出", MessageType.Needed)
-        .SendDataToEcm(true);
+    const string url = "http://127.0.0.1/";
+    var service = new EcmService(5, exhibitNo, url, "EcmCache");
 
-    Assert.Equal(ret, true);
+    service.AddMessage(EcmMessage.MonitorInstance(exhibitNo, "打败守卫测试Error", "E",
+                                                  TimeSpan.FromMinutes(3), MessageTag.AutoExpire));
+
+    await Task.Delay(3000);
 }
 ```
 
 云监控服务内部自动发送消息，对于消息也有自动缓存功能。分为以下几种类型
 
-- Normal：发送后不判断是否成功，不缓存
+- Once：发送后不判断是否成功，不缓存
 - Needed：发送必须成功，如果失败会自动缓存等待下次执行
-- ForeverOnce：发送必须成功，如果失败会自动缓存等待下次执行，但是该消息内容只能发送一次，相同内容30天内重复发送会被自动过滤
-- FiveMinOnce&TenMinOnce&HalfHourOnce&OneHourOnce：和Forever类型相似，只是间隔时间不同。目前有5min、10min、30min、60min。如果该消息被指定为TenMinOnce的类型，10min内相同消息内容的都会被过滤掉，而且发送不成功只能在这10min内进行重发操作。所有操作由EcmService内部执行，并且数据是存储于数据库内，重启软件仍然可以重发必须发送的消息。
+- AutoExpire：发送后不判断是否成功，自动缓存，缓存存在期间不接受相同消息
+- AutoExpireNeeded：发送必须成功，如果失败会自动缓存等待下次执行，缓存存在期间不接受相同消息
+
+##### 其他通用系统数据发送
+
+支持与ECM一样的缓存与过期判断策略
+
+```c#
+public async void NormalTest()
+{
+    var service = new PostCacheService<MyMessage>("PostCache");
+    var msg = new MyMessage()
+    {
+        Hid = "6127-0FA5-5D69-2436-922E",
+        Payway = "微信",
+        CapitalAction = "收款",
+        Amount = "18.6",
+        DataSource = "PC",
+        Time = "2022-03-31 10:31:14",
+        TradeNo = "PC-??????????????????????",
+        Url = "https://127.0.0.1",
+        Tag = MessageTag.Needed,
+        InfoContent = "流水数据",
+        ETime = TimeSpan.FromMinutes(2),
+        Id = Guid.NewGuid().ToString("N"),
+    };
+    service.AddMessage(msg);
+    await Task.Delay(3000);
+}
+
+public class MyMessage : Message
+{
+    [JsonProperty("hid")]
+    public string Hid { get; set; }
+
+    [JsonProperty("payway")]
+    public string Payway { get; set; }
+
+    [JsonProperty("capitalAction")]
+    public string CapitalAction { get; set; }
+
+    [JsonProperty("amount")]
+    public string Amount { get; set; }
+
+    [JsonProperty("dataSource")]
+    public string DataSource { get; set; }
+
+    [JsonProperty("time")]
+    public string Time { get; set; }
+
+    [JsonProperty("tradeNo")]
+    public string TradeNo { get; set; }
+}
+```

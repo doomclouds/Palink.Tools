@@ -1,5 +1,4 @@
 ﻿using System;
-using Newtonsoft.Json;
 
 namespace Palink.Tools.PanShi.Monitor.Ecm;
 
@@ -15,7 +14,8 @@ public class EcmMessage : Message
     /// <returns></returns>
     public static EcmMessage BeatsInstance(string no)
     {
-        var em = new EcmMessage(no, "M", "001", "心跳", CmdType.Beats, TimeSpan.FromSeconds(5),
+        var em = new EcmMessage(no, "M", "001", "心跳", CmdType.Beats,
+            TimeSpan.FromSeconds(5),
             MessageTag.Once, Guid.NewGuid().ToString("N"));
         return em;
     }
@@ -54,18 +54,12 @@ public class EcmMessage : Message
     /// <summary>
     /// 展品编号
     /// </summary>
-    [JsonProperty("name")]
     public string Name { get; set; }
 
     /// <summary>
     /// 命令类型
     /// </summary>
-    [JsonProperty("cmd_type")]
     public CmdType CmdType { get; set; }
-
-    private EcmMessage()
-    {
-    }
 
     private EcmMessage(string no, string infoType, string infoCode,
         string infoContent, CmdType cmdType, TimeSpan eTime, MessageTag tag, string guid)

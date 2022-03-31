@@ -38,7 +38,9 @@ public class EcmService
     public EcmService(double minDelay, string exhibitNo, string url, string cacheAppId)
     {
         Barrel.ApplicationId = cacheAppId;
-        _barrel = Barrel.Create($"{AppDomain.CurrentDomain.BaseDirectory}");
+        _barrel =
+            Barrel.Create(
+                $"{AppDomain.CurrentDomain.BaseDirectory}{Barrel.ApplicationId}");
 
         BeatsTimer = new Timer(minDelay * 60 * 1000);
         BeatsTimer.Elapsed += BeatsTimer_Elapsed;
@@ -116,7 +118,7 @@ public class EcmService
     public void AddMessage(EcmMessage message)
     {
         _barrel.EmptyExpired();
-        
+
         switch (message.Tag)
         {
             default:

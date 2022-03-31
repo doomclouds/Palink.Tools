@@ -18,7 +18,6 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
-        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static int TryToInt(this object input, int defaultNum = 0)
         {
             if (input == null)
@@ -33,7 +32,6 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
-        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static long TryToLong(this object input, long defaultNum = 0)
         {
             if (input == null)
@@ -48,7 +46,6 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static double TryToDouble(this object input, double defaultNum = 0)
         {
             if (input == null)
@@ -63,7 +60,6 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static decimal TryToDecimal(this object input, decimal defaultNum = 0)
         {
             if (input == null)
@@ -78,7 +74,6 @@ namespace Palink.Tools.Extensions
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        [Obsolete("使用通用方法TryConvertTo或ConvertTo")]
         public static float TryToFloat(this object input, float defaultNum = 0)
         {
             if (input == null)

@@ -31,7 +31,7 @@ public enum MessageTag
 }
 
 /// <summary>
-/// Message
+/// 继承此类子类使用CreateMessage方法构造，该方法4个参数必须存在
 /// </summary>
 public abstract class Message
 {
@@ -40,42 +40,50 @@ public abstract class Message
     /// <summary>
     /// 消息唯一标识
     /// </summary>
+    [JsonProperty("id")]
     public string Id { get; set; }
 
     /// <summary>
     /// 信息类型 E、M
     /// </summary>
-    [JsonProperty("info_type")]
+    [JsonProperty("infoType")]
     public string InfoType { get; set; }
 
     /// <summary>
     /// 信息代码000-999
     /// </summary>
-    [JsonProperty("info_code")]
+    [JsonProperty("infoCode")]
     public string InfoCode { get; set; }
 
     /// <summary>
     /// 信息内容
     /// </summary>
-    [JsonProperty("info_content")]
+    [JsonProperty("infoContent")]
     public string InfoContent { get; set; }
 
     /// <summary>
     /// 消息有效时长
     /// </summary>
     [JsonProperty("eTime")]
-    public TimeSpan ETime { get; set; }
+    public TimeSpan ETime { get; set; } = TimeSpan.FromSeconds(30);
 
     /// <summary>
     /// 消息标签
     /// </summary>
-    [JsonProperty("tang")]
+    [JsonProperty("tag")]
     public MessageTag Tag { get; set; }
 
     /// <summary>
     /// 是否发送成功
     /// </summary>
+    [JsonProperty("sendSucceed")]
     public bool SendSucceed { get; set; }
+
+    /// <summary>
+    /// 将消息发送到服务器的URL地址
+    /// </summary>
+    [JsonProperty("url")]
+    public string Url { get; set; }
 
     /// <summary>
     /// 获取当前消息缓存的标签
@@ -83,7 +91,20 @@ public abstract class Message
     /// <returns></returns>
     public string GetTag()
     {
+        if (Url.IsNullOrEmpty() || Id.IsNullOrEmpty() || InfoContent.IsNullOrEmpty())
+        {
+            throw new Exception("消息体的URL、Id、和InfoContent属性是必填的");
+        }
+
         InfoContent.TryToEnum<MessageTag>();
         return TagKey.FormatWith(Tag.ToString(), InfoContent);
+    }
+
+    /// <summary>
+    /// 设置消息过期时间,不设置默认为30s
+    /// </summary>
+    public void SetupExpirationTime(TimeSpan time)
+    {
+        ETime = time;
     }
 }
