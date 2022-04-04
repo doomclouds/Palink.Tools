@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace Palink.Tools.Extensions;
 
 /// <summary>
-/// Newtonsoft HttpClient扩展
+/// Newtonsoft.Json的HttpClient扩展
 /// </summary>
 public static class NewtonsoftHttpClientExtensions
 {
@@ -26,7 +26,7 @@ public static class NewtonsoftHttpClientExtensions
         CancellationToken cancellationToken = default)
     {
         ThrowIfInvalidParams(httpClient, uri);
-
+        
         var response = await httpClient.GetAsync(uri, cancellationToken);
 
         response.EnsureSuccessStatusCode();
@@ -62,6 +62,40 @@ public static class NewtonsoftHttpClientExtensions
         var json = JsonConvert.SerializeObject(value, settings);
 
         var response = await httpClient.PostAsync(uri,
+            new StringContent(json, Encoding.UTF8, "application/json"),
+            cancellationToken);
+
+        response.EnsureSuccessStatusCode();
+
+        return response;
+    }
+
+    /// <summary>
+    /// PutAsJsonAsync
+    /// </summary>
+    /// <param name="httpClient"></param>
+    /// <param name="uri"></param>
+    /// <param name="value"></param>
+    /// <param name="settings"></param>
+    /// <param name="cancellationToken"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
+        this HttpClient httpClient, string uri, T value,
+        JsonSerializerSettings settings = null,
+        CancellationToken cancellationToken = default)
+    {
+        ThrowIfInvalidParams(httpClient, uri);
+
+        if (value is null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
+        var json = JsonConvert.SerializeObject(value, settings);
+        
+        var response = await httpClient.PutAsync(uri,
             new StringContent(json, Encoding.UTF8, "application/json"),
             cancellationToken);
 

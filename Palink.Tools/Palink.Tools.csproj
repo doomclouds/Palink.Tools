@@ -33,7 +33,7 @@
 	<PropertyGroup>
 		<PackageId>Palink.Tools</PackageId>
 		<Title>Palink.Tools</Title>
-		<PackageVersion>0.1.8</PackageVersion>
+		<PackageVersion>0.1.9</PackageVersion>
 		<Authors>Palink</Authors>
 		<Description>开发常用工具</Description>
 		<Copyright>copyright 2022</Copyright>

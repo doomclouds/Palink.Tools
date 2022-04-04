@@ -821,7 +821,7 @@
         </member>
         <member name="T:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions">
             <summary>
-            Newtonsoft HttpClient扩展
+            Newtonsoft.Json的HttpClient扩展
             </summary>
         </member>
         <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.GetFromJsonAsync``1(System.Net.Http.HttpClient,System.String,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
@@ -838,6 +838,19 @@
         <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             PostAsJsonAsync
+            </summary>
+            <param name="httpClient"></param>
+            <param name="uri"></param>
+            <param name="value"></param>
+            <param name="settings"></param>
+            <param name="cancellationToken"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+            <summary>
+            PutAsJsonAsync
             </summary>
             <param name="httpClient"></param>
             <param name="uri"></param>
@@ -1575,12 +1588,42 @@
             <param name="msg">消息体</param>
             <param name="wait">是否等待服务器返回值</param>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Attribute.OcrWriteResolver">
+        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute">
+            <summary>
+            json序列化属性，区分与读取的数据与发送的数据序列化时的属性名称
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.ReadName">
+            <summary>
+            读取名称
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.WriteName">
+            <summary>
+            写入名称
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.Readable">
+            <summary>
+            是否可读
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.Writable">
+            <summary>
+            是否可写
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.#ctor">
+            <summary>
+            构造器
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrWriteResolver">
             <summary>
             使用WriteName进行Json序列化
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Attribute.OcrWriteResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrWriteResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
             <summary>
             CreateProperty
             </summary>
@@ -1588,12 +1631,12 @@
             <param name="memberSerialization"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Attribute.OcrWriteResolver.OcrReadResolver">
+        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrReadResolver">
             <summary>
             使用ReadName进行Json序列化
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Attribute.OcrWriteResolver.OcrReadResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrReadResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
             <summary>
             CreateProperty
             </summary>

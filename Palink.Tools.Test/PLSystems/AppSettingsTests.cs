@@ -1,9 +1,8 @@
 ﻿using Palink.Tools.Extensions;
-using Palink.Tools.PLSystems;
 using Palink.Tools.PLSystems.Configuration;
 using Xunit;
 
-namespace Palink.Tools.Test.Systems;
+namespace Palink.Tools.Test.PLSystems;
 
 public class AppSettingsTests
 {

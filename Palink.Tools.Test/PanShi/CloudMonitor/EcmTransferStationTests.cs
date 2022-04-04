@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.ObjectModel;
 using Palink.Tools.PanShi.Monitor;
 using Palink.Tools.PanShi.Monitor.Ecm;
 using Xunit;

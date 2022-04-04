@@ -4,7 +4,7 @@ using Palink.Tools.PLSystems;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace Palink.Tools.Test.Systems;
+namespace Palink.Tools.Test.PLSystems;
 
 public class HiPerfTimerTests
 {
