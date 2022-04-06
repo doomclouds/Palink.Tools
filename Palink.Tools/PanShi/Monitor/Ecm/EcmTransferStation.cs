@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net;
 using System.Net.Http;
-using Palink.Tools.Extensions;
+using Palink.Tools.Extensions.PLAttribute;
 
 namespace Palink.Tools.PanShi.Monitor.Ecm;
 

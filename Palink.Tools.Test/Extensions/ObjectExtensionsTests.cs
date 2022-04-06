@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Palink.Tools.Extensions;
+using Palink.Tools.Extensions.PLObject;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

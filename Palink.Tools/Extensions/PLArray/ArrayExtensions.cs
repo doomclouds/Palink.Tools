@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Palink.Tools.Extensions;
+namespace Palink.Tools.Extensions.PLArray;
 
 /// <summary>
 /// ArrayExtensions

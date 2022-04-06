@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Palink.Tools.Extensions;
+using Palink.Tools.Extensions.PLRandom;
 
-namespace Palink.Tools.Security;
+namespace Palink.Tools.Extensions.PLSecurity;
 
 /// <summary>
 /// 得到随机安全码（哈希加密）。

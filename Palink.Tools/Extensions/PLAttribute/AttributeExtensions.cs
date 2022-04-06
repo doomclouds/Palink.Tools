@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLAttribute
 {
     /// <summary>
     /// 特性扩展方法

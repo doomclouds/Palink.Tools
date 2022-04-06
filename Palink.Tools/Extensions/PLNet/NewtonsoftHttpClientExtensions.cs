@@ -4,8 +4,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Palink.Tools.Extensions.PLString;
 
-namespace Palink.Tools.Extensions;
+namespace Palink.Tools.Extensions.PLNet;
 
 /// <summary>
 /// Newtonsoft.Json的HttpClient扩展

@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLString
 {
     /// <summary>
     /// 字符判断扩展类

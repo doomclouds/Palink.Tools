@@ -231,7 +231,7 @@ public partial class CoreTool
     /// 获取一个文件的长度,单位为KB  
     /// </summary>  
     /// <param name="filePath">文件的路径</param>          
-    public static double GetFileSizeByKB(string filePath)
+    public static double GetFileSizeByKb(string filePath)
     {
         //创建一个文件对象  
         FileInfo fi = new FileInfo(filePath);
@@ -244,7 +244,7 @@ public partial class CoreTool
     /// 获取一个文件的长度,单位为MB  
     /// </summary>  
     /// <param name="filePath">文件的路径</param>          
-    public static double GetFileSizeByMB(string filePath)
+    public static double GetFileSizeByMb(string filePath)
     {
         //创建一个文件对象  
         FileInfo fi = new FileInfo(filePath);
@@ -339,7 +339,7 @@ public partial class CoreTool
         }
         catch
         {
-            throw null;
+            throw new ArgumentException($"{nameof(GetDirectories)}异常");
         }
     }
 
@@ -431,7 +431,7 @@ public partial class CoreTool
             var buffer = new byte[stream.Length];
 
             //读取流  
-            var read = stream.Read(buffer, 0, int.Parse(stream.Length.ToString()));
+            var unused = stream.Read(buffer, 0, int.Parse(stream.Length.ToString()));
 
             //返回流  
             return buffer;
@@ -470,7 +470,7 @@ public partial class CoreTool
         try
         {
             //将文件流读入缓冲区  
-            fs.Read(buffer, 0, fileSize);
+            var unused = fs.Read(buffer, 0, fileSize);
 
             return buffer;
         }
@@ -538,7 +538,6 @@ public partial class CoreTool
         var newPath = GetParentDirectory(path, degree);
 
         return new DirectoryInfo(newPath).Name;
-        ;
     }
 
     #endregion

@@ -190,7 +190,7 @@
             读写次数
             </summary>
         </member>
-        <member name="M:Palink.Tools.Communication.Device.BaseMaster.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.Logging.IPlLogger)">
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.PLLogging.IPlLogger)">
             <summary>
             BaseMaster
             </summary>
@@ -330,7 +330,7 @@
             需要忽略的数据帧
             </summary>
         </member>
-        <member name="M:Palink.Tools.Communication.Master.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.Logging.IPlLogger)">
+        <member name="M:Palink.Tools.Communication.Master.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.PLLogging.IPlLogger)">
             <summary>
             Master
             </summary>
@@ -376,43 +376,43 @@
             发送字节数
             </summary>
         </member>
-        <member name="T:Palink.Tools.Extensions.ArrayExtensions">
+        <member name="T:Palink.Tools.Extensions.PLArray.ArrayExtensions">
             <summary>
             ArrayExtensions
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.ArrayExtensions.ForEach(System.Array,System.Action{System.Array,System.Int32[]})">
+        <member name="M:Palink.Tools.Extensions.PLArray.ArrayExtensions.ForEach(System.Array,System.Action{System.Array,System.Int32[]})">
             <summary>
             数组遍历
             </summary>
             <param name="array"></param>
             <param name="action"></param>
         </member>
-        <member name="T:Palink.Tools.Extensions.AttributeExtensions">
+        <member name="T:Palink.Tools.Extensions.PLAttribute.AttributeExtensions">
             <summary>
             特性扩展方法
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.AttributeExtensions.EnumDescription(System.Enum)">
+        <member name="M:Palink.Tools.Extensions.PLAttribute.AttributeExtensions.EnumDescription(System.Enum)">
             <summary>
             获取枚举描述信息
             </summary>
             <param name="enumValue"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.AttributeExtensions.EnumDisplayName(System.Enum)">
+        <member name="M:Palink.Tools.Extensions.PLAttribute.AttributeExtensions.EnumDisplayName(System.Enum)">
             <summary>
             获取显示名称
             </summary>
             <param name="enumValue"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.ConvertExtensions">
+        <member name="T:Palink.Tools.Extensions.PLConvert.ConvertExtensions">
             <summary>
             转换器扩展类
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToInt(System.Object,System.Int32)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToInt(System.Object,System.Int32)">
             <summary>
             string转int
             </summary>
@@ -420,7 +420,7 @@
             <param name="defaultNum">转换失败默认</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToLong(System.Object,System.Int64)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToLong(System.Object,System.Int64)">
             <summary>
             string转long
             </summary>
@@ -428,7 +428,7 @@
             <param name="defaultNum">转换失败默认</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDouble(System.Object,System.Double)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDouble(System.Object,System.Double)">
             <summary>
             string转double
             </summary>
@@ -436,7 +436,7 @@
             <param name="defaultNum">转换失败默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDecimal(System.Object,System.Decimal)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDecimal(System.Object,System.Decimal)">
             <summary>
             string转decimal
             </summary>
@@ -444,7 +444,7 @@
             <param name="defaultNum">转换失败默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToFloat(System.Object,System.Single)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToFloat(System.Object,System.Single)">
             <summary>
             string转decimal
             </summary>
@@ -452,7 +452,7 @@
             <param name="defaultNum">转换失败默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToBool(System.Object,System.Boolean,System.String,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToBool(System.Object,System.Boolean,System.String,System.String)">
             <summary>
             string转bool
             </summary>
@@ -462,7 +462,7 @@
             <param name="trueVal"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToString(System.ValueType,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToString(System.ValueType,System.String)">
             <summary>
             值类型转string
             </summary>
@@ -470,7 +470,7 @@
             <param name="defaultStr">转换失败默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String,System.DateTime)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.String,System.DateTime)">
             <summary>
             字符串转时间
             </summary>
@@ -478,7 +478,7 @@
             <param name="defaultValue">默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String,System.String,System.DateTime)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.String,System.String,System.DateTime)">
             <summary>
             字符串转时间
             </summary>
@@ -487,14 +487,14 @@
             <param name="defaultValue">默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.String)">
             <summary>
             时间戳转时间
             </summary>
             <param name="timestamp"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToDateTime(System.DateTime,System.String,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.DateTime,System.String,System.String)">
             <summary>
             时间格式转换为字符串
             </summary>
@@ -503,14 +503,14 @@
             <param name="cultureInfo"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToTrim(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToTrim(System.String)">
             <summary>
             字符串去空格
             </summary>
             <param name="inputStr">输入</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToEnum``1(System.String,``0)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToEnum``1(System.String,``0)">
             <summary>
             字符串转枚举
             </summary>
@@ -519,21 +519,21 @@
             <param name="t"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryToList(System.Type)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToList(System.Type)">
             <summary>
             将枚举类型转换为List
             </summary>
             <param name="enumType"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.ConvertType(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.ConvertType(System.String)">
             <summary>
             根据类型名返回一个Type类型
             </summary>
             <param name="typeName">类型的名称</param>
             <returns>Type对象</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.ConvertTo``1(System.IConvertible)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.ConvertTo``1(System.IConvertible)">
             <summary>
             类型直转
             </summary>
@@ -541,7 +541,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryConvertTo``1(System.IConvertible,``0)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryConvertTo``1(System.IConvertible,``0)">
             <summary>
             类型直转
             </summary>
@@ -550,7 +550,7 @@
             <param name="defaultValue">转换失败的默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryConvertTo``1(System.IConvertible,``0@)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryConvertTo``1(System.IConvertible,``0@)">
             <summary>
             类型直转
             </summary>
@@ -559,7 +559,7 @@
             <param name="result">转换失败的默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.TryConvertTo(System.IConvertible,System.Type,System.Object@)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryConvertTo(System.IConvertible,System.Type,System.Object@)">
             <summary>
             类型直转
             </summary>
@@ -568,7 +568,7 @@
             <param name="result">转换失败的默认值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ConvertExtensions.ConvertTo(System.IConvertible,System.Type)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.ConvertTo(System.IConvertible,System.Type)">
             <summary>
             类型直转
             </summary>
@@ -576,255 +576,199 @@
             <param name="type">目标类型</param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.EncryptExtensions">
-            <summary>
-            EncryptExtensions
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeBase64String(System.String,System.String)">
-            <summary>
-            将字符串使用base64算法编码 
-            </summary>
-            <param name="encodingName">编码类型（编码名称）</param>
-            <param name="inputStr">待加密的字符串</param>
-            <returns>加密后的字符串</returns> 
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.DecodeBase64String(System.String,System.String)">
-            <summary> 
-            将字符串使用base64算法解码
-            </summary> 
-            <param name="encodingName">编码类型</param> 
-            <param name="base64String">已用base64算法加密的字符串</param> 
-            <returns>解密后的字符串</returns> 
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeMd5String(System.String)">
-            <summary>
-            将字符串使用MD5算法加密
-            </summary>
-            <param name="inputStr"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha1String(System.String)">
-            <summary>
-            将字符串使用SHA1算法加密
-            </summary>
-            <param name="inputStr">明文</param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha256String(System.String)">
-            <summary>
-            将字符串使用SHA256算法加密
-            </summary>
-            <param name="inputStr">明文</param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha384String(System.String)">
-            <summary>
-            将字符串使用SHA384算法加密
-            </summary>
-            <param name="inputStr">明文</param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.EncryptExtensions.EncodeSha512String(System.String)">
-            <summary>
-            将字符串使用SHA512算法加密
-            </summary>
-            <param name="inputStr">明文</param>
-            <returns></returns>
-        </member>
-        <member name="T:Palink.Tools.Extensions.Enumeration.EnumResponse">
+        <member name="T:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse">
             <summary>
             
             </summary>
         </member>
-        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Key">
+        <member name="P:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse.Key">
             <summary>
             Key
             </summary>
         </member>
-        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Value">
+        <member name="P:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse.Value">
             <summary>
             Value
             </summary>
         </member>
-        <member name="P:Palink.Tools.Extensions.Enumeration.EnumResponse.Description">
+        <member name="P:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse.Description">
             <summary>
             描述
             </summary>
         </member>
-        <member name="T:Palink.Tools.Extensions.LoggingExtensions">
-            <summary>
-            日志扩展
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Trace(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Trace
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Debug(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Debug
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Information(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Information
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Warning(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Warning
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Error(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Error
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="M:Palink.Tools.Extensions.LoggingExtensions.Critical(Palink.Tools.Extensions.Logging.IPlLogger,System.String)">
-            <summary>
-            Critical
-            </summary>
-            <param name="logger"></param>
-            <param name="message"></param>
-        </member>
-        <member name="T:Palink.Tools.Extensions.Logging.BaseLogger">
+        <member name="T:Palink.Tools.Extensions.PLLogging.BaseLogger">
             <summary>
             BaseLogger
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.#ctor(Palink.Tools.Extensions.Logging.LoggingLevel)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.BaseLogger.#ctor(Palink.Tools.Extensions.PLLogging.LoggingLevel)">
             <summary>
             BaseLogger
             </summary>
             <param name="minimumLoggingLevel"></param>
         </member>
-        <member name="P:Palink.Tools.Extensions.Logging.BaseLogger.MinimumLoggingLevel">
+        <member name="P:Palink.Tools.Extensions.PLLogging.BaseLogger.MinimumLoggingLevel">
             <summary>
             最小日志级别
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.ShouldLog(Palink.Tools.Extensions.Logging.LoggingLevel)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.BaseLogger.ShouldLog(Palink.Tools.Extensions.PLLogging.LoggingLevel)">
             <summary>
             是否需要打印该级别日志
             </summary>
             <param name="level"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.Log(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.BaseLogger.Log(Palink.Tools.Extensions.PLLogging.LoggingLevel,System.String)">
             <summary>
             输出日志
             </summary>
             <param name="level"></param>
             <param name="message"></param>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.BaseLogger.LogCore(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.BaseLogger.LogCore(Palink.Tools.Extensions.PLLogging.LoggingLevel,System.String)">
             <summary>
             打印日志核心方法
             </summary>
             <param name="level"></param>
             <param name="message"></param>
         </member>
-        <member name="T:Palink.Tools.Extensions.Logging.ConsoleLogger">
+        <member name="T:Palink.Tools.Extensions.PLLogging.ConsoleLogger">
             <summary>
             ConsoleLogger
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.ConsoleLogger.#ctor(Palink.Tools.Extensions.Logging.LoggingLevel)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.ConsoleLogger.#ctor(Palink.Tools.Extensions.PLLogging.LoggingLevel)">
             <summary>
             ConsoleLogger
             </summary>
             <param name="minimumLoggingLevel"></param>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.ConsoleLogger.LogCore(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.ConsoleLogger.LogCore(Palink.Tools.Extensions.PLLogging.LoggingLevel,System.String)">
             <summary>
             打印日志核心方法
             </summary>
             <param name="level"></param>
             <param name="message"></param>
         </member>
-        <member name="T:Palink.Tools.Extensions.Logging.LoggingLevel">
+        <member name="T:Palink.Tools.Extensions.PLLogging.LoggingLevel">
             <summary>
             LoggingLevel
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Trace">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Trace">
             <summary>
             Trace = 0
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Debug">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Debug">
             <summary>
             Debug = 1
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Information">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Information">
             <summary>
             Information = 2
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Warning">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Warning">
             <summary>
             Warning = 3
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Error">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Error">
             <summary>
             Error = 4
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.Logging.LoggingLevel.Critical">
+        <member name="F:Palink.Tools.Extensions.PLLogging.LoggingLevel.Critical">
             <summary>
             Critical = 5
             </summary>
         </member>
-        <member name="T:Palink.Tools.Extensions.Logging.IPlLogger">
+        <member name="T:Palink.Tools.Extensions.PLLogging.IPlLogger">
             <summary>
             IPlLogger
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.IPlLogger.Log(Palink.Tools.Extensions.Logging.LoggingLevel,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.IPlLogger.Log(Palink.Tools.Extensions.PLLogging.LoggingLevel,System.String)">
             <summary>
             输出日志
             </summary>
             <param name="level"></param>
             <param name="message"></param>
         </member>
-        <member name="M:Palink.Tools.Extensions.Logging.IPlLogger.ShouldLog(Palink.Tools.Extensions.Logging.LoggingLevel)">
+        <member name="M:Palink.Tools.Extensions.PLLogging.IPlLogger.ShouldLog(Palink.Tools.Extensions.PLLogging.LoggingLevel)">
             <summary>
             日志最低级别
             </summary>
             <param name="level"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.NetExtensions">
+        <member name="T:Palink.Tools.Extensions.PLLogging.LoggingExtensions">
+            <summary>
+            日志扩展
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Trace(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Trace
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Debug(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Debug
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Information(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Information
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Warning(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Warning
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Error(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Error
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLLogging.LoggingExtensions.Critical(Palink.Tools.Extensions.PLLogging.IPlLogger,System.String)">
+            <summary>
+            Critical
+            </summary>
+            <param name="logger"></param>
+            <param name="message"></param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.PLNet.NetExtensions">
             <summary>
             网络功能扩展
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.NetExtensions.Ping(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLNet.NetExtensions.Ping(System.String)">
             <summary>
             Ping
             </summary>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions">
+        <member name="T:Palink.Tools.Extensions.PLNet.NewtonsoftHttpClientExtensions">
             <summary>
             Newtonsoft.Json的HttpClient扩展
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.GetFromJsonAsync``1(System.Net.Http.HttpClient,System.String,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+        <member name="M:Palink.Tools.Extensions.PLNet.NewtonsoftHttpClientExtensions.GetFromJsonAsync``1(System.Net.Http.HttpClient,System.String,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             GetFromJsonAsync
             </summary>
@@ -835,7 +779,7 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+        <member name="M:Palink.Tools.Extensions.PLNet.NewtonsoftHttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             PostAsJsonAsync
             </summary>
@@ -848,7 +792,7 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="M:Palink.Tools.Extensions.NewtonsoftHttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+        <member name="M:Palink.Tools.Extensions.PLNet.NewtonsoftHttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.String,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             PutAsJsonAsync
             </summary>
@@ -861,26 +805,26 @@
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
         </member>
-        <member name="T:Palink.Tools.Extensions.ObjectExtensions">
+        <member name="T:Palink.Tools.Extensions.PLObject.ObjectExtensions">
             <summary>
             对象判断扩展类
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsPrimitive(System.Type)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsPrimitive(System.Type)">
             <summary>
             判断对象是否是原始对象
             </summary>
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.DeepClone(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.DeepClone(System.Object)">
             <summary>
             深度Clone
             </summary>
             <param name="originalObject"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.DeepClone``1(``0)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.DeepClone``1(``0)">
             <summary>
             深度Clone
             </summary>
@@ -888,7 +832,7 @@
             <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsNullOrEmpty``1(``0)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNullOrEmpty``1(``0)">
             <summary>
             判断是否为null，null或0长度都返回true
             </summary>
@@ -896,7 +840,7 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.ReferenceEquals(System.Object,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.ReferenceEquals(System.Object,System.Object)">
             <summary>
             严格比较两个对象是否是同一对象(判断引用)
             </summary>
@@ -904,34 +848,34 @@
             <param name="o">需要比较的对象</param>
             <returns>是否同一对象</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsDefaultValue(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsDefaultValue(System.Object)">
             <summary>
             是否是默认值
             </summary>
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsNull(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNull(System.Object)">
             <summary>
             判断对象是否为空
             </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.IsNotNull(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNotNull(System.Object)">
             <summary>
             判断对象是否不为空
             </summary>
             <param name="obj"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.ThrowIfNull(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.ThrowIfNull(System.Object)">
             <summary>
             对象为空则抛出异常
             </summary>
             <param name="obj"></param>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.PropertyDescription(System.Object,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.PropertyDescription(System.Object,System.String)">
             <summary>
             获取属性描述信息
             </summary>
@@ -939,7 +883,7 @@
             <param name="name">属性名称</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ObjectExtensions.PropertyDisplayName(System.Object,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.PropertyDisplayName(System.Object,System.String)">
             <summary>
             获取属性显示名称
             </summary>
@@ -947,12 +891,12 @@
             <param name="name">属性名称</param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.RandomExtensions">
+        <member name="T:Palink.Tools.Extensions.PLRandom.RandomExtensions">
             <summary>
             随机数扩展
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.RandomExtensions.StrictNext(System.Random,System.Int32,System.Int32)">
+        <member name="M:Palink.Tools.Extensions.PLRandom.RandomExtensions.StrictNext(System.Random,System.Int32,System.Int32)">
             <summary>
             生成真正的随机数
             </summary>
@@ -961,7 +905,7 @@
             <param name="maxValue"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.RandomExtensions.NextGauss(System.Random,System.Double,System.Double)">
+        <member name="M:Palink.Tools.Extensions.PLRandom.RandomExtensions.NextGauss(System.Random,System.Double,System.Double)">
             <summary>
             产生正态分布的随机数
             </summary>
@@ -970,17 +914,17 @@
             <param name="stdDev">方差</param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.ReflectionExtensions">
+        <member name="T:Palink.Tools.Extensions.PLReflection.ReflectionExtensions">
             <summary>
             反射扩展
             </summary>
         </member>
-        <member name="F:Palink.Tools.Extensions.ReflectionExtensions.Bf">
+        <member name="F:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.Bf">
             <summary>
             BindingFlags
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.InvokeMethod``1(System.Object,System.String,System.Object[])">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.InvokeMethod``1(System.Object,System.String,System.Object[])">
             <summary>
             执行方法
             </summary>
@@ -990,7 +934,7 @@
             <typeparam name="T">约束返回的T必须是引用类型</typeparam>
             <returns>T类型</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.InvokeMethod(System.Object,System.String,System.Object[])">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.InvokeMethod(System.Object,System.String,System.Object[])">
             <summary>
             执行方法
             </summary>
@@ -999,7 +943,7 @@
             <param name="args">方法参数</param>
             <returns>T类型</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.SetField``1(``0,System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetField``1(``0,System.String,System.Object)">
             <summary>
             设置字段
             </summary>
@@ -1007,7 +951,7 @@
             <param name="name">字段名</param>
             <param name="value">值</param>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetField``1(System.Object,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetField``1(System.Object,System.String)">
             <summary>
             获取字段
             </summary>
@@ -1016,14 +960,14 @@
             <typeparam name="T">约束返回的T必须是引用类型</typeparam>
             <returns>T类型</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetFields(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetFields(System.Object)">
             <summary>
             获取所有的字段信息
             </summary>
             <param name="obj">反射对象</param>
             <returns>字段信息</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.SetProperty``1(``0,System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetProperty``1(``0,System.String,System.Object)">
             <summary>
             设置属性
             </summary>
@@ -1031,7 +975,7 @@
             <param name="name">属性名</param>
             <param name="value">值</param>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetProperty``1(System.Object,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetProperty``1(System.Object,System.String)">
             <summary>
             获取属性
             </summary>
@@ -1040,42 +984,42 @@
             <typeparam name="T">约束返回的T必须是引用类型</typeparam>
             <returns>T类型</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetProperties(System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetProperties(System.Object)">
             <summary>
             获取所有的属性信息
             </summary>
             <param name="obj">反射对象</param>
             <returns>属性信息</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance(System.Type)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance(System.Type)">
             <summary>
             获取默认实例
             </summary>
             <param name="type">类型</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``1(System.Type)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``1(System.Type)">
             <summary>
             获取默认实例
             </summary>
             <param name="type">类型</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``1(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``1(System.String)">
             <summary>
             获取默认实例
             </summary>
             <param name="type">类型</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance(System.String)">
             <summary>
             获取默认实例
             </summary>
             <param name="type">类型</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``2(System.Type,``0)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``2(System.Type,``0)">
             <summary>
             获取一个构造参数的实例
             </summary>
@@ -1085,7 +1029,7 @@
             <param name="argument">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``2(System.String,``0)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``2(System.String,``0)">
             <summary>
             获取一个构造参数的实例
             </summary>
@@ -1095,7 +1039,7 @@
             <param name="argument">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``3(System.Type,``0,``1)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``3(System.Type,``0,``1)">
             <summary>
             获取2个构造参数的实例
             </summary>
@@ -1107,7 +1051,7 @@
             <param name="argument2">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``3(System.String,``0,``1)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``3(System.String,``0,``1)">
             <summary>
             获取2个构造参数的实例
             </summary>
@@ -1119,7 +1063,7 @@
             <param name="argument2">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``4(System.Type,``0,``1,``2)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``4(System.Type,``0,``1,``2)">
             <summary>
             获取3个构造参数的实例
             </summary>
@@ -1133,7 +1077,7 @@
             <param name="argument3">参数值</param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.ReflectionExtensions.GetInstance``4(System.String,``0,``1,``2)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.GetInstance``4(System.String,``0,``1,``2)">
             <summary>
             获取3个构造参数的实例
             </summary>
@@ -1147,12 +1091,387 @@
             <param name="argument3">参数值</param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.SerializeExtensions">
+        <member name="T:Palink.Tools.Extensions.PLSecurity.Encrypt">
+            <summary>
+            常用的加密解密算法
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.PLSecurity.Encrypt.DefaultEncryptKey">
+            <summary>
+            加密密钥，默认取“palink”的MD5值
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesEncrypt(System.String)">
+            <summary>
+            使用默认加密
+            </summary>
+            <param name="strText">被加密的字符串</param>
+            <returns>加密后的数据</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesDecrypt(System.String)">
+            <summary>
+            使用默认解密
+            </summary>
+            <param name="strText">需要解密的 字符串</param>
+            <returns>解密后的数据</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesEncrypt(System.String,System.String)">
+            <summary> 
+            加密字符串
+            加密密钥必须为8位
+            </summary> 
+            <param name="strText">被加密的字符串</param> 
+            <param name="strEncryptKey">8位长度密钥</param> 
+            <returns>加密后的数据</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesEncrypt(System.String,System.Byte[],System.Byte[])">
+            <summary> 
+            加密字符串
+            加密密钥必须为8位
+            </summary> 
+            <param name="strText">被加密的字符串</param>
+            <param name="desKey"></param>
+            <param name="desIv"></param>
+            <returns>加密后的数据</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesEncrypt(System.IO.FileStream,System.String,System.String)">
+            <summary>
+            DES加密文件
+            </summary>
+            <param name="fin">文件输入流</param>
+            <param name="outFilePath">文件输出路径</param>
+            <param name="strEncryptKey">加密密钥</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesEncrypt(System.IO.FileStream,System.String,System.Byte[],System.Byte[])">
+            <summary>
+            DES加密文件
+            </summary>
+            <param name="fin">文件输入流</param>
+            <param name="outFilePath">文件输出路径</param>
+            <param name="desKey"></param>
+            <param name="desIv"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesDecrypt(System.IO.FileStream,System.String,System.String)">
+            <summary>
+            DES解密文件
+            </summary>
+            <param name="fin">输入文件流</param>
+            <param name="outFilePath">文件输出路径</param>
+            <param name="decryptKey">解密密钥</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesDecrypt(System.IO.FileStream,System.String,System.Byte[],System.Byte[])">
+            <summary>
+            DES解密文件
+            </summary>
+            <param name="fin">输入文件流</param>
+            <param name="outFilePath">文件输出路径</param>
+            <param name="desKey"></param>
+            <param name="desIv"></param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesDecrypt(System.String,System.String)">
+            <summary>
+            DES解密算法
+                密钥为8位
+            </summary>
+            <param name="pToDecrypt">需要解密的字符串</param>
+            <param name="sKey">密钥</param>
+            <returns>解密后的数据</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.DesDecrypt(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            DES解密算法
+            密钥为8位
+            </summary>
+            <param name="pToDecrypt">需要解密的字符串</param>
+            <param name="desKey"></param>
+            <param name="desIv"></param>
+            <returns>解密后的数据</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String(System.String)">
+            <summary>
+            对字符串进行MD5加密
+            </summary>
+            <param name="message">需要加密的字符串</param>
+            <returns>加密后的结果</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String2(System.String)">
+            <summary>
+            对字符串进行MD5二次加密
+            </summary>
+            <param name="message">需要加密的字符串</param>
+            <returns>加密后的结果</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String3(System.String)">
+            <summary>
+            MD5 三次加密算法
+            </summary>
+            <param name="s">需要加密的字符串</param>
+            <returns>MD5字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String(System.String,System.String)">
+            <summary>
+            对字符串进行MD5加盐加密
+            </summary>
+            <param name="message">需要加密的字符串</param>
+            <param name="salt">盐</param>
+            <returns>加密后的结果</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String2(System.String,System.String)">
+            <summary>
+            对字符串进行MD5二次加盐加密
+            </summary>
+            <param name="message">需要加密的字符串</param>
+            <param name="salt">盐</param>
+            <returns>加密后的结果</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String3(System.String,System.String)">
+            <summary>
+            MD5三次加密算法
+            </summary>
+            <param name="s">需要加密的字符串</param>
+            <param name="salt">盐</param>
+            <returns>MD5字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5File(System.String)">
+            <summary>
+            获取文件的MD5值
+            </summary>
+            <param name="fileName">需要求MD5值的文件的文件名及路径</param>
+            <returns>MD5字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.Md5String(System.IO.Stream)">
+            <summary>
+            获取数据流的MD5值
+            </summary>
+            <param name="stream"></param>
+            <returns>MD5字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.GenerateAesKey(System.Int32)">
+            <summary>
+            生成符合AES加密规则的密钥
+            </summary>
+            <param name="length"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncrypt(System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
+            </summary>
+            <param name="encryptString">待加密字符串</param>
+            <param name="mode">加密模式</param>
+            <returns>加密结果字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncrypt(System.String,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
+            </summary>
+            <param name="encryptString">待加密字符串</param>
+            <param name="encryptKey">加密密钥，须半角字符</param>
+            <param name="mode">加密模式</param>
+            <returns>加密结果字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncrypt(System.String,System.Security.Cryptography.RijndaelManaged)">
+            <summary>
+            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
+            </summary>
+            <param name="encryptString">待加密字符串</param>
+            <param name="options">加密选项</param>
+            <returns>加密结果字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncrypt(System.String,System.Byte[],System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
+            </summary>
+            <param name="encryptString">待加密字符串</param>
+            <param name="encryptKey">加密密钥，须半角字符</param>
+            <param name="mode">加密模式</param>
+            <returns>加密结果字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecrypt(System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged解密字符串
+            </summary>
+            <param name="decryptString">待解密的字符串</param>
+            <param name="mode">加密模式</param>
+            <returns>解密成功返回解密后的字符串,失败返源串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecrypt(System.String,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged解密字符串
+            </summary>
+            <param name="decryptString">待解密的字符串</param>
+            <param name="decryptKey">解密密钥,和加密密钥相同</param>
+            <param name="mode">加密模式</param>
+            <returns>解密成功返回解密后的字符串,失败返回空</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecrypt(System.String,System.Security.Cryptography.RijndaelManaged)">
+            <summary>
+            对称加密算法AES RijndaelManaged解密字符串
+            </summary>
+            <param name="decryptString">待解密的字符串</param>
+            <param name="options">加密选项</param>
+            <returns>解密成功返回解密后的字符串,失败返回空</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecrypt(System.String,System.Byte[],System.Security.Cryptography.CipherMode)">
+            <summary>
+            对称加密算法AES RijndaelManaged解密字符串
+            </summary>
+            <param name="decryptString">待解密的字符串</param>
+            <param name="decryptKey">解密密钥,和加密密钥相同</param>
+            <param name="mode">加密模式</param>
+            <returns>解密成功返回解密后的字符串,失败返回空</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.GetSubString(System.String,System.Int32,System.String)">
+            <summary>
+            按字节长度(按字节,一个汉字为2个字节)取得某字符串的一部分
+            </summary>
+            <param name="sourceString">源字符串</param>
+            <param name="length">所取字符串字节长度</param>
+            <param name="tailString">附加字符串(当字符串不够长时，尾部所添加的字符串，一般为"...")</param>
+            <returns>某字符串的一部分</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.GetSubString(System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            按字节长度(按字节,一个汉字为2个字节)取得某字符串的一部分
+            </summary>
+            <param name="sourceString">源字符串</param>
+            <param name="startIndex">索引位置，以0开始</param>
+            <param name="length">所取字符串字节长度</param>
+            <param name="tailString">附加字符串(当字符串不够长时，尾部所添加的字符串，一般为"...")</param>
+            <returns>某字符串的一部分</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncryptStream(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            加密文件流
+            </summary>
+            <param name="fs">需要加密的文件流</param>
+            <param name="decryptKey">加密密钥</param>
+            <param name="mode">加密模式</param>
+            <returns>加密流</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncryptStream(System.IO.FileStream,System.Byte[],System.Security.Cryptography.CipherMode)">
+            <summary>
+            加密文件流
+            </summary>
+            <param name="fs">需要加密的文件流</param>
+            <param name="decryptKey">加密密钥</param>
+            <param name="mode">加密模式</param>
+            <returns>加密流</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecryptStream(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            解密文件流
+            </summary>
+            <param name="fs">需要解密的文件流</param>
+            <param name="decryptKey">解密密钥</param>
+            <param name="mode">加密模式</param>
+            <returns>加密流</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecryptStream(System.IO.FileStream,System.Byte[],System.Security.Cryptography.CipherMode)">
+            <summary>
+            解密文件流
+            </summary>
+            <param name="fs">需要解密的文件流</param>
+            <param name="decryptKey">解密密钥</param>
+            <param name="mode">加密模式</param>
+            <returns>加密流</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesEncryptFile(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对指定文件AES加密
+            </summary>
+            <param name="input">源文件流</param>
+            <param name="mode">加密模式</param>
+            <param name="outputPath">输出文件路径</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.Encrypt.AesDecryptFile(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
+            <summary>
+            对指定的文件AES解密
+            </summary>
+            <param name="input">源文件流</param>
+            <param name="mode">加密模式</param>
+            <param name="outputPath">输出文件路径</param>
+        </member>
+        <member name="T:Palink.Tools.Extensions.PLSecurity.EncryptExtensions">
+            <summary>
+            EncryptExtensions
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeBase64String(System.String,System.String)">
+            <summary>
+            将字符串使用base64算法编码 
+            </summary>
+            <param name="encodingName">编码类型（编码名称）</param>
+            <param name="inputStr">待加密的字符串</param>
+            <returns>加密后的字符串</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.DecodeBase64String(System.String,System.String)">
+            <summary> 
+            将字符串使用base64算法解码
+            </summary> 
+            <param name="encodingName">编码类型</param> 
+            <param name="base64String">已用base64算法加密的字符串</param> 
+            <returns>解密后的字符串</returns> 
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeMd5String(System.String)">
+            <summary>
+            将字符串使用MD5算法加密
+            </summary>
+            <param name="inputStr"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeSha1String(System.String)">
+            <summary>
+            将字符串使用SHA1算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeSha256String(System.String)">
+            <summary>
+            将字符串使用SHA256算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeSha384String(System.String)">
+            <summary>
+            将字符串使用SHA384算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.EncryptExtensions.EncodeSha512String(System.String)">
+            <summary>
+            将字符串使用SHA512算法加密
+            </summary>
+            <param name="inputStr">明文</param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.PLSecurity.HashEncode">
+            <summary>
+            得到随机安全码（哈希加密）。
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.HashEncode.GetSecurity(System.Random)">
+            <summary>
+            得到随机哈希加密字符串
+            </summary>
+            <returns>随机哈希加密字符串</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLSecurity.HashEncode.HashEncoding(System.String)">
+            <summary>
+            哈希加密一个字符串
+            </summary>
+            <param name="security">需要加密的字符串</param>
+            <returns>加密后的数据</returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.PLSerialize.SerializeExtensions">
             <summary>
             实体序列化扩展
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.SerializeExtensions.ToJson(System.Object,System.Boolean)">
+        <member name="M:Palink.Tools.Extensions.PLSerialize.SerializeExtensions.ToJson(System.Object,System.Boolean)">
             <summary>
             实体对象转JSON字符串
             </summary>
@@ -1160,7 +1479,7 @@
             <param name="ignoreNull"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.SerializeExtensions.FromJson``1(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLSerialize.SerializeExtensions.FromJson``1(System.String)">
             <summary>
             JSON字符串转实体对象
             </summary>
@@ -1168,21 +1487,21 @@
             <param name="jsonStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.SerializeExtensions.SerializeUtf8(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLSerialize.SerializeExtensions.SerializeUtf8(System.String)">
             <summary>
             字符串序列化成字节序列
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.SerializeExtensions.DeserializeUtf8(System.Byte[])">
+        <member name="M:Palink.Tools.Extensions.PLSerialize.SerializeExtensions.DeserializeUtf8(System.Byte[])">
             <summary>
             字节序列序列化成字符串
             </summary>
             <param name="stream"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.SerializeExtensions.FromJsonFile``1(System.String,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLSerialize.SerializeExtensions.FromJsonFile``1(System.String,System.String)">
             <summary>
             根据key将json文件内容转换为指定对象
             </summary>
@@ -1191,94 +1510,94 @@
             <param name="key"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Extensions.StringExtensions">
+        <member name="T:Palink.Tools.Extensions.PLString.StringExtensions">
             <summary>
             字符判断扩展类
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNullOrEmpty(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsNullOrEmpty(System.String)">
             <summary>
             字符串为空或空字符
             </summary>
             <param name="inputStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNullOrWhiteSpace(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsNullOrWhiteSpace(System.String)">
             <summary>
             字符串为空或只包含空格
             </summary>
             <param name="inputStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNotNullOrEmpty(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsNotNullOrEmpty(System.String)">
             <summary>
             字符串非空且非空字符
             </summary>
             <param name="inputStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNotNullOrWhiteSpace(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsNotNullOrWhiteSpace(System.String)">
             <summary>
             字符串非空且不包含空格
             </summary>
             <param name="inputStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsChinese(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsChinese(System.String)">
             <summary>
             是否中文
             </summary>
             <param name="str"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsEmail(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsEmail(System.String)">
             <summary>
             是否为邮箱名
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsMobile(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsMobile(System.String)">
             <summary>
             是否为手机号
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsPhone(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsPhone(System.String)">
             <summary>
             是否为固话号
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsIp(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsIp(System.String)">
             <summary>
             是否为IP
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsIdCard(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsIdCard(System.String)">
             <summary>
             是否是身份证号
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsDate(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsDate(System.String)">
             <summary>
             是否为日期
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsNumeric(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsNumeric(System.String)">
             <summary>
             是否是数值(包括整数和小数)
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsZipCode(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsZipCode(System.String)">
             <summary>
             是否为邮政编码
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.IsImgFileName(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsImgFileName(System.String)">
             <summary>
             是否是图片文件名
             </summary>
             <param name="fileName"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.Sub(System.String,System.Int32)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Sub(System.String,System.Int32)">
             <summary>
             Sub
             </summary>
@@ -1286,7 +1605,7 @@
             <param name="length"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.TryReplace(System.String,System.String,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.TryReplace(System.String,System.String,System.String)">
             <summary>
             TryReplace
             </summary>
@@ -1295,7 +1614,7 @@
             <param name="newStr"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.RegexReplace(System.String,System.String,System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.RegexReplace(System.String,System.String,System.String)">
             <summary>
             RegexReplace
             </summary>
@@ -1304,7 +1623,7 @@
             <param name="replacement"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Format(System.String,System.Object,System.Object)">
             <summary>
             Format
             </summary>
@@ -1313,7 +1632,7 @@
             <param name="arg1"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object[])">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Format(System.String,System.Object[])">
             <summary>
             Format
             </summary>
@@ -1321,7 +1640,7 @@
             <param name="args"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Format(System.String,System.Object,System.Object,System.Object)">
             <summary>
             Format
             </summary>
@@ -1331,7 +1650,7 @@
             <param name="arg2"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.Format(System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Format(System.String,System.Object)">
             <summary>
             Format
             </summary>
@@ -1339,7 +1658,7 @@
             <param name="arg0"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object[])">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.FormatWith(System.String,System.Object[])">
             <summary>
             FormatWith
             </summary>
@@ -1347,7 +1666,7 @@
             <param name="values"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object,System.Object,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.FormatWith(System.String,System.Object,System.Object,System.Object)">
             <summary>
             FormatWith
             </summary>
@@ -1357,7 +1676,7 @@
             <param name="arg2"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.FormatWith(System.String,System.Object,System.Object)">
             <summary>
             FormatWith
             </summary>
@@ -1366,7 +1685,7 @@
             <param name="arg1"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.StringExtensions.FormatWith(System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.FormatWith(System.String,System.Object)">
             <summary>
             FormatWith
             </summary>
@@ -2168,325 +2487,6 @@
             <param name="action"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.Security.Encrypt">
-            <summary>
-            常用的加密解密算法
-            </summary>
-        </member>
-        <member name="F:Palink.Tools.Security.Encrypt.DefaultEncryptKey">
-            <summary>
-            加密密钥，默认取“palink”的MD5值
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesEncrypt(System.String)">
-            <summary>
-            使用默认加密
-            </summary>
-            <param name="strText">被加密的字符串</param>
-            <returns>加密后的数据</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesDecrypt(System.String)">
-            <summary>
-            使用默认解密
-            </summary>
-            <param name="strText">需要解密的 字符串</param>
-            <returns>解密后的数据</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesEncrypt(System.String,System.String)">
-            <summary> 
-            加密字符串
-            加密密钥必须为8位
-            </summary> 
-            <param name="strText">被加密的字符串</param> 
-            <param name="strEncryptKey">8位长度密钥</param> 
-            <returns>加密后的数据</returns> 
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesEncrypt(System.String,System.Byte[],System.Byte[])">
-            <summary> 
-            加密字符串
-            加密密钥必须为8位
-            </summary> 
-            <param name="strText">被加密的字符串</param>
-            <param name="desKey"></param>
-            <param name="desIv"></param>
-            <returns>加密后的数据</returns> 
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesEncrypt(System.IO.FileStream,System.String,System.String)">
-            <summary>
-            DES加密文件
-            </summary>
-            <param name="fin">文件输入流</param>
-            <param name="outFilePath">文件输出路径</param>
-            <param name="strEncryptKey">加密密钥</param>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesEncrypt(System.IO.FileStream,System.String,System.Byte[],System.Byte[])">
-            <summary>
-            DES加密文件
-            </summary>
-            <param name="fin">文件输入流</param>
-            <param name="outFilePath">文件输出路径</param>
-            <param name="desKey"></param>
-            <param name="desIv"></param>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesDecrypt(System.IO.FileStream,System.String,System.String)">
-            <summary>
-            DES解密文件
-            </summary>
-            <param name="fin">输入文件流</param>
-            <param name="outFilePath">文件输出路径</param>
-            <param name="decryptKey">解密密钥</param>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesDecrypt(System.IO.FileStream,System.String,System.Byte[],System.Byte[])">
-            <summary>
-            DES解密文件
-            </summary>
-            <param name="fin">输入文件流</param>
-            <param name="outFilePath">文件输出路径</param>
-            <param name="desKey"></param>
-            <param name="desIv"></param>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesDecrypt(System.String,System.String)">
-            <summary>
-            DES解密算法
-                密钥为8位
-            </summary>
-            <param name="pToDecrypt">需要解密的字符串</param>
-            <param name="sKey">密钥</param>
-            <returns>解密后的数据</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.DesDecrypt(System.String,System.Byte[],System.Byte[])">
-            <summary>
-            DES解密算法
-            密钥为8位
-            </summary>
-            <param name="pToDecrypt">需要解密的字符串</param>
-            <param name="desKey"></param>
-            <param name="desIv"></param>
-            <returns>解密后的数据</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String(System.String)">
-            <summary>
-            对字符串进行MD5加密
-            </summary>
-            <param name="message">需要加密的字符串</param>
-            <returns>加密后的结果</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String2(System.String)">
-            <summary>
-            对字符串进行MD5二次加密
-            </summary>
-            <param name="message">需要加密的字符串</param>
-            <returns>加密后的结果</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String3(System.String)">
-            <summary>
-            MD5 三次加密算法
-            </summary>
-            <param name="s">需要加密的字符串</param>
-            <returns>MD5字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String(System.String,System.String)">
-            <summary>
-            对字符串进行MD5加盐加密
-            </summary>
-            <param name="message">需要加密的字符串</param>
-            <param name="salt">盐</param>
-            <returns>加密后的结果</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String2(System.String,System.String)">
-            <summary>
-            对字符串进行MD5二次加盐加密
-            </summary>
-            <param name="message">需要加密的字符串</param>
-            <param name="salt">盐</param>
-            <returns>加密后的结果</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String3(System.String,System.String)">
-            <summary>
-            MD5三次加密算法
-            </summary>
-            <param name="s">需要加密的字符串</param>
-            <param name="salt">盐</param>
-            <returns>MD5字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5File(System.String)">
-            <summary>
-            获取文件的MD5值
-            </summary>
-            <param name="fileName">需要求MD5值的文件的文件名及路径</param>
-            <returns>MD5字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.Md5String(System.IO.Stream)">
-            <summary>
-            获取数据流的MD5值
-            </summary>
-            <param name="stream"></param>
-            <returns>MD5字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.GenerateAesKey(System.Int32)">
-            <summary>
-            生成符合AES加密规则的密钥
-            </summary>
-            <param name="length"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncrypt(System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
-            </summary>
-            <param name="encryptString">待加密字符串</param>
-            <param name="mode">加密模式</param>
-            <returns>加密结果字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncrypt(System.String,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
-            </summary>
-            <param name="encryptString">待加密字符串</param>
-            <param name="encryptKey">加密密钥，须半角字符</param>
-            <param name="mode">加密模式</param>
-            <returns>加密结果字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncrypt(System.String,System.Security.Cryptography.RijndaelManaged)">
-            <summary>
-            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
-            </summary>
-            <param name="encryptString">待加密字符串</param>
-            <param name="options">加密选项</param>
-            <returns>加密结果字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncrypt(System.String,System.Byte[],System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged加密(RijndaelManaged（AES）算法是块式加密算法)
-            </summary>
-            <param name="encryptString">待加密字符串</param>
-            <param name="encryptKey">加密密钥，须半角字符</param>
-            <param name="mode">加密模式</param>
-            <returns>加密结果字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecrypt(System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged解密字符串
-            </summary>
-            <param name="decryptString">待解密的字符串</param>
-            <param name="mode">加密模式</param>
-            <returns>解密成功返回解密后的字符串,失败返源串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecrypt(System.String,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged解密字符串
-            </summary>
-            <param name="decryptString">待解密的字符串</param>
-            <param name="decryptKey">解密密钥,和加密密钥相同</param>
-            <param name="mode">加密模式</param>
-            <returns>解密成功返回解密后的字符串,失败返回空</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecrypt(System.String,System.Security.Cryptography.RijndaelManaged)">
-            <summary>
-            对称加密算法AES RijndaelManaged解密字符串
-            </summary>
-            <param name="decryptString">待解密的字符串</param>
-            <param name="options">加密选项</param>
-            <returns>解密成功返回解密后的字符串,失败返回空</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecrypt(System.String,System.Byte[],System.Security.Cryptography.CipherMode)">
-            <summary>
-            对称加密算法AES RijndaelManaged解密字符串
-            </summary>
-            <param name="decryptString">待解密的字符串</param>
-            <param name="decryptKey">解密密钥,和加密密钥相同</param>
-            <param name="mode">加密模式</param>
-            <returns>解密成功返回解密后的字符串,失败返回空</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.GetSubString(System.String,System.Int32,System.String)">
-            <summary>
-            按字节长度(按字节,一个汉字为2个字节)取得某字符串的一部分
-            </summary>
-            <param name="sourceString">源字符串</param>
-            <param name="length">所取字符串字节长度</param>
-            <param name="tailString">附加字符串(当字符串不够长时，尾部所添加的字符串，一般为"...")</param>
-            <returns>某字符串的一部分</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.GetSubString(System.String,System.Int32,System.Int32,System.String)">
-            <summary>
-            按字节长度(按字节,一个汉字为2个字节)取得某字符串的一部分
-            </summary>
-            <param name="sourceString">源字符串</param>
-            <param name="startIndex">索引位置，以0开始</param>
-            <param name="length">所取字符串字节长度</param>
-            <param name="tailString">附加字符串(当字符串不够长时，尾部所添加的字符串，一般为"...")</param>
-            <returns>某字符串的一部分</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncryptStream(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            加密文件流
-            </summary>
-            <param name="fs">需要加密的文件流</param>
-            <param name="decryptKey">加密密钥</param>
-            <param name="mode">加密模式</param>
-            <returns>加密流</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncryptStream(System.IO.FileStream,System.Byte[],System.Security.Cryptography.CipherMode)">
-            <summary>
-            加密文件流
-            </summary>
-            <param name="fs">需要加密的文件流</param>
-            <param name="decryptKey">加密密钥</param>
-            <param name="mode">加密模式</param>
-            <returns>加密流</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecryptStream(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            解密文件流
-            </summary>
-            <param name="fs">需要解密的文件流</param>
-            <param name="decryptKey">解密密钥</param>
-            <param name="mode">加密模式</param>
-            <returns>加密流</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecryptStream(System.IO.FileStream,System.Byte[],System.Security.Cryptography.CipherMode)">
-            <summary>
-            解密文件流
-            </summary>
-            <param name="fs">需要解密的文件流</param>
-            <param name="decryptKey">解密密钥</param>
-            <param name="mode">加密模式</param>
-            <returns>加密流</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesEncryptFile(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对指定文件AES加密
-            </summary>
-            <param name="input">源文件流</param>
-            <param name="mode">加密模式</param>
-            <param name="outputPath">输出文件路径</param>
-        </member>
-        <member name="M:Palink.Tools.Security.Encrypt.AesDecryptFile(System.IO.FileStream,System.String,System.Security.Cryptography.CipherMode)">
-            <summary>
-            对指定的文件AES解密
-            </summary>
-            <param name="input">源文件流</param>
-            <param name="mode">加密模式</param>
-            <param name="outputPath">输出文件路径</param>
-        </member>
-        <member name="T:Palink.Tools.Security.HashEncode">
-            <summary>
-            得到随机安全码（哈希加密）。
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.Security.HashEncode.GetSecurity(System.Random)">
-            <summary>
-            得到随机哈希加密字符串
-            </summary>
-            <returns>随机哈希加密字符串</returns>
-        </member>
-        <member name="M:Palink.Tools.Security.HashEncode.HashEncoding(System.String)">
-            <summary>
-            哈希加密一个字符串
-            </summary>
-            <param name="security">需要加密的字符串</param>
-            <returns>加密后的数据</returns>
-        </member>
         <member name="T:Palink.Tools.Utils.CoreTool">
             <summary>
             CoreTool
@@ -2627,13 +2627,13 @@
             </summary>  
             <param name="filePath">文件的绝对路径</param>          
         </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByKB(System.String)">
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByKb(System.String)">
             <summary>  
             获取一个文件的长度,单位为KB  
             </summary>  
             <param name="filePath">文件的路径</param>          
         </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByMB(System.String)">
+        <member name="M:Palink.Tools.Utils.CoreTool.GetFileSizeByMb(System.String)">
             <summary>  
             获取一个文件的长度,单位为MB  
             </summary>  

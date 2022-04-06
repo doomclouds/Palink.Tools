@@ -24,16 +24,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Extensions\Enumeration\" />
+		<Folder Include="Extensions\PLConvert\Enumeration\" />
 		<Folder Include="PLSystems\Caching\MonkeyCache\SQLite\" />
 		<Folder Include="PLSystems\Caching\MonkeyCache\FileStore\" />
-		<Folder Include="Security\" />
 	</ItemGroup>
 
 	<PropertyGroup>
 		<PackageId>Palink.Tools</PackageId>
 		<Title>Palink.Tools</Title>
-		<PackageVersion>0.1.9</PackageVersion>
+		<PackageVersion>0.1.12</PackageVersion>
 		<Authors>Palink</Authors>
 		<Description>开发常用工具</Description>
 		<Copyright>copyright 2022</Copyright>
@@ -41,7 +40,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加本地缓存Barrel类，支持Sqlite和文件缓存；优化ECM系统数据；废弃一些不常用的方法</PackageReleaseNotes>
+		<PackageReleaseNotes>Extensions扩展命名空间完全相同导致与其他库调用产生冲突，所有每个扩展都使用自己特有名称空间</PackageReleaseNotes>
 		<DocumentationFile>C:\Resources\BaiduNetdiskWorkspace\CSharp DLL\MyLibs\Palink.Tools\Palink.Tools\Palink.Tools.xml</DocumentationFile>
 	</PropertyGroup>
 

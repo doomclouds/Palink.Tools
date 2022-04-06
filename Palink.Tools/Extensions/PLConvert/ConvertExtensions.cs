@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using Palink.Tools.Extensions.Enumeration;
+using Palink.Tools.Extensions.PLConvert.Enumeration;
+using Palink.Tools.Extensions.PLObject;
+using Palink.Tools.Extensions.PLString;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLConvert
 {
     /// <summary>
     /// 转换器扩展类

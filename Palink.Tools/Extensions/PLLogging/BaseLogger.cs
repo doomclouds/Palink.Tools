@@ -1,4 +1,4 @@
-﻿namespace Palink.Tools.Extensions.Logging
+﻿namespace Palink.Tools.Extensions.PLLogging
 {
     /// <summary>
     /// BaseLogger

@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using Palink.Tools.Extensions.PLArray;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLObject
 {
     /// <summary>
     /// 对象判断扩展类
@@ -83,7 +84,7 @@ namespace Palink.Tools.Extensions
                 if (!IsPrimitive(arrayType))
                 {
                     var clonedArray = (Array)cloneObject;
-                    clonedArray.ForEach((array, indices) =>
+                    ArrayExtensions.ForEach(clonedArray, (array, indices) =>
                         array.SetValue(
                             InternalCopy(clonedArray.GetValue(indices), visited),
                             indices));

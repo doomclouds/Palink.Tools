@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
-using Palink.Tools.Extensions;
+using Palink.Tools.Extensions.PLString;
 using Palink.Tools.PLSystems.Caching.MonkeyCache;
 using Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite;
 using Task = System.Threading.Tasks.Task;

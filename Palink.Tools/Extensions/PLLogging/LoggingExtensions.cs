@@ -1,6 +1,4 @@
-﻿using Palink.Tools.Extensions.Logging;
-
-namespace Palink.Tools.Extensions
+﻿namespace Palink.Tools.Extensions.PLLogging
 {
     /// <summary>
     /// 日志扩展

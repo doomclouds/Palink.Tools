@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Palink.Tools.Extensions.PLObject;
+using Palink.Tools.Extensions.PLString;
 
-namespace Palink.Tools.Extensions;
+namespace Palink.Tools.Extensions.PLSecurity;
 
 /// <summary>
 /// EncryptExtensions

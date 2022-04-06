@@ -198,6 +198,7 @@ public class MyMaster : Master
 - Windows任务计划操作
 - 时间格式转化
 - 软件相关：开机自启、防止多开、置顶、禁止触摸屏边缘侧滑等
+- Shutdown相关：延时开启、延时重启等
 
 #### Barrel
 

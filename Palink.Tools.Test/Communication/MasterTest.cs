@@ -4,7 +4,7 @@ using Palink.Tools.Communication;
 using Palink.Tools.Communication.Adapter;
 using Palink.Tools.Communication.Interface;
 using Palink.Tools.Communication.Message;
-using Palink.Tools.Extensions.Logging;
+using Palink.Tools.Extensions.PLLogging;
 using Xunit;
 
 namespace Palink.Tools.Test.Communication;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Palink.Tools.Extensions;
+namespace Palink.Tools.Extensions.PLRandom;
 
 /// <summary>
 /// 随机数扩展

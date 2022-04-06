@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using System.Text;
+using Palink.Tools.Extensions.PLString;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLNet
 {
     /// <summary>
     /// 网络功能扩展

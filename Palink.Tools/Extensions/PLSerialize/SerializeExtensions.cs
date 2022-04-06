@@ -3,8 +3,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Palink.Tools.Extensions.PLString;
 
-namespace Palink.Tools.Extensions
+namespace Palink.Tools.Extensions.PLSerialize
 {
     /// <summary>
     /// 实体序列化扩展

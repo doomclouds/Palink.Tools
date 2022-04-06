@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Palink.Tools.Security;
+namespace Palink.Tools.Extensions.PLSecurity;
 
 /// <summary>
 /// 常用的加密解密算法

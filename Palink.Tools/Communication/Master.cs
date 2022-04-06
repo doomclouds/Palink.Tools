@@ -4,8 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using Palink.Tools.Communication.Device;
 using Palink.Tools.Communication.Interface;
-using Palink.Tools.Extensions;
-using Palink.Tools.Extensions.Logging;
+using Palink.Tools.Extensions.PLLogging;
 
 namespace Palink.Tools.Communication
 {
