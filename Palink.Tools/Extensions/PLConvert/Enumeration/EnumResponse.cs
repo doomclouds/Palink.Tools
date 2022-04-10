@@ -1,14 +1,14 @@
 ﻿namespace Palink.Tools.Extensions.PLConvert.Enumeration;
 
 /// <summary>
-/// 
+/// EnumResponse
 /// </summary>
 public class EnumResponse
 {
     /// <summary>
     /// Key
     /// </summary>
-    public string Key { get; set; }
+    public string? Key { get; set; }
 
     /// <summary>
     /// Value
@@ -18,5 +18,5 @@ public class EnumResponse
     /// <summary>
     /// 描述
     /// </summary>
-    public string Description { get; set; }
+    public string? Description { get; set; }
 }

@@ -9,7 +9,7 @@ public class ConvertExtensionsTest
     [Fact]
     public void NormalTest()
     {
-        var time = "90";
+        const string time = "90";
         var t = time.TryConvertTo<double>();
 
         Assert.True(Math.Abs(t - 90) == 0);

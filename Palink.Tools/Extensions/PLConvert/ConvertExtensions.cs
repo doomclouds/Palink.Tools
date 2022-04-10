@@ -20,7 +20,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
-        public static int TryToInt(this object input, int defaultNum = 0)
+        public static int TryToInt(this object? input, int defaultNum = 0)
         {
             if (input == null)
                 return defaultNum;
@@ -34,7 +34,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
-        public static long TryToLong(this object input, long defaultNum = 0)
+        public static long TryToLong(this object? input, long defaultNum = 0)
         {
             if (input == null)
                 return defaultNum;
@@ -48,7 +48,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        public static double TryToDouble(this object input, double defaultNum = 0)
+        public static double TryToDouble(this object? input, double defaultNum = 0)
         {
             if (input == null)
                 return defaultNum;
@@ -62,7 +62,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        public static decimal TryToDecimal(this object input, decimal defaultNum = 0)
+        public static decimal TryToDecimal(this object? input, decimal defaultNum = 0)
         {
             if (input == null)
                 return defaultNum;
@@ -76,7 +76,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认值</param>
         /// <returns></returns>
-        public static float TryToFloat(this object input, float defaultNum = 0)
+        public static float TryToFloat(this object? input, float defaultNum = 0)
         {
             if (input == null)
                 return defaultNum;
@@ -92,7 +92,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="defaultBool">转换失败默认值</param>
         /// <param name="trueVal"></param>
         /// <returns></returns>
-        public static bool TryToBool(this object input, bool defaultBool = false,
+        public static bool TryToBool(this object? input, bool defaultBool = false,
             string trueVal = "1", string falseVal = "0")
         {
             if (input == null)
@@ -106,10 +106,7 @@ namespace Palink.Tools.Extensions.PLConvert
 
             if (trueVal == str)
                 return true;
-            if (falseVal == str)
-                return false;
-
-            return outBool;
+            return falseVal != str && outBool;
         }
 
         /// <summary>
@@ -273,9 +270,19 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T ConvertTo<T>(this IConvertible value) where T : IConvertible
+        public static T? ConvertTo<T>(this IConvertible value)
         {
-            return (T)ConvertTo(value, typeof(T));
+            try
+            {
+                var obj = ConvertTo(value, typeof(T));
+                if (obj == null)
+                    return default;
+                return (T)obj;
+            }
+            catch
+            {
+                return default;
+            }
         }
 
         /// <summary>
@@ -285,12 +292,15 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="defaultValue">转换失败的默认值</param>
         /// <returns></returns>
-        public static T TryConvertTo<T>(this IConvertible value, T defaultValue = default)
-            where T : IConvertible
+        public static T? TryConvertTo<T>(this IConvertible value,
+            T? defaultValue = default)
         {
             try
             {
-                return (T)ConvertTo(value, typeof(T));
+                var obj = ConvertTo(value, typeof(T));
+                if (obj == null)
+                    return defaultValue;
+                return (T)obj;
             }
             catch
             {
@@ -305,12 +315,19 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="result">转换失败的默认值</param>
         /// <returns></returns>
-        public static bool TryConvertTo<T>(this IConvertible value, out T result)
-            where T : IConvertible
+        public static bool TryConvertTo<T>(this IConvertible value, out T? result)
         {
             try
             {
-                result = (T)ConvertTo(value, typeof(T));
+                var obj = ConvertTo(value, typeof(T));
+
+                if (obj == null)
+                {
+                    result = default;
+                    return false;
+                }
+
+                result = (T)obj;
                 return true;
             }
             catch
@@ -328,7 +345,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="result">转换失败的默认值</param>
         /// <returns></returns>
         public static bool TryConvertTo(this IConvertible value, Type type,
-            out object result)
+            out object? result)
         {
             try
             {
@@ -348,9 +365,9 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="type">目标类型</param>
         /// <returns></returns>
-        public static object ConvertTo(this IConvertible value, Type type)
+        public static object? ConvertTo(this IConvertible value, Type type)
         {
-            if (null == value)
+            if (value.IsNull())
             {
                 return default;
             }
@@ -360,17 +377,19 @@ namespace Palink.Tools.Extensions.PLConvert
                 return Enum.Parse(type, value.ToString(CultureInfo.InvariantCulture));
             }
 
-            if (type.IsGenericType &&
-                type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (!type.IsGenericType ||
+                type.GetGenericTypeDefinition() != typeof(Nullable<>))
             {
-                var underlyingType = Nullable.GetUnderlyingType(type);
-                return underlyingType!.IsEnum
-                    ? Enum.Parse(underlyingType,
-                        value.ToString(CultureInfo.CurrentCulture))
-                    : Convert.ChangeType(value, underlyingType);
+                return Convert.ChangeType(value, type);
             }
 
-            return Convert.ChangeType(value, type);
+            var underlyingType = Nullable.GetUnderlyingType(type);
+            if (underlyingType == null) return default;
+
+            return underlyingType.IsEnum
+                ? Enum.Parse(underlyingType,
+                    value.ToString(CultureInfo.CurrentCulture))
+                : Convert.ChangeType(value, underlyingType);
         }
     }
 }

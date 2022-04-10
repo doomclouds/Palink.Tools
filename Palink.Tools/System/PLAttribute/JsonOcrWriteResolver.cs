@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Palink.Tools.PLSystems.Attribute;
+namespace Palink.Tools.System.PLAttribute;
 
 /// <summary>
 /// 使用WriteName进行Json序列化

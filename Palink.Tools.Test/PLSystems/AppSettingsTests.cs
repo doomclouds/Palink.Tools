@@ -1,5 +1,5 @@
 ﻿using Palink.Tools.Extensions.PLConvert;
-using Palink.Tools.PLSystems.Configuration;
+using Palink.Tools.System.PLConfiguration;
 using Xunit;
 
 namespace Palink.Tools.Test.PLSystems;

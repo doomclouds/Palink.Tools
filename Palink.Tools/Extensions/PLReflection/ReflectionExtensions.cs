@@ -30,11 +30,16 @@ public static class ReflectionExtensions
     /// <param name="args">方法参数</param>
     /// <typeparam name="T">约束返回的T必须是引用类型</typeparam>
     /// <returns>T类型</returns>
-    public static T InvokeMethod<T>(this object obj, string methodName, object[] args)
+    public static T? InvokeMethod<T>(this object obj, string methodName, object[] args)
     {
-        return (T)obj.GetType()
-            .GetMethod(methodName, args.Select(o => o.GetType()).ToArray())
-            ?.Invoke(obj, args);
+        if (obj.GetType()
+                .GetMethod(methodName, args.Select(o => o.GetType()).ToArray())
+                ?.Invoke(obj, args) is T t)
+        {
+            return t;
+        }
+
+        return default;
     }
 
     /// <summary>
@@ -152,7 +157,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="type">类型</param>
     /// <returns></returns>
-    public static object GetInstance(this Type type)
+    public static object? GetInstance(this Type type)
     {
         return GetInstance<TypeToIgnore, object>(type, null);
     }
@@ -162,7 +167,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="type">类型</param>
     /// <returns></returns>
-    public static T GetInstance<T>(this Type type) where T : class, new()
+    public static T? GetInstance<T>(this Type type) where T : class, new()
     {
         return GetInstance<TypeToIgnore, T>(type, null);
     }
@@ -172,7 +177,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="type">类型</param>
     /// <returns></returns>
-    public static T GetInstance<T>(string type) where T : class, new()
+    public static T? GetInstance<T>(string type) where T : class, new()
     {
         return GetInstance<TypeToIgnore, T>(Type.GetType(type), null);
     }
@@ -182,7 +187,7 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="type">类型</param>
     /// <returns></returns>
-    public static object GetInstance(string type)
+    public static object? GetInstance(string type)
     {
         return GetInstance<TypeToIgnore, object>(Type.GetType(type), null);
     }
@@ -195,7 +200,7 @@ public static class ReflectionExtensions
     /// <param name="type">实例类型</param>
     /// <param name="argument">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg, T>(this Type type, TArg argument)
+    public static T? GetInstance<TArg, T>(this Type? type, TArg? argument)
         where T : class, new()
     {
         return GetInstance<TArg, TypeToIgnore, T>(type, argument, null);
@@ -209,7 +214,7 @@ public static class ReflectionExtensions
     /// <param name="type">实例类型</param>
     /// <param name="argument">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg, T>(string type, TArg argument)
+    public static T? GetInstance<TArg, T>(string type, TArg? argument)
         where T : class, new()
     {
         return GetInstance<TArg, TypeToIgnore, T>(Type.GetType(type), argument, null);
@@ -225,8 +230,8 @@ public static class ReflectionExtensions
     /// <param name="argument1">参数值</param>
     /// <param name="argument2">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg1, TArg2, T>(this Type type, TArg1 argument1,
-        TArg2 argument2) where T : class, new()
+    public static T? GetInstance<TArg1, TArg2, T>(this Type? type, TArg1? argument1,
+        TArg2? argument2) where T : class, new()
     {
         return GetInstance<TArg1, TArg2, TypeToIgnore, T>(type, argument1, argument2,
             null);
@@ -242,8 +247,8 @@ public static class ReflectionExtensions
     /// <param name="argument1">参数值</param>
     /// <param name="argument2">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg1, TArg2, T>(string type, TArg1 argument1,
-        TArg2 argument2) where T : class, new()
+    public static T? GetInstance<TArg1, TArg2, T>(string type, TArg1? argument1,
+        TArg2? argument2) where T : class, new()
     {
         return GetInstance<TArg1, TArg2, TypeToIgnore, T>(Type.GetType(type), argument1,
             argument2, null);
@@ -261,8 +266,9 @@ public static class ReflectionExtensions
     /// <param name="argument2">参数值</param>
     /// <param name="argument3">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg1, TArg2, TArg3, T>(this Type type, TArg1 argument1,
-        TArg2 argument2, TArg3 argument3) where T : class, new()
+    public static T? GetInstance<TArg1, TArg2, TArg3, T>(this Type? type,
+        TArg1? argument1,
+        TArg2? argument2, TArg3? argument3) where T : class, new()
     {
         return InstanceCreationFactory<TArg1, TArg2, TArg3, T>.CreateInstanceOf(type,
             argument1, argument2, argument3);
@@ -280,8 +286,8 @@ public static class ReflectionExtensions
     /// <param name="argument2">参数值</param>
     /// <param name="argument3">参数值</param>
     /// <returns></returns>
-    public static T GetInstance<TArg1, TArg2, TArg3, T>(string type, TArg1 argument1,
-        TArg2 argument2, TArg3 argument3) where T : class, new()
+    public static T? GetInstance<TArg1, TArg2, TArg3, T>(string type, TArg1? argument1,
+        TArg2? argument2, TArg3? argument3) where T : class, new()
     {
         return InstanceCreationFactory<TArg1, TArg2, TArg3, T>.CreateInstanceOf(
             Type.GetType(type), argument1, argument2, argument3);
@@ -294,18 +300,18 @@ public static class ReflectionExtensions
     private static class InstanceCreationFactory<TArg1, TArg2, TArg3, TObject>
         where TObject : class, new()
     {
-        private static readonly Dictionary<Type, Func<TArg1, TArg2, TArg3, TObject>>
+        private static readonly Dictionary<Type?, Func<TArg1?, TArg2?, TArg3?, TObject?>>
             InstanceCreationMethods = new();
 
-        public static TObject CreateInstanceOf(Type type, TArg1 arg1, TArg2 arg2,
-            TArg3 arg3)
+        public static TObject? CreateInstanceOf(Type? type, TArg1? arg1, TArg2? arg2,
+            TArg3? arg3)
         {
             CacheInstanceCreationMethodIfRequired(type);
 
             return InstanceCreationMethods[type](arg1, arg2, arg3);
         }
 
-        private static void CacheInstanceCreationMethodIfRequired(Type type)
+        private static void CacheInstanceCreationMethodIfRequired(Type? type)
         {
             if (InstanceCreationMethods.ContainsKey(type))
             {
@@ -321,7 +327,7 @@ public static class ReflectionExtensions
 
             var constructorArgumentTypes =
                 argumentTypes.Where(t => t != typeof(TypeToIgnore)).ToArray();
-            var constructor = type.GetConstructor(
+            var constructor = type?.GetConstructor(
                 BindingFlags.Instance | BindingFlags.Public, null,
                 CallingConventions.HasThis, constructorArgumentTypes,
                 Array.Empty<ParameterModifier>());
@@ -343,7 +349,7 @@ public static class ReflectionExtensions
             var constructorCallExpression =
                 Expression.New(constructor, constructorParameterExpressions);
             var constructorCallingLambda = Expression
-                .Lambda<Func<TArg1, TArg2, TArg3, TObject>>(constructorCallExpression,
+                .Lambda<Func<TArg1?, TArg2?, TArg3?, TObject?>>(constructorCallExpression,
                     lamdaParameterExpressions).Compile();
             InstanceCreationMethods[type] = constructorCallingLambda;
         }

@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Palink.Tools.PLSystems;
+namespace Palink.Tools.System;
 
 /// <summary>
 /// 纳秒级计时器，仅支持Windows系统

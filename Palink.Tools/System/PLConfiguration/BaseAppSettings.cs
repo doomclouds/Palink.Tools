@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Palink.Tools.PLSystems.Configuration;
+namespace Palink.Tools.System.PLConfiguration;
 
 /// <summary>
 /// appsettings.json配置文件数据读取类

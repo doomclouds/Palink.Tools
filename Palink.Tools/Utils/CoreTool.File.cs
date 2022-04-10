@@ -54,7 +54,7 @@ public partial class CoreTool
 
             //判断是否存在文件夹  
             var directoryNames = GetDirectories(directoryPath);
-            return directoryNames.Length <= 0;
+            return directoryNames?.Length <= 0;
         }
         catch
         {
@@ -80,7 +80,7 @@ public partial class CoreTool
             var fileNames = GetFileNames(directoryPath, searchPattern, false);
 
             //判断指定文件是否存在  
-            return fileNames.Length != 0;
+            return fileNames?.Length != 0;
         }
         catch
         {
@@ -101,10 +101,10 @@ public partial class CoreTool
         try
         {
             //获取指定的文件列表  
-            string[] fileNames = GetFileNames(directoryPath, searchPattern, true);
+            var fileNames = GetFileNames(directoryPath, searchPattern, true);
 
             //判断指定文件是否存在  
-            return fileNames.Length != 0;
+            return fileNames?.Length != 0;
         }
         catch
         {
@@ -280,7 +280,7 @@ public partial class CoreTool
     /// <param name="searchPattern">模式字符串，"*"代表0或N个字符，"?"代表1个字符。  
     /// 范例："Log*.xml"表示搜索所有以Log开头的Xml文件。</param>  
     /// <param name="isSearchChild">是否搜索子目录</param>  
-    public static string[] GetFileNames(string directoryPath, string searchPattern,
+    public static string[]? GetFileNames(string directoryPath, string searchPattern,
         bool isSearchChild)
     {
         //如果目录不存在，则抛出异常  
@@ -309,7 +309,7 @@ public partial class CoreTool
     /// 获取指定目录中所有子目录列表,若要搜索嵌套的子目录列表,请使用重载方法.  
     /// </summary>  
     /// <param name="directoryPath">指定目录的绝对路径</param>          
-    public static string[] GetDirectories(string directoryPath)
+    public static string[]? GetDirectories(string directoryPath)
     {
         try
         {
@@ -423,7 +423,7 @@ public partial class CoreTool
     /// 将流读取到缓冲区中  
     /// </summary>  
     /// <param name="stream">原始流</param>  
-    public static byte[] StreamToBytes(Stream stream)
+    public static byte[]? StreamToBytes(Stream stream)
     {
         try
         {
@@ -455,7 +455,7 @@ public partial class CoreTool
     /// 将文件读取到缓冲区中  
     /// </summary>  
     /// <param name="filePath">文件的绝对路径</param>  
-    public static byte[] FileToBytes(string filePath)
+    public static byte[]? FileToBytes(string filePath)
     {
         //获取文件的大小   
         var fileSize = GetFileSize(filePath);
@@ -570,7 +570,6 @@ public partial class CoreTool
         }
 
         return newPath;
-
     }
 
     #endregion
@@ -642,9 +641,16 @@ public partial class CoreTool
 
         //删除目录中所有的子目录  
         var directoryNames = GetDirectories(directoryPath);
-        foreach (var t in directoryNames)
+        if (directoryNames == null)
         {
-            DeleteDirectory(t);
+            return;
+        }
+
+        {
+            foreach (var t in directoryNames)
+            {
+                DeleteDirectory(t);
+            }
         }
     }
 

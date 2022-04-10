@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
-using Palink.Tools.PLSystems.Caching.MonkeyCache;
-using Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite;
+using Palink.Tools.System.PLCaching.MonkeyCache;
+using Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
 
 namespace Palink.Tools.PanShi.Monitor;
 

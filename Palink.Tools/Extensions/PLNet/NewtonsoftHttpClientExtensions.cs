@@ -22,12 +22,12 @@ public static class NewtonsoftHttpClientExtensions
     /// <param name="cancellationToken"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static async Task<T> GetFromJsonAsync<T>(this HttpClient httpClient,
-        string uri, JsonSerializerSettings settings = null,
+    public static async Task<T?> GetFromJsonAsync<T>(this HttpClient httpClient,
+        string uri, JsonSerializerSettings? settings = null,
         CancellationToken cancellationToken = default)
     {
-        ThrowIfInvalidParams(httpClient, uri);
-        
+        ThrowIfInvalidParams(uri);
+
         var response = await httpClient.GetAsync(uri, cancellationToken);
 
         response.EnsureSuccessStatusCode();
@@ -50,10 +50,10 @@ public static class NewtonsoftHttpClientExtensions
     /// <exception cref="ArgumentNullException"></exception>
     public static async Task<HttpResponseMessage> PostAsJsonAsync<T>(
         this HttpClient httpClient, string uri, T value,
-        JsonSerializerSettings settings = null,
+        JsonSerializerSettings? settings = null,
         CancellationToken cancellationToken = default)
     {
-        ThrowIfInvalidParams(httpClient, uri);
+        ThrowIfInvalidParams(uri);
 
         if (value is null)
         {
@@ -84,10 +84,10 @@ public static class NewtonsoftHttpClientExtensions
     /// <exception cref="ArgumentNullException"></exception>
     public static async Task<HttpResponseMessage> PutAsJsonAsync<T>(
         this HttpClient httpClient, string uri, T value,
-        JsonSerializerSettings settings = null,
+        JsonSerializerSettings? settings = null,
         CancellationToken cancellationToken = default)
     {
-        ThrowIfInvalidParams(httpClient, uri);
+        ThrowIfInvalidParams(uri);
 
         if (value is null)
         {
@@ -95,7 +95,7 @@ public static class NewtonsoftHttpClientExtensions
         }
 
         var json = JsonConvert.SerializeObject(value, settings);
-        
+
         var response = await httpClient.PutAsync(uri,
             new StringContent(json, Encoding.UTF8, "application/json"),
             cancellationToken);
@@ -105,13 +105,8 @@ public static class NewtonsoftHttpClientExtensions
         return response;
     }
 
-    private static void ThrowIfInvalidParams(HttpClient httpClient, string uri)
+    private static void ThrowIfInvalidParams(string uri)
     {
-        if (httpClient == null)
-        {
-            throw new ArgumentNullException(nameof(httpClient));
-        }
-
         if (uri.IsNullOrWhiteSpace())
         {
             throw new ArgumentException("Can't be null or empty", nameof(uri));

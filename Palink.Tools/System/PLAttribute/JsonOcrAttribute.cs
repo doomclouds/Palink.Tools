@@ -1,9 +1,11 @@
-﻿namespace Palink.Tools.PLSystems.Attribute;
+﻿using System;
+
+namespace Palink.Tools.System.PLAttribute;
 
 /// <summary>
 /// json序列化属性，区分与读取的数据与发送的数据序列化时的属性名称
 /// </summary>
-public class JsonOcrAttribute : System.Attribute
+public class JsonOcrAttribute : Attribute
 {
     /// <summary>
     /// 读取名称
@@ -28,9 +30,9 @@ public class JsonOcrAttribute : System.Attribute
     /// <summary>
     /// 构造器
     /// </summary>
-    public JsonOcrAttribute()
+    public JsonOcrAttribute(string readName, string writeName)
     {
-        Readable = true;
-        Writable = true;
+        ReadName = readName;
+        WriteName = writeName;
     }
 }

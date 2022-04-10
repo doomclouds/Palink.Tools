@@ -578,7 +578,7 @@
         </member>
         <member name="T:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse">
             <summary>
-            
+            EnumResponse
             </summary>
         </member>
         <member name="P:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse.Key">
@@ -1907,42 +1907,101 @@
             <param name="msg">消息体</param>
             <param name="wait">是否等待服务器返回值</param>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute">
+        <member name="T:Palink.Tools.System.HiPerfTimer">
+            <summary>
+            纳秒级计时器，仅支持Windows系统
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.#ctor">
+            <summary>
+            纳秒计数器
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.Start">
+            <summary>
+            开始计时器
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.Restart">
+            <summary>
+            开始计时器
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.Stop">
+            <summary>
+            停止计时器
+            </summary>
+            <returns>计时器记录的时间</returns>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.StartNew">
+            <summary>
+            启动一个新的计时器
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Palink.Tools.System.HiPerfTimer.Duration">
+            <summary>
+            时器经过时间(单位：秒)
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.HiPerfTimer.DurationNanoseconds">
+            <summary>
+            时器经过的总时间(单位：纳秒)
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.HiPerfTimer.Elapsed">
+            <summary>
+            时器经过的总时间(单位：秒)
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.HiPerfTimer.ElapsedNanoseconds">
+            <summary>
+            时器经过的总时间(单位：纳秒)
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.HiPerfTimer.Execute(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            执行一个方法并测试执行时间
+            </summary>
+            <param name="action"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.JsonOcrAttribute">
             <summary>
             json序列化属性，区分与读取的数据与发送的数据序列化时的属性名称
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.ReadName">
+        <member name="P:Palink.Tools.System.PLAttribute.JsonOcrAttribute.ReadName">
             <summary>
             读取名称
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.WriteName">
+        <member name="P:Palink.Tools.System.PLAttribute.JsonOcrAttribute.WriteName">
             <summary>
             写入名称
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.Readable">
+        <member name="P:Palink.Tools.System.PLAttribute.JsonOcrAttribute.Readable">
             <summary>
             是否可读
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.Writable">
+        <member name="P:Palink.Tools.System.PLAttribute.JsonOcrAttribute.Writable">
             <summary>
             是否可写
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrAttribute.#ctor">
+        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrAttribute.#ctor">
             <summary>
             构造器
             </summary>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrWriteResolver">
+        <member name="T:Palink.Tools.System.PLAttribute.JsonOcrWriteResolver">
             <summary>
             使用WriteName进行Json序列化
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrWriteResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrWriteResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
             <summary>
             CreateProperty
             </summary>
@@ -1950,12 +2009,12 @@
             <param name="memberSerialization"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Attribute.JsonOcrReadResolver">
+        <member name="T:Palink.Tools.System.PLAttribute.JsonOcrReadResolver">
             <summary>
             使用ReadName进行Json序列化
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Attribute.JsonOcrReadResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
+        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrReadResolver.CreateProperty(System.Reflection.MemberInfo,Newtonsoft.Json.MemberSerialization)">
             <summary>
             CreateProperty
             </summary>
@@ -1963,103 +2022,212 @@
             <param name="memberSerialization"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.Banana">
+        <member name="T:Palink.Tools.System.PLAttribute.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it. Specifies that an input argument was not null when the call returns.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:Palink.Tools.System.PLAttribute.MaybeNullWhenAttribute.ReturnValue"/>, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:Palink.Tools.System.PLAttribute.NotNullWhenAttribute.ReturnValue"/>, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.MemberNotNullAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.MemberNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with a field or property member.</summary>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.MemberNotNullAttribute.#ctor(System.String[])">
+            <summary>Initializes the attribute with the list of field and property members.</summary>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.MemberNotNullAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLAttribute.MemberNotNullWhenAttribute">
+            <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values when returning with the specified return value condition.</summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String)">
+            <summary>Initializes the attribute with the specified return value condition and a field or property member.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="member">
+            The field or property member that is promised to be not-null.
+            </param>
+        </member>
+        <member name="M:Palink.Tools.System.PLAttribute.MemberNotNullWhenAttribute.#ctor(System.Boolean,System.String[])">
+            <summary>Initializes the attribute with the specified return value condition and list of field and property members.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+            <param name="members">
+            The list of field and property members that are promised to be not-null.
+            </param>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.MemberNotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLAttribute.MemberNotNullWhenAttribute.Members">
+            <summary>Gets field or property member names.</summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.Banana">
             <summary>
             Data object for Barrel
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.Banana.Id">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.Banana.Id">
             <summary>
             Unique Identifier
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.Banana.ETag">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.Banana.ETag">
             <summary>
             Additional ETag to set for Http Caching
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.Banana.Contents">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.Banana.Contents">
             <summary>
             Main Contents.
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.Banana.ExpirationDate">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.Banana.ExpirationDate">
             <summary>
             Expiration data of the object, stored in UTC
             </summary>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.BarrelUtils">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.BarrelUtils">
             <summary>
             Barrel Utils
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.BarrelUtils.SetBaseCachePath(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.BarrelUtils.SetBaseCachePath(System.String)">
             <summary>
             Sets the base path to use. This can only be set once and before using the Barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.BarrelUtils.GetExpiration(System.TimeSpan)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.BarrelUtils.GetExpiration(System.TimeSpan)">
             <summary>
             Gets the expiration from a timespan
             </summary>
             <param name="timeSpan"></param>
             <returns></returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.CacheState">
             <summary>
             Current state of the item in the cache.
             </summary>
         </member>
-        <member name="F:Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState.None">
+        <member name="F:Palink.Tools.System.PLCaching.MonkeyCache.CacheState.None">
             <summary>
             An unknown state for the cache item
             </summary>
         </member>
-        <member name="F:Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState.Expired">
+        <member name="F:Palink.Tools.System.PLCaching.MonkeyCache.CacheState.Expired">
             <summary>
             Expired cache item
             </summary>
         </member>
-        <member name="F:Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState.Active">
+        <member name="F:Palink.Tools.System.PLCaching.MonkeyCache.CacheState.Active">
             <summary>
             Active non-expired cache item
             </summary>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel">
             <summary>
             文件缓存
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.#ctor(System.String,System.Security.Cryptography.HashAlgorithm)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.#ctor(System.String,System.Security.Cryptography.HashAlgorithm)">
             <summary>
             FileStore Barrel constructor
             </summary>
             <param name="cacheDirectory">Optionally specify directory where cache will live</param>
             <param name="hash">Optionally specify hash algorithm</param>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.ApplicationId">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.ApplicationId">
             <summary>
             路径标识，与基础路径一起合成完整路径
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.AutoExpire">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.AutoExpire">
             <summary>
             AutoExpire
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Current">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Current">
             <summary>
             Gets the instance of the Barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Create(System.String,System.Security.Cryptography.HashAlgorithm)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Create(System.String,System.Security.Cryptography.HashAlgorithm)">
             <summary>
             FileStore Barrel
             </summary>
             <param name="cacheDirectory">Optionally specify directory where cache will live</param>
             <param name="hash">Optionally specify hash algorithm</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Add(System.String,System.String,System.TimeSpan,System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Add(System.String,System.String,System.TimeSpan,System.String)">
             <summary>
             Adds an entry to the barrel
             </summary>
@@ -2068,7 +2236,7 @@
             <param name="expireIn">Time from UtcNow to expire entry in</param>
             <param name="eTag">Optional eTag information</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Adds an entry to the barrel
             </summary>
@@ -2079,39 +2247,39 @@
             <param name="eTag">Optional eTag information</param>
             <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Empty(System.String[])">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Empty(System.String[])">
             <summary>
             Empties all specified entries regardless if they are expired.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
             <param name="key">keys to empty</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.EmptyAll">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.EmptyAll">
             <summary>
             Empties all expired entries that are in the Barrel.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.EmptyExpired">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.EmptyExpired">
             <summary>
             Empties all expired entries that are in the Barrel.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Exists(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Exists(System.String)">
             <summary>
             Checks to see if the key exists in the Barrel.
             </summary>
             <param name="key">Unique identifier for the entry to check</param>
             <returns>If the key exists</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.GetKeys(Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.GetKeys(Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             Gets all the keys that are saved in the cache
             </summary>
             <returns>The IEnumerable of keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.GetKeys(System.String,Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.GetKeys(System.String,Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             根据缓存状态和标签值获取缓存
             </summary>
@@ -2119,7 +2287,7 @@
             <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
             <returns>The keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Gets the data entry for the specified key.
             </summary>
@@ -2127,38 +2295,38 @@
             <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
             <returns>The data object that was stored if found, else default(T)</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.GetExpiration(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.GetExpiration(System.String)">
             <summary>
             Gets the DateTime that the item will expire for the specified key.
             </summary>
             <param name="key">Unique identifier for entry to get</param>
             <returns>The expiration date if the key is found, else null</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.GetETag(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.GetETag(System.String)">
             <summary>
             Gets the ETag for the specified key.
             </summary>
             <param name="key">Unique identifier for entry to get</param>
             <returns>The ETag if the key is found, else null</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore.Barrel.IsExpired(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.FileStore.Barrel.IsExpired(System.String)">
             <summary>
             Checks to see if the entry for the key is expired.
             </summary>
             <param name="key">Key to check</param>
             <returns>If the expiration data has been met</returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCache">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.HttpCache">
             <summary>
             Http cache utilities!
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCache.Current">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.HttpCache.Current">
             <summary>
             Gets the instance of the HttpCache
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCache.GetCachedAsync(Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel,System.String,System.TimeSpan,System.TimeSpan,System.Boolean,System.Boolean)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.HttpCache.GetCachedAsync(Palink.Tools.System.PLCaching.MonkeyCache.IBarrel,System.String,System.TimeSpan,System.TimeSpan,System.Boolean,System.Boolean)">
             <summary>
             Get a cahced item via web request.
             </summary>
@@ -2170,12 +2338,12 @@
             <param name="throttled">If the request should be throttled</param>
             <returns>The cached or new active item.</returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCacheExtensions">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.HttpCacheExtensions">
             <summary>
             Http cache extension helpers
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCacheExtensions.SendCachedAsync(System.Net.Http.HttpClient,Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel,System.Net.Http.HttpRequestMessage,System.TimeSpan,System.Boolean,System.Boolean)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.HttpCacheExtensions.SendCachedAsync(System.Net.Http.HttpClient,Palink.Tools.System.PLCaching.MonkeyCache.IBarrel,System.Net.Http.HttpRequestMessage,System.TimeSpan,System.Boolean,System.Boolean)">
             <summary>
             Send a cached requests
             </summary>
@@ -2187,34 +2355,34 @@
             <param name="throttled">If throttled or not</param>
             <returns>The new or cached response.</returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCacheRequestException">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.HttpCacheRequestException">
             <summary>
             Http request exception
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCacheRequestException.#ctor(System.Net.HttpStatusCode,System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.HttpCacheRequestException.#ctor(System.Net.HttpStatusCode,System.String)">
             <summary>
             Constructor for cache exception
             </summary>
             <param name="statusCode">The code</param>
             <param name="message">Message</param>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.HttpCacheRequestException.StatusCode">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.HttpCacheRequestException.StatusCode">
             <summary>
             Status code
             </summary>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel">
             <summary>
             Interface for a barrel of cache
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.AutoExpire">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.AutoExpire">
             <summary>
             Enable / Disable auto expiring of items in the barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Add an item to the barrel
             </summary>
@@ -2225,37 +2393,37 @@
             <param name="eTag">eTag to use if needed</param>
             <param name="jsonSerializationSettings">Specific json serialization to use</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.Empty(System.String[])">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.Empty(System.String[])">
             <summary>
             Empty a set of keys
             </summary>
             <param name="key">Keys to empty</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.EmptyAll">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.EmptyAll">
             <summary>
             Empty all items from the barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.EmptyExpired">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.EmptyExpired">
             <summary>
             Empty only expired items from the barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.Exists(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.Exists(System.String)">
             <summary>
             Checks to see if a key exists in the barrel
             </summary>
             <param name="key">Key to check</param>
             <returns>True if the key exists, else false</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.GetKeys(Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.GetKeys(Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             Gets keys with specified state
             </summary>
             <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
             <returns>The keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.GetKeys(System.String,Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.GetKeys(System.String,Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             根据缓存状态和标签值获取缓存
             </summary>
@@ -2263,7 +2431,7 @@
             <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
             <returns>The keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Get an object for the key
             </summary>
@@ -2275,76 +2443,76 @@
             When AutoExpire is set to true, Get<T> will return NULL if the item is expired</T>
             </remarks>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.GetETag(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.GetETag(System.String)">
             <summary>
             Get the eTag for a key
             </summary>
             <param name="key">Key to use</param>
             <returns>eTag for key, else null</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.IsExpired(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.IsExpired(System.String)">
             <summary>
             Checks if key is expired
             </summary>
             <param name="key">The key to check</param>
             <returns>True if expired, else false</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.IBarrel.GetExpiration(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.IBarrel.GetExpiration(System.String)">
             <summary>
             Gets the expiration date for a key
             </summary>
             <param name="key">The key to check</param>
             <returns>The date if exists, else null</returns>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel">
+        <member name="T:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel">
             <summary>
             Key/Value data store for any data object.
             Allows for saving data along with expiration dates and ETags.
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.ApplicationId">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.ApplicationId">
             <summary>
             路径标识，与基础路径一起合成完整路径
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.AutoExpire">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.AutoExpire">
             <summary>
             AutoExpire
             </summary>
         </member>
-        <member name="P:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Current">
+        <member name="P:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Current">
             <summary>
             Gets the instance of the Barrel
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Create(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Create(System.String)">
             <summary>
             指定路径创建缓存数据库
             </summary>
             <param name="cacheDirectory"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Exists(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Exists(System.String)">
             <summary>
             Checks to see if the key exists in the Barrel.
             </summary>
             <param name="key">Unique identifier for the entry to check</param>
             <returns>If the key exists</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.IsExpired(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.IsExpired(System.String)">
             <summary>
             Checks to see if the entry for the key is expired.
             </summary>
             <param name="key">Key to check</param>
             <returns>If the expiration data has been met</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.GetKeys(Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.GetKeys(Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             Gets all the keys that are saved in the cache
             </summary>
             <returns>The IEnumerable of keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.GetKeys(System.String,Palink.Tools.PLSystems.Caching.MonkeyCache.CacheState)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.GetKeys(System.String,Palink.Tools.System.PLCaching.MonkeyCache.CacheState)">
             <summary>
             根据缓存状态和标签值获取缓存
             </summary>
@@ -2352,7 +2520,7 @@
             <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
             <returns>The keys</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Get``1(System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Gets the data entry for the specified key.
             </summary>
@@ -2360,21 +2528,21 @@
             <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
             <returns>The data object that was stored if found, else default(T)</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.GetETag(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.GetETag(System.String)">
             <summary>
             Gets the ETag for the specified key.
             </summary>
             <param name="key">Unique identifier for entry to get</param>
             <returns>The ETag if the key is found, else null</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.GetExpiration(System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.GetExpiration(System.String)">
             <summary>
             Gets the DateTime that the item will expire for the specified key.
             </summary>
             <param name="key">Unique identifier for entry to get</param>
             <returns>The expiration date if the key is found, else null</returns>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Add(System.String,System.String,System.TimeSpan,System.String)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Add(System.String,System.String,System.TimeSpan,System.String)">
             <summary>
             Adds a string to the barrel
             </summary>
@@ -2383,7 +2551,7 @@
             <param name="expireIn">Time from UtcNow to expire entry in</param>
             <param name="eTag">Optional eTag information</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Add``1(System.String,``0,System.TimeSpan,System.String,Newtonsoft.Json.JsonSerializerSettings)">
             <summary>
             Adds an entry to the barrel
             </summary>
@@ -2394,98 +2562,39 @@
             <param name="eTag">Optional eTag information</param>
             <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.EmptyExpired">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.EmptyExpired">
             <summary>
             Empties all expired entries that are in the Barrel.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.EmptyAll">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.EmptyAll">
             <summary>
             Empties all expired entries that are in the Barrel.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite.Barrel.Empty(System.String[])">
+        <member name="M:Palink.Tools.System.PLCaching.MonkeyCache.SQLite.Barrel.Empty(System.String[])">
             <summary>
             Empties all specified entries regardless if they are expired.
             Throws an exception if any deletions fail and rolls back changes.
             </summary>
             <param name="key">keys to empty</param>
         </member>
-        <member name="T:Palink.Tools.PLSystems.Configuration.BaseAppSettings">
+        <member name="T:Palink.Tools.System.PLConfiguration.BaseAppSettings">
             <summary>
             appsettings.json配置文件数据读取类
             </summary>
         </member>
-        <member name="F:Palink.Tools.PLSystems.Configuration.BaseAppSettings.Config">
+        <member name="F:Palink.Tools.System.PLConfiguration.BaseAppSettings.Config">
             <summary>
             配置文件的根节点
             </summary>
         </member>
-        <member name="M:Palink.Tools.PLSystems.Configuration.BaseAppSettings.#cctor">
+        <member name="M:Palink.Tools.System.PLConfiguration.BaseAppSettings.#cctor">
             <summary>
             Constructor
             </summary>
-        </member>
-        <member name="T:Palink.Tools.PLSystems.HiPerfTimer">
-            <summary>
-            纳秒级计时器，仅支持Windows系统
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.#ctor">
-            <summary>
-            纳秒计数器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.Start">
-            <summary>
-            开始计时器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.Restart">
-            <summary>
-            开始计时器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.Stop">
-            <summary>
-            停止计时器
-            </summary>
-            <returns>计时器记录的时间</returns>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.StartNew">
-            <summary>
-            启动一个新的计时器
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Palink.Tools.PLSystems.HiPerfTimer.Duration">
-            <summary>
-            时器经过时间(单位：秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.PLSystems.HiPerfTimer.DurationNanoseconds">
-            <summary>
-            时器经过的总时间(单位：纳秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.PLSystems.HiPerfTimer.Elapsed">
-            <summary>
-            时器经过的总时间(单位：秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.PLSystems.HiPerfTimer.ElapsedNanoseconds">
-            <summary>
-            时器经过的总时间(单位：纳秒)
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.PLSystems.HiPerfTimer.Execute(System.Func{System.Threading.Tasks.Task})">
-            <summary>
-            执行一个方法并测试执行时间
-            </summary>
-            <param name="action"></param>
-            <returns></returns>
         </member>
         <member name="T:Palink.Tools.Utils.CoreTool">
             <summary>

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Palink.Tools.PLSystems.Caching.MonkeyCache;
+#nullable disable
+namespace Palink.Tools.System.PLCaching.MonkeyCache;
 
 /// <summary>
 /// Interface for a barrel of cache

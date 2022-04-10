@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Palink.Tools.PLSystems.Caching.MonkeyCache;
+namespace Palink.Tools.System.PLCaching.MonkeyCache;
 
 /// <summary>
 /// Current state of the item in the cache.

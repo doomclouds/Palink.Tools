@@ -27,7 +27,7 @@ namespace Palink.Tools.Extensions.PLLogging
         /// <param name="message"></param>
         protected override void LogCore(LoggingLevel level, string message)
         {
-            message = message?.Replace(Environment.NewLine, BlankHeader);
+            message = message.Replace(Environment.NewLine, BlankHeader);
 
             Console.WriteLine($"[{level}]".PadRight(LevelColumnSize) + message);
         }
