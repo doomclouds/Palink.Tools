@@ -112,4 +112,30 @@ public static class NewtonsoftHttpClientExtensions
             throw new ArgumentException("Can't be null or empty", nameof(uri));
         }
     }
+
+    /// <summary>
+    /// ReadFromJsonAsync
+    /// </summary>
+    /// <param name="content"></param>
+    /// <param name="settings"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    public static Task<T?> ReadFromJsonAsync<T>(this HttpContent? content,
+        JsonSerializerSettings? settings = null)
+    {
+        if (content == null)
+            throw new ArgumentNullException(nameof(content));
+        return ReadFromJsonAsyncCore<T>(content, settings);
+    }
+
+    private static async Task<T?> ReadFromJsonAsyncCore<T>(HttpContent content,
+        JsonSerializerSettings? settings)
+    {
+        var json = await content.ReadAsStringAsync();
+        if (json.IsNullOrEmpty()) return default;
+
+        var t = JsonConvert.DeserializeObject<T>(json, settings);
+        return t;
+    }
 }

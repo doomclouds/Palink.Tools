@@ -10,12 +10,12 @@ public class JsonOcrAttribute : Attribute
     /// <summary>
     /// 读取名称
     /// </summary>
-    public string ReadName { get; set; }
+    public string? ReadName { get; set; }
 
     /// <summary>
     /// 写入名称
     /// </summary>
-    public string WriteName { get; set; }
+    public string? WriteName { get; set; }
 
     /// <summary>
     /// 是否可读
@@ -30,9 +30,7 @@ public class JsonOcrAttribute : Attribute
     /// <summary>
     /// 构造器
     /// </summary>
-    public JsonOcrAttribute(string readName, string writeName)
+    public JsonOcrAttribute()
     {
-        ReadName = readName;
-        WriteName = writeName;
     }
 }
