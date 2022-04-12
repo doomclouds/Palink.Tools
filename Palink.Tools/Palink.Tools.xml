@@ -219,12 +219,13 @@
             虚方法，初始化读写超时
             </summary>
         </member>
-        <member name="M:Palink.Tools.Communication.Device.BaseMaster.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean)">
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean,System.Boolean)">
             <summary>
             单播命令
             </summary>
             <param name="message"></param>
-            <param name="useHexLog"></param>
+            <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
             <returns></returns>
         </member>
         <member name="M:Palink.Tools.Communication.Device.BaseMaster.CheckData(Palink.Tools.Communication.Interface.IMessage)">
@@ -342,14 +343,14 @@
             虚方法，初始化读写超时
             </summary>
         </member>
-        <member name="M:Palink.Tools.Communication.Master.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean)">
+        <member name="M:Palink.Tools.Communication.Master.Unicast(Palink.Tools.Communication.Interface.IMessage,System.Boolean,System.Boolean)">
             <summary>
             单播命令
             </summary>
             <param name="message"></param>
-            <param name="useHexLog"></param>
+            <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
             <returns></returns>
-            <exception cref="T:System.Exception"></exception>
         </member>
         <member name="T:Palink.Tools.Communication.Message.BaseMessage">
             <summary>
@@ -801,6 +802,16 @@
             <param name="value"></param>
             <param name="settings"></param>
             <param name="cancellationToken"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLNet.NewtonsoftHttpClientExtensions.ReadFromJsonAsync``1(System.Net.Http.HttpContent,Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>
+            ReadFromJsonAsync
+            </summary>
+            <param name="content"></param>
+            <param name="settings"></param>
             <typeparam name="T"></typeparam>
             <returns></returns>
             <exception cref="T:System.ArgumentNullException"></exception>
@@ -1907,6 +1918,120 @@
             <param name="msg">消息体</param>
             <param name="wait">是否等待服务器返回值</param>
         </member>
+        <member name="T:Palink.Tools.PanShi.Robots.EpsonMaster">
+            <summary>
+            EpsonMaster
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.#ctor(Palink.Tools.Communication.Interface.IStreamResource,Palink.Tools.Extensions.PLLogging.IPlLogger)">
+            <summary>
+            Master
+            </summary>
+            <param name="streamResource"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.CheckData(Palink.Tools.Communication.Interface.IMessage)">
+            <summary>
+            数据校验
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.CreateFrame(System.ValueTuple{System.Byte,System.Byte,System.Byte[]})">
+            <summary>
+            创建发送数据体
+            </summary>
+            <param name="noCheckFrame"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.CreateStringFrame(System.String)">
+            <summary>
+            创建字符串发送数据体
+            </summary>
+            <param name="frame"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Login(System.String)">
+            <summary>
+            机器人登录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Logout">
+            <summary>
+            机器人退出
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.GetStatus">
+            <summary>
+            获取机器人状态
+            返回#GetStatus, aaaaaaaaaaa, bbbb
+            10位数字“aaaaaaaaaa”是用于下列10 个标志的 Test/Teach/Auto/Warning/SError/Safeguard/EStop/Error/Paused/Running/Ready
+            1 为开/0 为关,如果Teach 和Auto 为开，则其为1100000000
+            Test 在TEST模式下打开
+            Teach 在TEACH模式下打开
+            Auto 在远程输入接受条件下打开       
+            Warning在警告条件下打开甚至在警告条件下也可以像往常一样执行任务。然而，应尽快采取警告行动。
+            SError在严重错误状态下打开发生严重错误时，重新启动控制器从错误状态中恢复过来。“Reset输入”不可用。
+            Safeguard 安全门打开时打开
+            EStop 在紧急状态下打开
+            Error 在错误状态下打开使用“Reset输入”从错误状态中恢复。
+            Paused 打开暂停的任务
+            Running执行任务时打开在“Paused输出”为开时关闭。
+            Ready 控制器完成启动且无任务执行时打开
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Start(System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            执行Main程序
+            </summary>
+            <param name="id"></param>
+            <param name="wait">是否等待数据返回</param>
+            <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Reset">
+            <summary>
+            重置机器人
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetMotorsOn(System.Int32)">
+            <summary>
+            机器人使能
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetMotorsOff(System.Int32)">
+            <summary>
+            机器人下使能
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Home(System.Int32)">
+            <summary>
+            机器人回零
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.GetIO(System.Int32)">
+            <summary>
+            读取IO
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetIO(System.Int32,System.Boolean)">
+            <summary>
+            设置IO
+            </summary>
+            <param name="id"></param>
+            <param name="open"></param>
+            <returns></returns>
+        </member>
         <member name="T:Palink.Tools.System.HiPerfTimer">
             <summary>
             纳秒级计时器，仅支持Windows系统
@@ -1991,7 +2116,7 @@
             是否可写
             </summary>
         </member>
-        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrAttribute.#ctor(System.String,System.String)">
+        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrAttribute.#ctor">
             <summary>
             构造器
             </summary>

@@ -65,9 +65,11 @@ public abstract class BaseMaster
     /// 单播命令
     /// </summary>
     /// <param name="message"></param>
-    /// <param name="useHexLog"></param>
+    /// <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+    /// <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
     /// <returns></returns>
-    public abstract IMessage Unicast(IMessage message, bool useHexLog = true);
+    public abstract IMessage Unicast(IMessage message, bool ignoreReadBytes = false,
+        bool useHexLog = true);
 
     /// <summary>
     /// 数据校验
@@ -81,13 +83,12 @@ public abstract class BaseMaster
     /// </summary>
     /// <param name="noCheckFrame"></param>
     /// <returns></returns>
-    public abstract IMessage CreateFrame(
-        (byte id, byte cmd, byte[] frame) noCheckFrame);
+    public abstract IMessage? CreateFrame((byte id, byte cmd, byte[] frame) noCheckFrame);
 
     /// <summary>
     /// 创建字符串发送数据体
     /// </summary>
     /// <param name="frame"></param>
     /// <returns></returns>
-    public abstract IMessage CreateStringFrame(string frame);
+    public abstract IMessage? CreateStringFrame(string frame);
 }

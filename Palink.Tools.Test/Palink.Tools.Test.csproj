@@ -37,6 +37,7 @@
   <ItemGroup>
     <Folder Include="PanShi\CloudMonitor\" />
     <Folder Include="Communication\" />
+    <Folder Include="PanShi\Robots\" />
   </ItemGroup>
 
 </Project>

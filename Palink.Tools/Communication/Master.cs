@@ -28,7 +28,8 @@ public abstract class Master : BaseMaster
     /// </summary>
     /// <param name="streamResource"></param>
     /// <param name="logger"></param>
-    protected Master(IStreamResource streamResource, IPlLogger logger) : base(streamResource, logger)
+    protected Master(IStreamResource streamResource, IPlLogger logger) : base(
+        streamResource, logger)
     {
     }
 
@@ -41,14 +42,16 @@ public abstract class Master : BaseMaster
         StreamResource.WriteTimeout = 50;
     }
 
+
     /// <summary>
     /// 单播命令
     /// </summary>
     /// <param name="message"></param>
-    /// <param name="useHexLog"></param>
+    /// <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+    /// <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
     /// <returns></returns>
-    /// <exception cref="Exception"></exception>
-    public override IMessage Unicast(IMessage message, bool useHexLog = true)
+    public override IMessage Unicast(IMessage message, bool ignoreReadBytes = false,
+        bool useHexLog = true)
     {
         lock (Locker)
         {
@@ -67,27 +70,33 @@ public abstract class Master : BaseMaster
                         var numBytesRead = 0;
                         var watch = new Stopwatch();
                         watch.Start();
-                        while (numBytesRead != message.ReadBytes && watch.ElapsedMilliseconds < StreamResource.ReadTimeout)
+                        while (numBytesRead != message.ReadBytes &&
+                               watch.ElapsedMilliseconds < StreamResource.ReadTimeout)
                         {
-                            numBytesRead += StreamResource.Read(buffer, numBytesRead, message.ReadBytes - numBytesRead);
+                            numBytesRead += StreamResource.Read(buffer, numBytesRead,
+                                message.ReadBytes - numBytesRead);
+                            if (ignoreReadBytes && numBytesRead > 0)
+                                break;
                         }
 
                         if (watch.ElapsedMilliseconds >= StreamResource.ReadTimeout)
                         {
                             throw new Exception("未读取到任何数据");
                         }
+
                         watch.Stop();
                         result = BitConverter.ToString(buffer).Replace("-", " ");
-                    }
-                    while (IgnoreStringList.Contains(result));
+                    } while (IgnoreStringList.Contains(result));
 
                     message.Buffer = buffer;
 
                     if (!useHexLog)
-                        PlLogger.Debug("RX:" + Encoding.UTF8.GetString(buffer));
+                        PlLogger.Debug("RX:" +
+                            Encoding.UTF8.GetString(buffer).Trim('\0'));
                     else
                     {
-                        PlLogger.Debug("RX:" + BitConverter.ToString(buffer).Replace("-", " "));
+                        PlLogger.Debug("RX:" +
+                            BitConverter.ToString(buffer).Replace("-", " "));
                     }
                 }
                 catch (Exception exception)
@@ -99,10 +108,12 @@ public abstract class Master : BaseMaster
 
                 if (!CheckData(message))
                 {
-                    PlLogger.Error("数据校验错误," + BitConverter.ToString(buffer).Replace("-", " "));
+                    PlLogger.Error("数据校验错误," +
+                        BitConverter.ToString(buffer).Replace("-", " "));
                     times--;
                     continue;
                 }
+
                 break;
             }
 

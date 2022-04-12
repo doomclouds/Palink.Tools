@@ -57,7 +57,7 @@ public class MyMaster : Master
     /// </summary>
     /// <param name="noCheckFrame"></param>
     /// <returns></returns>
-    public override IMessage CreateFrame((byte id, byte cmd, byte[] frame) noCheckFrame)
+    public override IMessage? CreateFrame((byte id, byte cmd, byte[] frame) noCheckFrame)
     {
         return null;
     }
