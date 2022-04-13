@@ -2,7 +2,7 @@
 using Palink.Tools.System.PLAttribute;
 using Xunit;
 
-namespace Palink.Tools.Test.PLSystems;
+namespace Palink.Tools.Test.System;
 
 public class OcrWriteResolverTest
 {

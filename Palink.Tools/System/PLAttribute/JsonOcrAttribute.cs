@@ -26,11 +26,4 @@ public class JsonOcrAttribute : Attribute
     /// 是否可写
     /// </summary>
     public bool Writable { get; set; }
-
-    /// <summary>
-    /// 构造器
-    /// </summary>
-    public JsonOcrAttribute()
-    {
-    }
 }

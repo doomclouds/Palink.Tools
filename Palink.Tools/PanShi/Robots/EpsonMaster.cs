@@ -330,6 +330,47 @@ public class EpsonMaster : Master
         }
     }
 
+    /// <summary>
+    /// 执行Main程序
+    /// </summary>
+    /// <param name="cmd">执行SPEL+语言命令，命令需要用引号</param>
+    /// <param name="wait">是否等待数据返回</param>
+    /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+    /// <returns></returns>
+    public bool Execute(string cmd, bool wait = false, int waitTime = 1000)
+    {
+        var temp = StreamResource.ReadTimeout;
+        try
+        {
+            var c =CreateCmd(MethodBase.GetCurrentMethod()?.Name,
+                    cmd);
+            var message =
+                CreateStringFrame(CreateCmd(MethodBase.GetCurrentMethod()?.Name,
+                    cmd));
+            if (wait)
+            {
+                StreamResource.ReadTimeout = waitTime;
+                Unicast(message, true, false);
+                var ret = Encoding.UTF8.GetString(message.Buffer).Trim('\0');
+                return ret.Contains("#");
+            }
+            else
+            {
+                SendData(message, false);
+                return true;
+            }
+        }
+        catch (Exception e)
+        {
+            PlLogger.Error($"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
+            return false;
+        }
+        finally
+        {
+            StreamResource.ReadTimeout = temp;
+        }
+    }
+
     private string CreateCmd(string? cmd, string parameters)
     {
         return $"${cmd},{parameters}{NewLine}";

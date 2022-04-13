@@ -180,10 +180,42 @@ public class MyMaster : Master
 - GetProperties：获取所有的属性信息
 - GetInstance：获取默认实例
 
+#### 时间扩展
+
+```c#
+var date = DateTime.Now;
+date.GetWeekAmount();//获取某一年有多少周
+date.WeekOfYear();//返回年度第几个星期   默认星期日是第一天
+date.GetTotalMilliseconds();//获取该时间相对于1970-01-01T00:00:00Z的毫秒数
+...
+```
+
+
+
 #### 系统类
 
 - HiPerfTimer：纳秒级计时器，仅支持Windows系统
+
 - BaseAppSettings：appsettings.json配置文件数据读取类，抽象类需要继承去实现
+
+- ChineseCalendar：中国日历
+
+  ```c#
+  public void ChineseCalendarTest()
+  {
+      var calendar = new ChineseCalendar(new DateTime(1993, 5, 9));
+      var animal = calendar.AnimalString;
+      var date = calendar.ChineseDateString;
+      var constellation = calendar.ChineseConstellation;
+      var tg = calendar.GanZhiYearString;
+      Assert.Equal(animal, "鸡");
+      Assert.Equal(date, "一九九三年闰三月十八");
+      Assert.Equal(constellation, "柳土獐");
+      Assert.Equal(tg, "癸酉年");
+  }
+  ```
+
+  
 
 #### 工具类
 
@@ -196,7 +228,6 @@ public class MyMaster : Master
 - Random：随机字符生成
 - 注册表操作
 - Windows任务计划操作
-- 时间格式转化
 - 软件相关：开机自启、防止多开、置顶、禁止触摸屏边缘侧滑等
 - Shutdown相关：延时开启、延时重启等
 

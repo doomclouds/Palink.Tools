@@ -76,4 +76,20 @@ public class EpsonMasterTests
         ret = epson.SetIO(2, true);
         Assert.True(ret);
     }
+
+    [Fact]
+    public async void ExecuteTest()
+    {
+        var tcp = new TcpClient("192.168.13.8", 5000);
+        var adapter = new TcpClientAdapter(tcp);
+        var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
+        epson.Login("");
+        await Task.Delay(1000);
+        epson.Reset();
+        await Task.Delay(1000);
+        var ret = epson.SetMotorsOn();
+        Assert.True(ret);
+        ret = epson.Execute("\"Go XY(400,50,0,0)\"", true, 6000);
+        Assert.True(ret);
+    }
 }

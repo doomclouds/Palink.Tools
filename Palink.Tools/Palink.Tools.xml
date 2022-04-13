@@ -2032,6 +2032,15 @@
             <param name="open"></param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Execute(System.String,System.Boolean,System.Int32)">
+            <summary>
+            执行Main程序
+            </summary>
+            <param name="cmd">执行SPEL+语言命令，命令需要用引号</param>
+            <param name="wait">是否等待数据返回</param>
+            <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+            <returns></returns>
+        </member>
         <member name="T:Palink.Tools.System.HiPerfTimer">
             <summary>
             纳秒级计时器，仅支持Windows系统
@@ -2114,11 +2123,6 @@
         <member name="P:Palink.Tools.System.PLAttribute.JsonOcrAttribute.Writable">
             <summary>
             是否可写
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.PLAttribute.JsonOcrAttribute.#ctor">
-            <summary>
-            构造器
             </summary>
         </member>
         <member name="T:Palink.Tools.System.PLAttribute.JsonOcrWriteResolver">
@@ -2611,6 +2615,431 @@
             <summary>
             Constructor
             </summary>
+        </member>
+        <member name="T:Palink.Tools.System.PLTime.ChineseCalendar">
+            <summary>
+            中国农历类 支持 1900.1.31日起至 2069.12.31日止的数据
+            </summary>
+            <remarks>
+            本程序使用数据来源于网上的万年历查询，并综合了一些其它数据
+            </remarks>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.ChineseCalendar.LunarDateArray">
+             <summary>
+             来源于网上的农历数据
+             </summary>
+             <remarks>
+             数据结构如下，共使用17位数据<br/>
+             说明如下：<br/>
+            1-4：判断当年是否为闰年，若为闰年，则为闰年的月份，反之为0；<br/>
+            5-16：为除了闰月外的正常月份是大月还是小月，1为30天，0为29天。（注意：1月对应第16位，2月对应第15位……12月对应第5位)<br/>
+            17-20： 表示闰月是大月还是小月，若为1，则为大月，若为0，则为小月。（注意：仅当存在闰月的情况下有意义）<br/>
+             -<br/>
+            举例说明：<br/>
+            例一：0x04bd8<br/>
+            对应二进制：0000    0100     1011    1101    1000<br/>
+            则表示当年有闰月8月，且闰月为小月29天<br/>
+            该年1-12月的天数为：29    30   29   29   30   29   30    29（闰月）  30     30   29    30<br/>
+            例二：0x04ae0<br/>
+            对应二进制：0000    0100     1010    1110    0000<br/>
+            则表示当年没有闰月<br/>
+            该年1-12月的天数为：29    30    29     29    30    29    30    29    30   30    30    29<br/>
+            补充闰月介绍：<br/>
+            闰月是阴阳历中为使历年平均长度接近会归年而增设的月。阴阳历以朔望月的长度（29.5306日）为一个月的平均值，全年12个月，同回归年（365.2422日）相差约10日21时，故需要置闰，三年闰一个月，五年闰二个月，十九年闰七个月。阴阳历以朔望月的长度（29.5306日）为一个月的平均值，全年12个月，同回归年（365.2422日）相差约10日21时，故需要置闰，三年闰一个月，五年闰二个月，十九年闰七个月。
+            </remarks>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.ChineseCalendar.ConstellationName">
+            <summary>
+            星座
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.ChineseCalendar.ChineseConstellationName">
+            <summary>
+            二十八星宿
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.ChineseCalendar.SolarTerm">
+            <summary>
+            节气数据
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.CustomWorkDays">
+            <summary>
+            自定义的工作日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.CustomHolidays">
+            <summary>
+            自定义的节假日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.SolarHolidayInfo">
+            <summary>
+            按公历计算的通用节假日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.LunarHolidayInfo">
+            <summary>
+            按农历计算的通用节假日
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.#ctor(System.DateTime@)">
+            <summary>
+            用一个标准的公历日期来初使化
+            </summary>
+            <param name="dt"></param>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.#ctor(System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            用农历的日期来初使化
+            </summary>
+            <param name="cy">农历年</param>
+            <param name="cm">农历月</param>
+            <param name="cd">农历日</param>
+            <param name="leapMonthFlag">闰月标志</param>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.GetChineseMonthDays(System.Int32,System.Int32)">
+            <summary>
+            传回农历 y年m月的总天数
+            </summary>
+            <param name="year"></param>
+            <param name="month"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.GetChineseLeapMonth(System.Int32)">
+            <summary>
+            传回农历 y年闰哪个月 1-12 , 没闰传回 0
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.GetChineseLeapMonthDays(System.Int32)">
+            <summary>
+            传回农历 y年闰月的天数
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.GetChineseYearDays(System.Int32)">
+            <summary>
+            取农历年一年的天数
+            </summary>
+            <param name="year"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.GetChineseHour(System.DateTime)">
+            <summary>
+            获得当前时间的时辰
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+            
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.ConvertNumToChineseNum(System.Char)">
+            <summary>
+            将0-9转成汉字形式
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.BitTest32(System.Int32,System.Int32)">
+            <summary>
+            测试某位是否为真
+            </summary>
+            <param name="num"></param>
+            <param name="bitPosition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.ConvertDayOfWeek(System.DayOfWeek)">
+            <summary>
+            将星期几转成数字表示
+            </summary>
+            <param name="dayOfWeek"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.CompareWeekDayHoliday(System.DateTime,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            比较当天是不是指定的第周几
+            </summary>
+            <param name="date"></param>
+            <param name="month"></param>
+            <param name="week"></param>
+            <param name="day"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseCalendarHoliday">
+            <summary>
+            计算中国农历节日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.WeekDayHoliday">
+            <summary>
+            按某月第几周第几日计算的节日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.DateHoliday">
+            <summary>
+            按公历日计算的节日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.IsHoliday">
+            <summary>
+            今天是否是假期
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.IsWorkDay">
+            <summary>
+            今天是否是工作日
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.IsWeekend">
+            <summary>
+            是否是周末
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.Date">
+            <summary>
+            取对应的公历日期
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.WeekDay">
+            <summary>
+            取星期几
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.WeekDayStr">
+            <summary>
+            周几的字符
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.DateString">
+            <summary>
+            公历日期中文表示法 如一九九七年七月一日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.IsLeapYear">
+            <summary>
+            当前是否公历闰年
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseConstellation">
+            <summary>
+            28星宿计算
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseHour">
+            <summary>
+            时辰
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.Today">
+            <summary>
+            农历今天
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.IsChineseLeapMonth">
+            <summary>
+            是否闰月
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.IsChineseLeapYear">
+            <summary>
+            当年是否有闰月
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseDay">
+            <summary>
+            农历日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseDayString">
+            <summary>
+            农历日中文表示
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseMonth">
+            <summary>
+            农历的月份
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseMonthString">
+            <summary>
+            农历月份字符串
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseYear">
+            <summary>
+            取农历年份
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseYearString">
+            <summary>
+            取农历年字符串如，一九九七年
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseDateString">
+            <summary>
+            取农历日期表示法：农历一九九七年正月初五
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseTwentyFourDay">
+            <summary>
+            定气法计算二十四节气,二十四节气是按地球公转来计算的，并非是阴历计算的
+            </summary>
+            <remarks>
+            节气的定法有两种。古代历法采用的称为"恒气"，即按时间把一年等分为24份，
+            每一节气平均得15天有余，所以又称"平气"。现代农历采用的称为"定气"，即
+            按地球在轨道上的位置为标准，一周360°，两节气之间相隔15°。由于冬至时地
+            球位于近日点附近，运动速度较快，因而太阳在黄道上移动15°的时间不到15天。
+            夏至前后的情况正好相反，太阳在黄道上移动较慢，一个节气达16天之多。采用
+            定气时可以保证春、秋两分必然在昼夜平分的那两天。
+            </remarks>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseTwentyFourPrevDay">
+            <summary>
+            当前日期前一个最近节气
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.ChineseTwentyFourNextDay">
+            <summary>
+            当前日期后一个最近节气
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.Constellation">
+            <summary>
+            计算指定日期的星座序号 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.Animal">
+            <summary>
+            计算属相的索引，注意虽然属相是以农历年来区别的，但是目前在实际使用中是按公历来计算的
+            鼠年为1,其它类推
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.AnimalString">
+            <summary>
+            取属相字符串
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.GanZhiYearString">
+            <summary>
+            取农历年的干支表示法如 乙丑年
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.GanZhiMonthString">
+            <summary>
+            取干支的月表示字符串，注意农历的闰月不记干支
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.GanZhiDayString">
+            <summary>
+            取干支日表示法
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.GanZhiDateString">
+            <summary>
+            取当前日期的干支表示法如 甲子年乙丑月丙庚日
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.NextDay">
+            <summary>
+            取下一天
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Palink.Tools.System.PLTime.ChineseCalendar.PervDay">
+            <summary>
+            取前一天
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.AddDays(System.Int32)">
+            <summary>
+            取下n天
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.AddWorkDays(System.Int32)">
+            <summary>
+            取下n天
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.ChineseCalendar.AddMonths(System.Int32)">
+            <summary>
+            加n月
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.System.PLTime.DateInfoStruct">
+            <summary>
+            日期信息
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.DateInfoStruct.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.DateInfoStruct.Day">
+            <summary>
+            日
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.DateInfoStruct.Recess">
+            <summary>
+            假期长度
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.DateInfoStruct.HolidayName">
+            <summary>
+            节假日名
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.DateInfoStruct.#ctor(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            日期信息
+            </summary>
+            <param name="month"></param>
+            <param name="day"></param>
+            <param name="recess"></param>
+            <param name="name"></param>
+        </member>
+        <member name="T:Palink.Tools.System.PLTime.WeekHolidayStruct">
+            <summary>
+            节假日信息
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.WeekHolidayStruct.Month">
+            <summary>
+            月
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.WeekHolidayStruct.WeekAtMonth">
+            <summary>
+            这个月第几周
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.WeekHolidayStruct.WeekDay">
+            <summary>
+            周末日
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.PLTime.WeekHolidayStruct.HolidayName">
+            <summary>
+            假日名
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLTime.WeekHolidayStruct.#ctor(System.Int32,System.Int32,System.Int32,System.String)">
+            <summary>
+            节假日信息
+            </summary>
+            <param name="month"></param>
+            <param name="weekAtMonth"></param>
+            <param name="weekDay"></param>
+            <param name="name"></param>
         </member>
         <member name="T:Palink.Tools.Utils.CoreTool">
             <summary>
