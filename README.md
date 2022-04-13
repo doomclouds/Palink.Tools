@@ -1,6 +1,8 @@
+[TOC]
+
 # Palink.Tools
 
-#### 通讯
+## 通讯
 
 位于`Palink.Tools.Communication`名称空间下的`Master.cs`类是一个可以进行单播命令和广播命令的封装。通讯可以使用TCP、UDP及串口。
 
@@ -114,15 +116,15 @@ public class MyMaster : Master
 }
 ```
 
-#### 数组扩展
+## 数组扩展
 
 - ForEach提供遍历同时可以对数组进行操作、支持多维数组
 
-#### 特性扩展
+## 特性扩展
 
 - GetDescription：获取枚举描述信息
 
-#### Convert扩展
+## Convert扩展
 
 - TryToInt&TryToLong&TryToDouble&TryToDecimal&TryToFloat&TryToBool：string转int/long/double/decimal/float/bool
 - TryToString：值类型转string
@@ -134,15 +136,15 @@ public class MyMaster : Master
 - TryToList：将枚举类型转换为List
 - ConvertType：根据类型名返回一个Type类型
 
-#### Encrypt扩展
+## Encrypt扩展
 
 包含Base64、MD5、DES、AES、哈希加密与SHA的相关加密解密方法
 
-#### 网络功能扩展
+## 网络功能扩展
 
 - Ping：判断是否可以ping通该ip地址
 
-#### 对象扩展
+## 对象扩展
 
 - IsPrimitive：判断对象是否是原始对象
 - DeepClone：深度Clone
@@ -150,26 +152,26 @@ public class MyMaster : Master
 - ReferenceEquals：引用是否相同判断
 - IsDefaultValue：是否是默认值判断
 
-#### 序列化扩展
+## 序列化扩展
 
 - ToJson：实体转JSON
 - FromJson：JSON转实体
 - SerializeUtf8&DeserializeUtf8：字符串序列化成字节序列&字节序列序列化成字符串
 - FromJsonFile：根据key将json文件内容转换为指定对象
 
-#### 字符串扩展
+## 字符串扩展
 
 - IsNullOrEmpty&IsNullOrWhiteSpace&IsNotNullOrEmpty&IsNotNullOrWhiteSpace：空判断
 - 常用正则表达式判断：IsChinese&IsEmail&IsMobile&IsPhone&IsIp&IsIdCard&IsDate&IsNumeric&IsZipCode&IsImgFileName
 - 字符串截取：TryReplace&Sub&RegexReplace
 - Format&FormatWith：字符串格式化
 
-#### 随机数扩展
+## 随机数扩展
 
 - StrictNext：生成真正的随机数
 - NextGauss：产生正态分布的随机数
 
-#### 反射扩展
+## 反射扩展
 
 - InvokeMethod：执行方法
 - SetField：设置字段
@@ -180,7 +182,7 @@ public class MyMaster : Master
 - GetProperties：获取所有的属性信息
 - GetInstance：获取默认实例
 
-#### 时间扩展
+## 时间扩展
 
 ```c#
 var date = DateTime.Now;
@@ -190,9 +192,7 @@ date.GetTotalMilliseconds();//获取该时间相对于1970-01-01T00:00:00Z的毫
 ...
 ```
 
-
-
-#### 系统类
+## 系统类
 
 - HiPerfTimer：纳秒级计时器，仅支持Windows系统
 
@@ -215,9 +215,8 @@ date.GetTotalMilliseconds();//获取该时间相对于1970-01-01T00:00:00Z的毫
   }
   ```
 
-  
 
-#### 工具类
+## 工具类
 
 使用CoreTool去调用静态方法
 
@@ -231,7 +230,7 @@ date.GetTotalMilliseconds();//获取该时间相对于1970-01-01T00:00:00Z的毫
 - 软件相关：开机自启、防止多开、置顶、禁止触摸屏边缘侧滑等
 - Shutdown相关：延时开启、延时重启等
 
-#### Barrel
+## Barrel
 
 位于Palink.Tools.PLSystems.Caching.MonkeyCache.SQLite和Palink.Tools.PLSystems.Caching.MonkeyCache.FileStore分别是Sqlite缓存与文件缓存
 
@@ -249,11 +248,11 @@ _barrel.Empty(msg.Id);
 var msg = _barrel.Get<EcmMessage>(key);
 ```
 
-#### 磐石内部
+## 磐石内部
 
-##### 云监控
+### 云监控
 
-ECM云监控系统：心跳
+#### ECM云监控系统：心跳
 
 ```c#
 public async void BeatsTest()
@@ -270,7 +269,7 @@ public async void BeatsTest()
 }
 ```
 
-ECM云监控：互动
+#### ECM云监控：互动
 
 ```c#
 public async void InteractionTest()
@@ -286,7 +285,7 @@ public async void InteractionTest()
 }
 ```
 
-ECM云监控：监控信息
+#### ECM云监控：监控信息
 
 ```c#
 public async void ErrorTest()
@@ -309,7 +308,7 @@ public async void ErrorTest()
 - AutoExpire：发送后不判断是否成功，自动缓存，缓存存在期间不接受相同消息
 - AutoExpireNeeded：发送必须成功，如果失败会自动缓存等待下次执行，缓存存在期间不接受相同消息
 
-##### 其他通用系统数据发送
+### 其他通用系统数据发送
 
 支持与ECM一样的缓存与过期判断策略
 
