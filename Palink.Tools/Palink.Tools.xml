@@ -1704,6 +1704,474 @@
             <param name="arg0"></param>
             <returns></returns>
         </member>
+        <member name="T:Palink.Tools.Extensions.PLTime.DateTimeExtensions">
+            <summary>
+            DateTimeExtensions
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekAmount(System.DateTime,System.Int32)">
+            <summary>
+            获取某一年有多少周
+            </summary>
+            <param name="_"></param>
+            <param name="year">年份</param>
+            <returns>该年周数</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.WeekOfYear(System.DateTime@)">
+            <summary>
+            返回年度第几个星期   默认星期日是第一天
+            </summary>
+            <param name="date">时间</param>
+            <returns>第几周</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.WeekOfYear(System.DateTime@,System.DayOfWeek)">
+            <summary>
+            返回年度第几个星期
+            </summary>
+            <param name="date">时间</param>
+            <param name="week">一周的开始日期</param>
+            <returns>第几周</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekTime(System.DateTime,System.Int32,System.Int32,System.DateTime@,System.DateTime@)">
+            <summary>
+            得到一年中的某周的起始日和截止日
+            年 nYear
+            周数 nNumWeek
+            周始 out dtWeekStart
+            周终 out dtWeekEnd
+            </summary>
+            <param name="_"></param>
+            <param name="nYear">年份</param>
+            <param name="nNumWeek">第几周</param>
+            <param name="dtWeekStart">开始日期</param>
+            <param name="dtWeekEnd">结束日期</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekWorkTime(System.DateTime,System.Int32,System.Int32,System.DateTime@,System.DateTime@)">
+            <summary>
+            得到一年中的某周的起始日和截止日    周一到周五  工作日
+            </summary>
+            <param name="_"></param>
+            <param name="nYear">年份</param>
+            <param name="nNumWeek">第几周</param>
+            <param name="dtWeekStart">开始日期</param>
+            <param name="dtWeekEnd">结束日期</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.SetLocalTime(System.DateTime@)">
+            <summary>
+            设置本地计算机系统时间，仅支持Windows系统
+            </summary>
+            <param name="dt">DateTime对象</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDateTime(System.DateTime@,System.Int32)">
+            <summary>
+            返回相对于当前时间的相对天数
+            </summary>
+            <param name="dt"></param>
+            <param name="relativeDay">相对天数</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDateTimeF(System.DateTime@)">
+            <summary>
+            返回标准时间格式string
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalSeconds(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的秒数
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalMilliseconds(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的毫秒数
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalMicroseconds(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的微秒时间戳
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalNanoseconds(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的纳秒时间戳
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalMinutes(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的分钟数
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalHours(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的小时数
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTotalDays(System.DateTime@)">
+            <summary>
+            获取该时间相对于1970-01-01T00:00:00Z的天数
+            </summary>
+            <param name="dt"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDaysOfYear(System.DateTime,System.Int32)">
+            <summary>
+            返回本年有多少天
+            </summary>
+            <param name="_"></param>
+            <param name="iYear">年份</param>
+            <returns>本年的天数</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDaysOfYear(System.DateTime@)">
+            <summary>本年有多少天</summary>
+            <param name="dt">日期</param>
+            <returns>本天在当年的天数</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDaysOfMonth(System.DateTime,System.Int32,System.Int32)">
+            <summary>本月有多少天</summary>
+            <param name="_"></param>
+            <param name="iYear">年</param>
+            <param name="month">月</param>
+            <returns>天数</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDaysOfMonth(System.DateTime@)">
+            <summary>本月有多少天</summary>
+            <param name="dt">日期</param>
+            <returns>天数</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekNameOfDay(System.DateTime@)">
+            <summary>返回当前日期的星期名称</summary>
+            <param name="idt">日期</param>
+            <returns>星期名称</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsLeapYear(System.Int32)">
+            <summary>判断当前年份是否是闰年，私有函数</summary>
+            <param name="iYear">年份</param>
+            <returns>是闰年：True ，不是闰年：False</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsDateTime(System.String)">
+            <summary>
+            判断是否为合法日期，必须大于1800年1月1日
+            </summary>
+            <param name="strDate">输入日期字符串</param>
+            <returns>True/False</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.In(System.DateTime@,System.DateTime,System.DateTime,Palink.Tools.Extensions.PLTime.RangeMode)">
+            <summary>
+            判断时间是否在区间内
+            </summary>
+            <param name="this"></param>
+            <param name="start">开始</param>
+            <param name="end">结束</param>
+            <param name="mode">模式</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.ReturnDateFormat(System.DateTime,System.Int32,System.String@,System.String@)">
+            <summary>
+             返回每月的第一天和最后一天
+            </summary>
+            <param name="_"></param>
+            <param name="month">月份</param>
+            <param name="firstDay">第一天</param>
+            <param name="lastDay">最后一天</param>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetMonthLastDate(System.DateTime,System.Int32,System.Int32)">
+            <summary>
+            返回某年某月最后一天
+            </summary>
+            <param name="_"></param>
+            <param name="year">年份</param>
+            <param name="month">月份</param>
+            <returns>日</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetTimeDelay(System.DateTime@,System.DateTime)">
+            <summary>
+            获得一段时间内有多少小时
+            </summary>
+            <param name="dtStar">起始时间</param>
+            <param name="dtEnd">终止时间</param>
+            <returns>小时差</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDateString(System.DateTime@)">
+            <summary>
+            获得8位时间整型数字
+            </summary>
+            <param name="dt">当前的日期时间对象</param>
+            <returns>8位时间整型数字</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.DateDiff(System.DateTime@,System.DateTime@)">
+            <summary>
+            返回时间差
+            </summary>
+            <param name="dateTime1">时间1</param>
+            <param name="dateTime2">时间2</param>
+            <returns>时间差</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDiffTime(System.DateTime@,System.DateTime@)">
+            <summary>
+            计算2个时间差
+            </summary>
+            <param name="beginTime">开始时间</param>
+            <param name="endTime">结束时间</param>
+            <returns>时间差</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.BeijingTimeToUnixTimeStamp10(System.DateTime)">
+            <summary>
+            北京时间转换成unix时间戳(10位/秒)
+            Unix 时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数，不考虑闰秒
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UtcTimeToUnixTimeStamp10(System.DateTime)">
+            <summary>
+            格林威治时间转换成unix时间戳(10位/秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.BeijingTimeToUnixTimeStamp13(System.DateTime)">
+            <summary>
+            北京时间转换成unix时间戳(13位/毫秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UtcTimeToUnixTimeStamp13(System.DateTime)">
+            <summary>
+            格林威治时间转换成unix时间戳(13位/毫秒)
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UnixTimeStamp10ToBeijingTime(System.Int64)">
+            <summary>
+            10位unix时间戳转换成北京时间
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UnixTimeStamp10ToUtcTime(System.Int64)">
+            <summary>
+            10位unix时间戳转换成格林威治
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UnixTimeStamp13ToBeijingTime(System.Int64)">
+            <summary>
+            13位unix时间戳转换成北京时间
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.UnixTimeStamp13ToUtcTime(System.Int64)">
+            <summary>
+            13位unix时间戳转换成格林威治
+            </summary>
+            <param name="unixTimeStamp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDayStart(System.DateTime)">
+            <summary>
+            获取本日开始时间（0点0分0秒）
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDayEnd(System.DateTime)">
+            <summary>
+            获取本日结束时间（23点59分59秒）
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekStart(System.DateTime)">
+            <summary>
+            获取本周开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekEnd(System.DateTime)">
+            <summary>
+            获取本周结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetMonthStart(System.DateTime)">
+            <summary>
+            获取本月开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetMonthEnd(System.DateTime)">
+            <summary>
+            获取本月结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetSeasonStart(System.DateTime)">
+            <summary>
+            获取本季度开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetSeasonEnd(System.DateTime)">
+            <summary>
+            获取本季度结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetYearStart(System.DateTime)">
+            <summary>
+            获取本年开始时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetYearEnd(System.DateTime)">
+            <summary>
+            获取本年结束时间
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetFirstWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
+            <summary>
+            当前日期所在月份第一个指定星期几的日期
+            </summary>
+            <param name="date">给定日期</param>
+            <param name="dayOfWeek">星期几</param>
+            <returns>所对应的日期</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetLastWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
+            <summary>
+            当前日期所在月份最后1个指定星期几的日期
+            </summary>
+            <param name="date">给定日期</param>
+            <param name="dayOfWeek">星期几</param>
+            <returns>所对应的日期</returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsBefore(System.DateTime,System.DateTime)">
+            <summary>
+            判断是否比指定之间早
+            </summary>
+            <param name="date"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsAfter(System.DateTime,System.DateTime)">
+            <summary>
+            判断是否比指定时间晚
+            </summary>
+            <param name="date"></param>
+            <param name="other"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetCountDaysOfMonth(System.DateTime)">
+            <summary>
+            给定日期所在月份共有多少天
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsDateEqual(System.DateTime,System.DateTime)">
+            <summary>
+            当前日期与给定日期是否是同一天
+            </summary>
+            <param name="date">当前日期</param>
+            <param name="dateToCompare">给定日期</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsWeekend(System.DateTime)">
+            <summary>
+            是否是周未
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsWeekDay(System.DateTime)">
+            <summary>
+            是否是工作日
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsToday(System.DateTime)">
+            <summary>
+            判断是否为今天
+            </summary>
+            <param name="date"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.IsLeap(System.DateTime)">
+            <summary>
+            判定公历闰年遵循的一般规律为：四年一闰，百年不闰，四百年再闰。
+            公历闰年的精确计算方法：（按一回归年365天5小时48分45.5秒）
+            普通年能被4整除而不能被100整除的为闰年。 （如2004年就是闰年，1900年不是闰年）
+            世纪年能被400整除而不能被3200整除的为闰年。 (如2000年是闰年，3200年不是闰年)
+            对于数值很大的年份能整除3200,但同时又能整除172800则又是闰年。(如172800年是闰年，86400年不是闰年）
+            公元前闰年规则如下：
+            非整百年：年数除4余数为1是闰年，即公元前1、5、9……年；
+            整百年：年数除400余数为1是闰年，年数除3200余数为1，不是闰年,年数除172800余1又为闰年，即公元前401、801……年。
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetDaysByYear(System.DateTime)">
+            <summary>
+            获取当前年天数
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLTime.DateTimeExtensions.GetWeekCountByYear(System.DateTime)">
+            <summary>
+            获取当前年天数
+            </summary>
+            <param name="dateTime"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.Extensions.PLTime.RangeMode">
+            <summary>
+            区间模式
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.PLTime.RangeMode.Open">
+            <summary>
+            开区间
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.PLTime.RangeMode.Close">
+            <summary>
+            闭区间
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.PLTime.RangeMode.OpenClose">
+            <summary>
+            左开右闭区间
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.Extensions.PLTime.RangeMode.CloseOpen">
+            <summary>
+            左闭右开区间
+            </summary>
+        </member>
         <member name="T:Palink.Tools.PanShi.Monitor.Ecm.EcmMessage">
             <summary>
             EcmMessage
@@ -2099,6 +2567,138 @@
             </summary>
             <param name="action"></param>
             <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.System.Mime.ContentType">
+            <summary>
+            默认MIME映射器，可以根据文件扩展名获取标准内容类型。
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.Mime.ContentType.DefaultMime">
+            <summary>
+            默认Mime  - 如果没有找到任何其他映射则作为默认的Mime-Type
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.System.Mime.DefaultMimeItems">
+            <summary>
+            DefaultMimeItems
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.Mime.DefaultMimeItems.Items">
+            <summary>
+            Items
+            </summary>
+        </member>
+        <member name="T:Palink.Tools.System.Mime.IMimeMapper">
+            <summary>
+            IMimeMapper
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.IMimeMapper.Extend(Palink.Tools.System.Mime.MimeMappingItem[])">
+            <summary>
+            扩展Mime
+            </summary>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.IMimeMapper.GetMimeFromExtension(System.String)">
+            <summary>
+            根据扩展名获取mime type
+            </summary>
+            <param name="fileExtension"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.IMimeMapper.GetMimeFromPath(System.String)">
+            <summary>
+            根据路径获取Mime Type
+            </summary>
+            <param name="filePath"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.System.Mime.MimeMapper">
+            <summary>
+            默认MIME映射器，可以根据文件扩展名获取标准内容类型。
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.Mime.MimeMapper.DefaultMime">
+            <summary>
+            默认Mime  - 如果没有找到任何其他映射则作为默认的Mime-Type
+            </summary>
+        </member>
+        <member name="F:Palink.Tools.System.Mime.MimeMapper._pathExtensionPattern">
+            <summary>
+            在文件路径中搜索文件扩展名的默认正则表达式
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.Mime.MimeMapper.MimeTypes">
+            <summary>
+            Mime类型与扩展名的映射字典(扩展名:mimetype)
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.#cctor">
+            <summary>
+            mime类型与扩展名的映射关系(mimetype:扩展名)
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.#ctor(Palink.Tools.System.Mime.MimeMappingItem[])">
+            <summary>
+            
+            </summary>
+            <param name="extensions"></param>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.Extend(Palink.Tools.System.Mime.MimeMappingItem[])">
+            <summary>
+            扩展mime映射规则的标准列表。扩展的具有更高的优先级 - 如果扩展具有与标准项相同的扩展名，则会覆盖默认的mime
+            </summary>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.GetMimeFromExtension(System.String)">
+            <summary>
+            返回特定文件扩展名的Content-Type，如果未找到任何对应关系，则返回默认值
+            </summary>
+            <param name="fileExtension"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.GetExtensionFromMime(System.String)">
+            <summary>
+            返回特定Content-Type的文件扩展名，如果未找到任何对应关系，则返回空值
+            </summary>
+            <param name="mime"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.GetMimeFromPath(System.String)">
+            <summary>
+            根据路径获取MimeType
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.System.Mime.MimeMapper.GetExtension(System.String)">
+            <summary>
+            获取扩展名
+            </summary>
+            <param name="path"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Palink.Tools.System.Mime.MimeMappingItem">
+            <summary>
+            MimeMappingItem
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.Mime.MimeMappingItem.Extension">
+            <summary>
+            扩展名
+            </summary>
+        </member>
+        <member name="P:Palink.Tools.System.Mime.MimeMappingItem.MimeType">
+            <summary>
+            MimeType
+            </summary>
         </member>
         <member name="T:Palink.Tools.System.PLAttribute.JsonOcrAttribute">
             <summary>
@@ -2616,6 +3216,57 @@
             Constructor
             </summary>
         </member>
+        <member name="T:Palink.Tools.System.PLFile.IniFile">
+            <summary>
+            INIFile
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.#ctor(System.String)">
+            <summary>
+            传入INI文件路径构造对象,路径示例c:/test/test.ini
+            </summary>
+            <param name="iniPath">INI文件路径</param>
+        </member>
+        <member name="P:Palink.Tools.System.PLFile.IniFile.Path">
+            <summary>
+            获取路径
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.IniWriteValue(System.String,System.String,System.String)">
+            <summary>
+            写INI文件
+            </summary>
+            <param name="section">分组节点</param>
+            <param name="key">关键字</param>
+            <param name="value">值</param>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.IniReadValue(System.String,System.String)">
+            <summary>
+            读取INI文件
+            </summary>
+            <param name="section">分组节点</param>
+            <param name="key">关键字</param>
+            <returns>值</returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.IniReadValues(System.String,System.String)">
+            <summary>
+            读取INI文件
+            </summary>
+            <param name="section">分组节点</param>
+            <param name="key">关键字</param>
+            <returns>值的字节表现形式</returns>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.ClearAllSection">
+            <summary>
+            删除ini文件下所有段落
+            </summary>
+        </member>
+        <member name="M:Palink.Tools.System.PLFile.IniFile.ClearSection(System.String)">
+            <summary>
+            删除ini文件下指定段落下的所有键
+            </summary>
+            <param name="section">分组节点</param>
+        </member>
         <member name="T:Palink.Tools.System.PLTime.ChineseCalendar">
             <summary>
             中国农历类 支持 1900.1.31日起至 2069.12.31日止的数据
@@ -3042,9 +3693,6 @@
             <param name="name"></param>
         </member>
         <member name="T:Palink.Tools.Utils.CoreTool">
-            <summary>
-            CoreTool
-            </summary>
             <summary>
             CoreTool
             </summary>
@@ -3554,241 +4202,6 @@
             删除计划任务
             </summary>
             <param name="taskName"></param>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.Get1970ToNowMilliseconds">
-            <summary>
-            获取1970-1-1到现在的毫秒数
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.Get1970ToDateTimeMilliseconds(System.DateTime)">
-            <summary>
-            获取毫秒数
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.BeijingTimeToUnixTimeStamp10(System.DateTime)">
-            <summary>
-            北京时间转换成unix时间戳(10位/秒)
-            Unix 时间戳是从1970年1月1日（UTC/GMT的午夜）开始所经过的秒数，不考虑闰秒
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UtcTimeToUnixTimeStamp10(System.DateTime)">
-            <summary>
-            格林威治时间转换成unix时间戳(10位/秒)
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.BeijingTimeToUnixTimeStamp13(System.DateTime)">
-            <summary>
-            北京时间转换成unix时间戳(13位/毫秒)
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UtcTimeToUnixTimeStamp13(System.DateTime)">
-            <summary>
-            格林威治时间转换成unix时间戳(13位/毫秒)
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp10ToBeijingTime(System.Int64)">
-            <summary>
-            10位unix时间戳转换成北京时间
-            </summary>
-            <param name="unixTimeStamp"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp10ToUtcTime(System.Int64)">
-            <summary>
-            10位unix时间戳转换成格林威治
-            </summary>
-            <param name="unixTimeStamp"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp13ToBeijingTime(System.Int64)">
-            <summary>
-            13位unix时间戳转换成北京时间
-            </summary>
-            <param name="unixTimeStamp"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UnixTimeStamp13ToUtcTime(System.Int64)">
-            <summary>
-            13位unix时间戳转换成格林威治
-            </summary>
-            <param name="unixTimeStamp"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetDayStart(System.DateTime)">
-            <summary>
-            获取本日开始时间（0点0分0秒）
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetDayEnd(System.DateTime)">
-            <summary>
-            获取本日结束时间（23点59分59秒）
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekStart(System.DateTime)">
-            <summary>
-            获取本周开始时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekEnd(System.DateTime)">
-            <summary>
-            获取本周结束时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetMonthStart(System.DateTime)">
-            <summary>
-            获取本月开始时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetMonthEnd(System.DateTime)">
-            <summary>
-            获取本月结束时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetSeasonStart(System.DateTime)">
-            <summary>
-            获取本季度开始时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetSeasonEnd(System.DateTime)">
-            <summary>
-            获取本季度结束时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetYearStart(System.DateTime)">
-            <summary>
-            获取本年开始时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetYearEnd(System.DateTime)">
-            <summary>
-            获取本年结束时间
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetFirstWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
-            <summary>
-            当前日期所在月份第一个指定星期几的日期
-            </summary>
-            <param name="date">给定日期</param>
-            <param name="dayOfWeek">星期几</param>
-            <returns>所对应的日期</returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetLastWeekDayOfMonth(System.DateTime,System.DayOfWeek)">
-            <summary>
-            当前日期所在月份最后1个指定星期几的日期
-            </summary>
-            <param name="date">给定日期</param>
-            <param name="dayOfWeek">星期几</param>
-            <returns>所对应的日期</returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsBefore(System.DateTime,System.DateTime)">
-            <summary>
-            判断是否比指定之间早
-            </summary>
-            <param name="date"></param>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsAfter(System.DateTime,System.DateTime)">
-            <summary>
-            判断是否比指定时间晚
-            </summary>
-            <param name="date"></param>
-            <param name="other"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetCountDaysOfMonth(System.DateTime)">
-            <summary>
-            给定日期所在月份共有多少天
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsDateEqual(System.DateTime,System.DateTime)">
-            <summary>
-            当前日期与给定日期是否是同一天
-            </summary>
-            <param name="date">当前日期</param>
-            <param name="dateToCompare">给定日期</param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsWeekend(System.DateTime)">
-            <summary>
-            是否是周未
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsWeekDay(System.DateTime)">
-            <summary>
-            是否是工作日
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsToday(System.DateTime)">
-            <summary>
-            判断是否为今天
-            </summary>
-            <param name="date"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.IsLeap(System.DateTime)">
-            <summary>
-            判定公历闰年遵循的一般规律为：四年一闰，百年不闰，四百年再闰。
-            公历闰年的精确计算方法：（按一回归年365天5小时48分45.5秒）
-            普通年能被4整除而不能被100整除的为闰年。 （如2004年就是闰年，1900年不是闰年）
-            世纪年能被400整除而不能被3200整除的为闰年。 (如2000年是闰年，3200年不是闰年)
-            对于数值很大的年份能整除3200,但同时又能整除172800则又是闰年。(如172800年是闰年，86400年不是闰年）
-            公元前闰年规则如下：
-            非整百年：年数除4余数为1是闰年，即公元前1、5、9……年；
-            整百年：年数除400余数为1是闰年，年数除3200余数为1，不是闰年,年数除172800余1又为闰年，即公元前401、801……年。
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetDaysByYear(System.DateTime)">
-            <summary>
-            获取当前年天数
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.GetWeekCountByYear(System.DateTime)">
-            <summary>
-            获取当前年天数
-            </summary>
-            <param name="dateTime"></param>
-            <returns></returns>
         </member>
         <member name="T:Palink.Tools.Utils.MouseStatus">
             <summary>

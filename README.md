@@ -194,26 +194,48 @@ date.GetTotalMilliseconds();//获取该时间相对于1970-01-01T00:00:00Z的毫
 
 ## 系统类
 
-- HiPerfTimer：纳秒级计时器，仅支持Windows系统
+### BaseAppSettings
 
-- BaseAppSettings：appsettings.json配置文件数据读取类，抽象类需要继承去实现
+appsettings.json配置文件数据读取类，抽象类需要继承去实现
 
-- ChineseCalendar：中国日历
+### ChineseCalendar
 
-  ```c#
-  public void ChineseCalendarTest()
-  {
-      var calendar = new ChineseCalendar(new DateTime(1993, 5, 9));
-      var animal = calendar.AnimalString;
-      var date = calendar.ChineseDateString;
-      var constellation = calendar.ChineseConstellation;
-      var tg = calendar.GanZhiYearString;
-      Assert.Equal(animal, "鸡");
-      Assert.Equal(date, "一九九三年闰三月十八");
-      Assert.Equal(constellation, "柳土獐");
-      Assert.Equal(tg, "癸酉年");
-  }
-  ```
+中国日历
+
+```c#
+public void ChineseCalendarTest()
+{
+    var calendar = new ChineseCalendar(new DateTime(1993, 5, 9));
+    var animal = calendar.AnimalString;
+    var date = calendar.ChineseDateString;
+    var constellation = calendar.ChineseConstellation;
+    var tg = calendar.GanZhiYearString;
+    Assert.Equal(animal, "鸡");
+    Assert.Equal(date, "一九九三年闰三月十八");
+    Assert.Equal(constellation, "柳土獐");
+    Assert.Equal(tg, "癸酉年");
+}
+```
+
+### MimeMapper
+
+```c#
+public void MimeMapperTest()
+{
+    var t = DefaultMimeItems.Items.Where(x => x.MimeType == ContentType.Bmp);
+    var mime = new MimeMapper(DefaultMimeItems.Items.ToArray());
+    var mimeType = mime.GetMimeFromPath("c:/1.bmp");
+    Assert.Equal(mimeType, ContentType.Bmp);
+
+    mimeType = mime.GetMimeFromExtension("bmp");
+    Assert.Equal(mimeType, ContentType.Bmp);
+
+    var extension = mime.GetExtensionFromMime(mimeType);
+    Assert.True(extension.Contains("bmp"));
+    Assert.True(extension.Contains("dib"));
+}
+```
+
 
 
 ## 工具类

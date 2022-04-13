@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Palink.Tools.System.PLFile;
@@ -9,12 +10,17 @@ namespace Palink.Tools.System.PLFile;
 public class IniFile
 {
     /// <summary>
-    /// 传入INI文件路径构造对象
+    /// 传入INI文件路径构造对象,路径示例c:/test/test.ini
     /// </summary>
     /// <param name="iniPath">INI文件路径</param>
     public IniFile(string iniPath)
     {
         Path = iniPath;
+
+        if (!File.Exists(Path))
+        {
+            File.Create(Path);
+        }
     }
 
     /// <summary>

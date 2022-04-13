@@ -27,6 +27,7 @@
 		<Folder Include="Extensions\PLConvert\Enumeration\" />
 		<Folder Include="Extensions\PLTime\" />
 		<Folder Include="System\PLTime\" />
+		<Folder Include="System\Mime\" />
 	</ItemGroup>
 
 	<PropertyGroup>
