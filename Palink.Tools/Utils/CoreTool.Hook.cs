@@ -67,8 +67,8 @@ public partial class CoreTool
     /// </summary>
     public delegate int HookProc(int code, IntPtr wParam, IntPtr lParam);
 
-    private static HookProc _keyboardHookProc;
-    private static HookProc _mouseHookProc;
+    private static HookProc? _keyboardHookProc;
+    private static HookProc? _mouseHookProc;
 
     private static int KeyboardHookCallback(int code, IntPtr wParam, IntPtr lParam)
     {
@@ -89,7 +89,7 @@ public partial class CoreTool
     /// <summary>
     /// MouseExecute
     /// </summary>
-    public static Action<IntPtr> MouseExecute { get; set; }
+    public static Action<IntPtr>? MouseExecute { get; set; }
 
     private static int MouseHookCallback(int code, IntPtr wParam, IntPtr lParam)
     {

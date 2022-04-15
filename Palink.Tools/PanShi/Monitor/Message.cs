@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
 using Palink.Tools.Extensions.PLConvert;
 using Palink.Tools.Extensions.PLString;
@@ -42,25 +43,29 @@ public abstract class Message
     /// 消息唯一标识
     /// </summary>
     [JsonProperty("id")]
-    public string Id { get; set; }
+    [NotNull]
+    public string? Id { get; set; }
 
     /// <summary>
     /// 信息类型 E、M
     /// </summary>
     [JsonProperty("infoType")]
-    public string InfoType { get; set; }
+    [NotNull]
+    public string? InfoType { get; set; }
 
     /// <summary>
     /// 信息代码000-999
     /// </summary>
     [JsonProperty("infoCode")]
-    public string InfoCode { get; set; }
+    [NotNull]
+    public string? InfoCode { get; set; }
 
     /// <summary>
     /// 信息内容
     /// </summary>
     [JsonProperty("infoContent")]
-    public string InfoContent { get; set; }
+    [NotNull]
+    public string? InfoContent { get; set; }
 
     /// <summary>
     /// 消息有效时长
@@ -84,7 +89,8 @@ public abstract class Message
     /// 将消息发送到服务器的URL地址
     /// </summary>
     [JsonProperty("url")]
-    public string Url { get; set; }
+    [NotNull]
+    public string? Url { get; set; }
 
     /// <summary>
     /// 获取当前消息缓存的标签

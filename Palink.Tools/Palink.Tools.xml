@@ -228,6 +228,16 @@
             <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.UnicastAsync(Palink.Tools.Communication.Interface.IMessage,System.Threading.CancellationToken,System.Boolean,System.Boolean)">
+            <summary>
+            异步单播命令
+            </summary>
+            <param name="message"></param>
+            <param name="token"></param>
+            <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.Communication.Device.BaseMaster.CheckData(Palink.Tools.Communication.Interface.IMessage)">
             <summary>
             数据校验
@@ -348,6 +358,16 @@
             单播命令
             </summary>
             <param name="message"></param>
+            <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Communication.Master.UnicastAsync(Palink.Tools.Communication.Interface.IMessage,System.Threading.CancellationToken,System.Boolean,System.Boolean)">
+            <summary>
+            异步单播命令
+            </summary>
+            <param name="message"></param>
+            <param name="token"></param>
             <param name="ignoreReadBytes">忽略读取字节的长度，读取到数据就返回，主要用于TCP</param>
             <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
             <returns></returns>
@@ -2425,7 +2445,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.LoginAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            机器人登录
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Logout">
+            <summary>
+            机器人退出
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.LogoutAsync(System.Threading.CancellationToken)">
             <summary>
             机器人退出
             </summary>
@@ -2451,11 +2483,28 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.GetStatusAsync(System.Threading.CancellationToken)">
+            <summary>
+            获取机器人状态
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Start(System.Int32,System.Boolean,System.Int32)">
             <summary>
             执行Main程序
             </summary>
             <param name="id"></param>
+            <param name="wait">是否等待数据返回</param>
+            <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.StartAsync(System.Int32,System.Threading.CancellationToken,System.Boolean,System.Int32)">
+            <summary>
+            执行Main程序
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
             <param name="wait">是否等待数据返回</param>
             <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
             <returns></returns>
@@ -2466,7 +2515,31 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.ResetAsync(System.Threading.CancellationToken)">
+            <summary>
+            重置机器人
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Stop">
+            <summary>
+            停止机器人
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.StopAsync(System.Threading.CancellationToken)">
+            <summary>
+            停止机器人
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetMotorsOn(System.Int32)">
+            <summary>
+            机器人使能
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetMotorsOnAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             机器人使能
             </summary>
@@ -2479,6 +2552,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetMotorsOffAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            机器人下使能
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Home(System.Int32)">
             <summary>
             机器人回零
@@ -2486,7 +2567,21 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.HomeAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            机器人回零
+            </summary>
+            <param name="id"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.GetIO(System.Int32)">
+            <summary>
+            读取IO
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.GetIOAsync(System.Int32,System.Threading.CancellationToken)">
             <summary>
             读取IO
             </summary>
@@ -2500,11 +2595,30 @@
             <param name="open"></param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.SetIOAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            设置IO
+            </summary>
+            <param name="id"></param>
+            <param name="open"></param>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.Execute(System.String,System.Boolean,System.Int32)">
             <summary>
-            执行Main程序
+            执行SPEL程序
             </summary>
             <param name="cmd">执行SPEL+语言命令，命令需要用引号</param>
+            <param name="wait">是否等待数据返回</param>
+            <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.PanShi.Robots.EpsonMaster.ExecuteAsync(System.String,System.Threading.CancellationToken,System.Boolean,System.Int32)">
+            <summary>
+            执行SPEL程序
+            </summary>
+            <param name="cmd">执行SPEL+语言命令，命令需要用引号</param>
+            <param name="token"></param>
             <param name="wait">是否等待数据返回</param>
             <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
             <returns></returns>

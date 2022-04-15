@@ -21,16 +21,19 @@ public class OcrWriteResolverTest
         var j1 = JsonConvert.SerializeObject(jsonTest, jssRead);
         var j2 = JsonConvert.SerializeObject(jsonTest, jssWrite);
 
+        Assert.False(j1 == j2);
         var jt1 = JsonConvert.DeserializeObject<JsonTest>(j1, jssRead);
         var jt2 = JsonConvert.DeserializeObject<JsonTest>(j2, jssWrite);
+        Assert.True(jt1.Age == jt2.Age);
+        Assert.True(jt1.Name == jt2.Name);
     }
 }
 
 public class JsonTest
 {
-    [JsonOcr(ReadName = "rName", WriteName = "wName")]
+    [JsonOcr(ReadName = "rName", WriteName = "wName", Readable = true, Writable = false)]
     public string Name { get; set; } = "Bob";
 
-    [JsonOcr(ReadName = "rAge", WriteName = "wAge")]
+    [JsonOcr(ReadName = "rAge", WriteName = "wAge", Readable = true, Writable = false)]
     public string Age { get; set; } = "10";
 }

@@ -183,7 +183,7 @@ public static class StringExtensions
         if (inputStr.IsNullOrEmpty())
             return null;
 
-        return inputStr.Length >= length ? inputStr.Substring(0, length) : inputStr;
+        return inputStr?.Length >= length ? inputStr.Substring(0, length) : inputStr;
     }
 
     /// <summary>
@@ -297,7 +297,7 @@ public static class StringExtensions
     /// <param name="arg0"></param>
     /// <param name="arg1"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, object arg0, object arg1)
+    public static string FormatWith(this string @this, object arg0, object? arg1)
     {
         return string.Format(@this, arg0, arg1);
     }

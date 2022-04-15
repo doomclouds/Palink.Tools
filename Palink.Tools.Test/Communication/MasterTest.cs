@@ -1,4 +1,5 @@
-﻿using System;
+﻿#nullable enable
+using System;
 using System.Net.Sockets;
 using Palink.Tools.Communication;
 using Palink.Tools.Communication.Adapter;
@@ -67,7 +68,7 @@ public class MyMaster : Master
     /// </summary>
     /// <param name="frame"></param>
     /// <returns></returns>
-    public override IMessage CreateStringFrame(string frame)
+    public override IMessage? CreateStringFrame(string frame)
     {
         return null;
     }

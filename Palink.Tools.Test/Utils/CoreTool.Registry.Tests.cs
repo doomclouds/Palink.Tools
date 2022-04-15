@@ -9,18 +9,22 @@ public partial class CoreToolTest
     [Fact]
     public void CreateFolderInLocalMachineTest()
     {
-        CoreTool.CreateFolderInLocalMachine("SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest");
+        CoreTool.CreateFolderInLocalMachine(
+            "SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest");
     }
 
     [Fact]
     public void DeleteFolderInLocalMachineTest()
     {
-        CoreTool.DeleteFolderInLocalMachine("SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest");
+        CoreTool.DeleteFolderInLocalMachine(
+            "SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest");
     }
 
     [Fact]
     public void SetupKeyValueInLocalMachineTest()
     {
-        CoreTool.SetupKeyValueInLocalMachine("SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest", "Palinks", 0, RegistryValueKind.DWord);
+        CoreTool.SetupKeyValueInLocalMachine(
+            "SOFTWARE\\Policies\\Microsoft\\Windows\\PalinkTest", "Palinks", 0,
+            RegistryValueKind.DWord);
     }
 }

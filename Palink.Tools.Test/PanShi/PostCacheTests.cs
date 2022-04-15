@@ -8,6 +8,7 @@ namespace Palink.Tools.Test.PanShi;
 
 public class PostCacheTests
 {
+    private const string Uri = "https://127.0.0.1/";
     [Fact]
     public async void NormalTest()
     {
@@ -21,7 +22,7 @@ public class PostCacheTests
             DataSource = "PC",
             Time = "2022-03-31 10:31:14",
             TradeNo = "PC-??????????????????????",
-            Url = "https://www.pxghx.top/api/postRunningAcount",
+            Url = Uri,
             Tag = MessageTag.AutoExpireNeeded,
             InfoContent = "流水数据",
             ETime = TimeSpan.FromMinutes(2),

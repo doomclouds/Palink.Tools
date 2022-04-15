@@ -25,9 +25,9 @@ public class EpsonMasterTests
         var tcp = new TcpClient("192.168.13.8", 5000);
         var adapter = new TcpClientAdapter(tcp);
         var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
-        epson.Login("");
+        await epson.LoginAsync("");
         await Task.Delay(1000);
-        var ret = epson.Logout();
+        var ret = await epson.LogoutAsync();
         Assert.True(ret);
     }
 
@@ -37,7 +37,7 @@ public class EpsonMasterTests
         var tcp = new TcpClient("192.168.13.8", 5000);
         var adapter = new TcpClientAdapter(tcp);
         var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
-        epson.Login("");
+        await epson.LoginAsync("");
         await Task.Delay(1000);
         var ret = epson.Start(1, true, 3000);
         Assert.True(ret);
@@ -49,16 +49,16 @@ public class EpsonMasterTests
         var tcp = new TcpClient("192.168.13.8", 5000);
         var adapter = new TcpClientAdapter(tcp);
         var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
-        epson.Login("");
+        await epson.LoginAsync("");
         await Task.Delay(1000);
-        epson.SetMotorsOff();
+        await epson.SetMotorsOffAsync();
         await Task.Delay(1000);
-        epson.Reset();
+        await epson.ResetAsync();
         await Task.Delay(1000);
-        var ret = epson.SetMotorsOn();
+        var ret = await epson.SetMotorsOnAsync();
         Assert.True(ret);
         await Task.Delay(1000);
-        ret = epson.Home();
+        ret = await epson.HomeAsync();
         Assert.True(ret);
     }
 
@@ -68,12 +68,12 @@ public class EpsonMasterTests
         var tcp = new TcpClient("192.168.13.8", 5000);
         var adapter = new TcpClientAdapter(tcp);
         var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
-        epson.Login("");
+        await epson.LoginAsync("");
         await Task.Delay(1000);
-        var ret = epson.GetIO(0);
+        var ret = await epson.GetIOAsync(0);
         Assert.True(!ret);
         await Task.Delay(1000);
-        ret = epson.SetIO(2, true);
+        ret = await epson.SetIOAsync(2, true);
         Assert.True(ret);
     }
 
@@ -83,11 +83,11 @@ public class EpsonMasterTests
         var tcp = new TcpClient("192.168.13.8", 5000);
         var adapter = new TcpClientAdapter(tcp);
         var epson = new EpsonMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
-        epson.Login("");
+        await epson.LoginAsync("");
         await Task.Delay(1000);
-        epson.Reset();
+        await epson.ResetAsync();
         await Task.Delay(1000);
-        var ret = epson.SetMotorsOn();
+        var ret = await epson.SetMotorsOnAsync();
         Assert.True(ret);
         ret = epson.Execute("\"Go XY(400,50,0,0)\"", true, 6000);
         Assert.True(ret);

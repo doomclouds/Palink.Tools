@@ -8,12 +8,12 @@ namespace Palink.Tools.Test.PanShi.CloudMonitor;
 
 public class EcmTransferStationTests
 {
+    private const string Uri = "http://127.0.0.1/";
     [Fact]
     public async void BeatsTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url, "EcmCache");
+        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
 
         // var ret = service.BeatsInstance(MessageType.Normal)
         //     .SendDataToEcm();
@@ -26,8 +26,7 @@ public class EcmTransferStationTests
     public async void InteractionTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url, "EcmCache");
+        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
 
         service.AddMessage(
             EcmMessage.InteractionInstance(exhibitNo, TimeSpan.FromHours(1)));
@@ -39,8 +38,7 @@ public class EcmTransferStationTests
     public async void ErrorTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        const string url = "http://15b4487o14.iok.la:13655/api/exhibit/";
-        var service = new EcmService(5, exhibitNo, url, "EcmCache");
+        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
 
         service.AddMessage(EcmMessage.MonitorInstance(exhibitNo, "打败守卫测试Error", "E",
             TimeSpan.FromMinutes(3), MessageTag.AutoExpire));
