@@ -5,7 +5,6 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-#nullable disable
 namespace Palink.Tools.System.PLCaching.MonkeyCache;
 
 /// <summary>
@@ -13,7 +12,7 @@ namespace Palink.Tools.System.PLCaching.MonkeyCache;
 /// </summary>
 public class HttpCache
 {
-    private static HttpCache _instance;
+    private static HttpCache? _instance;
 
     /// <summary>
     /// Gets the instance of the HttpCache
@@ -52,7 +51,7 @@ public class HttpCache
     /// <param name="forceUpdate">Force an update from the server</param>
     /// <param name="throttled">If the request should be throttled</param>
     /// <returns>The cached or new active item.</returns>
-    public Task<string> GetCachedAsync(IBarrel barrel, string url, TimeSpan timeout,
+    public Task<string?> GetCachedAsync(IBarrel barrel, string url, TimeSpan timeout,
         TimeSpan expireIn, bool forceUpdate = false, bool throttled = true)
     {
         var client = CreateClient(timeout);
@@ -79,7 +78,7 @@ public static class HttpCacheExtensions
     /// <param name="forceUpdate">If we should force the update or not</param>
     /// <param name="throttled">If throttled or not</param>
     /// <returns>The new or cached response.</returns>
-    public static async Task<string> SendCachedAsync(this HttpClient http, IBarrel barrel,
+    public static async Task<string?> SendCachedAsync(this HttpClient http, IBarrel barrel,
         HttpRequestMessage req, TimeSpan expireIn, bool forceUpdate = false,
         bool throttled = true)
     {

@@ -283,7 +283,7 @@ public class ChineseCalendar
                 break;
             }
 
-            offset = offset - temp;
+            offset -= temp;
         }
 
         ChineseYear = i;

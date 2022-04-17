@@ -6,8 +6,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Newtonsoft.Json;
+using Palink.Tools.Extensions.PLString;
 
-#nullable disable
 namespace Palink.Tools.System.PLCaching.MonkeyCache.FileStore;
 
 /// <summary>
@@ -25,11 +25,18 @@ public class Barrel : IBarrel
     /// </summary>
     /// <param name="cacheDirectory">Optionally specify directory where cache will live</param>
     /// <param name="hash">Optionally specify hash algorithm</param>
-    private Barrel(string cacheDirectory = null, HashAlgorithm hash = null)
+    private Barrel(string? cacheDirectory = null, HashAlgorithm? hash = null)
     {
-        _baseDirectory = new Lazy<string>(() => string.IsNullOrEmpty(cacheDirectory) ?
-            Path.Combine(BarrelUtils.GetBasePath(ApplicationId), "MonkeyCacheFS")
-            : cacheDirectory);
+        if (cacheDirectory.IsNullOrEmpty())
+        {
+            _baseDirectory = new Lazy<string>(() =>
+                Path.Combine(BarrelUtils.GetBasePath(ApplicationId)));
+        }
+        else
+        {
+            _baseDirectory = new Lazy<string>(() => cacheDirectory);
+        }
+
 
         _hashAlgorithm = hash ?? MD5.Create();
 
@@ -58,7 +65,7 @@ public class Barrel : IBarrel
     /// </summary>
     public bool AutoExpire { get; set; }
 
-    private static Barrel _instance;
+    private static Barrel? _instance;
 
     /// <summary>
     /// Gets the instance of the Barrel
@@ -70,7 +77,7 @@ public class Barrel : IBarrel
     /// </summary>
     /// <param name="cacheDirectory">Optionally specify directory where cache will live</param>
     /// <param name="hash">Optionally specify hash algorithm</param>
-    public static IBarrel Create(string cacheDirectory, HashAlgorithm hash = null) =>
+    public static IBarrel Create(string cacheDirectory, HashAlgorithm? hash = null) =>
         new Barrel(cacheDirectory, hash);
 
     /// <summary>
@@ -80,7 +87,7 @@ public class Barrel : IBarrel
     /// <param name="data">Data object to store</param>
     /// <param name="expireIn">Time from UtcNow to expire entry in</param>
     /// <param name="eTag">Optional eTag information</param>
-    private void Add(string key, string data, TimeSpan expireIn, string eTag = null)
+    private void Add(string key, string? data, TimeSpan expireIn, string? eTag = null)
     {
         _indexLocker.EnterWriteLock();
 
@@ -117,8 +124,8 @@ public class Barrel : IBarrel
     public void Add<T>(string key,
         T data,
         TimeSpan expireIn,
-        string eTag = null,
-        JsonSerializerSettings jsonSerializationSettings = null)
+        string? eTag = null,
+        JsonSerializerSettings? jsonSerializationSettings = null)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
@@ -127,7 +134,7 @@ public class Barrel : IBarrel
         if (data == null)
             throw new ArgumentNullException(err, nameof(data));
 
-        string dataJson;
+        string? dataJson;
 
         if (BarrelUtils.IsString(data))
         {
@@ -270,26 +277,21 @@ public class Barrel : IBarrel
 
         try
         {
-            if (_index != null)
+            var bananas = new List<KeyValuePair<string, Tuple<string, DateTime>>>();
+
+            if (state.HasFlag(CacheState.Active))
             {
-                var bananas = new List<KeyValuePair<string, Tuple<string, DateTime>>>();
-
-                if (state.HasFlag(CacheState.Active))
-                {
-                    bananas = _index
-                        .Where(x => x.Value.Item2 >= DateTime.UtcNow)
-                        .ToList();
-                }
-
-                if (state.HasFlag(CacheState.Expired))
-                {
-                    bananas.AddRange(_index.Where(x => x.Value.Item2 < DateTime.UtcNow));
-                }
-
-                return bananas.Select(x => x.Key);
+                bananas = _index
+                    .Where(x => x.Value.Item2 >= DateTime.UtcNow)
+                    .ToList();
             }
 
-            return Array.Empty<string>();
+            if (state.HasFlag(CacheState.Expired))
+            {
+                bananas.AddRange(_index.Where(x => x.Value.Item2 < DateTime.UtcNow));
+            }
+
+            return bananas.Select(x => x.Key);
         }
         catch (Exception)
         {
@@ -307,35 +309,30 @@ public class Barrel : IBarrel
     /// <param name="eTag">标签名称</param>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
-    public IEnumerable<string> GetKeys(string eTag, CacheState state = CacheState.Active)
+    public IEnumerable<string> GetKeys(string? eTag, CacheState state = CacheState.Active)
     {
         _indexLocker.EnterReadLock();
 
         try
         {
-            if (_index != null)
+            var bananas = new List<KeyValuePair<string, Tuple<string, DateTime>>>();
+
+            if (state.HasFlag(CacheState.Active))
             {
-                var bananas = new List<KeyValuePair<string, Tuple<string, DateTime>>>();
-
-                if (state.HasFlag(CacheState.Active))
-                {
-                    bananas = _index
-                        .Where(x =>
-                            x.Value.Item2 >= DateTime.UtcNow &&
-                            x.Value.Item1.Equals(eTag))
-                        .ToList();
-                }
-
-                if (state.HasFlag(CacheState.Expired))
-                {
-                    bananas.AddRange(_index.Where(x => x.Value.Item2 < DateTime.UtcNow &&
-                        x.Value.Item1.Equals(eTag)));
-                }
-
-                return bananas.Select(x => x.Key);
+                bananas = _index
+                    .Where(x =>
+                        x.Value.Item2 >= DateTime.UtcNow &&
+                        x.Value.Item1.Equals(eTag))
+                    .ToList();
             }
 
-            return Array.Empty<string>();
+            if (state.HasFlag(CacheState.Expired))
+            {
+                bananas.AddRange(_index.Where(x => x.Value.Item2 < DateTime.UtcNow &&
+                    x.Value.Item1.Equals(eTag)));
+            }
+
+            return bananas.Select(x => x.Key);
         }
         catch (Exception)
         {
@@ -353,7 +350,7 @@ public class Barrel : IBarrel
     /// <param name="key">Unique identifier for the entry to get</param>
     /// <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
     /// <returns>The data object that was stored if found, else default(T)</returns>
-    public T Get<T>(string key, JsonSerializerSettings jsonSerializationSettings = null)
+    public T? Get<T>(string key, JsonSerializerSettings? jsonSerializationSettings = null)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
@@ -421,12 +418,12 @@ public class Barrel : IBarrel
     /// </summary>
     /// <param name="key">Unique identifier for entry to get</param>
     /// <returns>The ETag if the key is found, else null</returns>
-    public string GetETag(string key)
+    public string? GetETag(string key)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        string etag = null;
+        string? etag = null;
 
         _indexLocker.EnterReadLock();
 
@@ -474,7 +471,7 @@ public class Barrel : IBarrel
 
     private const string IndexFilename = "idx.dat";
 
-    private string _indexFile;
+    private string? _indexFile;
 
     private void WriteIndex()
     {
@@ -483,6 +480,8 @@ public class Barrel : IBarrel
         if (!Directory.Exists(_baseDirectory.Value))
             Directory.CreateDirectory(_baseDirectory.Value);
 
+        if (_indexFile.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(_indexFile), "indexFile不能为空");
         using var f = File.Open(_indexFile, FileMode.Create);
         using var sw = new StreamWriter(f);
         foreach (var kvp in _index)
@@ -502,10 +501,12 @@ public class Barrel : IBarrel
 
         _index.Clear();
 
+        if (_indexFile.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(_indexFile), "indexFile不能为空");
         using var f = File.OpenRead(_indexFile);
         using var sw = new StreamReader(f);
         string line;
-        while ((line = sw.ReadLine()) != null)
+        while ((line = sw.ReadLine() ?? string.Empty) != null)
         {
             var parts = line.Split('\t');
             if (parts.Length == 3)
@@ -530,8 +531,8 @@ public class Barrel : IBarrel
         return BitConverter.ToString(data);
     }
 
-    private static readonly DateTime Epoch =
-        new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+    private static readonly DateTime
+        Epoch = new(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
     private static int DateTimeToEpochSeconds(DateTime date)
     {

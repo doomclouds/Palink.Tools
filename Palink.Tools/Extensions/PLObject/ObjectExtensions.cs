@@ -49,7 +49,7 @@ public static class ObjectExtensions
     /// <param name="original"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static T? DeepClone<T>(this T original)
+    public static T? DeepClone<T>(this T? original)
     {
         return (T?)DeepClone(original as object);
     }
@@ -57,7 +57,7 @@ public static class ObjectExtensions
     private static object? InternalCopy(object? originalObject,
         IDictionary<object, object> visited)
     {
-        if (originalObject == null)
+        if (originalObject.IsNull())
         {
             return null;
         }
@@ -143,7 +143,7 @@ public static class ObjectExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="value"></param>
     /// <returns></returns>
-    public static bool IsNullOrEmpty<T>(this T? value)
+    public static bool IsNullOrEmpty<T>([NotNullWhen(false)]this T? value)
         where T : class
     {
         #region 1.对象级别
@@ -172,12 +172,24 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// 判断是否不为null
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool IsNotNullOrEmpty<T>([NotNullWhen(true)]this T? value)
+        where T : class
+    {
+        return !value.IsNullOrEmpty();
+    }
+
+    /// <summary>
     /// 严格比较两个对象是否是同一对象(判断引用)
     /// </summary>
     /// <param name="this">自己</param>
     /// <param name="o">需要比较的对象</param>
     /// <returns>是否同一对象</returns>
-    public new static bool ReferenceEquals(this object @this, object o)
+    public new static bool ReferenceEquals(this object? @this, object? o)
     {
         return object.ReferenceEquals(@this, o);
     }
@@ -218,7 +230,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static bool IsNull(this object? obj)
+    public static bool IsNull([NotNullWhen(false)]this object? obj)
     {
         return obj == null;
     }
@@ -228,7 +240,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static bool IsNotNull(this object? obj)
+    public static bool IsNotNull([NotNullWhen(true)]this object? obj)
     {
         return obj != null;
     }
@@ -237,9 +249,9 @@ public static class ObjectExtensions
     /// 对象为空则抛出异常
     /// </summary>
     /// <param name="obj"></param>
-    public static void ThrowIfNull(this object obj)
+    public static void ThrowIfNull(this object? obj)
     {
-        if (obj == null)
+        if (obj.IsNull())
         {
             throw new ArgumentNullException(nameof(obj));
         }

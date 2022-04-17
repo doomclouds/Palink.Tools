@@ -46,7 +46,7 @@ public class IniFile
     /// <param name="section">分组节点</param>
     /// <param name="key">关键字</param>
     /// <param name="value">值</param>
-    public void IniWriteValue(string? section, string? key, string? value)
+    public void IniWriteValue(string section, string key, string? value)
     {
         WritePrivateProfileString(section, key, value, Path);
     }
@@ -82,15 +82,15 @@ public class IniFile
     /// </summary>
     public void ClearAllSection()
     {
-        IniWriteValue(null, null, null);
+        WritePrivateProfileString(null, null, null, Path);
     }
 
     /// <summary>
     /// 删除ini文件下指定段落下的所有键
     /// </summary>
     /// <param name="section">分组节点</param>
-    public void ClearSection(string? section)
+    public void ClearSection(string section)
     {
-        IniWriteValue(section, null, null);
+        WritePrivateProfileString(section, null, null, Path);
     }
 }

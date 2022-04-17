@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
+using Palink.Tools.Extensions.PLObject;
 
 namespace Palink.Tools.Extensions.PLString;
 
@@ -16,7 +18,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNullOrEmpty(this string? inputStr)
+    public static bool IsNullOrEmpty([NotNullWhen(false)]this string? inputStr)
     {
         return string.IsNullOrEmpty(inputStr);
     }
@@ -26,7 +28,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNullOrWhiteSpace(this string inputStr)
+    public static bool IsNullOrWhiteSpace([NotNullWhen(false)]this string? inputStr)
     {
         return string.IsNullOrWhiteSpace(inputStr);
     }
@@ -36,7 +38,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNotNullOrEmpty(this string inputStr)
+    public static bool IsNotNullOrEmpty([NotNullWhen(true)]this string? inputStr)
     {
         return !string.IsNullOrEmpty(inputStr);
     }
@@ -46,7 +48,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNotNullOrWhiteSpace(this string inputStr)
+    public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)]this string? inputStr)
     {
         return !string.IsNullOrWhiteSpace(inputStr);
     }
@@ -152,8 +154,9 @@ public static class StringExtensions
     /// 是否是图片文件名
     /// </summary>
     /// <param name="fileName"></param>
+    /// <param name="fileExtensions">图像文件扩展名</param>
     /// <returns></returns>
-    public static bool IsImgFileName(this string fileName)
+    public static bool IsImgFileName(this string fileName, List<string>? fileExtensions = default)
     {
         var suffix = new List<string>()
         {
@@ -162,6 +165,11 @@ public static class StringExtensions
             ".png",
             ".bmp"
         };
+
+        if(fileExtensions.IsNotNullOrEmpty())
+        {
+            suffix = fileExtensions;
+        }
 
         var fileSuffix = Path.GetExtension(fileName).ToLower();
 
@@ -183,7 +191,7 @@ public static class StringExtensions
         if (inputStr.IsNullOrEmpty())
             return null;
 
-        return inputStr?.Length >= length ? inputStr.Substring(0, length) : inputStr;
+        return inputStr.Length >= length ? inputStr.Substring(0, length) : inputStr;
     }
 
     /// <summary>
@@ -193,10 +201,10 @@ public static class StringExtensions
     /// <param name="oldStr"></param>
     /// <param name="newStr"></param>
     /// <returns></returns>
-    public static string TryReplace(this string inputStr, string oldStr,
+    public static string TryReplace(this string? inputStr, string oldStr,
         string newStr)
     {
-        return inputStr.IsNullOrEmpty() ? inputStr : inputStr.Replace(oldStr, newStr);
+        return inputStr.IsNullOrEmpty() ? "" : inputStr.Replace(oldStr, newStr);
     }
 
     /// <summary>
@@ -206,10 +214,10 @@ public static class StringExtensions
     /// <param name="pattern"></param>
     /// <param name="replacement"></param>
     /// <returns></returns>
-    public static string RegexReplace(this string inputStr, string pattern,
+    public static string RegexReplace(this string? inputStr, string pattern,
         string replacement)
     {
-        return inputStr.IsNullOrEmpty() ? inputStr
+        return inputStr.IsNullOrEmpty() ? ""
             : Regex.Replace(inputStr, pattern, replacement);
     }
 
@@ -297,7 +305,7 @@ public static class StringExtensions
     /// <param name="arg0"></param>
     /// <param name="arg1"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, object arg0, object? arg1)
+    public static string FormatWith(this string @this, object arg0, object arg1)
     {
         return string.Format(@this, arg0, arg1);
     }

@@ -24,22 +24,5 @@ namespace Palink.Tools.Extensions.PLAttribute
             var descriptionAttribute = (DescriptionAttribute)obj[0];
             return descriptionAttribute.Description;
         }
-
-         /// <summary>
-        /// 获取显示名称
-        /// </summary>
-        /// <param name="enumValue"></param>
-        /// <returns></returns>
-        public static string EnumDisplayName(this Enum enumValue)
-        {
-            var value = enumValue.ToString();
-            var field = enumValue.GetType().GetField(value);
-            var obj =
-                field?.GetCustomAttributes(typeof(DisplayNameAttribute), false); //获取显示名称
-            if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
-                return value;
-            var displayNameAttribute = (DisplayNameAttribute)obj[0];
-            return displayNameAttribute.DisplayName;
-        }
     }
 }

@@ -43,7 +43,7 @@ public class PostCacheService<T> where T : Message
         {
             var msg = _barrel.Get<T>(key);
 
-            switch (msg.SendSucceed)
+            switch (msg?.SendSucceed)
             {
                 case false when msg.Tag != MessageTag.Needed &&
                     msg.Tag != MessageTag.AutoExpireNeeded:

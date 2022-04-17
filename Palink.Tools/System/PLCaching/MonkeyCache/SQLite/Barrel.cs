@@ -5,7 +5,6 @@ using System.Linq;
 using Newtonsoft.Json;
 using SQLite;
 
-#nullable disable
 namespace Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
 
 /// <summary>
@@ -30,7 +29,7 @@ public class Barrel : IBarrel
     /// </summary>
     public bool AutoExpire { get; set; }
 
-    private static Barrel _instance;
+    private static Barrel? _instance;
 
     /// <summary>
     /// Gets the instance of the Barrel
@@ -46,7 +45,7 @@ public class Barrel : IBarrel
 
     private readonly JsonSerializerSettings _jsonSettings;
 
-    private Barrel(string cacheDirectory = null)
+    private Barrel(string? cacheDirectory = null)
     {
         var directory = string.IsNullOrEmpty(cacheDirectory) ? BaseCacheDir.Value
             : cacheDirectory;
@@ -157,7 +156,7 @@ public class Barrel : IBarrel
     /// <param name="eTag">标签名称</param>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
-    public IEnumerable<string> GetKeys(string eTag, CacheState state = CacheState.Active)
+    public IEnumerable<string> GetKeys(string? eTag, CacheState state = CacheState.Active)
     {
         IEnumerable<Banana> allBananas;
         lock (_dbLock)
@@ -173,14 +172,14 @@ public class Barrel : IBarrel
             {
                 bananas = allBananas
                     .Where(x =>
-                        GetExpiration(x.Id) >= DateTime.UtcNow && x.ETag.Equals(eTag))
+                        x.ETag != null && GetExpiration(x.Id) >= DateTime.UtcNow && x.ETag.Equals(eTag))
                     .ToList();
             }
 
             if (state.HasFlag(CacheState.Expired))
             {
                 bananas.AddRange(allBananas.Where(x =>
-                    GetExpiration(x.Id) < DateTime.UtcNow && x.ETag.Equals(eTag)));
+                    x.ETag != null && GetExpiration(x.Id) < DateTime.UtcNow && x.ETag.Equals(eTag)));
             }
 
             return bananas.Select(x => x.Id);
@@ -195,12 +194,12 @@ public class Barrel : IBarrel
     /// <param name="key">Unique identifier for the entry to get</param>
     /// <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
     /// <returns>The data object that was stored if found, else default(T)</returns>
-    public T Get<T>(string key, JsonSerializerSettings jsonSerializationSettings = null)
+    public T? Get<T>(string key, JsonSerializerSettings? jsonSerializationSettings = null)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana ent;
+        Banana? ent;
         lock (_dbLock)
         {
             ent = _db.Query<Banana>(
@@ -229,12 +228,12 @@ public class Barrel : IBarrel
     /// </summary>
     /// <param name="key">Unique identifier for entry to get</param>
     /// <returns>The ETag if the key is found, else null</returns>
-    public string GetETag(string key)
+    public string? GetETag(string key)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana ent;
+        Banana? ent;
         lock (_dbLock)
         {
             ent = _db.Query<Banana>(
@@ -252,7 +251,7 @@ public class Barrel : IBarrel
     /// <returns>The expiration date if the key is found, else null</returns>
     public DateTime? GetExpiration(string key)
     {
-        Banana ent;
+        Banana? ent;
         lock (_dbLock)
         {
             ent = _db.Query<Banana>(
@@ -274,7 +273,7 @@ public class Barrel : IBarrel
     /// <param name="data">Data string to store</param>
     /// <param name="expireIn">Time from UtcNow to expire entry in</param>
     /// <param name="eTag">Optional eTag information</param>
-    private void Add(string key, string data, TimeSpan expireIn, string eTag = null)
+    private void Add(string key, string? data, TimeSpan expireIn, string? eTag = null)
     {
         var ent = new Banana
         {
@@ -299,8 +298,8 @@ public class Barrel : IBarrel
     /// <param name="expireIn">Time from UtcNow to expire entry in</param>
     /// <param name="eTag">Optional eTag information</param>
     /// <param name="jsonSerializationSettings">Custom json serialization settings to use</param>
-    public void Add<T>(string key, T data, TimeSpan expireIn, string eTag = null,
-        JsonSerializerSettings jsonSerializationSettings = null)
+    public void Add<T>(string key, T data, TimeSpan expireIn, string? eTag = null,
+        JsonSerializerSettings? jsonSerializationSettings = null)
     {
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
@@ -309,7 +308,7 @@ public class Barrel : IBarrel
         if (data == null)
             throw new ArgumentNullException(err, nameof(data));
 
-        string dataJson;
+        string? dataJson;
 
         if (BarrelUtils.IsString(data))
         {

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-#nullable disable
 namespace Palink.Tools.System.PLCaching.MonkeyCache;
 
 /// <summary>
@@ -24,8 +23,8 @@ public interface IBarrel
     /// <param name="expireIn">How long in the future the item should expire</param>
     /// <param name="eTag">eTag to use if needed</param>
     /// <param name="jsonSerializationSettings">Specific json serialization to use</param>
-    void Add<T>(string key, T data, TimeSpan expireIn, string eTag = null,
-        JsonSerializerSettings jsonSerializationSettings = null);
+    void Add<T>(string key, T data, TimeSpan expireIn, string? eTag = null,
+        JsonSerializerSettings? jsonSerializationSettings = null);
 
     /// <summary>
     /// Empty a set of keys
@@ -63,7 +62,7 @@ public interface IBarrel
     /// <param name="eTag">标签名称</param>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
-    IEnumerable<string> GetKeys(string eTag, CacheState state = CacheState.Active);
+    IEnumerable<string> GetKeys(string? eTag, CacheState state = CacheState.Active);
 
     /// <summary>
     /// Get an object for the key
@@ -75,14 +74,14 @@ public interface IBarrel
     /// <remarks>
     /// When AutoExpire is set to true, Get<T> will return NULL if the item is expired</T>
     /// </remarks>
-    T Get<T>(string key, JsonSerializerSettings jsonSettings = null);
+    T? Get<T>(string key, JsonSerializerSettings? jsonSettings = null);
 
     /// <summary>
     /// Get the eTag for a key
     /// </summary>
     /// <param name="key">Key to use</param>
     /// <returns>eTag for key, else null</returns>
-    string GetETag(string key);
+    string? GetETag(string key);
 
     /// <summary>
     /// Checks if key is expired

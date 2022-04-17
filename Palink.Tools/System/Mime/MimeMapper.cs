@@ -17,7 +17,7 @@ public class MimeMapper : IMimeMapper
     /// <summary>
     /// 在文件路径中搜索文件扩展名的默认正则表达式
     /// </summary>
-    private readonly Regex _pathExtensionPattern = new Regex("\\.(\\w*)$");
+    private readonly Regex _pathExtensionPattern = new("\\.(\\w*)$");
 
     /// <summary>
     /// Mime类型与扩展名的映射字典(扩展名:mimetype)

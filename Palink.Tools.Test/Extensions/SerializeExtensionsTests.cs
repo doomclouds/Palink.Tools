@@ -12,6 +12,26 @@ public class SerializeExtensionsTests
         var obj = json.FromJson<MyClass>();
     }
 
+    [Fact]
+    public void TupleToJsonTest()
+    {
+        var myClass = new MyClass()
+        {
+            Rgb = (1, 1, 1),
+        };
+        var json = myClass.ToJson();
+        var obj = json.FromJson<MyClass>();
+    }
+
+    [Fact]
+    public void ByteArrayStringTest()
+    {
+        var msg = "Palink";
+        var bytes = msg.SerializeUtf8();
+        var msg2 = bytes.DeserializeUtf8();
+        Assert.Equal(msg, msg2);
+    }
+
     public class MyClass
     {
         public (byte r, byte g, byte b) Rgb { get; set; }

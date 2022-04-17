@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using Palink.Tools.Extensions.PLConvert.Enumeration;
 using Palink.Tools.Extensions.PLObject;
+using Palink.Tools.Extensions.PLSerialize;
 using Palink.Tools.Extensions.PLString;
 
 namespace Palink.Tools.Extensions.PLConvert
@@ -15,6 +16,20 @@ namespace Palink.Tools.Extensions.PLConvert
     public static class ConvertExtensions
     {
         /// <summary>
+        /// string转byte
+        /// </summary>
+        /// <param name="input">输入</param>
+        /// <param name="defaultNum">转换失败默认</param>
+        /// <returns></returns>
+        public static int TryToByte(this object? input, int defaultNum = 0)
+        {
+            if (input.IsNull())
+                return defaultNum;
+
+            return byte.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        }
+
+        /// <summary>
         /// string转int
         /// </summary>
         /// <param name="input">输入</param>
@@ -22,7 +37,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static int TryToInt(this object? input, int defaultNum = 0)
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultNum;
 
             return int.TryParse(input.ToString(), out var num) ? num : defaultNum;
@@ -36,7 +51,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static long TryToLong(this object? input, long defaultNum = 0)
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultNum;
 
             return long.TryParse(input.ToString(), out var num) ? num : defaultNum;
@@ -50,7 +65,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static double TryToDouble(this object? input, double defaultNum = 0)
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultNum;
 
             return double.TryParse(input.ToString(), out var num) ? num : defaultNum;
@@ -64,7 +79,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static decimal TryToDecimal(this object? input, decimal defaultNum = 0)
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultNum;
 
             return decimal.TryParse(input.ToString(), out var num) ? num : defaultNum;
@@ -78,7 +93,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static float TryToFloat(this object? input, float defaultNum = 0)
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultNum;
 
             return float.TryParse(input.ToString(), out var num) ? num : defaultNum;
@@ -95,7 +110,7 @@ namespace Palink.Tools.Extensions.PLConvert
         public static bool TryToBool(this object? input, bool defaultBool = false,
             string trueVal = "1", string falseVal = "0")
         {
-            if (input == null)
+            if (input.IsNull())
                 return defaultBool;
 
             var str = input.ToString();
@@ -115,7 +130,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="inputObj">输入</param>
         /// <param name="defaultStr">转换失败默认值</param>
         /// <returns></returns>
-        public static string TryToString(this ValueType inputObj, string defaultStr = "")
+        public static string TryToString(this ValueType? inputObj, string defaultStr = "")
         {
             var output = inputObj.IsNull() ? defaultStr : inputObj.ToString();
             return output;
@@ -127,7 +142,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="inputStr">输入</param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static DateTime TryToDateTime(this string inputStr, DateTime defaultValue)
+        public static DateTime TryToDateTime(this string? inputStr, DateTime defaultValue)
         {
             if (inputStr.IsNullOrEmpty())
                 return defaultValue;
@@ -143,7 +158,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="formatter"></param>
         /// <param name="defaultValue">默认值</param>
         /// <returns></returns>
-        public static DateTime TryToDateTime(this string inputStr, string formatter,
+        public static DateTime TryToDateTime(this string? inputStr, string formatter,
             DateTime defaultValue = default)
         {
             if (inputStr.IsNullOrEmpty())
@@ -152,17 +167,6 @@ namespace Palink.Tools.Extensions.PLConvert
             return DateTime.TryParseExact(inputStr, formatter,
                 CultureInfo.InvariantCulture, DateTimeStyles.None, out var outPutDateTime)
                 ? outPutDateTime : defaultValue;
-        }
-
-        /// <summary>
-        /// 时间戳转时间
-        /// </summary>
-        /// <param name="timestamp"></param>
-        /// <returns></returns>
-        public static DateTime TryToDateTime(this string timestamp)
-        {
-            var ticks = 621355968000000000 + long.Parse(timestamp) * 10000;
-            return new DateTime(ticks);
         }
 
         /// <summary>
@@ -183,9 +187,9 @@ namespace Palink.Tools.Extensions.PLConvert
         /// </summary>
         /// <param name="inputStr">输入</param>
         /// <returns></returns>
-        public static string TryToTrim(this string inputStr)
+        public static string TryToTrim(this string? inputStr)
         {
-            var output = inputStr.IsNullOrEmpty() ? inputStr : inputStr.Trim();
+            var output = inputStr.IsNullOrEmpty() ? "" : inputStr.Trim();
             return output;
         }
 
@@ -208,6 +212,8 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <returns></returns>
         public static IEnumerable<EnumResponse> TryToList(this Type enumType)
         {
+            if (!enumType.IsEnum)
+                throw new ArgumentException("必须是枚举类型", nameof(enumType));
             var result = new List<EnumResponse>();
 
             foreach (var item in Enum.GetValues(enumType))
@@ -215,7 +221,7 @@ namespace Palink.Tools.Extensions.PLConvert
                 var response = new EnumResponse
                 {
                     Key = item.ToString(),
-                    Value = Convert.ToInt32(item)
+                    Value = Convert.ToInt32(item),
                 };
 
                 var objArray = item.GetType().GetField(item.ToString())
@@ -270,8 +276,9 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <typeparam name="T"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static T? ConvertTo<T>(this IConvertible value)
+        public static T? ConvertTo<T>(this IConvertible? value)
         {
+            if (value.IsNull()) return default;
             try
             {
                 var obj = ConvertTo(value, typeof(T));
@@ -292,9 +299,10 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="defaultValue">转换失败的默认值</param>
         /// <returns></returns>
-        public static T? TryConvertTo<T>(this IConvertible value,
+        public static T? TryConvertTo<T>(this IConvertible? value,
             T? defaultValue = default)
         {
+            if (value.IsNull()) return default;
             try
             {
                 var obj = ConvertTo(value, typeof(T));
@@ -315,8 +323,14 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="result">转换失败的默认值</param>
         /// <returns></returns>
-        public static bool TryConvertTo<T>(this IConvertible value, out T? result)
+        public static bool TryConvertTo<T>(this IConvertible? value, out T? result)
         {
+            if (value.IsNull())
+            {
+                result = default;
+                return false;
+            }
+
             try
             {
                 var obj = ConvertTo(value, typeof(T));
@@ -344,9 +358,15 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="type">目标类型</param>
         /// <param name="result">转换失败的默认值</param>
         /// <returns></returns>
-        public static bool TryConvertTo(this IConvertible value, Type type,
+        public static bool TryConvertTo(this IConvertible? value, Type type,
             out object? result)
         {
+            if (value.IsNull())
+            {
+                result = default;
+                return false;
+            }
+
             try
             {
                 result = ConvertTo(value, type);
@@ -365,7 +385,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="value"></param>
         /// <param name="type">目标类型</param>
         /// <returns></returns>
-        public static object? ConvertTo(this IConvertible value, Type type)
+        public static object? ConvertTo(this IConvertible? value, Type type)
         {
             if (value.IsNull())
             {
@@ -390,6 +410,28 @@ namespace Palink.Tools.Extensions.PLConvert
                 ? Enum.Parse(underlyingType,
                     value.ToString(CultureInfo.CurrentCulture))
                 : Convert.ChangeType(value, underlyingType);
+        }
+
+        /// <summary>
+        /// 元组json序列化数据反序列化
+        /// </summary>
+        /// <param name="valueTupleJson"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T? TryToValueTuple<T>(this string valueTupleJson)
+        {
+            return valueTupleJson.FromJson<T>();
+        }
+
+        /// <summary>
+        /// 元组转字符串
+        /// </summary>
+        /// <param name="value"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static string TupleTryToString<T>(this T value) where T : struct
+        {
+            return value.ToJson();
         }
     }
 }

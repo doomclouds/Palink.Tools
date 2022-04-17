@@ -4,7 +4,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using Palink.Tools.Extensions.PLObject;
 using Palink.Tools.Extensions.PLSerialize;
+using Palink.Tools.Extensions.PLString;
 
 namespace Palink.Tools.Extensions.PLReflection;
 
@@ -30,11 +32,15 @@ public static class ReflectionExtensions
     /// <param name="args">方法参数</param>
     /// <typeparam name="T">约束返回的T必须是引用类型</typeparam>
     /// <returns>T类型</returns>
-    public static T? InvokeMethod<T>(this object obj, string methodName, object[] args)
+    public static T? InvokeMethod<T>(this object? obj, string? methodName,
+        object[]? args = default)
     {
-        if (obj.GetType()
-                .GetMethod(methodName, args.Select(o => o.GetType()).ToArray())
-                ?.Invoke(obj, args) is T t)
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
+        if (methodName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(methodName), "执行对象方法不能为空");
+
+        if (obj.GetType().GetMethod(methodName)?.Invoke(obj, args) is T t)
         {
             return t;
         }
@@ -49,11 +55,14 @@ public static class ReflectionExtensions
     /// <param name="methodName">方法名，区分大小写</param>
     /// <param name="args">方法参数</param>
     /// <returns>T类型</returns>
-    public static void InvokeMethod(this object obj, string methodName, object[] args)
+    public static void InvokeMethod(this object? obj, string? methodName,
+        object[]? args = default)
     {
-        var type = obj.GetType();
-        type.GetMethod(methodName, args.Select(o => o.GetType()).ToArray())
-            ?.Invoke(obj, args);
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
+        if (methodName.IsNullOrEmpty())
+            throw new ArgumentNullException(nameof(methodName), "执行对象方法不能为空");
+        obj.GetType().GetMethod(methodName)?.Invoke(obj, args);
     }
 
     /// <summary>
@@ -62,8 +71,10 @@ public static class ReflectionExtensions
     /// <param name="obj">反射对象</param>
     /// <param name="name">字段名</param>
     /// <param name="value">值</param>
-    public static void SetField<T>(this T obj, string name, object value) where T : class
+    public static void SetField(this object? obj, string name, object value)
     {
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
         SetProperty(obj, name, value);
     }
 
@@ -74,8 +85,10 @@ public static class ReflectionExtensions
     /// <param name="name">字段名</param>
     /// <typeparam name="T">约束返回的T必须是引用类型</typeparam>
     /// <returns>T类型</returns>
-    public static T GetField<T>(this object obj, string name)
+    public static T GetField<T>(this object? obj, string name)
     {
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
         return GetProperty<T>(obj, name);
     }
 
@@ -84,8 +97,10 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="obj">反射对象</param>
     /// <returns>字段信息</returns>
-    public static FieldInfo[] GetFields(this object obj)
+    public static FieldInfo[] GetFields(this object? obj)
     {
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
         var fieldInfos = obj.GetType().GetFields(Bf);
         return fieldInfos;
     }
@@ -96,10 +111,11 @@ public static class ReflectionExtensions
     /// <param name="obj">反射对象</param>
     /// <param name="name">属性名</param>
     /// <param name="value">值</param>
-    public static string SetProperty<T>(this T obj, string name, object value)
-        where T : class
+    public static string SetProperty(this object? obj, string name, object value)
     {
-        var parameter = Expression.Parameter(typeof(T), "e");
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
+        var parameter = Expression.Parameter(obj.GetType(), "e");
         var property = Expression.PropertyOrField(parameter, name);
         var before = Expression.Lambda(property, parameter).Compile().DynamicInvoke(obj);
         if (value.Equals(before))
@@ -110,7 +126,7 @@ public static class ReflectionExtensions
         if (property.Type.IsGenericType &&
             property.Type.GetGenericTypeDefinition() == typeof(Nullable<>))
         {
-            typeof(T).GetProperty(name)?.SetValue(obj, value);
+            obj.GetType().GetProperty(name)?.SetValue(obj, value);
         }
         else
         {
@@ -119,6 +135,7 @@ public static class ReflectionExtensions
             Expression.Lambda(assign, parameter, valueExpression).Compile()
                 .DynamicInvoke(obj, value);
         }
+
 
         return before.ToJson();
     }
@@ -130,8 +147,10 @@ public static class ReflectionExtensions
     /// <param name="name">属性名</param>
     /// <typeparam name="T">约束返回的T必须是引用类型</typeparam>
     /// <returns>T类型</returns>
-    public static T GetProperty<T>(this object obj, string name)
+    public static T GetProperty<T>(this object? obj, string name)
     {
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
         var parameter = Expression.Parameter(obj.GetType(), "e");
         var property = Expression.PropertyOrField(parameter, name);
         return (T)Expression.Lambda(property, parameter).Compile().DynamicInvoke(obj);
@@ -142,8 +161,10 @@ public static class ReflectionExtensions
     /// </summary>
     /// <param name="obj">反射对象</param>
     /// <returns>属性信息</returns>
-    public static PropertyInfo[] GetProperties(this object obj)
+    public static PropertyInfo[] GetProperties(this object? obj)
     {
+        if (obj.IsNull())
+            throw new ArgumentNullException(nameof(obj), "执行对象不能为空");
         var propertyInfos = obj.GetType().GetProperties(Bf);
         return propertyInfos;
     }

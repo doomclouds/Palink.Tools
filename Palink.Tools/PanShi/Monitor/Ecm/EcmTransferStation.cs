@@ -39,7 +39,7 @@ public static class EcmTransferStation
     /// <param name="msg">消息体</param>
     /// <param name="url">服务器地址</param>
     /// <param name="wait">是否等待服务器返回值</param>
-    public static bool SendDataToEcm(this EcmMessage msg, string url, bool wait = false)
+    public static bool SendDataToEcm(this EcmMessage? msg, string url, bool wait = false)
     {
         try
         {

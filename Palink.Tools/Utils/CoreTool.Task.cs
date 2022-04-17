@@ -22,7 +22,7 @@ public partial class CoreTool
     {
         try
         {
-            if (ExitTask(taskName, description, delay))
+            if (UpdateTask(taskName, description, delay))
             {
                 return true;
             }
@@ -59,7 +59,7 @@ public partial class CoreTool
     /// <param name="description"></param>
     /// <param name="delay"></param>
     /// <returns></returns>
-    public static bool ExitTask(string taskName, string description, TimeSpan delay)
+    public static bool UpdateTask(string taskName, string description, TimeSpan delay)
     {
         var taskService = TaskService.Instance;
         var task =

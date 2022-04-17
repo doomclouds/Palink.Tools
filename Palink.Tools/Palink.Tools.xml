@@ -214,6 +214,14 @@
             <param name="message"></param>
             <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
         </member>
+        <member name="M:Palink.Tools.Communication.Device.BaseMaster.SendDataAsync(Palink.Tools.Communication.Interface.IMessage,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            发送数据
+            </summary>
+            <param name="message"></param>
+            <param name="useHexLog">显示hex日志还是UTF8解码后的字符</param>
+            <param name="token"></param>
+        </member>
         <member name="M:Palink.Tools.Communication.Device.BaseMaster.InitTimeout">
             <summary>
             虚方法，初始化读写超时
@@ -421,17 +429,18 @@
             <param name="enumValue"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLAttribute.AttributeExtensions.EnumDisplayName(System.Enum)">
-            <summary>
-            获取显示名称
-            </summary>
-            <param name="enumValue"></param>
-            <returns></returns>
-        </member>
         <member name="T:Palink.Tools.Extensions.PLConvert.ConvertExtensions">
             <summary>
             转换器扩展类
             </summary>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToByte(System.Object,System.Int32)">
+            <summary>
+            string转byte
+            </summary>
+            <param name="input">输入</param>
+            <param name="defaultNum">转换失败默认</param>
+            <returns></returns>
         </member>
         <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToInt(System.Object,System.Int32)">
             <summary>
@@ -506,13 +515,6 @@
             <param name="inputStr">输入</param>
             <param name="formatter"></param>
             <param name="defaultValue">默认值</param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.String)">
-            <summary>
-            时间戳转时间
-            </summary>
-            <param name="timestamp"></param>
             <returns></returns>
         </member>
         <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToDateTime(System.DateTime,System.String,System.String)">
@@ -595,6 +597,22 @@
             </summary>
             <param name="value"></param>
             <param name="type">目标类型</param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToValueTuple``1(System.String)">
+            <summary>
+            元组json序列化数据反序列化
+            </summary>
+            <param name="valueTupleJson"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TupleTryToString``1(``0)">
+            <summary>
+            元组转字符串
+            </summary>
+            <param name="value"></param>
+            <typeparam name="T"></typeparam>
             <returns></returns>
         </member>
         <member name="T:Palink.Tools.Extensions.PLConvert.Enumeration.EnumResponse">
@@ -871,6 +889,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
+        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNotNullOrEmpty``1(``0)">
+            <summary>
+            判断是否不为null
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.ReferenceEquals(System.Object,System.Object)">
             <summary>
             严格比较两个对象是否是同一对象(判断引用)
@@ -974,7 +1000,7 @@
             <param name="args">方法参数</param>
             <returns>T类型</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetField``1(``0,System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetField(System.Object,System.String,System.Object)">
             <summary>
             设置字段
             </summary>
@@ -998,7 +1024,7 @@
             <param name="obj">反射对象</param>
             <returns>字段信息</returns>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetProperty``1(``0,System.String,System.Object)">
+        <member name="M:Palink.Tools.Extensions.PLReflection.ReflectionExtensions.SetProperty(System.Object,System.String,System.Object)">
             <summary>
             设置属性
             </summary>
@@ -1621,11 +1647,12 @@
             是否为邮政编码
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsImgFileName(System.String)">
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.IsImgFileName(System.String,System.Collections.Generic.List{System.String})">
             <summary>
             是否是图片文件名
             </summary>
             <param name="fileName"></param>
+            <param name="fileExtensions">图像文件扩展名</param>
             <returns></returns>
         </member>
         <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Sub(System.String,System.Int32)">

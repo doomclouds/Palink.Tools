@@ -18,7 +18,7 @@ public static class SerializeExtensions
     /// <param name="obj"></param>
     /// <param name="ignoreNull"></param>
     /// <returns></returns>
-    public static string ToJson(this object obj, bool ignoreNull = false)
+    public static string ToJson(this object? obj, bool ignoreNull = false)
     {
         return JsonConvert.SerializeObject(obj, Formatting.None,
             new JsonSerializerSettings
@@ -35,7 +35,7 @@ public static class SerializeExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="jsonStr"></param>
     /// <returns></returns>
-    public static T? FromJson<T>(this string jsonStr)
+    public static T? FromJson<T>(this string? jsonStr)
     {
         return jsonStr.IsNullOrEmpty() ? default
             : JsonConvert.DeserializeObject<T>(jsonStr);
@@ -68,10 +68,10 @@ public static class SerializeExtensions
     /// <param name="filePath"></param>
     /// <param name="key"></param>
     /// <returns></returns>
-    public static async Task<T?> FromJsonFile<T>(this string filePath, string key = "")
+    public static async Task<T?> FromJsonFile<T>(this string? filePath, string key = "")
         where T : new()
     {
-        if (!File.Exists(filePath)) return new T();
+        if (!File.Exists(filePath) || filePath.IsNullOrEmpty()) return new T();
 
         using var reader = new StreamReader(filePath);
         var json = await reader.ReadToEndAsync();

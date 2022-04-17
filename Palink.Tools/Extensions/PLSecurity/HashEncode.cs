@@ -14,7 +14,7 @@ public static class HashEncode
     /// 得到随机哈希加密字符串
     /// </summary>
     /// <returns>随机哈希加密字符串</returns>
-    public static string GetSecurity(this Random r) =>
+    public static string HashSecurity(this Random r) =>
         HashEncoding(r.StrictNext().ToString());
 
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
+using Palink.Tools.Extensions.PLObject;
 using Palink.Tools.Extensions.PLString;
 using Palink.Tools.System.PLCaching.MonkeyCache;
 using Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
@@ -77,26 +78,29 @@ public class EcmService
         {
             var msg = _barrel.Get<EcmMessage>(key);
 
-            if (!msg.SendSucceed && msg.Tag != MessageTag.Needed &&
-                msg.Tag != MessageTag.AutoExpireNeeded)
+            switch (msg?.SendSucceed)
             {
-                msg.SendDataToEcm(Url);
-                msg.SendSucceed = true;
-                // _barrel.Empty(msg.Id);
-                _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
-            }
-            else if (!msg.SendSucceed)
-            {
-                if (msg.SendDataToEcm(Url, true))
-                {
+                case false when msg.Tag != MessageTag.Needed && msg.Tag != MessageTag.AutoExpireNeeded:
+                    msg.SendDataToEcm(Url);
                     msg.SendSucceed = true;
                     // _barrel.Empty(msg.Id);
                     _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
-
-                    if (msg.Tag == MessageTag.Needed)
+                    break;
+                case false:
+                {
+                    if (msg.SendDataToEcm(Url, true))
                     {
-                        _barrel.Empty(msg.Id);
+                        msg.SendSucceed = true;
+                        // _barrel.Empty(msg.Id);
+                        _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
+
+                        if (msg.Tag == MessageTag.Needed)
+                        {
+                            _barrel.Empty(msg.Id);
+                        }
                     }
+
+                    break;
                 }
             }
         }
