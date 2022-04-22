@@ -9,7 +9,7 @@ namespace Palink.Tools.Communication.Adapter;
 /// <summary>
 /// SerialPortAdapter
 /// </summary>
-public class SerialPortAdapter : IStreamResource
+public class SerialPortStreamAdapter : IStreamResource
 {
     private const string NewLine = "\r\n";
 
@@ -20,7 +20,7 @@ public class SerialPortAdapter : IStreamResource
     /// SerialPortAdapter
     /// </summary>
     /// <param name="serialPortStream"></param>
-    public SerialPortAdapter(SerialPortStream serialPortStream)
+    public SerialPortStreamAdapter(SerialPortStream serialPortStream)
     {
         _serialPortStream = serialPortStream;
         _serialPortStream.NewLine = NewLine;

@@ -21,7 +21,7 @@ namespace Palink.Tools.Extensions.PLConvert
         /// <param name="input">输入</param>
         /// <param name="defaultNum">转换失败默认</param>
         /// <returns></returns>
-        public static int TryToByte(this object? input, int defaultNum = 0)
+        public static byte TryToByte(this object? input, byte defaultNum = 0)
         {
             if (input.IsNull())
                 return defaultNum;

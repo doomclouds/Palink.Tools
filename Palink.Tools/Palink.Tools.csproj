@@ -26,6 +26,7 @@
 	<ItemGroup>
 		<Folder Include="Extensions\PLConvert\Enumeration\" />
 		<Folder Include="Extensions\PLTime\" />
+		<Folder Include="Extensions\PLValidation\" />
 		<Folder Include="System\PLTime\" />
 		<Folder Include="System\Mime\" />
 	</ItemGroup>
@@ -33,7 +34,7 @@
 	<PropertyGroup>
 		<PackageId>Palink.Tools</PackageId>
 		<Title>Palink.Tools</Title>
-		<PackageVersion>0.1.20</PackageVersion>
+		<PackageVersion>0.1.21</PackageVersion>
 		<Authors>Palink</Authors>
 		<Description>开发常用工具;具体例子可以看github上的Palink.Tools.Test工程里面的测试用例</Description>
 		<Copyright>copyright 2022</Copyright>
@@ -41,7 +42,7 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加时间扩展，迁移原来工具类的时间格式转化到时间扩展类； 增加windows下INI文件读写操作类IniFile；增加MimeMapper；增加爱普生机械臂异步操作方法，以及基础通讯库异步广播方法UnicastAsync与异步发送方法SendDataAsync</PackageReleaseNotes>
+		<PackageReleaseNotes>修复了一些BUG，制作详细说明文</PackageReleaseNotes>
 		<DocumentationFile>C:\Resources\BaiduNetdiskWorkspace\CSharp DLL\MyLibs\Palink.Tools\Palink.Tools\Palink.Tools.xml</DocumentationFile>
 	</PropertyGroup>
 

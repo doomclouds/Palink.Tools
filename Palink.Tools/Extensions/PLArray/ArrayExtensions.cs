@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Palink.Tools.Extensions.PLArray;
 
@@ -22,6 +24,40 @@ public static class ArrayExtensions
         var walker = new ArrayTraverse(array);
         do action(array, walker.Position);
         while (walker.Step());
+    }
+
+    /// <summary>
+    /// 切片
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="startIndex"></param>
+    /// <param name="size"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
+    public static IEnumerable<T> Slice<T>(this IEnumerable<T> source, int startIndex,
+        int size)
+    {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        var enumerable = source as T[] ?? source.ToArray();
+        var num = enumerable.Length;
+
+        if (startIndex < 0 || num < startIndex)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startIndex));
+        }
+
+        if (size < 0 || startIndex + size > num)
+        {
+            throw new ArgumentOutOfRangeException(nameof(size));
+        }
+
+        return enumerable.Skip(startIndex).Take(size);
     }
 
     internal class ArrayTraverse

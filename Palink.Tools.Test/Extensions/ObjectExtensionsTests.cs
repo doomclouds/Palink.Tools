@@ -29,18 +29,6 @@ public class ObjectExtensionsTests
         Assert.False(objTest.ReferenceEquals(ot1));
         Assert.False(objTest.ReferenceEquals(ot2));
     }
-
-    [Fact]
-    public void IsNullTest()
-    {
-        var ot1 = JsonConvert.DeserializeObject<ObjectTest>("");
-        Assert.True(ot1.IsNull());
-        Assert.False(ot1.IsNotNull());
-
-        var list = new List<int>();
-        Assert.True(list.IsNullOrEmpty());
-        Assert.False(list.IsNotNullOrEmpty());
-    }
 }
 
 public enum TestMethod

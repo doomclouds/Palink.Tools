@@ -289,7 +289,7 @@ public class EpsonMaster : Master
             }
             else
             {
-                SendData(message, false);
+                await SendDataAsync(message, false, token);
                 return true;
             }
         }
@@ -701,7 +701,7 @@ public class EpsonMaster : Master
             }
             else
             {
-                SendData(message, false);
+                await SendDataAsync(message, false, token);
                 return true;
             }
         }

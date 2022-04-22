@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
+using Palink.Tools.Extensions.PLConvert;
 using Palink.Tools.Extensions.PLObject;
 
 namespace Palink.Tools.Extensions.PLString;
@@ -156,7 +158,8 @@ public static class StringExtensions
     /// <param name="fileName"></param>
     /// <param name="fileExtensions">图像文件扩展名</param>
     /// <returns></returns>
-    public static bool IsImgFileName(this string fileName, List<string>? fileExtensions = default)
+    public static bool IsImgFileName(this string fileName,
+        List<string>? fileExtensions = default)
     {
         var suffix = new List<string>()
         {
@@ -166,7 +169,7 @@ public static class StringExtensions
             ".bmp"
         };
 
-        if(fileExtensions.IsNotNullOrEmpty())
+        if (fileExtensions.IsNotNull())
         {
             suffix = fileExtensions;
         }
@@ -186,12 +189,39 @@ public static class StringExtensions
     /// <param name="inputStr"></param>
     /// <param name="length"></param>
     /// <returns></returns>
+    [Obsolete("Please Use Slice")]
     public static string? Sub(this string? inputStr, int length)
     {
         if (inputStr.IsNullOrEmpty())
             return null;
 
         return inputStr.Length >= length ? inputStr.Substring(0, length) : inputStr;
+    }
+
+    /// <summary>
+    /// Slice
+    /// </summary>
+    /// <param name="source"></param>
+    /// <param name="startIndex"></param>
+    /// <param name="size"></param>
+    /// <returns></returns>
+    public static string? Slice(this string source, int startIndex, int size)
+    {
+        if (source.IsNullOrEmpty())
+            return null;
+        var num = source.Length;
+
+        if (startIndex < 0 || num < startIndex)
+        {
+            throw new ArgumentOutOfRangeException(nameof(startIndex));
+        }
+
+        if (size < 0 || startIndex + size > num)
+        {
+            throw new ArgumentOutOfRangeException(nameof(size));
+        }
+
+        return source.Substring(startIndex, size);
     }
 
     /// <summary>
@@ -319,6 +349,34 @@ public static class StringExtensions
     public static string FormatWith(this string @this, object arg0)
     {
         return string.Format(@this, arg0);
+    }
+
+
+    /// <summary>
+    /// 字符串掩码
+    /// </summary>
+    /// <param name="s"></param>
+    /// <param name="mask"></param>
+    /// <returns></returns>
+    public static string? Mask(this string? s, char mask = '*')
+    {
+        if (s.IsNullOrEmpty())
+        {
+            return default;
+        }
+
+        s = s.TryToTrim();
+        var masks = mask.ToString().PadLeft(4, mask);
+        return s.Length switch
+        {
+            >= 11 => Regex.Replace(s, "(.{3}).*(.{4})", $"$1{masks}$2"),
+            10 => Regex.Replace(s, "(.{3}).*(.{3})", $"$1{masks}$2"),
+            9 => Regex.Replace(s, "(.{2}).*(.{3})", $"$1{masks}$2"),
+            8 => Regex.Replace(s, "(.{2}).*(.{2})", $"$1{masks}$2"),
+            7 => Regex.Replace(s, "(.{1}).*(.{2})", $"$1{masks}$2"),
+            6 => Regex.Replace(s, "(.{1}).*(.{1})", $"$1{masks}$2"),
+            _ => Regex.Replace(s, "(.{1}).*", $"$1{masks}")
+        };
     }
 
     #endregion

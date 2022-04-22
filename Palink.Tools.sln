@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools", "Palink.Tool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools.Test", "Palink.Tools.Test\Palink.Tools.Test.csproj", "{4865C472-13E8-4250-8461-DDD30053A87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Palink.Tools.ConsoleTest", "Palink.Tools.ConsoleTest\Palink.Tools.ConsoleTest.csproj", "{1DEAD1D6-B382-413D-AE68-AA3741E1844B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools.ConsoleTest", "Palink.Tools.ConsoleTest\Palink.Tools.ConsoleTest.csproj", "{1DEAD1D6-B382-413D-AE68-AA3741E1844B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

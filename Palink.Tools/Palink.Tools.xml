@@ -434,7 +434,7 @@
             转换器扩展类
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToByte(System.Object,System.Int32)">
+        <member name="M:Palink.Tools.Extensions.PLConvert.ConvertExtensions.TryToByte(System.Object,System.Byte)">
             <summary>
             string转byte
             </summary>
@@ -879,22 +879,6 @@
             </summary>
             <param name="original"></param>
             <typeparam name="T"></typeparam>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNullOrEmpty``1(``0)">
-            <summary>
-            判断是否为null，null或0长度都返回true
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.IsNotNullOrEmpty``1(``0)">
-            <summary>
-            判断是否不为null
-            </summary>
-            <typeparam name="T"></typeparam>
-            <param name="value"></param>
             <returns></returns>
         </member>
         <member name="M:Palink.Tools.Extensions.PLObject.ObjectExtensions.ReferenceEquals(System.Object,System.Object)">
@@ -1510,7 +1494,7 @@
             得到随机安全码（哈希加密）。
             </summary>
         </member>
-        <member name="M:Palink.Tools.Extensions.PLSecurity.HashEncode.GetSecurity(System.Random)">
+        <member name="M:Palink.Tools.Extensions.PLSecurity.HashEncode.HashSecurity(System.Random)">
             <summary>
             得到随机哈希加密字符串
             </summary>
@@ -1749,6 +1733,14 @@
             </summary>
             <param name="this"></param>
             <param name="arg0"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Palink.Tools.Extensions.PLString.StringExtensions.Mask(System.String,System.Char)">
+            <summary>
+            字符串掩码
+            </summary>
+            <param name="s">字符串</param>
+            <param name="mask">掩码符</param>
             <returns></returns>
         </member>
         <member name="T:Palink.Tools.Extensions.PLTime.DateTimeExtensions">
@@ -2648,65 +2640,6 @@
             <param name="token"></param>
             <param name="wait">是否等待数据返回</param>
             <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
-            <returns></returns>
-        </member>
-        <member name="T:Palink.Tools.System.HiPerfTimer">
-            <summary>
-            纳秒级计时器，仅支持Windows系统
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.#ctor">
-            <summary>
-            纳秒计数器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.Start">
-            <summary>
-            开始计时器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.Restart">
-            <summary>
-            开始计时器
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.Stop">
-            <summary>
-            停止计时器
-            </summary>
-            <returns>计时器记录的时间</returns>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.StartNew">
-            <summary>
-            启动一个新的计时器
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:Palink.Tools.System.HiPerfTimer.Duration">
-            <summary>
-            时器经过时间(单位：秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.System.HiPerfTimer.DurationNanoseconds">
-            <summary>
-            时器经过的总时间(单位：纳秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.System.HiPerfTimer.Elapsed">
-            <summary>
-            时器经过的总时间(单位：秒)
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.System.HiPerfTimer.ElapsedNanoseconds">
-            <summary>
-            时器经过的总时间(单位：纳秒)
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.System.HiPerfTimer.Execute(System.Func{System.Threading.Tasks.Task})">
-            <summary>
-            执行一个方法并测试执行时间
-            </summary>
-            <param name="action"></param>
             <returns></returns>
         </member>
         <member name="T:Palink.Tools.System.Mime.ContentType">
@@ -3867,9 +3800,6 @@
             <summary>
             CoreTool
             </summary>
-            <summary>
-            CoreTool
-            </summary>
         </member>
         <member name="M:Palink.Tools.Utils.CoreTool.SetForegroundWindow(System.IntPtr)">
             <summary>
@@ -4123,67 +4053,6 @@
             </summary>  
             <param name="directoryPath">指定目录的绝对路径</param>  
         </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.SetWindowsHookEx(System.Int32,Palink.Tools.Utils.CoreTool.HookProc,System.IntPtr,System.Int32)">
-            <summary>
-            安装钩子
-            </summary>
-            <param name="idHook"></param>
-            <param name="lpfn"></param>
-            <param name="pInstance"></param>
-            <param name="threadId"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.UnhookWindowsHookEx(System.IntPtr)">
-            <summary>
-            卸载钩子
-            </summary>
-            <param name="pHookHandle"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.CallNextHookEx(System.IntPtr,System.Int32,System.IntPtr,System.IntPtr)">
-            <summary>
-            CallNextHookEx
-            </summary>
-            <param name="hhk"></param>
-            <param name="nCode"></param>
-            <param name="wParam"></param>
-            <param name="lParam"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Palink.Tools.Utils.CoreTool.HookProc">
-            <summary>
-            钩子委托声明
-            </summary>
-        </member>
-        <member name="P:Palink.Tools.Utils.CoreTool.MouseExecute">
-            <summary>
-            MouseExecute
-            </summary>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.InsertKeyboardHook">
-            <summary>
-            InsertKeyboardHook
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.InsertMouseHook">
-            <summary>
-            InsertMouseHook
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.RemoveKeyboardHook">
-            <summary>
-            RemoveKeyboardHook
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.RemoveMouseHook">
-            <summary>
-            RemoveMouseHook
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:Palink.Tools.Utils.CoreTool.GetDouble(System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
             <summary>
                 Converts four UInt16 values into a IEEE 64 floating point format.
@@ -4329,7 +4198,7 @@
             <param name="delay"></param>
             <returns></returns>
         </member>
-        <member name="M:Palink.Tools.Utils.CoreTool.ExitTask(System.String,System.String,System.TimeSpan)">
+        <member name="M:Palink.Tools.Utils.CoreTool.UpdateTask(System.String,System.String,System.TimeSpan)">
             <summary>
             修改已存在计划任务
             </summary>
