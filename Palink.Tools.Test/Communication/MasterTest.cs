@@ -1,11 +1,11 @@
 ﻿#nullable enable
 using System;
 using System.Net.Sockets;
-using Palink.Tools.Communication;
-using Palink.Tools.Communication.Adapter;
-using Palink.Tools.Communication.Interface;
-using Palink.Tools.Communication.Message;
-using Palink.Tools.Extensions.PLLogging;
+using Palink.Tools.Freebus;
+using Palink.Tools.Freebus.Interface;
+using Palink.Tools.Freebus.Message;
+using Palink.Tools.IO;
+using Palink.Tools.Logging;
 using Xunit;
 
 namespace Palink.Tools.Test.Communication;
@@ -19,14 +19,14 @@ public class MasterTest
         var tcp = new TcpClient();
         tcp.Connect("127.0.0.1", 9000);
         var adapter = new TcpClientAdapter(tcp);
-        var master = new MyMaster(adapter, new ConsoleLogger(LoggingLevel.Debug));
+        var master = new MyMaster(adapter, new ConsoleFreebusLogger(LoggingLevel.Debug));
         master.TestCmd();
 
         //udp发送数据
         var udp = new UdpClient();
         udp.Connect("127.0.0.1", 9000);
-        var udpAdapter = new UdpClientAdapter(udp);
-        var udpMaster = new MyMaster(udpAdapter, new ConsoleLogger(LoggingLevel.Debug));
+        var udpAdapter = new UdpClientOverCOMAdapter(udp);
+        var udpMaster = new MyMaster(udpAdapter, new ConsoleFreebusLogger(LoggingLevel.Debug));
         udpMaster.TestCmd();
     }
 }
@@ -38,7 +38,7 @@ public class MyMaster : Master
     /// </summary>
     /// <param name="streamResource"></param>
     /// <param name="logger"></param>
-    public MyMaster(IStreamResource streamResource, IPlLogger logger) : base(
+    public MyMaster(IStreamResource streamResource, IFreebusLogger logger) : base(
         streamResource, logger)
     {
     }

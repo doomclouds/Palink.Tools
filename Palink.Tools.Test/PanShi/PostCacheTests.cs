@@ -9,6 +9,7 @@ namespace Palink.Tools.Test.PanShi;
 public class PostCacheTests
 {
     private const string Uri = "https://127.0.0.1/";
+
     [Fact]
     public async void NormalTest()
     {
@@ -35,24 +36,17 @@ public class PostCacheTests
 
 public class MyMessage : Message
 {
-    [JsonProperty("hid")]
-    public string Hid { get; set; }
+    [JsonProperty("hid")] public string Hid { get; set; }
 
-    [JsonProperty("payway")]
-    public string Payway { get; set; }
+    [JsonProperty("payway")] public string Payway { get; set; }
 
-    [JsonProperty("capitalAction")]
-    public string CapitalAction { get; set; }
+    [JsonProperty("capitalAction")] public string CapitalAction { get; set; }
 
-    [JsonProperty("amount")]
-    public string Amount { get; set; }
+    [JsonProperty("amount")] public string Amount { get; set; }
 
-    [JsonProperty("dataSource")]
-    public string DataSource { get; set; }
+    [JsonProperty("dataSource")] public string DataSource { get; set; }
 
-    [JsonProperty("time")]
-    public string Time { get; set; }
+    [JsonProperty("time")] public string Time { get; set; }
 
-    [JsonProperty("tradeNo")]
-    public string TradeNo { get; set; }
+    [JsonProperty("tradeNo")] public string TradeNo { get; set; }
 }

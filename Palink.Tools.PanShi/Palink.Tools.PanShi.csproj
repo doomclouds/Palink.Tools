@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RootNamespace>Palink.Tools.PanShi</RootNamespace>
+		<Version>1.0.0</Version>
+		<Authors>Palink</Authors>
+		<Company>Palink</Company>
+		<Product>Palink.Tools</Product>
+		<Description>磐石内部工具</Description>
+		<Copyright>copyright 2022</Copyright>
+		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
+		<PackageIcon>山竹.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
+		<PackageReleaseNotes>第一个发行版本</PackageReleaseNotes>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\Palink.Tools.Core\山竹.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Palink.Tools.Caching\Palink.Tools.Caching.csproj" />
+		<ProjectReference Include="..\Palink.Tools.Core\Palink.Tools.Core.csproj" />
+	</ItemGroup>
+
+</Project>

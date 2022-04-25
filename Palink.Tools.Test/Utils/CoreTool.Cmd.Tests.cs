@@ -1,5 +1,5 @@
 ﻿using System;
-using Palink.Tools.Utils;
+using Palink.Tools.Utility;
 using Xunit;
 
 namespace Palink.Tools.Test.Utils;

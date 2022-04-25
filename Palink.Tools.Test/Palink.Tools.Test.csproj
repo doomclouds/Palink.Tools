@@ -31,13 +31,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Palink.Tools\Palink.Tools.csproj" />
+    <ProjectReference Include="..\Palink.Tools.Caching\Palink.Tools.Caching.csproj" />
+    <ProjectReference Include="..\Palink.Tools.Configuration\Palink.Tools.Configuration.csproj" />
+    <ProjectReference Include="..\Palink.Tools.Core\Palink.Tools.Core.csproj" />
+    <ProjectReference Include="..\Palink.Tools.PanShi\Palink.Tools.PanShi.csproj" />
+    <ProjectReference Include="..\Palink.Tools.SerialPortStream\Palink.Tools.SerialPortStream.csproj" />
+    <ProjectReference Include="..\Palink.Tools.Serial\Palink.Tools.Serial.csproj" />
+    <ProjectReference Include="..\Palink.Tools.TaskScheduler\Palink.Tools.TaskScheduler.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="PanShi\CloudMonitor\" />
     <Folder Include="Communication\" />
-    <Folder Include="PanShi\Robots\" />
+    <Folder Include="Freebus\" />
   </ItemGroup>
 
 </Project>
