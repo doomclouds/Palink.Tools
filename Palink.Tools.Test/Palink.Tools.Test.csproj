@@ -44,6 +44,7 @@
     <Folder Include="PanShi\CloudMonitor\" />
     <Folder Include="Communication\" />
     <Folder Include="Freebus\" />
+    <Folder Include="NModbus\" />
   </ItemGroup>
 
 </Project>

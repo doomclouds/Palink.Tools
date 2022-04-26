@@ -34,7 +34,7 @@ public class PostCacheTests
     }
 }
 
-public class MyMessage : Message
+public class MyMessage : Tools.PanShi.Monitor.Message
 {
     [JsonProperty("hid")] public string Hid { get; set; }
 

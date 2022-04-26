@@ -10,7 +10,7 @@ namespace Palink.Tools.Robots.Epson;
 
 public class EpsonTransport : FreebusTransport
 {
-    public EpsonTransport(IStreamResource streamResource, IFreebusLogger logger) : base(
+    internal EpsonTransport(IStreamResource streamResource, IFreebusLogger logger) : base(
         streamResource, logger)
     {
     }

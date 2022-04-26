@@ -13,7 +13,7 @@ public class EpsonMaster : FreebusMaster
 {
     private const string NewLine = "\r\n";
 
-    public EpsonMaster(IFreebusTransport transport) : base(transport)
+    internal EpsonMaster(IFreebusTransport transport) : base(transport)
     {
     }
 

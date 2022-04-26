@@ -13,7 +13,11 @@ public class EpsonTests
     public void LoginTest()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         var ret = epson.Login("");
         Assert.True(ret);
@@ -23,7 +27,11 @@ public class EpsonTests
     public async void LogoutTest()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
@@ -35,7 +43,11 @@ public class EpsonTests
     public async void StartTest()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
@@ -47,7 +59,11 @@ public class EpsonTests
     public async void MotorsOnAndOffAndHomeTests()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
@@ -66,7 +82,11 @@ public class EpsonTests
     public async void IoTests()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
@@ -81,7 +101,11 @@ public class EpsonTests
     public async void ExecuteTest()
     {
         var tcp = new TcpClient("192.168.13.8", 5000);
-        var adapter = new TcpClientAdapter(tcp);
+        var adapter = new TcpClientAdapter(tcp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);

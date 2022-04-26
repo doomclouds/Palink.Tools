@@ -19,6 +19,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Folder Include="Robots\YzAim\" />
 		<Folder Include="System\PLTime\" />
 		<Folder Include="System\Mime\" />
 	</ItemGroup>
@@ -40,7 +41,6 @@
 	<PropertyGroup>
 		<PackageId>Palink.Tools</PackageId>
 		<Title>Palink.Tools</Title>
-		<PackageVersion>0.1.21</PackageVersion>
 		<Authors>Palink</Authors>
 		<Description>工具核心类库</Description>
 		<Copyright>copyright 2022</Copyright>
@@ -48,9 +48,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>第一个发行版本</PackageReleaseNotes>
+		<PackageReleaseNotes>增加Modbus与YzAim直流伺服控制类</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.0.0</Version>
+		<Version>1.1.0</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageIcon>山竹.png</PackageIcon>
