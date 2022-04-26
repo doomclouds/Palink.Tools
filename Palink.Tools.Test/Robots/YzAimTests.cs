@@ -23,26 +23,26 @@ public class YzAimTests
         tcp.ReceiveTimeout = 500;
         tcp.SendTimeout = 500;
         var factory = new ModbusFactory(logger: new DebugFreebusLogger());
-        var yzAmi = FreebusFactory.CreateYzAimMaster(factory, tcp);
+        var yzAim = FreebusFactory.CreateYzAimMaster(factory, tcp);
 
-        var id = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Address);
-        var speed = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.TargetSpeed);
-        var acc = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Acc);
-        var electricity = yzAmi.GetActualElectricity(situation);
+        var id = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Address);
+        var speed = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.TargetSpeed);
+        var acc = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Acc);
+        var electricity = yzAim.GetActualElectricity(situation);
         var electricity1 =
-            yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
-        var voltage = yzAmi.GetActualVoltage(situation);
-        var voltage1 = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
-        var dir = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Dir);
-        var errCode = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.ErrCode);
+            yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
+        var voltage = yzAim.GetActualVoltage(situation);
+        var voltage1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
+        var dir = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Dir);
+        var errCode = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.ErrCode);
         var temperature =
-            yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Temperature);
+            yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Temperature);
 
-        yzAmi.SetYzAimStatusCmd(situation, YzAimCmd.ModbusEnable, 1);
-        yzAmi.SetYzAimStatusCmd(situation, YzAimCmd.MotorEnable, 1);
+        yzAim.SetYzAimStatusCmd(situation, YzAimCmd.ModbusEnable, 1);
+        yzAim.SetYzAimStatusCmd(situation, YzAimCmd.MotorEnable, 1);
 
         // yzAmi.SetPosition(2, -10000);
-        yzAmi.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
+        yzAim.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
         {
             (-10000, mySpeed, myAcc)
         });
@@ -50,14 +50,14 @@ public class YzAimTests
         Task.Delay(100).Wait();
 
         var cSpeed = 0.0;
-        while (!yzAmi.AllReady(group))
+        while (!yzAim.AllReady(group))
         {
-            var e = yzAmi.GetActualElectricity(situation);
-            var v = yzAmi.GetActualVoltage(situation);
-            var s = yzAmi.GetActualSpeed(situation);
+            var e = yzAim.GetActualElectricity(situation);
+            var v = yzAim.GetActualVoltage(situation);
+            var s = yzAim.GetActualSpeed(situation);
 
-            var e1 = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
-            var v1 = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
+            var e1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
+            var v1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
 
             if (e > electricity)
                 electricity = e;
@@ -73,23 +73,23 @@ public class YzAimTests
             Task.Delay(100).Wait();
         }
 
-        var pos = yzAmi.GetPosition(situation);
+        var pos = yzAim.GetPosition(situation);
 
         // yzAmi.SetPosition(2, -100000);
-        yzAmi.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
+        yzAim.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
         {
             (-100000, mySpeed, myAcc)
         });
         Task.Delay(100).Wait();
         group = new List<(byte id, int pos)> { (situation, -100000) };
-        while (!yzAmi.AllReady(group))
+        while (!yzAim.AllReady(group))
         {
-            var e = yzAmi.GetActualElectricity(situation);
-            var v = yzAmi.GetActualVoltage(situation);
-            var s = yzAmi.GetActualSpeed(situation);
+            var e = yzAim.GetActualElectricity(situation);
+            var v = yzAim.GetActualVoltage(situation);
+            var s = yzAim.GetActualSpeed(situation);
 
-            var e1 = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
-            var v1 = yzAmi.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
+            var e1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
+            var v1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
 
             if (e > electricity)
                 electricity = e;
@@ -103,6 +103,6 @@ public class YzAimTests
                 cSpeed = s;
         }
 
-        pos = yzAmi.GetPosition(situation);
+        pos = yzAim.GetPosition(situation);
     }
 }
