@@ -1,10 +1,8 @@
-﻿using System;
-using System.IO.Ports;
+﻿using System.IO.Ports;
 using System.Net.Sockets;
 using Palink.Tools.IO;
 using Palink.Tools.NModbus;
 using Palink.Tools.NModbus.Extensions;
-using Palink.Tools.Utility;
 using Xunit;
 
 namespace Palink.Tools.Test.NModbus;

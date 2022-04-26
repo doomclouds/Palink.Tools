@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
 /// <summary>
 ///     Abstract Modbus message.

@@ -2,26 +2,27 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using Palink.Tools.Extensions.PLArray;
 using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Data;
 using Palink.Tools.NModbus.Interfaces;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
 internal class
-    WriteSingleRegisterRequestResponse :
-        AbstractModbusMessageWithData<RegisterCollection>, IModbusRequest
+    WriteSingleCoilRequestResponse : AbstractModbusMessageWithData<RegisterCollection>,
+        IModbusRequest
 {
-    public WriteSingleRegisterRequestResponse()
+    public WriteSingleCoilRequestResponse()
     {
     }
 
-    public WriteSingleRegisterRequestResponse(byte slaveAddress, ushort startAddress,
-        ushort registerValue)
-        : base(slaveAddress, ModbusFunctionCodes.WriteSingleRegister)
+    public WriteSingleCoilRequestResponse(byte slaveAddress, ushort startAddress,
+        bool coilState)
+        : base(slaveAddress, ModbusFunctionCodes.WriteSingleCoil)
     {
         StartAddress = startAddress;
-        Data = new RegisterCollection(registerValue);
+        Data = new RegisterCollection(coilState ? Modbus.CoilOn : Modbus.CoilOff);
     }
 
     public override int MinimumFrameSize => 6;
@@ -35,13 +36,13 @@ internal class
     public override string ToString()
     {
         var msg =
-            $"Write single holding register {Data?[0]} at address {StartAddress}.";
+            $"Write single coil {(Data?.First() == Modbus.CoilOn ? 1 : 0)} at address {StartAddress}.";
         return msg;
     }
 
     public void ValidateResponse(IModbusMessage response)
     {
-        var typedResponse = (WriteSingleRegisterRequestResponse)response;
+        var typedResponse = (WriteSingleCoilRequestResponse)response;
 
         if (StartAddress != typedResponse.StartAddress)
         {
@@ -62,7 +63,6 @@ internal class
     {
         StartAddress =
             (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(frame, 2));
-        Data = new RegisterCollection(
-            (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(frame, 4)));
+        Data = new RegisterCollection(frame.Slice(4, 2).ToArray());
     }
 }

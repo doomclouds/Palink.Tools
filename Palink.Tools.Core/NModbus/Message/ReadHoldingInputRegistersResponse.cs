@@ -5,7 +5,7 @@ using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Data;
 using Palink.Tools.NModbus.Interfaces;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
 internal class
     ReadHoldingInputRegistersResponse : AbstractModbusMessageWithData<RegisterCollection>,

@@ -6,7 +6,7 @@ using Palink.Tools.IO;
 using Palink.Tools.Logging;
 using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Interfaces;
-using Palink.Tools.NModbus.IO.Message;
+using Palink.Tools.NModbus.Message;
 using Palink.Tools.Utility;
 
 namespace Palink.Tools.NModbus.IO;

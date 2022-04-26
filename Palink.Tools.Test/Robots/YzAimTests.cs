@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Palink.Tools.Freebus;
+using Palink.Tools.IO;
 using Palink.Tools.Logging;
 using Palink.Tools.NModbus;
 using Palink.Tools.Robots.YzAim;
@@ -15,28 +16,31 @@ public class YzAimTests
     [Fact]
     public void FunctionTests()
     {
-        const byte situation = 1;
+        const byte situation = 0x01;
         const ushort myAcc = 15000;
         const ushort mySpeed = 1500;
-        var tcp = new Socket(SocketType.Stream, ProtocolType.Tcp);
-        tcp.Connect("192.168.0.8", 503);
-        tcp.ReceiveTimeout = 500;
-        tcp.SendTimeout = 500;
-        var factory = new ModbusFactory(logger: new DebugFreebusLogger());
-        var yzAim = FreebusFactory.CreateYzAimMaster(factory, tcp);
+        var client = new TcpClient();
+        client.Connect("192.168.0.8", 503);
+        var adapter = new TcpClientAdapter(client);
+        adapter.ReadTimeout = 500;
+        adapter.WriteTimeout = 500;
+        var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance);
 
-        var id = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Address);
-        var speed = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.TargetSpeed);
-        var acc = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Acc);
+        var ret = yzAim.ModifyId(situation, 100);
+        ret = yzAim.ModifyId(100, situation);
+
+        var id = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Address);
+        var speed = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.TargetSpeed);
+        var acc = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Acc);
         var electricity = yzAim.GetActualElectricity(situation);
         var electricity1 =
-            yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
+            yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Electricity);
         var voltage = yzAim.GetActualVoltage(situation);
-        var voltage1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
-        var dir = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Dir);
-        var errCode = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.ErrCode);
+        var voltage1 = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Voltage);
+        var dir = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Dir);
+        var errCode = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.ErrCode);
         var temperature =
-            yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Temperature);
+            yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Temperature);
 
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.ModbusEnable, 1);
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.MotorEnable, 1);
@@ -56,8 +60,8 @@ public class YzAimTests
             var v = yzAim.GetActualVoltage(situation);
             var s = yzAim.GetActualSpeed(situation);
 
-            var e1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
-            var v1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
+            var e1 = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Electricity);
+            var v1 = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Voltage);
 
             if (e > electricity)
                 electricity = e;
@@ -88,8 +92,8 @@ public class YzAimTests
             var v = yzAim.GetActualVoltage(situation);
             var s = yzAim.GetActualSpeed(situation);
 
-            var e1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Electricity);
-            var v1 = yzAim.GetYzAimStatusCmd<ushort>(situation, YzAimCmd.Voltage);
+            var e1 = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Electricity);
+            var v1 = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Voltage);
 
             if (e > electricity)
                 electricity = e;

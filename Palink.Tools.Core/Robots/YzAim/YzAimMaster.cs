@@ -4,10 +4,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Palink.Tools.Extensions.PLAttribute;
-using Palink.Tools.Extensions.PLConvert;
 using Palink.Tools.Logging;
+using Palink.Tools.NModbus.Data;
 using Palink.Tools.NModbus.Extensions.Enron;
 using Palink.Tools.NModbus.Interfaces;
+using Palink.Tools.NModbus.IO;
 using Palink.Tools.Utility;
 
 namespace Palink.Tools.Robots.YzAim;
@@ -27,11 +28,11 @@ public enum YzAimCmd
     [Description("电子齿轮分母")] ElectronGearDenominator = 0x0b,
     [Description("报警代码")] ErrCode = 0x0e,
     [Description("系统电流")] Electricity = 0x0f,
-    [Description("电机当前速度")] CurrentSpeed = 0x10,
     [Description("系统电压")] Voltage = 0x11,
     [Description("系统温度")] Temperature = 0x12,
     [Description("参数保存标志")] ParamsSave = 0x14,
-    [Description("设备地址")] Address = 0x15
+    [Description("设备地址")] Address = 0x15,
+    [Description("特殊功能")] Function = 0x19
 }
 
 public enum YzAimZeroingMode
@@ -65,11 +66,11 @@ public class YzAimMaster
         }
     }
 
-    private T? ReadRegister<T>(byte id, ushort address, string cmd)
+    private ushort? ReadRegister(byte id, ushort address, string cmd)
     {
         try
         {
-            return _master.ReadHoldingRegisters(id, address, 1)[0].ConvertTo<T>();
+            return _master.ReadHoldingRegisters(id, address, 1)[0];
         }
         catch (Exception e)
         {
@@ -81,26 +82,23 @@ public class YzAimMaster
     /// <summary>
     /// 获取电机参数
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="id"></param>
     /// <param name="cmd"></param>
     /// <returns></returns>
-    public T? GetYzAimStatusCmd<T>(byte id, YzAimCmd cmd)
+    public ushort? GetYzAimStatusCmd(byte id, YzAimCmd cmd)
     {
-        ValidateGetCmd(cmd, typeof(T));
-        return ReadRegister<T>(id, (ushort)cmd, cmd.EnumDescription());
+        return ReadRegister(id, (ushort)cmd, cmd.EnumDescription());
     }
 
     /// <summary>
     /// 获取电机参数
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="id"></param>
     /// <param name="cmd"></param>
     /// <returns></returns>
-    public Task<T?> GetYzAimStatusCmdAsync<T>(byte id, YzAimCmd cmd)
+    public Task<ushort?> GetYzAimStatusCmdAsync(byte id, YzAimCmd cmd)
     {
-        return Task.Run(() => GetYzAimStatusCmd<T>(id, cmd));
+        return Task.Run(() => GetYzAimStatusCmd(id, cmd));
     }
 
     /// <summary>
@@ -240,7 +238,7 @@ public class YzAimMaster
     public double GetActualElectricity(byte id)
     {
         const double k = 2000.0;
-        return GetYzAimStatusCmd<ushort>(id, YzAimCmd.Electricity) / k;
+        return (GetYzAimStatusCmd(id, YzAimCmd.Electricity) ?? 0) / k;
     }
 
     /// <summary>
@@ -261,7 +259,7 @@ public class YzAimMaster
     public double GetActualVoltage(byte id)
     {
         const double k = 327.0;
-        return GetYzAimStatusCmd<ushort>(id, YzAimCmd.Voltage) / k;
+        return (GetYzAimStatusCmd(id, YzAimCmd.Voltage) ?? 0) / k;
     }
 
     /// <summary>
@@ -282,7 +280,8 @@ public class YzAimMaster
     public double GetActualSpeed(byte id)
     {
         const double k = 10.0;
-        return GetYzAimStatusCmd<short>(id, YzAimCmd.CurrentSpeed) / k;
+        var speed = (short)_master.ReadHoldingRegisters(id, 0x10, 1)[0];
+        return speed / k;
     }
 
     /// <summary>
@@ -380,6 +379,30 @@ public class YzAimMaster
     }
 
     /// <summary>
+    /// 修改电机Id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="targetId"></param>
+    public bool ModifyId(byte id, byte targetId)
+    {
+        try
+        {
+            _master.Transport.Write(new ModifyAddressRequestResponse(id, targetId,
+                new RegisterCollection(0, targetId)));
+            var buffer = new byte[2];
+            _master.Transport.StreamResource.Read(buffer, 0, buffer.Length);
+
+            return buffer[0] == targetId && buffer[1] == 0x7a;
+        }
+        catch (Exception e)
+        {
+            _logger.Error($"{nameof(ModifyId)}命令异常，{e.Message}");
+        }
+
+        return false;
+    }
+
+    /// <summary>
     /// 广播位移
     /// </summary>
     /// <param name="motionParams"></param>
@@ -387,46 +410,6 @@ public class YzAimMaster
         List<(int position, ushort speed, ushort acc)> motionParams)
     {
         return Task.Run(() => WriteAllMotionParams(motionParams));
-    }
-
-    private static void ValidateGetCmd(YzAimCmd cmd, Type type)
-    {
-        switch (cmd)
-        {
-            case YzAimCmd.ModbusEnable:
-            case YzAimCmd.MotorEnable:
-            case YzAimCmd.TargetSpeed:
-            case YzAimCmd.Acc:
-            case YzAimCmd.WeakMagneticAngle:
-            case YzAimCmd.SpeedP:
-            case YzAimCmd.SpeedI:
-            case YzAimCmd.PositionP:
-            case YzAimCmd.Dir:
-            case YzAimCmd.ElectronGearMolecule:
-            case YzAimCmd.ElectronGearDenominator:
-            case YzAimCmd.ErrCode:
-            case YzAimCmd.Electricity:
-            case YzAimCmd.Voltage:
-            case YzAimCmd.Temperature:
-            case YzAimCmd.ParamsSave:
-            case YzAimCmd.Address:
-                if (typeof(ushort) != type)
-                {
-                    throw new ArgumentException("返回值泛型必须是ushort类型",
-                        cmd.EnumDescription());
-                }
-
-                break;
-            case YzAimCmd.CurrentSpeed:
-                if (typeof(short) != type)
-                {
-                    throw new ArgumentException("返回值泛型必须是short类型", cmd.EnumDescription());
-                }
-
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(cmd.EnumDescription(), cmd, null);
-        }
     }
 
     private static void ValidateSetCmd(YzAimCmd cmd, ushort value)
@@ -494,11 +477,19 @@ public class YzAimMaster
                 break;
             case YzAimCmd.Temperature:
             case YzAimCmd.Voltage:
-            case YzAimCmd.CurrentSpeed:
             case YzAimCmd.Electricity:
             case YzAimCmd.ErrCode:
             case YzAimCmd.Address:
                 throw new ArgumentException("只读参数", cmd.EnumDescription());
+            case YzAimCmd.Function:
+                if (value != 0 && value != 1 && value != 2 && value != 3 && value != 4 &&
+                    value != 5 && value != 8)
+                {
+                    throw new ArgumentException("有效值是0,1,2,3,4,5,8",
+                        cmd.EnumDescription());
+                }
+
+                break;
             default:
                 throw new ArgumentOutOfRangeException(cmd.EnumDescription(), cmd, null);
         }

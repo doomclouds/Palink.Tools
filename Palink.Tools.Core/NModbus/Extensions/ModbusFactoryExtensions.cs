@@ -38,7 +38,7 @@ public static class ModbusFactoryExtensions
 
     private const int MinRequestFrameLength = 3;
 
-    public static IModbusMessage CreateModbusRequest(this IModbusFactory factory,
+    internal static IModbusMessage CreateModbusRequest(this IModbusFactory factory,
         byte[] frame)
     {
         if (frame.Length < MinRequestFrameLength)
@@ -64,7 +64,7 @@ public static class ModbusFactoryExtensions
         }
     }
 
-    public static IModbusFunctionService GetFunctionServiceOrThrow(
+    internal static IModbusFunctionService GetFunctionServiceOrThrow(
         this IModbusFactory factory, byte functionCode)
     {
         var service = factory.GetFunctionService(functionCode);

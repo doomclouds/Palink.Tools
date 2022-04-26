@@ -1,6 +1,6 @@
 ﻿using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Interfaces;
-using Palink.Tools.NModbus.IO.Message;
+using Palink.Tools.NModbus.Message;
 
 namespace Palink.Tools.NModbus.Device.MessageHandlers
 {

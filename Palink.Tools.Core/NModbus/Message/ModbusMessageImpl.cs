@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using Palink.Tools.NModbus.Data;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
 /// <summary>
 ///     Class holding all implementation shared between two or more message types.

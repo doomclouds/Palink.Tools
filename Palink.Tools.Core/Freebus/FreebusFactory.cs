@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Net.Sockets;
 using Palink.Tools.IO;
 using Palink.Tools.Logging;
 using Palink.Tools.NModbus;
+using Palink.Tools.NModbus.Extensions;
 using Palink.Tools.Robots.Epson;
 using Palink.Tools.Robots.YzAim;
 
@@ -17,19 +17,14 @@ public class FreebusFactory
         return new EpsonMaster(transport);
     }
 
-    public static YzAimMaster CreateYzAimMaster(ModbusFactory factory,
-        Socket socket)
+    public static YzAimMaster CreateYzAimMaster(IStreamResource streamResource,
+        IFreebusLogger logger)
     {
-        if (socket.ProtocolType != ProtocolType.Tcp)
-            throw new ArgumentException("仅支持TCP模式");
-        var master = factory.CreateMaster(socket);
-        return new YzAimMaster(master, factory.Logger);
-    }
+        var factory = new ModbusFactory(logger: logger);
 
-    public static YzAimMaster CreateYzAimRtuMaster(ModbusFactory factory,
-        IStreamResource streamResource)
-    {
-        var master = factory.CreateMaster(factory.CreateRtuTransport(streamResource));
+        if (streamResource.GetType().Name.ToLower().Contains("udp"))
+            throw new ArgumentException("不支持UDP模式");
+        var master = factory.CreateRtuMaster(streamResource);
         return new YzAimMaster(master, factory.Logger);
     }
 }

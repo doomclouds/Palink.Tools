@@ -48,9 +48,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加Modbus与YzAim直流伺服控制类</PackageReleaseNotes>
+		<PackageReleaseNotes>优化YzAim相关功能</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.1.0</Version>
+		<Version>1.1.2</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageIcon>山竹.png</PackageIcon>

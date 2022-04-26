@@ -7,32 +7,23 @@ using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Data;
 using Palink.Tools.NModbus.Interfaces;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
-/// <summary>
-///     Write Multiple Coils request.
-/// </summary>
 internal class
-    WriteMultipleCoilsRequest : AbstractModbusMessageWithData<DiscreteCollection>,
+    WriteMultipleRegistersRequest : AbstractModbusMessageWithData<RegisterCollection>,
         IModbusRequest
 {
-    /// <summary>
-    ///     Write Multiple Coils request.
-    /// </summary>
-    public WriteMultipleCoilsRequest()
+    public WriteMultipleRegistersRequest()
     {
     }
 
-    /// <summary>
-    ///     Write Multiple Coils request.
-    /// </summary>
-    public WriteMultipleCoilsRequest(byte slaveAddress, ushort startAddress,
-        DiscreteCollection data)
-        : base(slaveAddress, ModbusFunctionCodes.WriteMultipleCoils)
+    public WriteMultipleRegistersRequest(byte slaveAddress, ushort startAddress,
+        RegisterCollection data)
+        : base(slaveAddress, ModbusFunctionCodes.WriteMultipleRegisters)
     {
         StartAddress = startAddress;
         NumberOfPoints = (ushort)data.Count;
-        ByteCount = (byte)((data.Count + 7) / 8);
+        ByteCount = (byte)(data.Count * 2);
         Data = data;
     }
 
@@ -48,10 +39,10 @@ internal class
 
         set
         {
-            if (value > Modbus.MaximumDiscreteRequestResponseSize)
+            if (value > Modbus.MaximumRegisterRequestResponseSize)
             {
                 var msg =
-                    $"Maximum amount of data {Modbus.MaximumDiscreteRequestResponseSize} coils.";
+                    $"Maximum amount of data {Modbus.MaximumRegisterRequestResponseSize} registers.";
                 throw new ArgumentOutOfRangeException(nameof(NumberOfPoints), msg);
             }
 
@@ -69,13 +60,14 @@ internal class
 
     public override string ToString()
     {
-        var msg = $"Write {NumberOfPoints} coils starting at address {StartAddress}.";
+        var msg =
+            $"Write {NumberOfPoints} holding registers starting at address {StartAddress}.";
         return msg;
     }
 
     public void ValidateResponse(IModbusMessage response)
     {
-        var typedResponse = (WriteMultipleCoilsResponse)response;
+        var typedResponse = (WriteMultipleRegistersResponse)response;
 
         if (StartAddress != typedResponse.StartAddress)
         {
@@ -104,6 +96,6 @@ internal class
         NumberOfPoints =
             (ushort)IPAddress.NetworkToHostOrder(BitConverter.ToInt16(frame, 4));
         ByteCount = frame[6];
-        Data = new DiscreteCollection(frame.Slice(7, ByteCount.Value).ToArray());
+        Data = new RegisterCollection(frame.Slice(7, ByteCount.Value).ToArray());
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Palink.Tools.NModbus.Data;
 
-namespace Palink.Tools.NModbus.IO.Message;
+namespace Palink.Tools.NModbus.Message;
 
 internal abstract class AbstractModbusMessageWithData<TData> : AbstractModbusMessage
     where TData : IModbusMessageDataCollection

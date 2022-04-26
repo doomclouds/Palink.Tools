@@ -1,5 +1,5 @@
 ﻿using System;
-using Palink.Tools.NModbus.IO.Message;
+using Palink.Tools.NModbus.Message;
 
 namespace Palink.Tools.NModbus.Contracts;
 
