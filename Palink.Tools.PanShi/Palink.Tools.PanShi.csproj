@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools.PanShi</RootNamespace>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Palink</Authors>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>

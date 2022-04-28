@@ -12,7 +12,7 @@ namespace Palink.Tools.Extensions.PLObject;
 /// </summary>
 public static class ObjectExtensions
 {
-    [NotNull]private static readonly MethodInfo? CloneMethod =
+    [NotNull] private static readonly MethodInfo? CloneMethod =
         typeof(object).GetMethod("MemberwiseClone",
             BindingFlags.NonPublic | BindingFlags.Instance);
 
@@ -115,7 +115,7 @@ public static class ObjectExtensions
     private static void CopyFields(object originalObject,
         IDictionary<object, object> visited, object cloneObject, Type typeToReflect,
         BindingFlags bindingFlags = BindingFlags.Instance | BindingFlags.NonPublic |
-            BindingFlags.Public | BindingFlags.FlattenHierarchy,
+                                    BindingFlags.Public | BindingFlags.FlattenHierarchy,
         Func<FieldInfo, bool>? filter = null)
     {
         foreach (var fieldInfo in typeToReflect.GetFields(bindingFlags))
@@ -183,7 +183,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static bool IsNull([NotNullWhen(false)]this object? obj)
+    public static bool IsNull([NotNullWhen(false)] this object? obj)
     {
         return obj == null;
     }
@@ -193,7 +193,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public static bool IsNotNull([NotNullWhen(true)]this object? obj)
+    public static bool IsNotNull([NotNullWhen(true)] this object? obj)
     {
         return obj != null;
     }

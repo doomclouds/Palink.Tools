@@ -36,7 +36,8 @@ public static class ArrayExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-    public static IEnumerable<T> Slice<T>(this IEnumerable<T> source, int startIndex, int size)
+    public static IEnumerable<T> Slice<T>(this IEnumerable<T> source, int startIndex,
+        int size)
     {
         if (source == null)
         {

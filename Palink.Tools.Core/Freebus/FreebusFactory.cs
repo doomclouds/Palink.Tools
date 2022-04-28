@@ -20,11 +20,7 @@ public class FreebusFactory
     public static YzAimMaster CreateYzAimMaster(IStreamResource streamResource,
         IFreebusLogger logger)
     {
-        var factory = new ModbusFactory(logger: logger);
-
-        if (streamResource.GetType().Name.ToLower().Contains("udp"))
-            throw new ArgumentException("不支持UDP模式");
-        var master = factory.CreateRtuMaster(streamResource);
-        return new YzAimMaster(master, factory.Logger);
+        var transport = new YzAimTransport(streamResource, logger);
+        return new YzAimMaster(transport);
     }
 }

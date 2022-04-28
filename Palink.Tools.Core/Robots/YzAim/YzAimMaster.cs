@@ -4,11 +4,10 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Palink.Tools.Extensions.PLAttribute;
+using Palink.Tools.Freebus.Device;
+using Palink.Tools.Freebus.Interface;
+using Palink.Tools.Freebus.Message;
 using Palink.Tools.Logging;
-using Palink.Tools.NModbus.Data;
-using Palink.Tools.NModbus.Extensions.Enron;
-using Palink.Tools.NModbus.Interfaces;
-using Palink.Tools.NModbus.IO;
 using Palink.Tools.Utility;
 
 namespace Palink.Tools.Robots.YzAim;
@@ -41,40 +40,163 @@ public enum YzAimZeroingMode
     [Description("传感器模式")] Sensor = 0x08
 }
 
-public class YzAimMaster
+public class YzAimMaster : FreebusMaster
 {
-    private readonly IModbusMaster _master;
-    private readonly IFreebusLogger _logger;
-
-    internal YzAimMaster(IModbusMaster master, IFreebusLogger logger)
+    public YzAimMaster(IFreebusTransport transport) : base(transport)
     {
-        _master = master;
-        _logger = logger;
     }
 
     private bool WriteRegister(byte id, ushort address, ushort value, string cmd)
     {
+        var message = new FreebusMessage
+        {
+            Pdu = new byte[]
+            {
+                id,
+                0x06
+            },
+            DruLength = 8,
+        };
+
+        var startAddressBytes =
+            BitConverter.GetBytes(address).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        var numOfPointBytes = BitConverter.GetBytes(value).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
+        message.Pdu = message.Pdu.Concat(crc).ToArray();
+
         try
         {
-            _master.WriteSingleRegister(id, address, value);
+            ExecuteCustomMessage(message);
             return true;
         }
         catch (Exception e)
         {
-            _logger.Error($"{cmd}命令异常，{e.Message}");
+            Transport.Logger.Error($"{cmd}命令异常，{e.Message}");
+            return false;
+        }
+    }
+
+    private bool WriteRegister(byte id, ushort address, byte function, ushort value,
+        string cmd)
+    {
+        var message = new FreebusMessage
+        {
+            Pdu = new[]
+            {
+                id,
+                function
+            },
+            DruLength = 2,
+        };
+
+        var startAddressBytes =
+            BitConverter.GetBytes(address).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        var numOfPointBytes = BitConverter.GetBytes(value).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
+        message.Pdu = message.Pdu.Concat(crc).ToArray();
+
+        try
+        {
+            ExecuteCustomMessage(message);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Transport.Logger.Error($"{cmd}命令异常，{e.Message}");
+            return false;
+        }
+    }
+
+    private bool WritePluse(byte situation, int value, string cmd)
+    {
+        var message = new FreebusMessage()
+        {
+            Pdu = new byte[]
+            {
+                situation,
+                0x10
+            },
+            DruLength = 8
+        };
+
+        var startAddressBytes =
+            BitConverter.GetBytes((short)0x016).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        var numOfPointBytes = BitConverter.GetBytes((short)2).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
+        message.Pdu = message.Pdu.Concat(new byte[]
+        {
+            4
+        }).ToArray();
+
+        var valueBytes = BitConverter.GetBytes(value).ToArray();
+
+        message.Pdu = message.Pdu.Concat(new[]
+        {
+            valueBytes[1]
+        }).ToArray();
+        message.Pdu = message.Pdu.Concat(new[]
+        {
+            valueBytes[0]
+        }).ToArray();
+        message.Pdu = message.Pdu.Concat(new[]
+        {
+            valueBytes[3]
+        }).ToArray();
+        message.Pdu = message.Pdu.Concat(new[]
+        {
+            valueBytes[2]
+        }).ToArray();
+
+        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
+        message.Pdu = message.Pdu.Concat(crc).ToArray();
+
+        try
+        {
+            ExecuteCustomMessage(message);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Transport.Logger.Error($"{cmd}命令异常，{e.Message}");
             return false;
         }
     }
 
     private ushort? ReadRegister(byte id, ushort address, string cmd)
     {
+        var message = new FreebusMessage()
+        {
+            Pdu = new byte[]
+            {
+                id,
+                0x03
+            },
+            DruLength = 7
+        };
+
+        var startAddressBytes =
+            BitConverter.GetBytes(address).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        var numOfPointBytes = BitConverter.GetBytes((short)1).Reverse().ToArray();
+        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
+        message.Pdu = message.Pdu.Concat(crc).ToArray();
+
         try
         {
-            return _master.ReadHoldingRegisters(id, address, 1)[0];
+            ExecuteCustomMessage(message);
+            var result = new byte[2];
+            Buffer.BlockCopy(message.Dru, 3, result, 0, message.Dru[2]);
+            return BitConverter.ToUInt16(result.Reverse().ToArray(), 0);
         }
         catch (Exception e)
         {
-            _logger.Error($"{cmd}命令异常，{e.Message}");
+            Transport.Logger.Error($"{cmd}命令异常，{e.Message}");
             return default;
         }
     }
@@ -134,15 +256,14 @@ public class YzAimMaster
     /// <returns></returns>
     public bool SetPosition(byte id, int pos)
     {
-        var uPos = (uint)pos;
         try
         {
-            _master.WriteSingleRegister32(id, 0x16, uPos);
-            return true;
+            var ret = WritePluse(id, pos, nameof(SetPosition));
+            return ret;
         }
         catch (Exception e)
         {
-            _logger.Error($"设置电机位置命令异常，{e.Message}");
+            Transport.Logger.Error($"设置电机位置命令异常，{e.Message}");
             return false;
         }
     }
@@ -163,16 +284,17 @@ public class YzAimMaster
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public int? GetPosition(byte id)
+    public int GetPosition(byte id)
     {
         try
         {
-            var uPos = _master.ReadHoldingRegisters32(id, 0x16, 1);
-            return (int)uPos[0];
+            var us1 = ReadRegister(id, 0x16, nameof(GetPosition)) ?? 0;
+            var us2 = ReadRegister(id, 0x17, nameof(GetPosition)) ?? 0;
+            return (int)CoreTool.GetUInt32(us2, us1);
         }
         catch (Exception e)
         {
-            _logger.Error($"读取电机位置命令异常，{e.Message}");
+            Transport.Logger.Error($"读取电机位置命令异常，{e.Message}");
             return default;
         }
     }
@@ -182,7 +304,7 @@ public class YzAimMaster
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public Task<int?> GetPositionAsync(byte id)
+    public Task<int> GetPositionAsync(byte id)
     {
         return Task.Run(() => GetPosition(id));
     }
@@ -280,7 +402,7 @@ public class YzAimMaster
     public double GetActualSpeed(byte id)
     {
         const double k = 10.0;
-        var speed = (short)_master.ReadHoldingRegisters(id, 0x10, 1)[0];
+        var speed = (short)(ReadRegister(id, 0x10, nameof(GetActualSpeed)) ?? 0);
         return speed / k;
     }
 
@@ -306,7 +428,7 @@ public class YzAimMaster
         var ready = true;
         foreach (var (id, targetPosition) in checkGroup)
         {
-            var pos = GetPosition(id) ?? 0;
+            var pos = GetPosition(id);
             if (Math.Abs(pos - targetPosition) > 20 + offset)
             {
                 ready = false;
@@ -375,7 +497,17 @@ public class YzAimMaster
         var crc = CoreTool.CalculateCrc(data).ToArray();
         data = data.Concat(crc).ToArray();
 
-        _master.Transport.StreamResource.Write(data, 0, data.Length);
+        Transport.StreamResource.Write(data, 0, data.Length);
+    }
+
+    /// <summary>
+    /// 广播位移
+    /// </summary>
+    /// <param name="motionParams"></param>
+    public Task WriteAllMotionParamsAsync(
+        List<(int position, ushort speed, ushort acc)> motionParams)
+    {
+        return Task.Run(() => WriteAllMotionParams(motionParams));
     }
 
     /// <summary>
@@ -387,29 +519,26 @@ public class YzAimMaster
     {
         try
         {
-            _master.Transport.Write(new ModifyAddressRequestResponse(id, targetId,
-                new RegisterCollection(0, targetId)));
-            var buffer = new byte[2];
-            _master.Transport.StreamResource.Read(buffer, 0, buffer.Length);
+            var ret = WriteRegister(id, 0, 0x7a, targetId, nameof(ModifyId));
 
-            return buffer[0] == targetId && buffer[1] == 0x7a;
+            return ret;
         }
         catch (Exception e)
         {
-            _logger.Error($"{nameof(ModifyId)}命令异常，{e.Message}");
+            Transport.Logger.Error($"{nameof(ModifyId)}命令异常，{e.Message}");
         }
 
         return false;
     }
 
     /// <summary>
-    /// 广播位移
+    /// 修改电机Id
     /// </summary>
-    /// <param name="motionParams"></param>
-    public Task WriteAllMotionParamsAsync(
-        List<(int position, ushort speed, ushort acc)> motionParams)
+    /// <param name="id"></param>
+    /// <param name="targetId"></param>
+    public Task<bool> ModifyIdAsync(byte id, byte targetId)
     {
-        return Task.Run(() => WriteAllMotionParams(motionParams));
+        return Task.Run(() => ModifyId(id, targetId));
     }
 
     private static void ValidateSetCmd(YzAimCmd cmd, ushort value)

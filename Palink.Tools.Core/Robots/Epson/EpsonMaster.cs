@@ -122,7 +122,8 @@ public class EpsonMaster : FreebusMaster
     /// Ready 控制器完成启动且无任务执行时打开
     /// </summary>
     /// <returns></returns>
-    public (bool running, bool safeguard, bool eStop, bool error, bool ready, bool auto) GetStatus()
+    public (bool running, bool safeguard, bool eStop, bool error, bool ready, bool auto)
+        GetStatus()
     {
         try
         {
@@ -154,7 +155,8 @@ public class EpsonMaster : FreebusMaster
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<(bool running, bool safeguard, bool eStop, bool error, bool ready, bool auto)> GetStatusAsync(
+    public Task<(bool running, bool safeguard, bool eStop, bool error, bool ready, bool
+        auto)> GetStatusAsync(
         CancellationToken token = default)
     {
         return Task.Run(GetStatus, token).ContinueWith(task =>
@@ -203,7 +205,8 @@ public class EpsonMaster : FreebusMaster
     /// <param name="id"></param>
     /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
     /// <param name="token"></param>
-    public Task<bool> StartAsync(int id, int waitTime = 1000, CancellationToken token = default)
+    public Task<bool> StartAsync(int id, int waitTime = 1000,
+        CancellationToken token = default)
     {
         return Task.Run(() => Start(id, waitTime), token).ContinueWith(task =>
         {
@@ -551,7 +554,8 @@ public class EpsonMaster : FreebusMaster
     /// <param name="spel">执行SPEL+语言命令，命令需要用引号</param>
     /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
     /// <param name="token"></param>
-    public Task<bool> ExecuteAsync(string spel, int waitTime = 1000, CancellationToken token = default)
+    public Task<bool> ExecuteAsync(string spel, int waitTime = 1000,
+        CancellationToken token = default)
     {
         return Task.Run(() => Execute(spel, waitTime), token).ContinueWith(task =>
         {

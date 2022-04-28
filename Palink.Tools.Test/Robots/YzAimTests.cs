@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Palink.Tools.Freebus;
 using Palink.Tools.IO;
 using Palink.Tools.Logging;
-using Palink.Tools.NModbus;
 using Palink.Tools.Robots.YzAim;
 using Xunit;
 
@@ -19,11 +18,13 @@ public class YzAimTests
         const byte situation = 0x01;
         const ushort myAcc = 15000;
         const ushort mySpeed = 1500;
-        var client = new TcpClient();
-        client.Connect("192.168.0.8", 503);
-        var adapter = new TcpClientAdapter(client);
-        adapter.ReadTimeout = 500;
-        adapter.WriteTimeout = 500;
+        var client = new UdpClient(30006);
+        client.Connect("192.168.0.8", 30006);
+        var adapter = new UdpClientOverCOMAdapter(client)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
         var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance);
 
         var ret = yzAim.ModifyId(situation, 100);

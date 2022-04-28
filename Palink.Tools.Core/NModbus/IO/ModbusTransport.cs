@@ -22,7 +22,7 @@ public abstract class ModbusTransport : IModbusTransport
         ModbusFactory = modbusFactory;
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         StreamResource = streamResource ??
-            throw new ArgumentNullException(nameof(streamResource));
+                         throw new ArgumentNullException(nameof(streamResource));
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public abstract class ModbusTransport : IModbusTransport
                         {
                             // if SlaveExceptionCode == ACKNOWLEDGE we retry reading the response without resubmitting request
                             readAgain = exceptionResponse.SlaveExceptionCode ==
-                                SlaveExceptionCodes.Acknowledge;
+                                        SlaveExceptionCodes.Acknowledge;
 
                             if (readAgain)
                             {
@@ -172,9 +172,7 @@ public abstract class ModbusTransport : IModbusTransport
                 {
                     throw;
                 }
-
-                if (e is FormatException or NotImplementedException or TimeoutException
-                    or IOException)
+                else
                 {
                     Logger.Error(
                         $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
@@ -186,10 +184,24 @@ public abstract class ModbusTransport : IModbusTransport
 
                     Sleep(WaitToRetryMilliseconds);
                 }
-                else
-                {
-                    throw;
-                }
+                // if (e is FormatException or NotImplementedException or TimeoutException
+                //     or IOException)
+                // {
+                //     Logger.Error(
+                //         $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
+                //
+                //     if (attempt++ > Retries)
+                //     {
+                //         throw;
+                //     }
+                //
+                //     Sleep(WaitToRetryMilliseconds);
+                // }
+                // else
+                // {
+                //
+                //     throw;
+                // }
             }
         } while (!success);
 
@@ -257,7 +269,7 @@ public abstract class ModbusTransport : IModbusTransport
         }
 
         return request.SlaveAddress == response.SlaveAddress &&
-            OnShouldRetryResponse(request, response);
+               OnShouldRetryResponse(request, response);
     }
 
     /// <summary>
