@@ -152,6 +152,7 @@ public class YzAimMaster : FreebusMaster
             valueBytes[2]
         }).ToArray();
 
+        
         var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
         message.Pdu = message.Pdu.Concat(crc).ToArray();
 

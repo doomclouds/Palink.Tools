@@ -18,6 +18,8 @@ public class YzAimTransport : FreebusTransport
 
     public override bool ValidateResponse(IFreebusMessage message)
     {
+        if (message.Dru.Length < 2) return false;
+
         if (message.Pdu[1] == 0x7a && message.Dru[1] == message.Pdu[1])
         {
             return message.Pdu[message.Pdu.Length - 3] == message.Dru[0];

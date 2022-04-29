@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Palink.Tools.Extensions.PLString;
@@ -25,7 +23,7 @@ public abstract class FreebusTransport : IFreebusTransport
     {
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         StreamResource = streamResource ??
-            throw new ArgumentNullException(nameof(streamResource));
+                         throw new ArgumentNullException(nameof(streamResource));
     }
 
     public int Retries { get; set; } = FreebusContracts.DefaultRetries;
@@ -98,28 +96,15 @@ public abstract class FreebusTransport : IFreebusTransport
             }
             catch (Exception e)
             {
-                if (e is SocketException || e.InnerException is SocketException)
+                Logger.Error(
+                    $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
+
+                if (attempt++ > Retries)
                 {
                     throw;
                 }
 
-                if (e is FormatException or NotImplementedException or TimeoutException
-                    or IOException)
-                {
-                    Logger.Error(
-                        $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
-
-                    if (attempt++ > Retries)
-                    {
-                        throw;
-                    }
-
-                    Sleep(WaitToRetryMilliseconds);
-                }
-                else
-                {
-                    throw;
-                }
+                Sleep(WaitToRetryMilliseconds);
             }
         } while (!success);
 

@@ -172,7 +172,9 @@ public abstract class ModbusTransport : IModbusTransport
                 {
                     throw;
                 }
-                else
+
+                if (e is FormatException or NotImplementedException or TimeoutException
+                    or IOException)
                 {
                     Logger.Error(
                         $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
@@ -184,24 +186,10 @@ public abstract class ModbusTransport : IModbusTransport
 
                     Sleep(WaitToRetryMilliseconds);
                 }
-                // if (e is FormatException or NotImplementedException or TimeoutException
-                //     or IOException)
-                // {
-                //     Logger.Error(
-                //         $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
-                //
-                //     if (attempt++ > Retries)
-                //     {
-                //         throw;
-                //     }
-                //
-                //     Sleep(WaitToRetryMilliseconds);
-                // }
-                // else
-                // {
-                //
-                //     throw;
-                // }
+                else
+                {
+                    throw;
+                }
             }
         } while (!success);
 

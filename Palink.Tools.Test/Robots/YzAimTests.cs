@@ -27,8 +27,8 @@ public class YzAimTests
         };
         var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance);
 
-        var ret = yzAim.ModifyId(situation, 100);
-        ret = yzAim.ModifyId(100, situation);
+        // var ret = yzAim.ModifyId(situation, 100);
+        // ret = yzAim.ModifyId(100, situation);
 
         var id = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Address);
         var speed = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.TargetSpeed);
@@ -46,7 +46,6 @@ public class YzAimTests
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.ModbusEnable, 1);
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.MotorEnable, 1);
 
-        // yzAmi.SetPosition(2, -10000);
         yzAim.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
         {
             (-10000, mySpeed, myAcc)
