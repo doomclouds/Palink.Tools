@@ -1,8 +1,5 @@
-﻿using System;
-using Palink.Tools.IO;
+﻿using Palink.Tools.IO;
 using Palink.Tools.Logging;
-using Palink.Tools.NModbus;
-using Palink.Tools.NModbus.Extensions;
 using Palink.Tools.Robots.Epson;
 using Palink.Tools.Robots.YzAim;
 

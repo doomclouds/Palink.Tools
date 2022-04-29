@@ -34,6 +34,7 @@
     <ProjectReference Include="..\Palink.Tools.Caching\Palink.Tools.Caching.csproj" />
     <ProjectReference Include="..\Palink.Tools.Configuration\Palink.Tools.Configuration.csproj" />
     <ProjectReference Include="..\Palink.Tools.Core\Palink.Tools.Core.csproj" />
+    <ProjectReference Include="..\Palink.Tools.Modbus\Palink.Tools.Modbus.csproj" />
     <ProjectReference Include="..\Palink.Tools.PanShi\Palink.Tools.PanShi.csproj" />
     <ProjectReference Include="..\Palink.Tools.SerialPortStream\Palink.Tools.SerialPortStream.csproj" />
     <ProjectReference Include="..\Palink.Tools.Serial\Palink.Tools.Serial.csproj" />
