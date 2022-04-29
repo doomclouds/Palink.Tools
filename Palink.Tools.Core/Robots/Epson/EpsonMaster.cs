@@ -394,15 +394,18 @@ public class EpsonMaster : FreebusMaster
     /// 机器人回零
     /// </summary>
     /// <returns></returns>
-    public bool Home(int id = 0)
+    public bool Home(int waitTime = 1000, int id = 0)
     {
         try
         {
+            var temp = Transport.ReadTimeout;
+            Transport.ReadTimeout = waitTime;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
             var message = new FreebusMessage();
             message.SetPdu(cmd);
             message.NewLine = NewLine;
             var ret = ExecuteCustomMessage(message);
+            Transport.ReadTimeout = temp;
             return ret.Succeed;
         }
         catch (Exception e)
