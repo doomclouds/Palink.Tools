@@ -17,6 +17,8 @@ public interface IFreebusTransport : IDisposable
 
     IFreebusMessage UnicastMessage(IFreebusMessage message);
 
+    void BroadcastMessage(IFreebusMessage message, bool shouldLog);
+
     byte[] BuildMessageFrame(IFreebusMessage message);
 
     void Write(IFreebusMessage message);

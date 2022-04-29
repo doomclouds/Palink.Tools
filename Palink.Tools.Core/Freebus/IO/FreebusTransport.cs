@@ -24,6 +24,8 @@ public abstract class FreebusTransport : IFreebusTransport
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         StreamResource = streamResource ??
                          throw new ArgumentNullException(nameof(streamResource));
+        StreamResource.ReadTimeout = FreebusContracts.DefaultWaitToRetryMilliseconds;
+        StreamResource.WriteTimeout = FreebusContracts.DefaultWaitToRetryMilliseconds;
     }
 
     public int Retries { get; set; } = FreebusContracts.DefaultRetries;
@@ -109,6 +111,16 @@ public abstract class FreebusTransport : IFreebusTransport
         } while (!success);
 
         return message;
+    }
+
+    public void BroadcastMessage(IFreebusMessage message, bool shouldLog)
+    {
+        if (shouldLog)
+        {
+            Logger.LogFrameTx(message.Pdu);
+        }
+
+        StreamResource.Write(message.Pdu, 0, message.Pdu.Length);
     }
 
     public virtual bool ShouldRetryResponse(IFreebusMessage message)

@@ -152,7 +152,7 @@ public class YzAimMaster : FreebusMaster
             valueBytes[2]
         }).ToArray();
 
-        
+
         var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
         message.Pdu = message.Pdu.Concat(crc).ToArray();
 
@@ -457,8 +457,10 @@ public class YzAimMaster : FreebusMaster
     /// 广播位移
     /// </summary>
     /// <param name="motionParams"></param>
+    /// <param name="shouldLog"></param>
     public void WriteAllMotionParams(
-        List<(int position, ushort speed, ushort acc)> motionParams)
+        List<(int position, ushort speed, ushort acc)> motionParams,
+        bool shouldLog = false)
     {
         var data = new byte[]
         {
@@ -498,7 +500,10 @@ public class YzAimMaster : FreebusMaster
         var crc = CoreTool.CalculateCrc(data).ToArray();
         data = data.Concat(crc).ToArray();
 
-        Transport.StreamResource.Write(data, 0, data.Length);
+        BroadcastMessage(new FreebusMessage
+        {
+            Pdu = data
+        }, shouldLog);
     }
 
     /// <summary>

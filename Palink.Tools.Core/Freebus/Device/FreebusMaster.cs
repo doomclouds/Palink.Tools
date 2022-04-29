@@ -12,4 +12,9 @@ public abstract class FreebusMaster : FreebusDevice, IFreebusMaster
     {
         return Transport.UnicastMessage(request);
     }
+
+    public virtual void BroadcastMessage(IFreebusMessage request, bool shouldLog)
+    {
+        Transport.BroadcastMessage(request, shouldLog);
+    }
 }
