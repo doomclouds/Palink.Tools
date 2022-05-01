@@ -15,16 +15,16 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>第一个发行版本</PackageReleaseNotes>
+		<PackageReleaseNotes>Modbus迁移</PackageReleaseNotes>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<LangVersion>latest</LangVersion>
-		<PackageIcon>山竹.png</PackageIcon>
+		<PackageIcon>profile.jpg</PackageIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="..\Palink.Tools.Core\山竹.png">
+	  <None Include="..\Palink.Tools.Core\profile.jpg">
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>

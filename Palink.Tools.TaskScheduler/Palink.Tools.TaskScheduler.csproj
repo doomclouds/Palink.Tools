@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>Palink</Authors>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
@@ -13,11 +13,11 @@
 		<Copyright>copyright 2022</Copyright>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
-		<PackageIcon>山竹.png</PackageIcon>
+		<PackageIcon>profile.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>第一个发行版本</PackageReleaseNotes>
+		<PackageReleaseNotes>更换ICON</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
@@ -31,7 +31,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="..\Palink.Tools.Core\山竹.png">
+		<None Include="..\Palink.Tools.Core\profile.jpg">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>

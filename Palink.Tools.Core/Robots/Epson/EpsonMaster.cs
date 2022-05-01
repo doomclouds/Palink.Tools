@@ -527,7 +527,7 @@ public class EpsonMaster : FreebusMaster
     /// 执行SPEL程序
     /// </summary>
     /// <param name="spel">执行SPEL+语言命令，命令需要用引号</param>
-    /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+    /// <param name="waitTime">等待时间，Execute命令必须等待机器人任务完全结束才有返回</param>
     /// <returns></returns>
     public bool Execute(string spel, int waitTime = 1000)
     {
@@ -555,7 +555,7 @@ public class EpsonMaster : FreebusMaster
     /// 执行SPEL程序
     /// </summary>
     /// <param name="spel">执行SPEL+语言命令，命令需要用引号</param>
-    /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
+    /// <param name="waitTime">等待时间，Execute命令必须等待机器人任务完全结束才有返回</param>
     /// <param name="token"></param>
     public Task<bool> ExecuteAsync(string spel, int waitTime = 1000,
         CancellationToken token = default)

@@ -1,0 +1,16 @@
+﻿---
+swagger:
+  version: 'v4.0.0'
+  name: 'palink.blog'
+  title: 'palink.blog api'
+  description: 'Powered by .NET 5 on Linux'
+  routePrefix: ''
+  documentTitle: '🤣Api'
+
+sckey: 'SCU60393T5a94df1d5a9274125293f34a6acf928f5d78f551cf6d6'
+
+storage:
+  #数据库连接字符串
+  mongodb: 'mongodb://localhost/palink_blog'
+  redisIsEnabled: true
+  redis: '127.0.0.1'

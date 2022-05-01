@@ -32,10 +32,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="山竹.png">
-			<Pack>True</Pack>
-			<PackagePath>\</PackagePath>
-		</None>
+	  <None Update="profile.jpg">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -48,12 +48,12 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>YzAim支持UDP模式，修复部分问题</PackageReleaseNotes>
+		<PackageReleaseNotes>优化YzAim若干问题，迁出Modbus部分，优化Epson回零问题</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.1.3</Version>
+		<Version>1.1.7</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
-		<PackageIcon>山竹.png</PackageIcon>
+		<PackageIcon>profile.jpg</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>

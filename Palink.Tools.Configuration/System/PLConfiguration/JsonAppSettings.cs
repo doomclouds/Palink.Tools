@@ -6,7 +6,7 @@ namespace Palink.Tools.System.PLConfiguration;
 /// <summary>
 /// appsettings.json配置文件数据读取类
 /// </summary>
-public abstract class BaseAppSettings
+public abstract class JsonAppSettings
 {
     /// <summary>
     /// 配置文件的根节点
@@ -16,7 +16,7 @@ public abstract class BaseAppSettings
     /// <summary>
     /// Constructor
     /// </summary>
-    static BaseAppSettings()
+    static JsonAppSettings()
     {
         // 加载appsettings.json，并构建IConfigurationRoot
         var builder = new ConfigurationBuilder()

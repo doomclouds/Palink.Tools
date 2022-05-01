@@ -34,7 +34,7 @@ public static class CrcExtensions
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
-    public static ushort GetCrc(this byte[] message)
+    private static ushort GetCrc(this byte[] message)
     {
         if (message == null)
             throw new ArgumentNullException(nameof(message));

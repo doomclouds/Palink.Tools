@@ -42,7 +42,7 @@ public enum YzAimZeroingMode
 
 public class YzAimMaster : FreebusMaster
 {
-    public YzAimMaster(IFreebusTransport transport) : base(transport)
+    internal YzAimMaster(IFreebusTransport transport) : base(transport)
     {
     }
 

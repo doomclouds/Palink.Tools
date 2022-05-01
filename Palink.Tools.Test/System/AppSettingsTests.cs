@@ -12,14 +12,30 @@ public class AppSettingsTests
         var com = AppSettings.RfidCom;
         var time = AppSettings.GameTime;
         //assert
-        Assert.Equal(com, "COM3");
-        Assert.Equal(time, 120);
+        Assert.Equal("COM3", com);
+        Assert.Equal(120, time);
+    }
+
+    [Fact]
+    public void YAppSettingValueTest()
+    {
+        var version = YAppSettings.Version;
+        var redisIsEnabled = YAppSettings.RedisIsEnabled.TryToBool();
+        //assert
+        Assert.Equal("v4.0.0", version);
+        Assert.True(redisIsEnabled);
     }
 }
 
-public class AppSettings : BaseAppSettings
+public class AppSettings : JsonAppSettings
 {
     public static string RfidCom => Config["RfidCom"];
 
     public static int GameTime => Config["GameTime"].TryToInt();
+}
+
+public class YAppSettings : YamlAppSettings
+{
+    public static string Version => Config["swagger:version"];
+    public static string RedisIsEnabled => Config["storage:redisIsEnabled"];
 }

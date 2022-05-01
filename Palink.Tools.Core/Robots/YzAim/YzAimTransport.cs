@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Palink.Tools.Extensions.PLValidation;
 using Palink.Tools.Freebus.Interface;
 using Palink.Tools.Freebus.IO;
@@ -31,5 +32,12 @@ public class YzAimTransport : FreebusTransport
         }
 
         return false;
+    }
+
+    public override bool ShouldRetryResponse(IFreebusMessage message)
+    {
+        var hex = BitConverter.ToString(message.Dru).Replace('-', ' ');
+
+        return IgnoreList.Contains(hex);
     }
 }
