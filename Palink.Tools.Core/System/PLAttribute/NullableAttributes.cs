@@ -1,5 +1,8 @@
 ﻿// ReSharper disable CheckNamespace
 
+#define INTERNAL_NULLABLE_ATTRIBUTES
+
+#if NETSTANDARD2_0
 namespace System.Diagnostics.CodeAnalysis;
 
 #if !NETSTANDARD2_1
@@ -220,3 +223,4 @@ public
     /// <summary>Gets field or property member names.</summary>
     public string[] Members { get; }
 }
+#endif

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Palink.Tools.PanShi.Monitor;
@@ -44,7 +45,7 @@ public class MyMessage : Tools.PanShi.Monitor.Message
 
     [JsonProperty("amount")] public string Amount { get; set; }
 
-    [JsonProperty("dataSource")] public string DataSource { get; set; }
+    [NotNull][JsonProperty("dataSource")] public string? DataSource { get; set; }
 
     [JsonProperty("time")] public string Time { get; set; }
 

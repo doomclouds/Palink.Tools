@@ -11,13 +11,14 @@ public class AttributeExtensionsTests
     {
         var testModeName1 = TestMode.Normal.EnumDescription();
         var testModeName2 = TestMode.Plus.EnumDescription();
+
+        Assert.Equal("普通测试", testModeName1);
+        Assert.Equal("加强版测试", testModeName2);
     }
 }
 
 public enum TestMode
 {
-    [Description("普通测试")]
-    Normal,
-    [Description("加强版测试")]
-    Plus
+    [Description("普通测试")] Normal,
+    [Description("加强版测试")] Plus
 }

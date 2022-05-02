@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <!-- <Nullable>enable</Nullable> -->
+    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -48,7 +48,6 @@
   <ItemGroup>
     <Folder Include="PanShi\CloudMonitor\" />
     <Folder Include="Communication\" />
-    <Folder Include="Freebus\" />
     <Folder Include="NModbus\" />
   </ItemGroup>
 

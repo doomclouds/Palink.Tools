@@ -13,24 +13,26 @@ namespace Palink.Tools.Test.Communication;
 public class MasterTest
 {
     [Fact]
+    [Obsolete]
     public void MyMasterTest()
     {
         //tcp发送数据
         var tcp = new TcpClient();
         tcp.Connect("127.0.0.1", 9000);
         var adapter = new TcpClientAdapter(tcp);
-        var master = new MyMaster(adapter, new ConsoleFreebusLogger(LoggingLevel.Debug));
+        var master = new MyMaster(adapter, new ConsoleFreebusLogger());
         master.TestCmd();
 
         //udp发送数据
         var udp = new UdpClient();
         udp.Connect("127.0.0.1", 9000);
         var udpAdapter = new UdpClientOverCOMAdapter(udp);
-        var udpMaster = new MyMaster(udpAdapter, new ConsoleFreebusLogger(LoggingLevel.Debug));
+        var udpMaster = new MyMaster(udpAdapter, new ConsoleFreebusLogger());
         udpMaster.TestCmd();
     }
 }
 
+[Obsolete]
 public class MyMaster : Master
 {
     /// <summary>

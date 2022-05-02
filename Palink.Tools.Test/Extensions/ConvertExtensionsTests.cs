@@ -1,9 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Newtonsoft.Json;
 using Palink.Tools.Extensions.PLConvert;
-using Palink.Tools.Extensions.PLReflection;
-using Palink.Tools.Extensions.PLSerialize;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;
@@ -21,6 +18,14 @@ public class ConvertExtensionsTests
         var decimalValue = str.TryToDecimal();
         var floatValue = str.TryToFloat();
         var boolValue = str.TryToBool(false, "123");
+
+        Assert.Equal(typeof(byte), byteValue.GetType());
+        Assert.Equal(typeof(int), intValue.GetType());
+        Assert.Equal(typeof(long), longValue.GetType());
+        Assert.Equal(typeof(decimal), decimalValue.GetType());
+        Assert.Equal(typeof(double), doubleValue.GetType());
+        Assert.Equal(typeof(float), floatValue.GetType());
+        Assert.Equal(typeof(bool), boolValue.GetType());
     }
 
     [Fact]
@@ -30,6 +35,9 @@ public class ConvertExtensionsTests
         var bStr = b.TryToString();
         const bool mB = false;
         var mBStr = mB.TryToString();
+
+        Assert.Equal(typeof(string), bStr.GetType());
+        Assert.Equal(typeof(string), mBStr.GetType());
     }
 
     [Fact]
@@ -68,15 +76,15 @@ public class ConvertExtensionsTests
     [Fact]
     public void ValueTupleString()
     {
-        (int a1,int a2) value = (10,20);
+        (int a1, int a2) value = (10, 20);
         var str = value.TupleTryToString();
 
-        var tuple = str.TryToValueTuple<(int a1,int a2)>();
+        var tuple = str.TryToValueTuple<(int a1, int a2)>();
     }
 
     private enum MyEnum
     {
-        [Description("N1")]N1,
-        [Description("N2")]N2
+        [Description("N1")] N1,
+        [Description("N2")] N2
     }
 }
