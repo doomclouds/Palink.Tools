@@ -19,7 +19,7 @@ public class SerializeExtensionsTests
         {
             Rgb = (1, 1, 1),
         };
-        var json = myClass.ToJson();
+        var json = myClass.ToJson(true);
         var obj = json.FromJson<MyClass>();
     }
 

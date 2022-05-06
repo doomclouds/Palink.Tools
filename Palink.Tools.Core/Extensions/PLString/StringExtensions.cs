@@ -40,9 +40,20 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
+    public static bool NotNullOrEmpty([NotNullWhen(true)]this string? inputStr)
+    {
+        return !IsNullOrEmpty(inputStr);
+    }
+
+    /// <summary>
+    /// 字符串非空且非空字符
+    /// </summary>
+    /// <param name="inputStr"></param>
+    /// <returns></returns>
+    [Obsolete]
     public static bool IsNotNullOrEmpty([NotNullWhen(true)]this string? inputStr)
     {
-        return !string.IsNullOrEmpty(inputStr);
+        return !IsNullOrEmpty(inputStr);
     }
 
     /// <summary>
@@ -50,9 +61,20 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
+    public static bool NotNullOrWhiteSpace([NotNullWhen(true)]this string? inputStr)
+    {
+        return !IsNullOrWhiteSpace(inputStr);
+    }
+
+    /// <summary>
+    /// 字符串非空且不包含空格
+    /// </summary>
+    /// <param name="inputStr"></param>
+    /// <returns></returns>
+    [Obsolete]
     public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)]this string? inputStr)
     {
-        return !string.IsNullOrWhiteSpace(inputStr);
+        return !IsNullOrWhiteSpace(inputStr);
     }
 
     #endregion

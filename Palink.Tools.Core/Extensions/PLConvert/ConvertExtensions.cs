@@ -203,7 +203,7 @@ public static class ConvertExtensions
     /// <param name="str"></param>
     /// <param name="t"></param>
     /// <returns></returns>
-    public static T TryToEnum<T>(this string str, T t = default) where T : struct
+    public static T TryToEnum<T>(this string? str, T t = default) where T : struct
     {
         return Enum.TryParse<T>(str, out var result) ? result : t;
     }

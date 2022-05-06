@@ -195,7 +195,18 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
+    [Obsolete]
     public static bool IsNotNull([NotNullWhen(true)] this object? obj)
+    {
+        return obj != null;
+    }
+
+    /// <summary>
+    /// 判断对象是否不为空
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static bool NotNull([NotNullWhen(true)] this object? obj)
     {
         return obj != null;
     }

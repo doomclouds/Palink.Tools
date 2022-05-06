@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using Palink.Tools.Extensions.PLString;
 using Palink.Tools.System.PLCaching.MonkeyCache;
 using Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
-using Task = System.Threading.Tasks.Task;
 
 namespace Palink.Tools.PanShi.Monitor.Ecm;
 
@@ -59,10 +59,7 @@ public class EcmService
         ExhibitNo = exhibitNo;
         Url = url;
 
-        Task.Run(() =>
-        {
-            EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url);
-        });
+        Task.Run(() => { EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url); });
     }
 
     private void MessageTimer_Elapsed(object sender, ElapsedEventArgs e)
@@ -79,7 +76,8 @@ public class EcmService
 
             switch (msg?.SendSucceed)
             {
-                case false when msg.Tag != MessageTag.Needed && msg.Tag != MessageTag.AutoExpireNeeded:
+                case false when msg.Tag != MessageTag.Needed &&
+                                msg.Tag != MessageTag.AutoExpireNeeded:
                     msg.SendDataToEcm(Url);
                     msg.SendSucceed = true;
                     // _barrel.Empty(msg.Id);

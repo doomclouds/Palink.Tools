@@ -16,17 +16,33 @@ public static class SerializeExtensions
     /// 实体对象转JSON字符串
     /// </summary>
     /// <param name="obj"></param>
+    /// <param name="dateFormatString"></param>
     /// <param name="ignoreNull"></param>
     /// <returns></returns>
-    public static string ToJson(this object? obj, bool ignoreNull = false)
+    public static string ToJson(this object? obj,
+        bool ignoreNull,
+        string dateFormatString = "yyyy-MM-dd HH:mm:ss")
     {
         return JsonConvert.SerializeObject(obj, Formatting.None,
             new JsonSerializerSettings
             {
-                DateFormatString = "yyyy-MM-dd HH:mm:ss",
-                NullValueHandling = ignoreNull ? NullValueHandling.Ignore
+                DateFormatString = dateFormatString,
+                NullValueHandling = ignoreNull
+                    ? NullValueHandling.Ignore
                     : NullValueHandling.Include
             });
+    }
+
+    /// <summary>
+    /// 实体对象转JSON字符串
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="jsonSerializerSettings"></param>
+    /// <returns></returns>
+    public static string ToJson(this object? obj,
+        JsonSerializerSettings? jsonSerializerSettings = default)
+    {
+        return JsonConvert.SerializeObject(obj, Formatting.None, jsonSerializerSettings);
     }
 
     /// <summary>
@@ -34,11 +50,14 @@ public static class SerializeExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="jsonStr"></param>
+    /// <param name="jsonSerializerSettings"></param>
     /// <returns></returns>
-    public static T? FromJson<T>(this string? jsonStr)
+    public static T? FromJson<T>(this string? jsonStr,
+        JsonSerializerSettings? jsonSerializerSettings = default)
     {
-        return jsonStr.IsNullOrEmpty() ? default
-            : JsonConvert.DeserializeObject<T>(jsonStr);
+        return jsonStr.IsNullOrEmpty()
+            ? default
+            : JsonConvert.DeserializeObject<T>(jsonStr, jsonSerializerSettings);
     }
 
     /// <summary>
@@ -67,8 +86,10 @@ public static class SerializeExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="filePath"></param>
     /// <param name="key"></param>
+    /// <param name="jsonSerializerSettings"></param>
     /// <returns></returns>
-    public static async Task<T?> FromJsonFile<T>(this string? filePath, string key = "")
+    public static async Task<T?> FromJsonFile<T>(this string? filePath, string key = "",
+        JsonSerializerSettings? jsonSerializerSettings = default)
         where T : new()
     {
         if (!File.Exists(filePath) || filePath.IsNullOrEmpty()) return new T();
@@ -76,10 +97,13 @@ public static class SerializeExtensions
         using var reader = new StreamReader(filePath);
         var json = await reader.ReadToEndAsync();
 
-        if (string.IsNullOrEmpty(key)) return JsonConvert.DeserializeObject<T>(json);
+        if (string.IsNullOrEmpty(key))
+            return JsonConvert.DeserializeObject<T>(json, jsonSerializerSettings);
 
-        return JsonConvert.DeserializeObject<object>(json) is not JObject obj
+        return JsonConvert.DeserializeObject<object>(json, jsonSerializerSettings) is not
+            JObject obj
             ? new T()
-            : JsonConvert.DeserializeObject<T>(obj[key]?.ToString() ?? string.Empty);
+            : JsonConvert.DeserializeObject<T>(obj[key]?.ToString() ?? string.Empty,
+                jsonSerializerSettings);
     }
 }

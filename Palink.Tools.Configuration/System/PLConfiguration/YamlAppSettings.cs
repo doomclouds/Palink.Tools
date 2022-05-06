@@ -30,27 +30,27 @@ public abstract class YamlAppSettings
     }
 }
 
-internal static class YamlConfigurationExtensions
+public static class YamlConfigurationExtensions
 {
-    internal static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
+    public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
         string path)
     {
         return AddYamlFile(builder, null, path, false, false);
     }
 
-    internal static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
+    public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
         string path, bool optional)
     {
         return AddYamlFile(builder, null, path, optional, false);
     }
 
-    internal static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
+    public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
         string path, bool optional, bool reloadOnChange)
     {
         return AddYamlFile(builder, null, path, optional, reloadOnChange);
     }
 
-    internal static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
+    public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
         IFileProvider? provider, string path, bool optional, bool reloadOnChange)
     {
         if (builder == null)
@@ -70,13 +70,13 @@ internal static class YamlConfigurationExtensions
         });
     }
 
-    internal static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
+    public static IConfigurationBuilder AddYamlFile(this IConfigurationBuilder builder,
         Action<YamlConfigurationSource> configureSource)
     {
         return builder.Add(configureSource);
     }
 
-    internal static Dictionary<string, object> ToDictionary(this IConfiguration section,
+    public static Dictionary<string, object> ToDictionary(this IConfiguration section,
         params string[]? sectionsToSkip)
     {
         sectionsToSkip ??= Array.Empty<string>();
@@ -100,7 +100,7 @@ internal static class YamlConfigurationExtensions
     }
 }
 
-internal class YamlConfigurationSource : FileConfigurationSource
+public class YamlConfigurationSource : FileConfigurationSource
 {
     public override IConfigurationProvider Build(IConfigurationBuilder builder)
     {
@@ -109,9 +109,9 @@ internal class YamlConfigurationSource : FileConfigurationSource
     }
 }
 
-internal class YamlConfigurationProvider : FileConfigurationProvider
+public class YamlConfigurationProvider : FileConfigurationProvider
 {
-    internal YamlConfigurationProvider(FileConfigurationSource source) : base(source)
+    public YamlConfigurationProvider(FileConfigurationSource source) : base(source)
     {
     }
 
@@ -159,7 +159,7 @@ internal class YamlConfigurationProvider : FileConfigurationProvider
     }
 }
 
-internal class YamlConfigurationFileParser
+public class YamlConfigurationFileParser
 {
     private readonly Stack<string> _context = new Stack<string>();
 
@@ -168,7 +168,7 @@ internal class YamlConfigurationFileParser
 
     private string? _currentPath;
 
-    internal IDictionary<string, string> Parse(Stream stream)
+    public IDictionary<string, string> Parse(Stream stream)
     {
         _data.Clear();
 
