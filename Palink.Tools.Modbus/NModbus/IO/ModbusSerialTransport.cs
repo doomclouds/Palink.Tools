@@ -6,7 +6,7 @@ using Palink.Tools.NModbus.Interfaces;
 
 namespace Palink.Tools.NModbus.IO;
 
-public abstract class ModbusSerialTransport : ModbusTransport, IModbusSerialTransport
+internal abstract class ModbusSerialTransport : ModbusTransport, IModbusSerialTransport
 {
     internal ModbusSerialTransport(IStreamResource streamResource,
         IModbusFactory modbusFactory, IFreebusLogger logger)
@@ -50,7 +50,6 @@ public abstract class ModbusSerialTransport : ModbusTransport, IModbusSerialTran
             $"CheckSums failed to match {string.Join(", ", response.MessageFrame)} != {string.Join(", ", frame)}";
         Logger.Warning(msg);
         throw new IOException(msg);
-
     }
 
     public abstract void IgnoreResponse();

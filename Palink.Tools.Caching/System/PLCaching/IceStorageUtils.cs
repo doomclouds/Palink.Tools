@@ -1,26 +1,14 @@
 ﻿using System;
 using System.IO;
 
-namespace Palink.Tools.System.PLCaching.MonkeyCache;
+namespace Palink.Tools.System.PLCaching;
 
 /// <summary>
-/// Barrel Utils
+/// IceStorage Utils
 /// </summary>
-public static class BarrelUtils
+public static class IceStorageUtils
 {
     internal static string? BasePath;
-
-    /// <summary>
-    /// Sets the base path to use. This can only be set once and before using the Barrel
-    /// </summary>
-    public static void SetBaseCachePath(string path)
-    {
-        if (!string.IsNullOrWhiteSpace(BasePath))
-            throw new InvalidOperationException(
-                "You can only set the base cache path once before using the Barrel.");
-
-        BasePath = path;
-    }
 
     internal static bool IsString<T>(T item)
     {
@@ -39,7 +27,7 @@ public static class BarrelUtils
     {
         if (string.IsNullOrWhiteSpace(applicationId))
             throw new ArgumentException(
-                "You must set a ApplicationId for MonkeyCache by using Barrel.ApplicationId.");
+                "You must set a ApplicationId for MonkeyCache by using IceStorage.ApplicationId.");
 
         if (applicationId.IndexOfAny(Path.GetInvalidPathChars()) != -1)
             throw new ArgumentException("ApplicationId has invalid characters");

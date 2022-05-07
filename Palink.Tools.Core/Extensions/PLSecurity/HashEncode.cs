@@ -5,23 +5,11 @@ using Palink.Tools.Extensions.PLRandom;
 
 namespace Palink.Tools.Extensions.PLSecurity;
 
-/// <summary>
-/// 得到随机安全码（哈希加密）。
-/// </summary>
 public static class HashEncode
 {
-    /// <summary>
-    /// 得到随机哈希加密字符串
-    /// </summary>
-    /// <returns>随机哈希加密字符串</returns>
     public static string HashSecurity(this Random r) =>
         HashEncoding(r.StrictNext().ToString());
 
-    /// <summary>
-    /// 哈希加密一个字符串
-    /// </summary>
-    /// <param name="security">需要加密的字符串</param>
-    /// <returns>加密后的数据</returns>
     public static string HashEncoding(this string security)
     {
         var code = new UnicodeEncoding();

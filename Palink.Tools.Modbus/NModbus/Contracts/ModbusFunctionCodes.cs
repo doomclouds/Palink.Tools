@@ -3,7 +3,7 @@
 /// <summary>
 /// Supported function codes
 /// </summary>
-public static class ModbusFunctionCodes
+internal static class ModbusFunctionCodes
 {
     public const byte ReadCoils = 1;
 

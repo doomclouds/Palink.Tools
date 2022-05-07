@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Linq;
 using System.Reflection;
 using Palink.Tools.Extensions.PLArray;
 
@@ -19,7 +17,7 @@ public static class ObjectExtensions
             BindingFlags.NonPublic | BindingFlags.Instance);
 
     /// <summary>
-    /// 判断对象是否是原始对象
+    /// IsPrimitive
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
@@ -34,7 +32,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 深度Clone
+    /// DeepClone
     /// </summary>
     /// <param name="originalObject"></param>
     /// <returns></returns>
@@ -45,7 +43,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 深度Clone
+    /// DeepClone
     /// </summary>
     /// <param name="original"></param>
     /// <typeparam name="T"></typeparam>
@@ -139,18 +137,17 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 严格比较两个对象是否是同一对象(判断引用)
+    /// ReferenceEquals
     /// </summary>
-    /// <param name="this">自己</param>
-    /// <param name="o">需要比较的对象</param>
-    /// <returns>是否同一对象</returns>
+    /// <param name="this"></param>
+    /// <param name="o"></param>
     public new static bool ReferenceEquals(this object? @this, object? o)
     {
         return object.ReferenceEquals(@this, o);
     }
 
     /// <summary>
-    /// 是否是默认值
+    /// IsDefaultValue
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -181,7 +178,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 判断对象是否为空
+    /// IsNull
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -191,7 +188,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 判断对象是否不为空
+    /// IsNotNull
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -202,7 +199,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 判断对象是否不为空
+    /// NotNull
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
@@ -212,7 +209,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 对象为空则抛出异常
+    /// ThrowIfNull
     /// </summary>
     /// <param name="obj"></param>
     public static void ThrowIfNull(this object? obj)
@@ -224,10 +221,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 获取属性描述信息
+    /// PropertyDescription
     /// </summary>
     /// <param name="object"></param>
-    /// <param name="name">属性名称</param>
+    /// <param name="name"></param>
     /// <returns></returns>
     public static string PropertyDescription(this object @object, string name)
     {
@@ -242,10 +239,10 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 获取属性显示名称
+    /// PropertyDisplayName
     /// </summary>
     /// <param name="object"></param>
-    /// <param name="name">属性名称</param>
+    /// <param name="name"></param>
     /// <returns></returns>
     public static string PropertyDisplayName(this object @object, string name)
     {
@@ -258,40 +255,6 @@ public static class ObjectExtensions
         var displayNameAttribute = (DisplayNameAttribute)obj[0];
         return displayNameAttribute.DisplayName;
     }
-
-    /// <summary>
-    /// Used to simplify and beautify casting an object to a type.
-    /// </summary>
-    /// <typeparam name="T">Type to be casted</typeparam>
-    /// <param name="obj">Object to cast</param>
-    /// <returns>Casted object</returns>
-    public static T As<T>(this object obj) where T : class => (T)obj;
-
-    /// <summary>
-    /// Converts given object to a value type using <see cref="M:System.Convert.ChangeType(System.Object,System.Type)" /> method.
-    /// </summary>
-    /// <param name="obj">Object to be converted</param>
-    /// <typeparam name="T">Type of the target object</typeparam>
-    /// <returns>Converted object</returns>
-    public static T To<T>(this object obj) where T : struct => typeof(T) == typeof(Guid)
-        ? (T)TypeDescriptor.GetConverter(typeof(T))
-            .ConvertFromInvariantString(obj.ToString())
-        : (T)Convert.ChangeType(obj, typeof(T),
-            CultureInfo.InvariantCulture);
-
-    /// <summary>Check if an item is in a list.</summary>
-    /// <param name="item">Item to check</param>
-    /// <param name="list">List of items</param>
-    /// <typeparam name="T">Type of the items</typeparam>
-    public static bool IsIn<T>(this T item, params T[] list) =>
-        list.Contains(item);
-
-    /// <summary>Check if an item is in the given enumerable.</summary>
-    /// <param name="item">Item to check</param>
-    /// <param name="items">Items</param>
-    /// <typeparam name="T">Type of the items</typeparam>
-    public static bool IsIn<T>(this T item, IEnumerable<T> items) =>
-        items.Contains(item);
 
     /// <summary>
     /// Can be used to conditionally perform a function

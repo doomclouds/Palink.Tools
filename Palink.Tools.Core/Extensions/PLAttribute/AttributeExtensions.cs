@@ -4,12 +4,12 @@ using System.ComponentModel;
 namespace Palink.Tools.Extensions.PLAttribute;
 
 /// <summary>
-/// 特性扩展方法
+/// AttributeExtensions
 /// </summary>
 public static class AttributeExtensions
 {
     /// <summary>
-    /// 获取枚举描述信息
+    /// Get Enum Description
     /// </summary>
     /// <param name="enumValue"></param>
     /// <returns></returns>

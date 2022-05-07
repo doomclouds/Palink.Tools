@@ -6,7 +6,7 @@ namespace Palink.Tools.NModbus.Contracts;
 /// <summary>
 ///     Represents slave errors that occur during communication.
 /// </summary>
-public class SlaveException : Exception
+internal class SlaveException : Exception
 {
     // private const string SlaveAddressPropertyName = nameof(SlaveAddress);
     // private const string FunctionCodePropertyName = nameof(FunctionCode);

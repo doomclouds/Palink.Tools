@@ -1,12 +1,12 @@
 ﻿using System;
 using SQLite;
 
-namespace Palink.Tools.System.PLCaching.MonkeyCache;
+namespace Palink.Tools.System.PLCaching;
 
 /// <summary>
-/// Data object for Barrel
+/// Data object for IceStorage
 /// </summary>
-internal class Banana
+internal class Ice
 {
     /// <summary>
     /// Unique Identifier

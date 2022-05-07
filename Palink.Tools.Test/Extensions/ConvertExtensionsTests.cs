@@ -11,13 +11,13 @@ public class ConvertExtensionsTests
     public void StringToValueType()
     {
         const string str = "123";
-        var byteValue = str.TryToByte();
-        var intValue = str.TryToInt();
-        var longValue = str.TryToLong();
-        var doubleValue = str.TryToDouble();
-        var decimalValue = str.TryToDecimal();
-        var floatValue = str.TryToFloat();
-        var boolValue = str.TryToBool(false, "123");
+        var byteValue = str.ToByte();
+        var intValue = str.ToInt();
+        var longValue = str.ToLong();
+        var doubleValue = str.ToDouble();
+        var decimalValue = str.ToDecimal();
+        var floatValue = str.ToFloat();
+        var boolValue = str.ToBool(false, "123");
 
         Assert.Equal(typeof(byte), byteValue.GetType());
         Assert.Equal(typeof(int), intValue.GetType());
@@ -29,36 +29,24 @@ public class ConvertExtensionsTests
     }
 
     [Fact]
-    public void ValueTypeToString()
-    {
-        const byte b = 100;
-        var bStr = b.TryToString();
-        const bool mB = false;
-        var mBStr = mB.TryToString();
-
-        Assert.Equal(typeof(string), bStr.GetType());
-        Assert.Equal(typeof(string), mBStr.GetType());
-    }
-
-    [Fact]
     public void StringToDateTime()
     {
         const string time = "2022-04-16 13:49";
-        var dateTime = time.TryToDateTime(DateTime.Now);
+        var dateTime = time.ToDateTime(DateTime.Now);
     }
 
     [Fact]
     public void DateTimeToString()
     {
         var date = DateTime.Now;
-        var time = date.TryToDateTime("yyyy-MM-dd HH:mm");
+        var time = date.ToDateString();
     }
 
     [Fact]
     public void TrimAndStringToEnum()
     {
         const string name = " N1 ";
-        var n1 = name.TryToTrim().TryToEnum<MyEnum>();
+        var n1 = name.Trim().TryToEnum<MyEnum>();
 
         var list = typeof(MyEnum).TryToList();
     }
@@ -68,9 +56,8 @@ public class ConvertExtensionsTests
     {
         const string num = "21221";
         const string b = "false";
-        const string c = "1";
-        var d1 = num.ConvertTo<double>();
-        var b1 = b.ConvertTo<bool>();
+        var d1 = num.To<double>();
+        var b1 = b.To<bool>();
     }
 
     [Fact]

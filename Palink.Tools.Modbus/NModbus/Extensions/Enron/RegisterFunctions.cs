@@ -8,7 +8,7 @@ namespace Palink.Tools.NModbus.Extensions.Enron;
 /// <summary>
 ///   This class provides some functions that can be used to read/write values of a set word size.
 /// </summary>
-public class RegisterFunctions
+internal class RegisterFunctions
 {
     public static byte[][] ReadRegisters(byte slaveAddress, ushort startAddress,
         ushort numberOfPoints, IModbusMaster master, uint wordSize,

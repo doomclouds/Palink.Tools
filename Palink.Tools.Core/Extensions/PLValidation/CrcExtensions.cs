@@ -10,7 +10,7 @@ namespace Palink.Tools.Extensions.PLValidation;
 public static class CrcExtensions
 {
     /// <summary>
-    /// CRC校验
+    /// DoesCrcMatch
     /// </summary>
     /// <param name="message"></param>
     /// <returns></returns>
@@ -29,11 +29,6 @@ public static class CrcExtensions
         return calculatedCrc == messageCrc;
     }
 
-    /// <summary>
-    /// 获取CRC校验码
-    /// </summary>
-    /// <param name="message"></param>
-    /// <returns></returns>
     private static ushort GetCrc(this byte[] message)
     {
         if (message == null)

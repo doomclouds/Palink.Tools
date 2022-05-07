@@ -140,7 +140,7 @@ public abstract class FreebusTransport : IFreebusTransport
         {
             frame = frame.Concat(Read(message.DruLength.Value)).ToArray();
         }
-        else if (message.NewLine.IsNotNullOrEmpty())
+        else if (message.NewLine.NotNullOrEmpty())
         {
             frame = frame.Concat(ReadLine(message.NewLine)).ToArray();
         }

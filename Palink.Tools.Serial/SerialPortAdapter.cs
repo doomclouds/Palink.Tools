@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO.Ports;
 using Palink.Tools.IO;
 using Palink.Tools.Utility;
@@ -13,7 +12,7 @@ public class SerialPortAdapter : IStreamResource
 {
     private const string NewLine = "\r\n";
 
-    [NotNull]private readonly SerialPort? _serialPort;
+    private readonly SerialPort _serialPort;
 
     /// <summary>
     /// SerialPortAdapter

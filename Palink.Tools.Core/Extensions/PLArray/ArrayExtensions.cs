@@ -10,7 +10,7 @@ namespace Palink.Tools.Extensions.PLArray;
 public static class ArrayExtensions
 {
     /// <summary>
-    /// 数组遍历
+    /// Iterate Array
     /// </summary>
     /// <param name="array"></param>
     /// <param name="action"></param>
@@ -27,7 +27,7 @@ public static class ArrayExtensions
     }
 
     /// <summary>
-    /// 切片
+    /// Slice
     /// </summary>
     /// <param name="source"></param>
     /// <param name="startIndex"></param>
@@ -59,6 +59,20 @@ public static class ArrayExtensions
 
         return enumerable.Skip(startIndex).Take(size);
     }
+
+    /// <summary>Check if an item is in a list.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="list">List of items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, params T[] list) =>
+        list.Contains(item);
+
+    /// <summary>Check if an item is in the given enumerable.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="items">Items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, IEnumerable<T> items) =>
+        items.Contains(item);
 
     internal class ArrayTraverse
     {

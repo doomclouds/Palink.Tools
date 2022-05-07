@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Company>Palink</Company>
 		<Authors>Palink</Authors>
 		<Product>Palink.Tools</Product>
@@ -16,7 +16,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageReleaseNotes>多框架支持</PackageReleaseNotes>
+		<PackageReleaseNotes>删除文件缓存，修改相关缓存类的名称</PackageReleaseNotes>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>

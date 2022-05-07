@@ -20,7 +20,7 @@ public class AppSettingsTests
     public void YAppSettingValueTest()
     {
         var version = YAppSettings.Version;
-        var redisIsEnabled = YAppSettings.RedisIsEnabled.TryToBool();
+        var redisIsEnabled = YAppSettings.RedisIsEnabled.ToBool();
         //assert
         Assert.Equal("v4.0.0", version);
         Assert.True(redisIsEnabled);
@@ -31,7 +31,7 @@ public class AppSettings : JsonAppSettings
 {
     public static string RfidCom => Config["RfidCom"];
 
-    public static int GameTime => Config["GameTime"].TryToInt();
+    public static int GameTime => Config["GameTime"].ToInt();
 }
 
 public class YAppSettings : YamlAppSettings

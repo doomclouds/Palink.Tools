@@ -4,12 +4,12 @@ using Microsoft.Extensions.Configuration;
 namespace Palink.Tools.System.PLConfiguration;
 
 /// <summary>
-/// appsettings.json配置文件数据读取类
+/// appsettings.json configuration file data reading class
 /// </summary>
 public abstract class JsonAppSettings
 {
     /// <summary>
-    /// 配置文件的根节点
+    /// The root node of the configuration file
     /// </summary>
     public static readonly IConfigurationRoot Config;
 

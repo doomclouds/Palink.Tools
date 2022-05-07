@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using Palink.Tools.IO;
 using Palink.Tools.Utility;
@@ -14,7 +13,7 @@ public class SerialPortStreamAdapter : IStreamResource
 {
     private const string NewLine = "\r\n";
 
-    [NotNull] private readonly SerialPortStream? _serialPortStream;
+    private readonly SerialPortStream _serialPortStream;
 
     /// <summary>
     /// SerialPortAdapter

@@ -1,6 +1,6 @@
 ﻿namespace Palink.Tools.NModbus.Data;
 
-public interface IModbusMessageDataCollection
+internal interface IModbusMessageDataCollection
 {
     /// <summary>
     ///     Gets the network bytes.

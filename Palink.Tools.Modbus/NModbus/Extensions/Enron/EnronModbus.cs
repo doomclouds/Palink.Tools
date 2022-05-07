@@ -9,7 +9,7 @@ namespace Palink.Tools.NModbus.Extensions.Enron;
 /// <summary>
 ///     Utility extensions for the Enron Modbus dialect.
 /// </summary>
-public static class EnronModbus
+internal static class EnronModbus
 {
     /// <summary>
     ///     Read contiguous block of 32 bit holding registers.

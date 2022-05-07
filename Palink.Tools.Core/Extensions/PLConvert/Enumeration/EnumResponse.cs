@@ -16,7 +16,7 @@ public class EnumResponse
     public int Value { get; set; }
 
     /// <summary>
-    /// 描述
+    /// Description
     /// </summary>
     public string? Description { get; set; }
 }

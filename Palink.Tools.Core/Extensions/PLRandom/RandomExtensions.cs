@@ -3,12 +3,12 @@
 namespace Palink.Tools.Extensions.PLRandom;
 
 /// <summary>
-/// 随机数扩展
+/// RandomExtensions
 /// </summary>
 public static class RandomExtensions
 {
     /// <summary>
-    /// 生成真正的随机数
+    /// Strict Next
     /// </summary>
     /// <param name="r"></param>
     /// <param name="minValue"></param>
@@ -23,7 +23,7 @@ public static class RandomExtensions
     }
 
     /// <summary>
-    /// 产生正态分布的随机数
+    /// Next Gauss
     /// </summary>
     /// <param name="rand"></param>
     /// <param name="mean">均值</param>

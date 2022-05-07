@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Palink.Tools.System.PLCaching.MonkeyCache;
+namespace Palink.Tools.System.PLCaching;
 
 /// <summary>
-/// Interface for a barrel of cache
+/// Interface for a IceStorage of cache
 /// </summary>
-public interface IBarrel
+public interface IIceStorage
 {
     /// <summary>
-    /// Enable / Disable auto expiring of items in the barrel
+    /// Enable / Disable auto expiring of items in the IceStorage
     /// </summary>
     bool AutoExpire { get; set; }
 
     /// <summary>
-    /// Add an item to the barrel
+    /// Add an item to the IceStorage
     /// </summary>
     /// <typeparam name="T">Type of item</typeparam>
     /// <param name="key">Key to use</param>
@@ -33,33 +33,33 @@ public interface IBarrel
     void Empty(params string[] key);
 
     /// <summary>
-    /// Empty all items from the barrel
+    /// Empty all items from the IceStorage
     /// </summary>
     void EmptyAll();
 
     /// <summary>
-    /// Empty only expired items from the barrel
+    /// Empty only expired items from the IceStorage
     /// </summary>
     void EmptyExpired();
 
     /// <summary>
-    /// Checks to see if a key exists in the barrel
+    /// Checks to see if a key exists in the IceStorage
     /// </summary>
     /// <param name="key">Key to check</param>
     /// <returns>True if the key exists, else false</returns>
     bool Exists(string key);
 
     /// <summary>
-    /// Gets keys with specified state
+    /// Get keys with specified state
     /// </summary>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
     IEnumerable<string> GetKeys(CacheState state = CacheState.Active);
 
     /// <summary>
-    /// 根据缓存状态和标签值获取缓存
+    /// Get keys with specified eTag
     /// </summary>
-    /// <param name="eTag">标签名称</param>
+    /// <param name="eTag">eTag name</param>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
     IEnumerable<string> GetKeys(string? eTag, CacheState state = CacheState.Active);

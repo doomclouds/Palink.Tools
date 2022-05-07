@@ -93,6 +93,6 @@ internal class FileRecordCollection : IModbusMessageDataCollection
     {
         return string.Concat("{",
             string.Join(", ", _networkBytes?.Select(v => v.ToString()).ToArray() ??
-                Array.Empty<string>()), "}");
+                              Array.Empty<string>()), "}");
     }
 }

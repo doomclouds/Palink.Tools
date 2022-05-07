@@ -13,7 +13,7 @@ namespace Palink.Tools.System.PLConfiguration;
 public abstract class YamlAppSettings
 {
     /// <summary>
-    /// 配置文件的根节点
+    /// The root node of the configuration file
     /// </summary>
     public static readonly IConfigurationRoot Config;
 

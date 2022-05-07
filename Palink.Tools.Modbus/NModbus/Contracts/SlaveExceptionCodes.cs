@@ -3,7 +3,7 @@
 /// <summary>
 ///  Modbus slave exception codes
 /// </summary>
-public static class SlaveExceptionCodes
+internal static class SlaveExceptionCodes
 {
     /// <summary>
     /// The function code received in the query is not an allowable action for the slave.  This may be because the function code is only applicable to newer devices, and was not implemented in the unit selected.  It could also indicate that the slave is in the wrong state to process a request of this type, for example because it is unconfigured and is being asked to return register values. If a Poll Program Complete command was issued, this code indicates that no program function preceded it.

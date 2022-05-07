@@ -82,7 +82,7 @@ public sealed class PidController
     public double OutputMax { get; private set; }
 
     /// <summary>
-    /// The minimum ouput value the control device can accept.
+    /// The minimum output value the control device can accept.
     /// </summary>
     public double OutputMin { get; private set; }
 

@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Palink.Tools.Extensions.PLString;
-using Palink.Tools.System.PLCaching.MonkeyCache;
-using Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
+using Palink.Tools.System.PLCaching;
+using Palink.Tools.System.PLCaching.SQLite;
 
 namespace Palink.Tools.PanShi.Monitor.Ecm;
 
@@ -26,7 +26,7 @@ public class EcmService
     /// </summary>
     public string Url { get; }
 
-    private readonly IBarrel _barrel;
+    private readonly IIceStorage _iceStorage;
 
     /// <summary>
     /// EcmService构造器
@@ -37,10 +37,10 @@ public class EcmService
     /// <param name="cacheAppId">缓存位置唯一标识</param>
     public EcmService(double minDelay, string exhibitNo, string url, string cacheAppId)
     {
-        Barrel.ApplicationId = cacheAppId;
-        _barrel =
-            Barrel.Create(
-                $"{AppDomain.CurrentDomain.BaseDirectory}{Barrel.ApplicationId}");
+        IceStorage.ApplicationId = cacheAppId;
+        _iceStorage =
+            IceStorage.Create(
+                $"{AppDomain.CurrentDomain.BaseDirectory}{IceStorage.ApplicationId}");
 
         BeatsTimer = new Timer(minDelay * 60 * 1000);
         BeatsTimer.Elapsed += BeatsTimer_Elapsed;
@@ -66,13 +66,13 @@ public class EcmService
     {
         MessageTimer.Stop();
 
-        _barrel.EmptyExpired();
+        _iceStorage.EmptyExpired();
 
-        var keys = _barrel.GetKeys();
+        var keys = _iceStorage.GetKeys();
 
         foreach (var key in keys)
         {
-            var msg = _barrel.Get<EcmMessage>(key);
+            var msg = _iceStorage.Get<EcmMessage>(key);
 
             switch (msg?.SendSucceed)
             {
@@ -80,20 +80,20 @@ public class EcmService
                                 msg.Tag != MessageTag.AutoExpireNeeded:
                     msg.SendDataToEcm(Url);
                     msg.SendSucceed = true;
-                    // _barrel.Empty(msg.Id);
-                    _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
+                    // _iceStorage.Empty(msg.Id);
+                    _iceStorage.Add(msg.Id, msg, msg.ETime, msg.GetTag());
                     break;
                 case false:
                 {
                     if (msg.SendDataToEcm(Url, true))
                     {
                         msg.SendSucceed = true;
-                        // _barrel.Empty(msg.Id);
-                        _barrel.Add(msg.Id, msg, msg.ETime, msg.GetTag());
+                        // _iceStorage.Empty(msg.Id);
+                        _iceStorage.Add(msg.Id, msg, msg.ETime, msg.GetTag());
 
                         if (msg.Tag == MessageTag.Needed)
                         {
-                            _barrel.Empty(msg.Id);
+                            _iceStorage.Empty(msg.Id);
                         }
                     }
 
@@ -120,7 +120,7 @@ public class EcmService
     /// <param name="message"></param>
     public void AddMessage(EcmMessage message)
     {
-        _barrel.EmptyExpired();
+        _iceStorage.EmptyExpired();
 
         switch (message.Tag)
         {
@@ -131,7 +131,7 @@ public class EcmService
             case MessageTag.AutoExpire:
             case MessageTag.AutoExpireNeeded:
                 //判断该消息是否存在
-                var keys = _barrel.GetKeys(message.GetTag());
+                var keys = _iceStorage.GetKeys(message.GetTag());
                 if (keys.Any())
                 {
                     return;
@@ -140,6 +140,6 @@ public class EcmService
                 break;
         }
 
-        _barrel.Add(message.Id, message, message.ETime, message.GetTag());
+        _iceStorage.Add(message.Id, message, message.ETime, message.GetTag());
     }
 }

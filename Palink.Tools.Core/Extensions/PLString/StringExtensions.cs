@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text.RegularExpressions;
-using Palink.Tools.Extensions.PLConvert;
 using Palink.Tools.Extensions.PLObject;
 
 namespace Palink.Tools.Extensions.PLString;
 
 /// <summary>
-/// 字符判断扩展类
+/// StringExtensions
 /// </summary>
 public static class StringExtensions
 {
@@ -191,7 +190,7 @@ public static class StringExtensions
             ".bmp"
         };
 
-        if (fileExtensions.IsNotNull())
+        if (fileExtensions.NotNull())
         {
             suffix = fileExtensions;
         }
@@ -204,21 +203,6 @@ public static class StringExtensions
     #endregion
 
     #region 字符串截取
-
-    /// <summary>
-    /// Sub
-    /// </summary>
-    /// <param name="inputStr"></param>
-    /// <param name="length"></param>
-    /// <returns></returns>
-    [Obsolete("Please Use Slice")]
-    public static string? Sub(this string? inputStr, int length)
-    {
-        if (inputStr.IsNullOrEmpty())
-            return null;
-
-        return inputStr.Length >= length ? inputStr.Substring(0, length) : inputStr;
-    }
 
     /// <summary>
     /// Slice
@@ -387,7 +371,7 @@ public static class StringExtensions
             return default;
         }
 
-        s = s.TryToTrim();
+        s = s.Trim();
         var masks = mask.ToString().PadLeft(4, mask);
         return s.Length switch
         {

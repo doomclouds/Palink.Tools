@@ -2,7 +2,7 @@
 
 namespace Palink.Tools.NModbus.Extensions;
 
-public static class DictionaryExtensions
+internal static class DictionaryExtensions
 {
     /// <summary>
     /// Gets the specified value in the dictionary. If not found, returns default for TValue.

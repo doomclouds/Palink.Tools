@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Json;
 using Newtonsoft.Json;
 using Palink.Tools.Extensions.PLNet;
 using Xunit;
@@ -19,6 +18,7 @@ public class NewtonsoftHttpClientExtensionsTests
                 new JsonSerializerSettings());
     }
 
+    [Fact]
     public async void PostTest()
     {
         var person = new Person()
@@ -36,6 +36,7 @@ public class NewtonsoftHttpClientExtensionsTests
                 new JsonSerializerSettings());
     }
 
+    [Fact]
     public async void PutTest()
     {
         var person = new Person()
@@ -57,7 +58,7 @@ public class NewtonsoftHttpClientExtensionsTests
     public class Person
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public int Age { get; set; }
     }
 

@@ -26,14 +26,14 @@ public class ArrayExtensionsTests
         array.ForEach((arr, indices) =>
         {
             var value = arr.GetValue(indices[0]);
-            arr.SetValue(value.TryToInt() + 2, indices[0]);
+            arr.SetValue(value.ToInt() + 2, indices[0]);
         });
 
         //对二维按列遍历
         array2.ForEach((arr, indices) =>
         {
             var value = arr.GetValue(indices[0], indices[1]);
-            arr.SetValue(value.TryToInt() + 2, indices[0], indices[1]);
+            arr.SetValue(value.ToInt() + 2, indices[0], indices[1]);
         });
     }
 }

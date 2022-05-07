@@ -11,114 +11,114 @@ using Palink.Tools.Extensions.PLString;
 namespace Palink.Tools.Extensions.PLConvert;
 
 /// <summary>
-/// 转换器扩展类
+/// ConvertExtensions
 /// </summary>
 public static class ConvertExtensions
 {
     /// <summary>
-    /// string转byte
+    /// object convert to byte
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static byte TryToByte(this object? input, byte defaultNum = 0)
+    public static byte ToByte(this object? input, byte @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return byte.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return byte.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转int
+    /// object convert to int
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static int TryToInt(this object? input, int defaultNum = 0)
+    public static int ToInt(this object? input, int @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return int.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return int.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转long
+    /// object convert to long
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static long TryToLong(this object? input, long defaultNum = 0)
+    public static long ToLong(this object? input, long @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return long.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return long.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转double
+    /// object convert to double
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static double TryToDouble(this object? input, double defaultNum = 0)
+    public static double ToDouble(this object? input, double @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return double.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return double.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转decimal
+    /// object convert to decimal
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static decimal TryToDecimal(this object? input, decimal defaultNum = 0)
+    public static decimal ToDecimal(this object? input, decimal @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return decimal.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return decimal.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转decimal
+    /// object convert to float
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="defaultNum">转换失败默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static float TryToFloat(this object? input, float defaultNum = 0)
+    public static float ToFloat(this object? input, float @default = 0)
     {
         if (input.IsNull())
-            return defaultNum;
+            return @default;
 
-        return float.TryParse(input.ToString(), out var num) ? num : defaultNum;
+        return float.TryParse(input.ToString(), out var num) ? num : @default;
     }
 
     /// <summary>
-    /// string转bool
+    /// object convert to bool
     /// </summary>
-    /// <param name="input">输入</param>
-    /// <param name="falseVal"></param>
-    /// <param name="defaultBool">转换失败默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <param name="trueVal"></param>
+    /// <param name="falseVal"></param>
     /// <returns></returns>
-    public static bool TryToBool(this object? input, bool defaultBool = false,
+    public static bool ToBool(this object? input, bool @default = false,
         string trueVal = "1",
         string falseVal = "0")
     {
         if (input.IsNull())
-            return defaultBool;
+            return @default;
 
         var str = input.ToString();
         if (bool.TryParse(str, out var outBool))
             return outBool;
 
-        outBool = defaultBool;
+        outBool = @default;
 
         if (trueVal == str)
             return true;
@@ -126,97 +126,73 @@ public static class ConvertExtensions
     }
 
     /// <summary>
-    /// 值类型转string
+    /// string convert to datetime
     /// </summary>
-    /// <param name="inputObj">输入</param>
-    /// <param name="defaultStr">转换失败默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static string TryToString(this ValueType? inputObj, string defaultStr = "")
+    public static DateTime ToDateTime(this string? input, DateTime @default)
     {
-        var output = inputObj.IsNull() ? defaultStr : inputObj.ToString();
-        return output;
-    }
+        if (input.IsNullOrEmpty())
+            return @default;
 
-    /// <summary>
-    /// 字符串转时间
-    /// </summary>
-    /// <param name="inputStr">输入</param>
-    /// <param name="defaultValue">默认值</param>
-    /// <returns></returns>
-    public static DateTime TryToDateTime(this string? inputStr, DateTime defaultValue)
-    {
-        if (inputStr.IsNullOrEmpty())
-            return defaultValue;
-
-        return DateTime.TryParse(inputStr, out var outPutDateTime)
+        return DateTime.TryParse(input, out var outPutDateTime)
             ? outPutDateTime
-            : defaultValue;
+            : @default;
     }
 
     /// <summary>
-    /// 字符串转时间
+    /// string convert to datetime
     /// </summary>
-    /// <param name="inputStr">输入</param>
-    /// <param name="formatter"></param>
-    /// <param name="defaultValue">默认值</param>
+    /// <param name="input">input</param>
+    /// <param name="formatter">formatter</param>
+    /// <param name="default">default value</param>
     /// <returns></returns>
-    public static DateTime TryToDateTime(this string? inputStr, string formatter,
-        DateTime defaultValue = default)
+    public static DateTime ToDateTime(this string? input, string formatter,
+        DateTime @default = default)
     {
-        if (inputStr.IsNullOrEmpty())
-            return defaultValue;
+        if (input.IsNullOrEmpty())
+            return @default;
 
-        return DateTime.TryParseExact(inputStr, formatter,
+        return DateTime.TryParseExact(input, formatter,
             CultureInfo.InvariantCulture, DateTimeStyles.None, out var outPutDateTime)
             ? outPutDateTime
-            : defaultValue;
+            : @default;
     }
 
     /// <summary>
-    /// 时间格式转换为字符串
+    /// datetime convert to string
     /// </summary>
-    /// <param name="date"></param>
-    /// <param name="formatter"></param>
-    /// <param name="cultureInfo"></param>
+    /// <param name="input">input</param>
+    /// <param name="formatter">formatter</param>
+    /// <param name="cultureInfo">cultureInfo</param>
     /// <returns></returns>
-    public static string TryToDateTime(this DateTime date,
-        string formatter = "MMMM dd, yyyy HH:mm:ss", string cultureInfo = "en-us")
+    public static string ToDateString(this DateTime input,
+        string formatter = "yyyy-MM-dd HH:mm:ss", string cultureInfo = "zh-cn")
     {
-        return date.ToString(formatter, new CultureInfo(cultureInfo));
+        return input.ToString(formatter, new CultureInfo(cultureInfo));
     }
 
     /// <summary>
-    /// 字符串去空格
+    /// string convert to enum
     /// </summary>
-    /// <param name="inputStr">输入</param>
+    /// <param name="input">input</param>
+    /// <param name="t">t</param>
     /// <returns></returns>
-    public static string TryToTrim(this string? inputStr)
+    public static T TryToEnum<T>(this string? input, T t = default) where T : struct
     {
-        var output = inputStr.IsNullOrEmpty() ? "" : inputStr.Trim();
-        return output;
+        return Enum.TryParse<T>(input, out var result) ? result : t;
     }
 
     /// <summary>
-    /// 字符串转枚举
-    /// </summary>
-    /// <typeparam name="T">输入</typeparam>
-    /// <param name="str"></param>
-    /// <param name="t"></param>
-    /// <returns></returns>
-    public static T TryToEnum<T>(this string? str, T t = default) where T : struct
-    {
-        return Enum.TryParse<T>(str, out var result) ? result : t;
-    }
-
-    /// <summary>
-    /// 将枚举类型转换为List
+    /// enum convert to list
     /// </summary>
     /// <param name="enumType"></param>
     /// <returns></returns>
     public static IEnumerable<EnumResponse> TryToList(this Type enumType)
     {
         if (!enumType.IsEnum)
-            throw new ArgumentException("必须是枚举类型", nameof(enumType));
+            throw new ArgumentException("must be enum", nameof(enumType));
         var result = new List<EnumResponse>();
 
         foreach (var item in Enum.GetValues(enumType))
@@ -240,186 +216,29 @@ public static class ConvertExtensions
     }
 
     /// <summary>
-    /// 根据类型名返回一个Type类型
+    /// Used to simplify and beautify casting an object to a type.
     /// </summary>
-    /// <param name="typeName">类型的名称</param>
-    /// <returns>Type对象</returns>
-    public static Type ConvertType(this string typeName) =>
-        typeName.ToLower().Replace("system.", "") switch
-        {
-            "boolean" => typeof(bool),
-            "bool" => typeof(bool),
-            "int16" => typeof(short),
-            "short" => typeof(short),
-            "int32" => typeof(int),
-            "int" => typeof(int),
-            "long" => typeof(long),
-            "int64" => typeof(long),
-            "uint16" => typeof(ushort),
-            "ushort" => typeof(ushort),
-            "uint32" => typeof(uint),
-            "uint" => typeof(uint),
-            "uint64" => typeof(ulong),
-            "ulong" => typeof(ulong),
-            "single" => typeof(float),
-            "float" => typeof(float),
-            "string" => typeof(string),
-            "guid" => typeof(Guid),
-            "decimal" => typeof(decimal),
-            "double" => typeof(double),
-            "datetime" => typeof(DateTime),
-            "byte" => typeof(byte),
-            "char" => typeof(char),
-            _ => typeof(string)
-        };
+    /// <typeparam name="T">Type to be casted</typeparam>
+    /// <param name="obj">Object to cast</param>
+    /// <returns>Casted object</returns>
+    public static T As<T>(this object obj) where T : class => (T)obj;
 
     /// <summary>
-    /// 类型直转
+    /// Converts given object to a value type using <see cref="M:System.Convert.ChangeType(System.Object,System.Type)" /> method.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public static T? ConvertTo<T>(this IConvertible? value)
-    {
-        if (value.IsNull()) return default;
-        try
-        {
-            var obj = ConvertTo(value, typeof(T));
-            if (obj == null)
-                return default;
-            return (T)obj;
-        }
-        catch
-        {
-            return default;
-        }
-    }
+    /// <param name="obj">Object to be converted</param>
+    /// <typeparam name="T">Type of the target object</typeparam>
+    /// <returns>Converted object</returns>
+    public static T To<T>(this object obj) where T : struct => typeof(T) == typeof(Guid)
+        ? (T)TypeDescriptor.GetConverter(typeof(T))
+            .ConvertFromInvariantString(obj.ToString())
+        : (T)Convert.ChangeType(obj, typeof(T),
+            CultureInfo.InvariantCulture);
 
     /// <summary>
-    /// 类型直转
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value"></param>
-    /// <param name="defaultValue">转换失败的默认值</param>
-    /// <returns></returns>
-    public static T? TryConvertTo<T>(this IConvertible? value,
-        T? defaultValue = default)
-    {
-        if (value.IsNull()) return default;
-        try
-        {
-            var obj = ConvertTo(value, typeof(T));
-            if (obj == null)
-                return defaultValue;
-            return (T)obj;
-        }
-        catch
-        {
-            return defaultValue;
-        }
-    }
-
-    /// <summary>
-    /// 类型直转
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value"></param>
-    /// <param name="result">转换失败的默认值</param>
-    /// <returns></returns>
-    public static bool TryConvertTo<T>(this IConvertible? value, out T? result)
-    {
-        if (value.IsNull())
-        {
-            result = default;
-            return false;
-        }
-
-        try
-        {
-            var obj = ConvertTo(value, typeof(T));
-
-            if (obj == null)
-            {
-                result = default;
-                return false;
-            }
-
-            result = (T)obj;
-            return true;
-        }
-        catch
-        {
-            result = default;
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// 类型直转
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="type">目标类型</param>
-    /// <param name="result">转换失败的默认值</param>
-    /// <returns></returns>
-    public static bool TryConvertTo(this IConvertible? value, Type type,
-        out object? result)
-    {
-        if (value.IsNull())
-        {
-            result = default;
-            return false;
-        }
-
-        try
-        {
-            result = ConvertTo(value, type);
-            return true;
-        }
-        catch
-        {
-            result = default;
-            return false;
-        }
-    }
-
-    /// <summary>
-    /// 类型直转
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="type">目标类型</param>
-    /// <returns></returns>
-    public static object? ConvertTo(this IConvertible? value, Type type)
-    {
-        if (value.IsNull())
-        {
-            return default;
-        }
-
-        if (type.IsEnum)
-        {
-            return Enum.Parse(type, value.ToString(CultureInfo.InvariantCulture));
-        }
-
-        if (!type.IsGenericType ||
-            type.GetGenericTypeDefinition() != typeof(Nullable<>))
-        {
-            return Convert.ChangeType(value, type);
-        }
-
-        var underlyingType = Nullable.GetUnderlyingType(type);
-        if (underlyingType == null) return default;
-
-        return underlyingType.IsEnum
-            ? Enum.Parse(underlyingType,
-                value.ToString(CultureInfo.CurrentCulture))
-            : Convert.ChangeType(value, underlyingType);
-    }
-
-    /// <summary>
-    /// 元组json序列化数据反序列化
+    /// json to value tuple
     /// </summary>
     /// <param name="valueTupleJson"></param>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static T? TryToValueTuple<T>(this string valueTupleJson)
     {
@@ -427,10 +246,9 @@ public static class ConvertExtensions
     }
 
     /// <summary>
-    /// 元组转字符串
+    /// tuple to json
     /// </summary>
     /// <param name="value"></param>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     public static string TupleTryToString<T>(this T value) where T : struct
     {

@@ -143,7 +143,7 @@ public class TaskSchedulerTool
     /// <param name="value"></param>
     /// <param name="kind"></param>
     /// <returns></returns>
-    public static bool SetupKeyValueInLocalMachine(string targetPath, string key,
+    internal static bool SetupKeyValueInLocalMachine(string targetPath, string key,
         object value, RegistryValueKind kind)
     {
         var localMachine = Registry.LocalMachine;
@@ -162,13 +162,14 @@ public class TaskSchedulerTool
     #region 应用
 
     /// <summary>
-    /// 设置开机自启，需要在管理员模式下运行才可有效
+    /// Set boot to start automatically
+    /// The setting is effective only when it is run in administrator mode
     /// </summary>
-    /// <param name="taskName">计划任务名称</param>
-    /// <param name="exeFullName">exe文件全路径</param>
-    /// <param name="desc">描述</param>
-    /// <param name="delay">延时启动时间</param>
-    /// <param name="used">是否开机自启</param>
+    /// <param name="taskName">Scheduled Task Name</param>
+    /// <param name="exeFullName">Exe full path</param>
+    /// <param name="desc">Description</param>
+    /// <param name="delay">Delayed start time</param>
+    /// <param name="used">Whether to boot automatically</param>
     public static bool AutoStart(string taskName, string exeFullName, string desc,
         TimeSpan delay, bool used = true)
     {
@@ -183,9 +184,9 @@ public class TaskSchedulerTool
     }
 
     /// <summary>
-    /// 边缘侧滑
+    /// AllowEdgeSwipe
     /// </summary>
-    /// <param name="status"></param>
+    /// <param name="status">Open or close</param>
     /// <returns></returns>
     public static bool AllowEdgeSwipe(bool status)
     {

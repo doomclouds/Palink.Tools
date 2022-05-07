@@ -5,21 +5,21 @@ using System.Linq;
 using Newtonsoft.Json;
 using SQLite;
 
-namespace Palink.Tools.System.PLCaching.MonkeyCache.SQLite;
+namespace Palink.Tools.System.PLCaching.SQLite;
 
 /// <summary>
 /// Key/Value data store for any data object.
 /// Allows for saving data along with expiration dates and ETags.
 /// </summary>
-public class Barrel : IBarrel
+public class IceStorage : IIceStorage
 {
     /// <summary>
-    /// 路径标识，与基础路径一起合成完整路径
+    /// Path identifier, combined with the base path to synthesize the full path
     /// </summary>
     public static string ApplicationId { get; set; } = string.Empty;
 
     private static readonly Lazy<string> BaseCacheDir = new(() =>
-        Path.Combine(BarrelUtils.GetBasePath(ApplicationId), "MonkeyCache"));
+        Path.Combine(IceStorageUtils.GetBasePath(ApplicationId), "PalinkStorage"));
 
     private readonly SQLiteConnection _db;
     private readonly object _dbLock = new();
@@ -29,27 +29,29 @@ public class Barrel : IBarrel
     /// </summary>
     public bool AutoExpire { get; set; }
 
-    private static Barrel? _instance;
+    private static IceStorage? _instance;
 
     /// <summary>
-    /// Gets the instance of the Barrel
+    /// Gets the instance of the IceStorage
     /// </summary>
-    public static IBarrel Current => (_instance ??= new Barrel());
+    public static IIceStorage Current => (_instance ??= new IceStorage());
 
     /// <summary>
-    /// 指定路径创建缓存数据库
+    /// Specify a path to create the cache database
     /// </summary>
     /// <param name="cacheDirectory"></param>
     /// <returns></returns>
-    public static IBarrel Create(string cacheDirectory) => new Barrel(cacheDirectory);
+    public static IIceStorage Create(string cacheDirectory) =>
+        new IceStorage(cacheDirectory);
 
     private readonly JsonSerializerSettings _jsonSettings;
 
-    private Barrel(string? cacheDirectory = null)
+    private IceStorage(string? cacheDirectory = null)
     {
-        var directory = string.IsNullOrEmpty(cacheDirectory) ? BaseCacheDir.Value
+        var directory = string.IsNullOrEmpty(cacheDirectory)
+            ? BaseCacheDir.Value
             : cacheDirectory;
-        var path = Path.Combine(directory, "Barrel.db");
+        var path = Path.Combine(directory, "IceStorage.db");
         if (!Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
@@ -58,7 +60,7 @@ public class Barrel : IBarrel
         _db = new SQLiteConnection(path,
             SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create |
             SQLiteOpenFlags.FullMutex);
-        _db.CreateTable<Banana>();
+        _db.CreateTable<Ice>();
 
         _jsonSettings = new JsonSerializerSettings
         {
@@ -71,7 +73,7 @@ public class Barrel : IBarrel
     #region Exist and Expiration Methods
 
     /// <summary>
-    /// Checks to see if the key exists in the Barrel.
+    /// Checks to see if the key exists in the IceStorage.
     /// </summary>
     /// <param name="key">Unique identifier for the entry to check</param>
     /// <returns>If the key exists</returns>
@@ -80,10 +82,10 @@ public class Barrel : IBarrel
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana ent;
+        Ice ent;
         lock (_dbLock)
         {
-            ent = _db.Find<Banana>(key);
+            ent = _db.Find<Ice>(key);
         }
 
         return ent != null;
@@ -99,10 +101,10 @@ public class Barrel : IBarrel
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana ent;
+        Ice ent;
         lock (_dbLock)
         {
-            ent = _db.Find<Banana>(key);
+            ent = _db.Find<Ice>(key);
         }
 
         if (ent == null)
@@ -121,71 +123,65 @@ public class Barrel : IBarrel
     /// <returns>The IEnumerable of keys</returns>
     public IEnumerable<string> GetKeys(CacheState state = CacheState.Active)
     {
-        IEnumerable<Banana> allBananas;
+        IEnumerable<Ice> allIces;
         lock (_dbLock)
         {
-            allBananas = _db.Query<Banana>($"SELECT Id FROM {nameof(Banana)}");
+            allIces = _db.Query<Ice>($"SELECT Id FROM {nameof(Ice)}");
         }
 
-        if (allBananas != null)
+        if (allIces == null) return Array.Empty<string>();
+        var ices = new List<Ice>();
+
+        if (state.HasFlag(CacheState.Active))
         {
-            var bananas = new List<Banana>();
-
-            if (state.HasFlag(CacheState.Active))
-            {
-                bananas = allBananas
-                    .Where(x => GetExpiration(x.Id) >= DateTime.UtcNow)
-                    .ToList();
-            }
-
-            if (state.HasFlag(CacheState.Expired))
-            {
-                bananas.AddRange(allBananas.Where(x =>
-                    GetExpiration(x.Id) < DateTime.UtcNow));
-            }
-
-            return bananas.Select(x => x.Id);
+            ices = allIces
+                .Where(x => GetExpiration(x.Id) >= DateTime.UtcNow)
+                .ToList();
         }
 
-        return Array.Empty<string>();
+        if (state.HasFlag(CacheState.Expired))
+        {
+            ices.AddRange(allIces.Where(x =>
+                GetExpiration(x.Id) < DateTime.UtcNow));
+        }
+
+        return ices.Select(x => x.Id);
     }
 
     /// <summary>
-    /// 根据缓存状态和标签值获取缓存
+    /// Get keys with specified eTag
     /// </summary>
     /// <param name="eTag">标签名称</param>
     /// <param name="state">State to get: Multiple with flags: CacheState.Active | CacheState.Expired</param>
     /// <returns>The keys</returns>
     public IEnumerable<string> GetKeys(string? eTag, CacheState state = CacheState.Active)
     {
-        IEnumerable<Banana> allBananas;
+        IEnumerable<Ice> allIces;
         lock (_dbLock)
         {
-            allBananas = _db.Query<Banana>($"SELECT Id,ETag FROM {nameof(Banana)}");
+            allIces = _db.Query<Ice>($"SELECT Id,ETag FROM {nameof(Ice)}");
         }
 
-        if (allBananas != null)
+        if (allIces == null) return Array.Empty<string>();
+        var ices = new List<Ice>();
+
+        if (state.HasFlag(CacheState.Active))
         {
-            var bananas = new List<Banana>();
-
-            if (state.HasFlag(CacheState.Active))
-            {
-                bananas = allBananas
-                    .Where(x =>
-                        x.ETag != null && GetExpiration(x.Id) >= DateTime.UtcNow && x.ETag.Equals(eTag))
-                    .ToList();
-            }
-
-            if (state.HasFlag(CacheState.Expired))
-            {
-                bananas.AddRange(allBananas.Where(x =>
-                    x.ETag != null && GetExpiration(x.Id) < DateTime.UtcNow && x.ETag.Equals(eTag)));
-            }
-
-            return bananas.Select(x => x.Id);
+            ices = allIces
+                .Where(x =>
+                    x.ETag != null && GetExpiration(x.Id) >= DateTime.UtcNow &&
+                    x.ETag.Equals(eTag))
+                .ToList();
         }
 
-        return Array.Empty<string>();
+        if (state.HasFlag(CacheState.Expired))
+        {
+            ices.AddRange(allIces.Where(x =>
+                x.ETag != null && GetExpiration(x.Id) < DateTime.UtcNow &&
+                x.ETag.Equals(eTag)));
+        }
+
+        return ices.Select(x => x.Id);
     }
 
     /// <summary>
@@ -199,11 +195,11 @@ public class Barrel : IBarrel
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana? ent;
+        Ice? ent;
         lock (_dbLock)
         {
-            ent = _db.Query<Banana>(
-                $"SELECT {nameof(ent.Contents)} FROM {nameof(Banana)} WHERE {nameof(ent.Id)} = ?",
+            ent = _db.Query<Ice>(
+                $"SELECT {nameof(ent.Contents)} FROM {nameof(Ice)} WHERE {nameof(ent.Id)} = ?",
                 key).FirstOrDefault();
         }
 
@@ -212,7 +208,7 @@ public class Barrel : IBarrel
         if (ent == null || (AutoExpire && IsExpired(key)))
             return result;
 
-        if (BarrelUtils.IsString(result))
+        if (IceStorageUtils.IsString(result))
         {
             object final = ent.Contents;
             return (T)final;
@@ -233,11 +229,11 @@ public class Barrel : IBarrel
         if (string.IsNullOrWhiteSpace(key))
             throw new ArgumentException("Key can not be null or empty.", nameof(key));
 
-        Banana? ent;
+        Ice? ent;
         lock (_dbLock)
         {
-            ent = _db.Query<Banana>(
-                $"SELECT {nameof(ent.ETag)} FROM {nameof(Banana)} WHERE {nameof(ent.Id)} = ?",
+            ent = _db.Query<Ice>(
+                $"SELECT {nameof(ent.ETag)} FROM {nameof(Ice)} WHERE {nameof(ent.Id)} = ?",
                 key).FirstOrDefault();
         }
 
@@ -251,11 +247,11 @@ public class Barrel : IBarrel
     /// <returns>The expiration date if the key is found, else null</returns>
     public DateTime? GetExpiration(string key)
     {
-        Banana? ent;
+        Ice? ent;
         lock (_dbLock)
         {
-            ent = _db.Query<Banana>(
-                $"SELECT {nameof(ent.ExpirationDate)} FROM {nameof(Banana)} WHERE {nameof(ent.Id)} = ?",
+            ent = _db.Query<Ice>(
+                $"SELECT {nameof(ent.ExpirationDate)} FROM {nameof(Ice)} WHERE {nameof(ent.Id)} = ?",
                 key).FirstOrDefault();
         }
 
@@ -275,10 +271,10 @@ public class Barrel : IBarrel
     /// <param name="eTag">Optional eTag information</param>
     private void Add(string key, string? data, TimeSpan expireIn, string? eTag = null)
     {
-        var ent = new Banana
+        var ent = new Ice
         {
             Id = key,
-            ExpirationDate = BarrelUtils.GetExpiration(expireIn),
+            ExpirationDate = IceStorageUtils.GetExpiration(expireIn),
             ETag = eTag,
             Contents = data
         };
@@ -310,7 +306,7 @@ public class Barrel : IBarrel
 
         string? dataJson;
 
-        if (BarrelUtils.IsString(data))
+        if (IceStorageUtils.IsString(data))
         {
             dataJson = data as string;
         }
@@ -329,32 +325,32 @@ public class Barrel : IBarrel
     #region Empty Methods
 
     /// <summary>
-    /// Empties all expired entries that are in the Barrel.
+    /// Empties all expired entries that are in the IceStorage.
     /// Throws an exception if any deletions fail and rolls back changes.
     /// </summary>
     public void EmptyExpired()
     {
         lock (_dbLock)
         {
-            var entries = _db.Query<Banana>(
-                $"SELECT * FROM Banana WHERE ExpirationDate < ?", DateTime.UtcNow.Ticks);
+            var entries = _db.Query<Ice>(
+                "SELECT * FROM Ice WHERE ExpirationDate < ?", DateTime.UtcNow.Ticks);
             _db.RunInTransaction(() =>
             {
                 foreach (var k in entries)
-                    _db.Delete<Banana>(k.Id);
+                    _db.Delete<Ice>(k.Id);
             });
         }
     }
 
     /// <summary>
-    /// Empties all expired entries that are in the Barrel.
+    /// Empties all expired entries that are in the IceStorage.
     /// Throws an exception if any deletions fail and rolls back changes.
     /// </summary>
     public void EmptyAll()
     {
         lock (_dbLock)
         {
-            _db.DeleteAll<Banana>();
+            _db.DeleteAll<Ice>();
         }
     }
 
@@ -374,7 +370,7 @@ public class Barrel : IBarrel
                     if (string.IsNullOrWhiteSpace(k))
                         continue;
 
-                    _db.Delete<Banana>(primaryKey: k);
+                    _db.Delete<Ice>(primaryKey: k);
                 }
             });
         }

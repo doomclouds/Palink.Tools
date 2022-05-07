@@ -6,7 +6,7 @@ using Palink.Tools.Extensions.PLString;
 namespace Palink.Tools.Extensions.PLNet;
 
 /// <summary>
-/// 网络功能扩展
+/// NetExtensions
 /// </summary>
 public static class NetExtensions
 {
@@ -18,7 +18,7 @@ public static class NetExtensions
     {
         if (!ip.IsIp())
         {
-            throw new Exception("Net:IP地址不合法");
+            throw new Exception("The IP address is invalid");
         }
 
         try

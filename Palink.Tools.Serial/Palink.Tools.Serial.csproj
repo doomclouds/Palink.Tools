@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Authors>Palink</Authors>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
@@ -17,7 +17,7 @@
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>多框架支持</PackageReleaseNotes>
+		<PackageReleaseNotes>冗余代码删除</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
@@ -46,7 +46,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Palink.Tools.Core\Palink.Tools.Core.csproj" />
+	  <ProjectReference Include="..\Palink.Tools.Core\Palink.Tools.Core.csproj" />
 	</ItemGroup>
 
 </Project>

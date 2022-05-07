@@ -8,7 +8,7 @@ namespace Palink.Tools.NModbus.Extensions;
 /// <summary>
 /// Utility Class to support Modbus 32/64bit devices. 
 /// </summary>
-public class ModbusMasterEnhanced
+internal class ModbusMasterEnhanced
 {
     private readonly IModbusMaster _master;
     private readonly uint _wordSize;

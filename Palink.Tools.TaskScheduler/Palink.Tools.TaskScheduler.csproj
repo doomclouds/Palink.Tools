@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Authors>Palink</Authors>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
@@ -17,7 +17,7 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>多框架支持</PackageReleaseNotes>
+		<PackageReleaseNotes>冗余代码删除</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>

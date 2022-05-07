@@ -9,7 +9,7 @@ using Palink.Tools.Extensions.PLString;
 namespace Palink.Tools.Extensions.PLNet;
 
 /// <summary>
-/// Newtonsoft.Json的HttpClient扩展
+/// NewtonsoftHttpClientExtensions
 /// </summary>
 public static class NewtonsoftHttpClientExtensions
 {
