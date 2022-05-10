@@ -33,10 +33,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Include="profile.jpg">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Include="profile.jpg">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -49,9 +49,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加PID控制器，优化部分内容，删掉了很多的过时方法</PackageReleaseNotes>
+		<PackageReleaseNotes>重写了AES加密解密、修复FreebusTransport打印多余日志问题、修复YzamiMaster通讯异常导致的数值越界问题。新增一些扩展方法</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.2.0</Version>
+		<Version>1.2.1</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

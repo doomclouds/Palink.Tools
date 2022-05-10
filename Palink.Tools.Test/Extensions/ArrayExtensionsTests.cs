@@ -1,4 +1,5 @@
-﻿using Palink.Tools.Extensions.PLArray;
+﻿using System.Linq;
+using Palink.Tools.Extensions.PLArray;
 using Palink.Tools.Extensions.PLConvert;
 using Xunit;
 
@@ -17,7 +18,7 @@ public class ArrayExtensionsTests
             4,
             5
         };
-
+       
         var array2 = new[,]
         {
             {1,2,3},{4,5,6},{7,8,9}

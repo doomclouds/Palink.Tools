@@ -188,17 +188,6 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// IsNotNull
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <returns></returns>
-    [Obsolete]
-    public static bool IsNotNull([NotNullWhen(true)] this object? obj)
-    {
-        return obj != null;
-    }
-
-    /// <summary>
     /// NotNull
     /// </summary>
     /// <param name="obj"></param>

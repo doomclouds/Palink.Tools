@@ -177,7 +177,8 @@ public class YzAimMaster : FreebusMaster
                 id,
                 0x03
             },
-            DruLength = 7
+            DruLength = 7,
+            Dru = new byte[7]
         };
 
         var startAddressBytes =

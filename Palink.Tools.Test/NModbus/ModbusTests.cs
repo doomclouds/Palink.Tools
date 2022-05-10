@@ -1,6 +1,7 @@
 ﻿using System.IO.Ports;
 using System.Net.Sockets;
 using Palink.Tools.IO;
+using Palink.Tools.Logging;
 using Palink.Tools.NModbus;
 using Palink.Tools.NModbus.Extensions;
 using Xunit;
@@ -99,5 +100,21 @@ public class ModbusTests
         Assert.True(ret[1] == 2);
         Assert.True(ret[5] == 6);
         Assert.True(ret[6] == 7);
+    }
+
+    [Fact]
+    public void ModbusRtuReadWriteCoilsOverUdpTest()
+    {
+        var udp = new UdpClient(20000);
+        udp.Connect("192.168.0.7", 20000);
+        var adapter = new UdpClientOverCOMAdapter(udp)
+        {
+            ReadTimeout = 500,
+            WriteTimeout = 500
+        };
+        var factory = new ModbusFactory(logger: NullFreebusLogger.Instance);
+        var master = factory.CreateRtuMaster(adapter);
+
+        var coils = master.ReadCoils(1, 5, 1);
     }
 }

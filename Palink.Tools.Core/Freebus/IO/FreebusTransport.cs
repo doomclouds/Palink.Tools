@@ -16,9 +16,6 @@ public abstract class FreebusTransport : IFreebusTransport
 {
     private readonly object _syncLock = new();
 
-    private int _waitToRetryMilliseconds =
-        FreebusContracts.DefaultWaitToRetryMilliseconds;
-
     internal FreebusTransport(IStreamResource streamResource, IFreebusLogger logger)
     {
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -28,22 +25,10 @@ public abstract class FreebusTransport : IFreebusTransport
         StreamResource.WriteTimeout = FreebusContracts.DefaultWaitToRetryMilliseconds;
     }
 
-    public int Retries { get; set; } = FreebusContracts.DefaultRetries;
+    public ushort Retries { get; set; } = FreebusContracts.DefaultRetries;
 
-    public int WaitToRetryMilliseconds
-    {
-        get => _waitToRetryMilliseconds;
-
-        set
-        {
-            if (value < 0)
-            {
-                throw new ArgumentException(Resources.WaitRetryGreaterThanZero);
-            }
-
-            _waitToRetryMilliseconds = value;
-        }
-    }
+    public ushort WaitToRetryMilliseconds { get; set; } =
+        FreebusContracts.DefaultWaitToRetryMilliseconds;
 
     public int ReadTimeout
     {
@@ -89,7 +74,8 @@ public abstract class FreebusTransport : IFreebusTransport
                 if (!ValidateResponse(message))
                 {
                     attempt++;
-                    Logger.Error("data check error");
+                    Logger.Error(
+                        "The response data does not match the success condition");
                     continue;
                 }
 
@@ -140,7 +126,7 @@ public abstract class FreebusTransport : IFreebusTransport
         {
             frame = frame.Concat(Read(message.DruLength.Value)).ToArray();
         }
-        else if (message.NewLine.NotNullOrEmpty())
+        else if (!message.NewLine.IsNullOrEmpty())
         {
             frame = frame.Concat(ReadLine(message.NewLine)).ToArray();
         }
@@ -193,7 +179,7 @@ public abstract class FreebusTransport : IFreebusTransport
     {
         var frameString = CoreTool.ReadLine(StreamResource, newLine);
         var frame = Encoding.UTF8.GetBytes(frameString);
-        Logger.LogFrameRx(frame);
+        // Logger.LogFrameRx(frame);
 
         return frame;
     }

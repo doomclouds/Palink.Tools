@@ -7,9 +7,9 @@ namespace Palink.Tools.Freebus.Interface;
 
 public interface IFreebusTransport : IDisposable
 {
-    int Retries { get; set; }
+    ushort Retries { get; set; }
 
-    int WaitToRetryMilliseconds { get; set; }
+    ushort WaitToRetryMilliseconds { get; set; }
 
     int ReadTimeout { get; set; }
 

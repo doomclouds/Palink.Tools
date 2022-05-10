@@ -19,7 +19,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNullOrEmpty([NotNullWhen(false)]this string? inputStr)
+    public static bool IsNullOrEmpty([NotNullWhen(false)] this string? inputStr)
     {
         return string.IsNullOrEmpty(inputStr);
     }
@@ -29,51 +29,9 @@ public static class StringExtensions
     /// </summary>
     /// <param name="inputStr"></param>
     /// <returns></returns>
-    public static bool IsNullOrWhiteSpace([NotNullWhen(false)]this string? inputStr)
+    public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? inputStr)
     {
         return string.IsNullOrWhiteSpace(inputStr);
-    }
-
-    /// <summary>
-    /// 字符串非空且非空字符
-    /// </summary>
-    /// <param name="inputStr"></param>
-    /// <returns></returns>
-    public static bool NotNullOrEmpty([NotNullWhen(true)]this string? inputStr)
-    {
-        return !IsNullOrEmpty(inputStr);
-    }
-
-    /// <summary>
-    /// 字符串非空且非空字符
-    /// </summary>
-    /// <param name="inputStr"></param>
-    /// <returns></returns>
-    [Obsolete]
-    public static bool IsNotNullOrEmpty([NotNullWhen(true)]this string? inputStr)
-    {
-        return !IsNullOrEmpty(inputStr);
-    }
-
-    /// <summary>
-    /// 字符串非空且不包含空格
-    /// </summary>
-    /// <param name="inputStr"></param>
-    /// <returns></returns>
-    public static bool NotNullOrWhiteSpace([NotNullWhen(true)]this string? inputStr)
-    {
-        return !IsNullOrWhiteSpace(inputStr);
-    }
-
-    /// <summary>
-    /// 字符串非空且不包含空格
-    /// </summary>
-    /// <param name="inputStr"></param>
-    /// <returns></returns>
-    [Obsolete]
-    public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)]this string? inputStr)
-    {
-        return !IsNullOrWhiteSpace(inputStr);
     }
 
     #endregion
@@ -205,32 +163,6 @@ public static class StringExtensions
     #region 字符串截取
 
     /// <summary>
-    /// Slice
-    /// </summary>
-    /// <param name="source"></param>
-    /// <param name="startIndex"></param>
-    /// <param name="size"></param>
-    /// <returns></returns>
-    public static string? Slice(this string source, int startIndex, int size)
-    {
-        if (source.IsNullOrEmpty())
-            return null;
-        var num = source.Length;
-
-        if (startIndex < 0 || num < startIndex)
-        {
-            throw new ArgumentOutOfRangeException(nameof(startIndex));
-        }
-
-        if (size < 0 || startIndex + size > num)
-        {
-            throw new ArgumentOutOfRangeException(nameof(size));
-        }
-
-        return source.Substring(startIndex, size);
-    }
-
-    /// <summary>
     /// TryReplace
     /// </summary>
     /// <param name="inputStr"></param>
@@ -253,61 +185,14 @@ public static class StringExtensions
     public static string RegexReplace(this string? inputStr, string pattern,
         string replacement)
     {
-        return inputStr.IsNullOrEmpty() ? ""
+        return inputStr.IsNullOrEmpty()
+            ? ""
             : Regex.Replace(inputStr, pattern, replacement);
     }
 
     #endregion
 
     #region Format
-
-    /// <summary>
-    /// Format
-    /// </summary>
-    /// <param name="format"></param>
-    /// <param name="arg0"></param>
-    /// <param name="arg1"></param>
-    /// <returns></returns>
-    public static string Format(this string format, object arg0, object arg1)
-    {
-        return string.Format(format, arg0, arg1);
-    }
-
-    /// <summary>
-    /// Format
-    /// </summary>
-    /// <param name="format"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public static string Format(this string format, object[] args)
-    {
-        return string.Format(format, args);
-    }
-
-    /// <summary>
-    /// Format
-    /// </summary>
-    /// <param name="format"></param>
-    /// <param name="arg0"></param>
-    /// <param name="arg1"></param>
-    /// <param name="arg2"></param>
-    /// <returns></returns>
-    public static string Format(this string format, object arg0, object arg1,
-        object arg2)
-    {
-        return string.Format(format, arg0, arg1, arg2);
-    }
-
-    /// <summary>
-    /// Format
-    /// </summary>
-    /// <param name="format"></param>
-    /// <param name="arg0"></param>
-    /// <returns></returns>
-    public static string Format(this string format, object arg0)
-    {
-        return string.Format(format, arg0);
-    }
 
     /// <summary>
     /// FormatWith
