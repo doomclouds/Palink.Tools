@@ -48,7 +48,7 @@ public class YzAimMaster : FreebusMaster
 
     private bool WriteRegister(byte id, ushort address, ushort value, string cmd)
     {
-        var message = new FreebusMessage
+        var context = new FreebusContext
         {
             Pdu = new byte[]
             {
@@ -60,15 +60,15 @@ public class YzAimMaster : FreebusMaster
 
         var startAddressBytes =
             BitConverter.GetBytes(address).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        context.Pdu = context.Pdu.Concat(startAddressBytes).ToArray();
         var numOfPointBytes = BitConverter.GetBytes(value).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
-        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
-        message.Pdu = message.Pdu.Concat(crc).ToArray();
+        context.Pdu = context.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(context.Pdu).ToArray();
+        context.Pdu = context.Pdu.Concat(crc).ToArray();
 
         try
         {
-            ExecuteCustomMessage(message);
+            ExecuteCustomMessage(context);
             return true;
         }
         catch (Exception e)
@@ -81,7 +81,7 @@ public class YzAimMaster : FreebusMaster
     private bool WriteRegister(byte id, ushort address, byte function, ushort value,
         string cmd)
     {
-        var message = new FreebusMessage
+        var context = new FreebusContext
         {
             Pdu = new[]
             {
@@ -93,15 +93,15 @@ public class YzAimMaster : FreebusMaster
 
         var startAddressBytes =
             BitConverter.GetBytes(address).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        context.Pdu = context.Pdu.Concat(startAddressBytes).ToArray();
         var numOfPointBytes = BitConverter.GetBytes(value).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
-        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
-        message.Pdu = message.Pdu.Concat(crc).ToArray();
+        context.Pdu = context.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(context.Pdu).ToArray();
+        context.Pdu = context.Pdu.Concat(crc).ToArray();
 
         try
         {
-            ExecuteCustomMessage(message);
+            ExecuteCustomMessage(context);
             return true;
         }
         catch (Exception e)
@@ -113,7 +113,7 @@ public class YzAimMaster : FreebusMaster
 
     private bool WritePluse(byte situation, int value, string cmd)
     {
-        var message = new FreebusMessage()
+        var context = new FreebusContext()
         {
             Pdu = new byte[]
             {
@@ -125,40 +125,40 @@ public class YzAimMaster : FreebusMaster
 
         var startAddressBytes =
             BitConverter.GetBytes((short)0x016).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        context.Pdu = context.Pdu.Concat(startAddressBytes).ToArray();
         var numOfPointBytes = BitConverter.GetBytes((short)2).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
-        message.Pdu = message.Pdu.Concat(new byte[]
+        context.Pdu = context.Pdu.Concat(numOfPointBytes).ToArray();
+        context.Pdu = context.Pdu.Concat(new byte[]
         {
             4
         }).ToArray();
 
         var valueBytes = BitConverter.GetBytes(value).ToArray();
 
-        message.Pdu = message.Pdu.Concat(new[]
+        context.Pdu = context.Pdu.Concat(new[]
         {
             valueBytes[1]
         }).ToArray();
-        message.Pdu = message.Pdu.Concat(new[]
+        context.Pdu = context.Pdu.Concat(new[]
         {
             valueBytes[0]
         }).ToArray();
-        message.Pdu = message.Pdu.Concat(new[]
+        context.Pdu = context.Pdu.Concat(new[]
         {
             valueBytes[3]
         }).ToArray();
-        message.Pdu = message.Pdu.Concat(new[]
+        context.Pdu = context.Pdu.Concat(new[]
         {
             valueBytes[2]
         }).ToArray();
 
 
-        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
-        message.Pdu = message.Pdu.Concat(crc).ToArray();
+        var crc = CoreTool.CalculateCrc(context.Pdu).ToArray();
+        context.Pdu = context.Pdu.Concat(crc).ToArray();
 
         try
         {
-            ExecuteCustomMessage(message);
+            ExecuteCustomMessage(context);
             return true;
         }
         catch (Exception e)
@@ -170,7 +170,7 @@ public class YzAimMaster : FreebusMaster
 
     private ushort? ReadRegister(byte id, ushort address, string cmd)
     {
-        var message = new FreebusMessage()
+        var context = new FreebusContext()
         {
             Pdu = new byte[]
             {
@@ -183,17 +183,17 @@ public class YzAimMaster : FreebusMaster
 
         var startAddressBytes =
             BitConverter.GetBytes(address).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(startAddressBytes).ToArray();
+        context.Pdu = context.Pdu.Concat(startAddressBytes).ToArray();
         var numOfPointBytes = BitConverter.GetBytes((short)1).Reverse().ToArray();
-        message.Pdu = message.Pdu.Concat(numOfPointBytes).ToArray();
-        var crc = CoreTool.CalculateCrc(message.Pdu).ToArray();
-        message.Pdu = message.Pdu.Concat(crc).ToArray();
+        context.Pdu = context.Pdu.Concat(numOfPointBytes).ToArray();
+        var crc = CoreTool.CalculateCrc(context.Pdu).ToArray();
+        context.Pdu = context.Pdu.Concat(crc).ToArray();
 
         try
         {
-            ExecuteCustomMessage(message);
+            ExecuteCustomMessage(context);
             var result = new byte[2];
-            Buffer.BlockCopy(message.Dru, 3, result, 0, message.Dru[2]);
+            Buffer.BlockCopy(context.Dru, 3, result, 0, context.Dru[2]);
             return BitConverter.ToUInt16(result.Reverse().ToArray(), 0);
         }
         catch (Exception e)
@@ -501,7 +501,7 @@ public class YzAimMaster : FreebusMaster
         var crc = CoreTool.CalculateCrc(data).ToArray();
         data = data.Concat(crc).ToArray();
 
-        BroadcastMessage(new FreebusMessage
+        BroadcastMessage(new FreebusContext
         {
             Pdu = data
         }, shouldLog);

@@ -15,19 +15,19 @@ public class YzAimTests
     [Fact]
     public void FunctionTests()
     {
-        const byte situation = 0x01;
+        const byte situation = 0x02;
         const ushort myAcc = 15000;
         const ushort mySpeed = 1500;
-        var client = new UdpClient(30006);
-        client.Connect("192.168.0.8", 30006);
+        var client = new UdpClient(10001);
+        client.Connect("192.168.0.7", 10001);
         var adapter = new UdpClientOverCOMAdapter(client)
         {
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance);
-
-        // var ret = yzAim.ModifyId(situation, 100);
+        var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance, 1, 10);
+        // yzAim.CancelAutoZeroing(situation);
+        //var ret = yzAim.ModifyId(7, 2);
         // ret = yzAim.ModifyId(100, situation);
 
         var id = yzAim.GetYzAimStatusCmd(situation, YzAimCmd.Address);
@@ -46,6 +46,7 @@ public class YzAimTests
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.ModbusEnable, 1);
         yzAim.SetYzAimStatusCmd(situation, YzAimCmd.MotorEnable, 1);
 
+        yzAim.Zeroing(situation, YzAimZeroingMode.Sensor);
         yzAim.WriteAllMotionParams(new List<(int position, ushort speed, ushort acc)>()
         {
             (-10000, mySpeed, myAcc)

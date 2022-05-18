@@ -25,6 +25,16 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// 字符串为非空且非空字符
+    /// </summary>
+    /// <param name="inputStr"></param>
+    /// <returns></returns>
+    public static bool NotNullNotEmpty([NotNullWhen(true)] this string? inputStr)
+    {
+        return !string.IsNullOrEmpty(inputStr);
+    }
+
+    /// <summary>
     /// 字符串为空或只包含空格
     /// </summary>
     /// <param name="inputStr"></param>
@@ -32,6 +42,16 @@ public static class StringExtensions
     public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? inputStr)
     {
         return string.IsNullOrWhiteSpace(inputStr);
+    }
+
+    /// <summary>
+    /// 字符串为非空且不包含空格
+    /// </summary>
+    /// <param name="inputStr"></param>
+    /// <returns></returns>
+    public static bool NotNullNotWhiteSpace([NotNullWhen(true)] this string? inputStr)
+    {
+        return !string.IsNullOrWhiteSpace(inputStr);
     }
 
     #endregion
@@ -160,7 +180,7 @@ public static class StringExtensions
 
     #endregion
 
-    #region 字符串截取
+    #region 字符串替换
 
     /// <summary>
     /// TryReplace

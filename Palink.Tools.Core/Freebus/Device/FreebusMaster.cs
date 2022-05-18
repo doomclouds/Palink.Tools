@@ -8,12 +8,12 @@ public abstract class FreebusMaster : FreebusDevice, IFreebusMaster
     {
     }
 
-    public virtual IFreebusMessage ExecuteCustomMessage(IFreebusMessage request)
+    public virtual IFreebusContext ExecuteCustomMessage(IFreebusContext request)
     {
         return Transport.UnicastMessage(request);
     }
 
-    public virtual void BroadcastMessage(IFreebusMessage request, bool shouldLog)
+    public virtual void BroadcastMessage(IFreebusContext request, bool shouldLog)
     {
         Transport.BroadcastMessage(request, shouldLog);
     }

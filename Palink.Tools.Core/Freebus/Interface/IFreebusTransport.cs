@@ -15,13 +15,13 @@ public interface IFreebusTransport : IDisposable
 
     int WriteTimeout { get; set; }
 
-    IFreebusMessage UnicastMessage(IFreebusMessage message);
+    IFreebusContext UnicastMessage(IFreebusContext context);
 
-    void BroadcastMessage(IFreebusMessage message, bool shouldLog);
+    void BroadcastMessage(IFreebusContext context, bool shouldLog);
 
-    byte[] BuildMessageFrame(IFreebusMessage message);
+    byte[] BuildMessageFrame(IFreebusContext context);
 
-    void Write(IFreebusMessage message);
+    void Write(IFreebusContext context);
 
     IStreamResource StreamResource { get; }
 

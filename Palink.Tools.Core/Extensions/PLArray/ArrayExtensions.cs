@@ -23,7 +23,7 @@ public static class ArrayExtensions
 
         var walker = new ArrayTraverse(array);
         do action(array, walker.Position);
-        while (walker.Step());
+        while (walker.MoveNext());
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public static class ArrayExtensions
             Position = new int[array.Rank];
         }
 
-        public bool Step()
+        public bool MoveNext()
         {
             for (var i = 0; i < Position.Length; ++i)
             {

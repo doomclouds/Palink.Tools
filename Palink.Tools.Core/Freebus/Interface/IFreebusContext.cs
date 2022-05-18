@@ -1,6 +1,6 @@
 ﻿namespace Palink.Tools.Freebus.Interface;
 
-public interface IFreebusMessage
+public interface IFreebusContext
 {
     /// <summary>
     /// Protocol Data Unit
@@ -45,11 +45,5 @@ public interface IFreebusMessage
     /// 设置数据协议单元
     /// </summary>
     /// <returns></returns>
-    void SetPdu(string cmd);
-
-    /// <summary>
-    /// 设置数据接收单元
-    /// </summary>
-    /// <returns></returns>
-    void SetDru(string cmd);
+    void SetPduString(string cmd);
 }

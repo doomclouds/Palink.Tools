@@ -458,7 +458,7 @@ public static class DateTimeExtensions
     public static string GetDateString(this in DateTime dt)
     {
         return dt.Year + dt.Month.ToString().PadLeft(2, '0') +
-            dt.Day.ToString().PadLeft(2, '0');
+               dt.Day.ToString().PadLeft(2, '0');
     }
 
     /// <summary>
@@ -844,8 +844,8 @@ public static class DateTimeExtensions
     {
         var year = dateTime.Year;
         return (year % 400 == 0 && year % 3200 != 0)
-            || (year % 4 == 0 && year % 100 != 0)
-            || (year % 3200 == 0 && year % 172800 == 0);
+               || (year % 4 == 0 && year % 100 != 0)
+               || (year % 3200 == 0 && year % 172800 == 0);
     }
 
     /// <summary>

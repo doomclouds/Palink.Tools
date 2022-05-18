@@ -4,7 +4,7 @@ using Palink.Tools.Freebus.Interface;
 
 namespace Palink.Tools.Freebus.Message;
 
-public class FreebusMessage : IFreebusMessage
+public class FreebusContext : IFreebusContext
 {
     /// <summary>
     /// Protocol Data Unit
@@ -40,13 +40,8 @@ public class FreebusMessage : IFreebusMessage
         return Encoding.UTF8.GetString(Dru);
     }
 
-    public void SetPdu(string cmd)
+    public void SetPduString(string cmd)
     {
         Pdu = Encoding.UTF8.GetBytes(cmd);
-    }
-
-    public void SetDru(string cmd)
-    {
-        Dru = Encoding.UTF8.GetBytes(cmd);
     }
 }

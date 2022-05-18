@@ -2,139 +2,138 @@
 
 namespace Palink.Tools.Robots.PID;
 
-/// <summary>
-/// A (P)roportional, (I)ntegral, (D)erivative Controller
-/// </summary>
-/// <remarks>
-/// The controller should be able to control any process with a
-/// measurable value, a known ideal value and an input to the
-/// process that will affect the measured value.
-/// </remarks>
-public sealed class PidController
+public class PIDController
 {
-    private double _processVariable;
-
-    public PidController(double gainProportional, double gainIntegral,
-        double gainDerivative, double outputMax, double outputMin)
-    {
-        GainDerivative = gainDerivative;
-        GainIntegral = gainIntegral;
-        GainProportional = gainProportional;
-        OutputMax = outputMax;
-        OutputMin = outputMin;
-    }
-
-    public TimeSpan LastTime { get; set; }
+    private double _ts; // Sample period in seconds
+    private double _k; // Rollup parameter
+    private double _b0, _b1, _b2; // Rollup parameters
+    private double _a0, _a1, _a2; // Rollup parameters
+    private double _y0; // Current output
+    private double _y1; // Output one iteration old
+    private double _y2; // Output two iterations old
+    private double _e0; // Current error
+    private double _e1; // Error one iteration old
+    private double _e2; // Error two iterations old
 
     /// <summary>
-    /// The controller output
+    /// PID Constructor
     /// </summary>
-    /// <param name="timeSinceLastUpdate">timespan of the elapsed time
-    /// since the previous time that ControlVariable was called</param>
-    /// <returns>Value of the variable that needs to be controlled</returns>
-    public double ControlVariable(TimeSpan timeSinceLastUpdate)
+    /// <param name="kp">Proportional Gain</param>
+    /// <param name="ki">Integral Gain</param>
+    /// <param name="kd">Derivative Gain</param>
+    /// <param name="n">Derivative Filter Coefficient</param>
+    /// <param name="outputUpperLimit">Controller Upper Output Limit</param>
+    /// <param name="outputLowerLimit">Controller Lower Output Limit</param>
+    public PIDController(double kp, double ki, double kd, double n,
+        double outputUpperLimit,
+        double outputLowerLimit)
     {
-        var error = SetPoint - ProcessVariable;
-
-        // integral term calculation
-        IntegralTerm += (GainIntegral * error * timeSinceLastUpdate.TotalSeconds);
-        IntegralTerm = Clamp(IntegralTerm);
-
-        // derivative term calculation
-        var dInput = _processVariable - ProcessVariableLast;
-        var derivativeTerm =
-            GainDerivative * (dInput / timeSinceLastUpdate.TotalSeconds);
-        // proportional term calculation
-        var proportionalTerm = GainProportional * error;
-
-        var output = proportionalTerm + IntegralTerm - derivativeTerm;
-
-        output = Clamp(output);
-
-        return output;
+        Kp = kp;
+        Ki = ki;
+        Kd = kd;
+        N = n;
+        OutputUpperLimit = outputUpperLimit;
+        OutputLowerLimit = outputLowerLimit;
     }
 
     /// <summary>
-    /// The derivative term is proportional to the rate of
-    /// change of the error
+    /// PID iterator, call this function every sample period to get the current controller output.
+    /// set point and processValue should use the same units.
     /// </summary>
-    public double GainDerivative { get; set; }
-
-    /// <summary>
-    /// The integral term is proportional to both the magnitude
-    /// of the error and the duration of the error
-    /// </summary>
-    public double GainIntegral { get; set; }
-
-    /// <summary>
-    /// The proportional term produces an output value that
-    /// is proportional to the current error value
-    /// </summary>
-    /// <remarks>
-    /// Tuning theory and industrial practice indicate that the
-    /// proportional term should contribute the bulk of the output change.
-    /// </remarks>
-    public double GainProportional { get; set; }
-
-    /// <summary>
-    /// The max output value the control device can accept.
-    /// </summary>
-    public double OutputMax { get; }
-
-    /// <summary>
-    /// The minimum output value the control device can accept.
-    /// </summary>
-    public double OutputMin { get; }
-
-    /// <summary>
-    /// Adjustment made by considering the accumulated error over time
-    /// </summary>
-    /// <remarks>
-    /// An alternative formulation of the integral action, is the
-    /// proportional-summation-difference used in discrete-time systems
-    /// </remarks>
-    public double IntegralTerm { get; set; }
-
-
-    /// <summary>
-    /// The current value
-    /// </summary>
-    public double ProcessVariable
+    /// <param name="setPoint">Current Desired Set Point</param>
+    /// <param name="processValue">Current Process Value</param>
+    /// <param name="ts">Timespan Since Last Iteration, Use Default Sample Period for First Call</param>
+    /// <returns>Current Controller Output</returns>
+    public double PIDIterate(double setPoint, double processValue, TimeSpan ts)
     {
-        get => _processVariable;
-        set
+        // Ensure the timespan is not too small or zero.
+        _ts = (ts.TotalSeconds >= TsMin) ? ts.TotalSeconds : TsMin;
+
+        // Calculate rollup parameters
+        _k = 2 / _ts;
+        _b0 = Math.Pow(_k, 2) * Kp + _k * Ki + Ki * N + _k * Kp * N +
+              Math.Pow(_k, 2) * Kd * N;
+        _b1 = 2 * Ki * N - 2 * Math.Pow(_k, 2) * Kp - 2 * Math.Pow(_k, 2) * Kd * N;
+        _b2 = Math.Pow(_k, 2) * Kp - _k * Ki + Ki * N - _k * Kp * N +
+              Math.Pow(_k, 2) * Kd * N;
+        _a0 = Math.Pow(_k, 2) + N * _k;
+        _a1 = -2 * Math.Pow(_k, 2);
+        _a2 = Math.Pow(_k, 2) - _k * N;
+
+        // Age errors and output history
+        _e2 = _e1; // Age errors one iteration
+        _e1 = _e0; // Age errors one iteration
+        _e0 = setPoint - processValue; // Compute new error
+        _y2 = _y1; // Age outputs one iteration
+        _y1 = _y0; // Age outputs one iteration
+        _y0 = -_a1 / _a0 * _y1 - _a2 / _a0 * _y2 + _b0 / _a0 * _e0 + _b1 / _a0 * _e1 +
+              _b2 / _a0 * _e2; // Calculate current output
+
+        // Clamp output if needed
+        if (_y0 > OutputUpperLimit)
         {
-            ProcessVariableLast = _processVariable;
-            _processVariable = value;
+            _y0 = OutputUpperLimit;
         }
-    }
-
-    /// <summary>
-    /// The last reported value (used to calculate the rate of change)
-    /// </summary>
-    public double ProcessVariableLast { get; private set; }
-
-    /// <summary>
-    /// The desired value
-    /// </summary>
-    public double SetPoint { get; set; } = 0;
-
-    /// <summary>
-    /// Limit a variable to the set OutputMax and OutputMin properties
-    /// </summary>
-    /// <returns>
-    /// A value that is between the OutputMax and OutputMin properties
-    /// </returns>
-    /// <remarks>
-    /// Inspiration from http://stackoverflow.com/questions/3176602/how-to-force-a-number-to-be-in-a-range-in-c
-    /// </remarks>
-    private double Clamp(double variableToClamp)
-    {
-        if (variableToClamp <= OutputMin)
+        else if (_y0 < OutputLowerLimit)
         {
-            return OutputMin;
+            _y0 = OutputLowerLimit;
         }
 
-        return variableToClamp >= OutputMax ? OutputMax : variableToClamp;
+        return _y0;
     }
+
+    /// <summary>
+    /// Reset controller history effectively resetting the controller.
+    /// </summary>
+    public void ResetController()
+    {
+        _e2 = 0;
+        _e1 = 0;
+        _e0 = 0;
+        _y2 = 0;
+        _y1 = 0;
+        _y0 = 0;
+    }
+
+    /// <summary>
+    /// Proportional Gain, consider resetting controller if this parameter is drastically changed.
+    /// </summary>
+    public double Kp { get; set; }
+
+    /// <summary>
+    /// Integral Gain, consider resetting controller if this parameter is drastically changed.
+    /// </summary>
+    public double Ki { get; set; }
+
+    /// <summary>
+    /// Derivative Gain, consider resetting controller if this parameter is drastically changed.
+    /// </summary>
+    public double Kd { get; set; }
+
+    /// <summary>
+    /// Derivative filter coefficient.
+    /// A smaller N for more filtering.
+    /// A larger N for less filtering.
+    /// Consider resetting controller if this parameter is drastically changed.
+    /// </summary>
+    public double N { get; set; }
+
+    /// <summary>
+    /// Minimum allowed sample period to avoid dividing by zero!
+    /// The Ts value can be mistakenly set to too low of a value or zero on the first iteration.
+    /// TsMin by default is set to 1 millisecond.
+    /// </summary>
+    public double TsMin { get; set; } = 0.001;
+
+    /// <summary>
+    /// Upper output limit of the controller.
+    /// This should obviously be a numerically greater value than the lower output limit.
+    /// </summary>
+    public double OutputUpperLimit { get; set; }
+
+    /// <summary>
+    /// Lower output limit of the controller
+    /// This should obviously be a numerically lesser value than the upper output limit.
+    /// </summary>
+    public double OutputLowerLimit { get; set; }
 }

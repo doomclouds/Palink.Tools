@@ -17,26 +17,26 @@ public class YzAimTransport : FreebusTransport
 
     public override List<string> IgnoreList { get; set; } = new();
 
-    public override bool ValidateResponse(IFreebusMessage message)
+    public override bool ValidateResponse(IFreebusContext context)
     {
-        if (message.Dru.Length < 2) return false;
+        if (context.Dru.Length < 2) return false;
 
-        if (message.Pdu[1] == 0x7a && message.Dru[1] == message.Pdu[1])
+        if (context.Pdu[1] == 0x7a && context.Dru[1] == context.Pdu[1])
         {
-            return message.Pdu[message.Pdu.Length - 3] == message.Dru[0];
+            return context.Pdu[context.Pdu.Length - 3] == context.Dru[0];
         }
 
-        if (message.Dru[0] == message.Pdu[0] && message.Dru[1] == message.Pdu[1])
+        if (context.Dru[0] == context.Pdu[0] && context.Dru[1] == context.Pdu[1])
         {
-            return message.Dru.DoesCrcMatch();
+            return context.Dru.DoesCrcMatch();
         }
 
         return false;
     }
 
-    public override bool ShouldRetryResponse(IFreebusMessage message)
+    public override bool ShouldRetryResponse(IFreebusContext context)
     {
-        var hex = BitConverter.ToString(message.Dru).Replace('-', ' ');
+        var hex = BitConverter.ToString(context.Dru).Replace('-', ' ');
 
         return IgnoreList.Contains(hex);
     }

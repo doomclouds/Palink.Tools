@@ -15,9 +15,9 @@ public class EpsonTransport : FreebusTransport
     {
     }
 
-    public override bool ValidateResponse(IFreebusMessage message)
+    public override bool ValidateResponse(IFreebusContext context)
     {
-        var dru = Encoding.UTF8.GetString(message.Dru);
+        var dru = Encoding.UTF8.GetString(context.Dru);
         return dru.StartsWith("#");
     }
 
@@ -27,9 +27,9 @@ public class EpsonTransport : FreebusTransport
         "aa bb cc dd ee ff"
     };
 
-    public override bool ShouldRetryResponse(IFreebusMessage message)
+    public override bool ShouldRetryResponse(IFreebusContext context)
     {
-        var hex = BitConverter.ToString(message.Dru).Replace('-', ' ');
+        var hex = BitConverter.ToString(context.Dru).Replace('-', ' ');
 
         return IgnoreList.Contains(hex);
     }

@@ -28,7 +28,7 @@ public static class NetExtensions
             {
                 DontFragment = true
             };
-            const string data = "doom1993";
+            const string data = "Palink123@";
             var buffer = Encoding.ASCII.GetBytes(data);
             const int timeout = 120;
             //测试网络连接：目标计算机为www.baidu.com(可以换成你所需要的目标地址）

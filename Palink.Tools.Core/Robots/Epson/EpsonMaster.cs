@@ -31,10 +31,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, pwd);
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -72,10 +72,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, "");
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -128,10 +128,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, "");
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message).GetDruString();
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context).GetDruString();
             if (ret == "" || ret.Split(',')[1].Length != 11)
                 return (false, false, false, false, false, false);
             var running = ret.Split(',')[1].Substring(9, 1) == "1";
@@ -184,10 +184,10 @@ public class EpsonMaster : FreebusMaster
             var temp = Transport.ReadTimeout;
             Transport.ReadTimeout = waitTime;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             Transport.ReadTimeout = temp;
             return ret.Succeed;
         }
@@ -232,10 +232,10 @@ public class EpsonMaster : FreebusMaster
             if (ready || auto)
                 return true;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, "");
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -276,10 +276,10 @@ public class EpsonMaster : FreebusMaster
             if (ready || auto)
                 return true;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, "");
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -317,10 +317,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -358,10 +358,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -401,10 +401,10 @@ public class EpsonMaster : FreebusMaster
             var temp = Transport.ReadTimeout;
             Transport.ReadTimeout = waitTime;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             Transport.ReadTimeout = temp;
             return ret.Succeed;
         }
@@ -443,10 +443,10 @@ public class EpsonMaster : FreebusMaster
         try
         {
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, id.ToString());
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message).GetDruString();
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context).GetDruString();
             var temp = ret.Split(',')[1].Substring(0, 1);
             return temp == "1";
         }
@@ -488,10 +488,10 @@ public class EpsonMaster : FreebusMaster
         {
             var openRet = open ? "1" : "0";
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, $"{id},{openRet}");
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             return ret.Succeed;
         }
         catch (Exception e)
@@ -536,10 +536,10 @@ public class EpsonMaster : FreebusMaster
             var temp = Transport.ReadTimeout;
             Transport.ReadTimeout = waitTime;
             var cmd = CreateCmd(MethodBase.GetCurrentMethod()?.Name, spel);
-            var message = new FreebusMessage();
-            message.SetPdu(cmd);
-            message.NewLine = NewLine;
-            var ret = ExecuteCustomMessage(message);
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = NewLine;
+            var ret = ExecuteCustomMessage(context);
             Transport.ReadTimeout = temp;
             return ret.Succeed;
         }

@@ -10,12 +10,12 @@ public interface IFreebusMaster : IDisposable
     ///    Executes the custom message.
     /// </summary>
     /// <param name="request">The request.</param>
-    IFreebusMessage ExecuteCustomMessage(IFreebusMessage request);
+    IFreebusContext ExecuteCustomMessage(IFreebusContext request);
 
     /// <summary>
     /// Broadcast the custom message.
     /// </summary>
     /// <param name="request"></param>
     /// <param name="shouldLog"></param>
-    void BroadcastMessage(IFreebusMessage request, bool shouldLog);
+    void BroadcastMessage(IFreebusContext request, bool shouldLog);
 }

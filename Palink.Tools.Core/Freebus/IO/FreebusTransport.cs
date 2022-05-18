@@ -42,7 +42,7 @@ public abstract class FreebusTransport : IFreebusTransport
         set => StreamResource.WriteTimeout = value;
     }
 
-    public virtual IFreebusMessage UnicastMessage(IFreebusMessage message)
+    public virtual IFreebusContext UnicastMessage(IFreebusContext context)
     {
         var attempt = 1;
         var success = false;
@@ -56,22 +56,22 @@ public abstract class FreebusTransport : IFreebusTransport
 
                 lock (_syncLock)
                 {
-                    Write(message);
+                    Write(context);
 
                     bool readAgain;
                     do
                     {
                         readAgain = false;
-                        ReadResponse(message);
+                        ReadResponse(context);
 
-                        if (ShouldRetryResponse(message))
+                        if (ShouldRetryResponse(context))
                         {
                             readAgain = true;
                         }
                     } while (readAgain);
                 }
 
-                if (!ValidateResponse(message))
+                if (!ValidateResponse(context))
                 {
                     attempt++;
                     Logger.Error(
@@ -79,7 +79,7 @@ public abstract class FreebusTransport : IFreebusTransport
                     continue;
                 }
 
-                message.Succeed = true;
+                context.Succeed = true;
                 success = true;
             }
             catch (Exception e)
@@ -96,69 +96,69 @@ public abstract class FreebusTransport : IFreebusTransport
             }
         } while (!success);
 
-        return message;
+        return context;
     }
 
-    public void BroadcastMessage(IFreebusMessage message, bool shouldLog)
+    public void BroadcastMessage(IFreebusContext context, bool shouldLog)
     {
         if (shouldLog)
         {
-            Logger.LogFrameTx(message.Pdu);
+            Logger.LogFrameTx(context.Pdu);
         }
 
-        StreamResource.Write(message.Pdu, 0, message.Pdu.Length);
+        StreamResource.Write(context.Pdu, 0, context.Pdu.Length);
     }
 
-    public virtual bool ShouldRetryResponse(IFreebusMessage message)
+    public virtual bool ShouldRetryResponse(IFreebusContext context)
     {
         return false;
     }
 
-    public virtual bool ValidateResponse(IFreebusMessage message)
+    public virtual bool ValidateResponse(IFreebusContext context)
     {
         return true;
     }
 
-    public IFreebusMessage ReadResponse(IFreebusMessage message)
+    public IFreebusContext ReadResponse(IFreebusContext context)
     {
         var frame = Array.Empty<byte>();
-        if (message.DruLength.HasValue)
+        if (context.DruLength.HasValue)
         {
-            frame = frame.Concat(Read(message.DruLength.Value)).ToArray();
+            frame = frame.Concat(Read(context.DruLength.Value)).ToArray();
         }
-        else if (!message.NewLine.IsNullOrEmpty())
+        else if (!context.NewLine.IsNullOrEmpty())
         {
-            frame = frame.Concat(ReadLine(message.NewLine)).ToArray();
+            frame = frame.Concat(ReadLine(context.NewLine)).ToArray();
         }
 
-        message.Dru = frame;
+        context.Dru = frame;
 
-        if (ShouldRetryResponse(message))
+        if (ShouldRetryResponse(context))
         {
-            if (message.NewLine.IsNullOrEmpty())
+            if (context.NewLine.IsNullOrEmpty())
             {
-                Logger.LogFrameIgnoreRx(message.Dru);
+                Logger.LogFrameIgnoreRx(context.Dru);
             }
             else
             {
-                Logger.LogFrameIgnoreRx(message.GetDruString()
-                    .Replace(message.NewLine, ""));
+                Logger.LogFrameIgnoreRx(context.GetDruString()
+                    .Replace(context.NewLine, ""));
             }
         }
         else
         {
-            if (message.NewLine.IsNullOrEmpty())
+            if (context.NewLine.IsNullOrEmpty())
             {
                 Logger.LogFrameRx(frame);
             }
             else
             {
-                Logger.LogFrameRx(message.GetDruString().Replace(message.NewLine, ""));
+                Logger.LogFrameRx(context.GetDruString().Replace(context.NewLine, ""));
             }
         }
 
 
-        return message;
+        return context;
     }
 
     public byte[] Read(int count)
@@ -184,28 +184,28 @@ public abstract class FreebusTransport : IFreebusTransport
         return frame;
     }
 
-    public void Write(IFreebusMessage message)
+    public void Write(IFreebusContext context)
     {
         DiscardInBuffer();
 
-        var frame = BuildMessageFrame(message);
+        var frame = BuildMessageFrame(context);
 
-        if (message.NewLine.IsNullOrEmpty())
+        if (context.NewLine.IsNullOrEmpty())
         {
             Logger.LogFrameTx(frame);
         }
         else
         {
-            Logger.LogFrameTx(message.GetPduString().Replace(message.NewLine, ""));
+            Logger.LogFrameTx(context.GetPduString().Replace(context.NewLine, ""));
         }
 
 
         StreamResource.Write(frame, 0, frame.Length);
     }
 
-    public byte[] BuildMessageFrame(IFreebusMessage message)
+    public byte[] BuildMessageFrame(IFreebusContext context)
     {
-        return message.Pdu;
+        return context.Pdu;
     }
 
     public void DiscardInBuffer()
