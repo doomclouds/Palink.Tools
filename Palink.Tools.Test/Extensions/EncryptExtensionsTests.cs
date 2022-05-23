@@ -1,4 +1,4 @@
-﻿using Palink.Tools.Extensions.PLSecurity;
+﻿using Palink.Tools.Extensions.SecurityExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Palink.Tools.System.PLAttribute;
+using Palink.Tools.System.AttributeExt;
 using Xunit;
 
 namespace Palink.Tools.Test.System;

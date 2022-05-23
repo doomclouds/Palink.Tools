@@ -37,7 +37,7 @@ public enum LoggingLevel
 }
 
 /// <summary>
-/// IPlLogger
+/// IFreebusLogger
 /// </summary>
 public interface IFreebusLogger
 {

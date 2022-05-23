@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
@@ -15,7 +14,7 @@ public class UdpClientAdapter : IStreamResource
 {
     // strategy for cross platform r/w
     private const int MaxBufferSize = ushort.MaxValue;
-    [NotNull] private readonly UdpClient? _udpClient;
+    private readonly UdpClient _udpClient;
     private readonly byte[] _buffer = new byte[MaxBufferSize];
     private int _bufferOffset;
 

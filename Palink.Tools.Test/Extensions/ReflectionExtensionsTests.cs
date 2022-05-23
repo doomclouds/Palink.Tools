@@ -1,7 +1,7 @@
 ﻿#nullable enable
 using System.Collections.Generic;
 using System.Diagnostics;
-using Palink.Tools.Extensions.PLReflection;
+using Palink.Tools.Extensions.ReflectionExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

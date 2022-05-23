@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
-using Palink.Tools.Extensions.PLArray;
+using Palink.Tools.Extensions.ArrayExt;
 using Palink.Tools.NModbus.Contracts;
 using Palink.Tools.NModbus.Data;
 using Palink.Tools.NModbus.Interfaces;

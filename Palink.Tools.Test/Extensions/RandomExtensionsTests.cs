@@ -1,5 +1,5 @@
 ﻿using System;
-using Palink.Tools.Extensions.PLRandom;
+using Palink.Tools.Extensions.RandomExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

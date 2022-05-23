@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Timers;
-using Palink.Tools.System.PLCaching;
-using Palink.Tools.System.PLCaching.SQLite;
+using Palink.Tools.System.Caching.Local;
 
 namespace Palink.Tools.PanShi.Monitor;
 
@@ -32,7 +31,7 @@ public class PostCacheService<T> where T : Message
         MessageTimer.Start();
     }
 
-    private async void MessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+    private async void MessageTimer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         MessageTimer.Stop();
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Palink.Tools.Extensions.PLArray;
+using Palink.Tools.Extensions.ArrayExt;
 
 namespace Palink.Tools.NModbus.Data;
 

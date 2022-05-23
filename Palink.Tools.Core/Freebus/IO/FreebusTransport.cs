@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Palink.Tools.Extensions.PLString;
+using Palink.Tools.Extensions.StringExt;
 using Palink.Tools.Freebus.Contracts;
 using Palink.Tools.Freebus.Interface;
 using Palink.Tools.IO;
@@ -16,7 +16,7 @@ public abstract class FreebusTransport : IFreebusTransport
 {
     private readonly object _syncLock = new();
 
-    internal FreebusTransport(IStreamResource streamResource, IFreebusLogger logger)
+    protected FreebusTransport(IStreamResource streamResource, IFreebusLogger logger)
     {
         Logger = logger ?? throw new ArgumentNullException(nameof(logger));
         StreamResource = streamResource ??

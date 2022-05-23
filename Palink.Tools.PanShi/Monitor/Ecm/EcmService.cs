@@ -2,16 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using Palink.Tools.Extensions.PLString;
-using Palink.Tools.System.PLCaching;
-using Palink.Tools.System.PLCaching.SQLite;
+using Palink.Tools.Extensions.StringExt;
+using Palink.Tools.System.Caching.Local;
 
-namespace Palink.Tools.PanShi.Monitor.Ecm;
+namespace Palink.Tools.PanShi.Monitor.ECM;
 
 /// <summary>
 /// 云监控服务
 /// </summary>
-public class EcmService
+public class ECMService
 {
     private Timer BeatsTimer { get; }
     private Timer MessageTimer { get; }
@@ -35,7 +34,8 @@ public class EcmService
     /// <param name="exhibitNo">展品编号</param>
     /// <param name="url">服务器地址</param>
     /// <param name="cacheAppId">缓存位置唯一标识</param>
-    public EcmService(double minDelay, string exhibitNo, string url, string cacheAppId)
+    /// <param name="remainCache">是否保留缓存</param>
+    public ECMService(double minDelay, string exhibitNo, string url, string cacheAppId)
     {
         IceStorage.ApplicationId = cacheAppId;
         _iceStorage =
@@ -49,20 +49,23 @@ public class EcmService
         MessageTimer.Elapsed += MessageTimer_Elapsed;
         MessageTimer.Start();
 
-        if (exhibitNo.IsNullOrEmpty() || url.IsNullOrEmpty())
+        if (exhibitNo.IsNullOrEmpty())
         {
-            ExhibitNo = "";
-            Url = "";
-            return;
+            throw new ArgumentException("不能为空", nameof(exhibitNo));
+        }
+
+        if (url.IsNullOrEmpty())
+        {
+            throw new ArgumentException("不能为空", nameof(url));
         }
 
         ExhibitNo = exhibitNo;
         Url = url;
 
-        Task.Run(() => { EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url); });
+        Task.Run(() => { this.CreateBeats().SendDataToECM(); });
     }
 
-    private void MessageTimer_Elapsed(object sender, ElapsedEventArgs e)
+    private void MessageTimer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         MessageTimer.Stop();
 
@@ -72,20 +75,20 @@ public class EcmService
 
         foreach (var key in keys)
         {
-            var msg = _iceStorage.Get<EcmMessage>(key);
+            var msg = _iceStorage.Get<ECMMessage>(key);
 
             switch (msg?.SendSucceed)
             {
                 case false when msg.Tag != MessageTag.Needed &&
                                 msg.Tag != MessageTag.AutoExpireNeeded:
-                    msg.SendDataToEcm(Url);
+                    msg.SendDataToECM();
                     msg.SendSucceed = true;
                     // _iceStorage.Empty(msg.Id);
                     _iceStorage.Add(msg.Id, msg, msg.ETime, msg.GetTag());
                     break;
                 case false:
                 {
-                    if (msg.SendDataToEcm(Url, true))
+                    if (msg.SendDataToECM(true))
                     {
                         msg.SendSucceed = true;
                         // _iceStorage.Empty(msg.Id);
@@ -105,11 +108,11 @@ public class EcmService
         MessageTimer.Start();
     }
 
-    private void BeatsTimer_Elapsed(object sender, ElapsedEventArgs e)
+    private void BeatsTimer_Elapsed(object? sender, ElapsedEventArgs e)
     {
         BeatsTimer.Stop();
 
-        EcmMessage.BeatsInstance(ExhibitNo).SendDataToEcm(Url);
+        this.CreateBeats().SendDataToECM();
 
         BeatsTimer.Start();
     }
@@ -118,7 +121,7 @@ public class EcmService
     /// 向消息队列添加新消息
     /// </summary>
     /// <param name="message"></param>
-    public void AddMessage(EcmMessage message)
+    public void AddMessage(ECMMessage message)
     {
         _iceStorage.EmptyExpired();
 

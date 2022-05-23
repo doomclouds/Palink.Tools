@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using Palink.Tools.Extensions.PLAttribute;
+using Palink.Tools.Extensions.AttributeExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

@@ -19,7 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Robots\PanShi\DiskWall\" />
 		<Folder Include="Robots\YzAim\" />
 		<Folder Include="System\PLTime\" />
 		<Folder Include="System\Mime\" />
@@ -49,9 +48,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加磁片墙控制类</PackageReleaseNotes>
+		<PackageReleaseNotes>优化名称空间、迁出磁片墙控制部分</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.2.3-alpha</Version>
+		<Version>1.2.4</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

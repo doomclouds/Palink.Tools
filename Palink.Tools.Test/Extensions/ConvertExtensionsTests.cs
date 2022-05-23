@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using Palink.Tools.Extensions.PLConvert;
+using Palink.Tools.Extensions.ConvertExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-using Palink.Tools.Extensions.PLConvert;
-using Palink.Tools.Extensions.PLString;
+using Palink.Tools.Extensions.ConvertExt;
+using Palink.Tools.Extensions.StringExt;
 
 namespace Palink.Tools.PanShi.Monitor;
 
@@ -37,7 +37,7 @@ public enum MessageTag
 /// </summary>
 public abstract class Message
 {
-    private const string TagKey = "{0}:{1}";
+    private const string TagKey = "{0}:{1}:{2}:{3}";
 
     /// <summary>
     /// 消息唯一标识
@@ -104,7 +104,7 @@ public abstract class Message
         }
 
         InfoContent.TryToEnum<MessageTag>();
-        return TagKey.FormatWith(Tag.ToString(), InfoContent);
+        return TagKey.FormatWith(Tag.ToString(), InfoType, InfoCode, InfoContent);
     }
 
     /// <summary>

@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using Palink.Tools.Extensions.PLArray;
-using Palink.Tools.Extensions.PLConvert;
+﻿using Palink.Tools.Extensions.ArrayExt;
+using Palink.Tools.Extensions.ConvertExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;
@@ -18,10 +17,10 @@ public class ArrayExtensionsTests
             4,
             5
         };
-       
+
         var array2 = new[,]
         {
-            {1,2,3},{4,5,6},{7,8,9}
+            { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }
         };
 
         array.ForEach((arr, indices) =>

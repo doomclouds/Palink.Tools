@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Palink.Tools.Extensions.PLAttribute;
+using Palink.Tools.Extensions.AttributeExt;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
 using Palink.Tools.Freebus.Message;

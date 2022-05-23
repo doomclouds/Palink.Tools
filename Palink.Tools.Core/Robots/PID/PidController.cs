@@ -2,6 +2,7 @@
 
 namespace Palink.Tools.Robots.PID;
 
+[Obsolete("调试过程很难受，最后我还是选择使用简单的SimplePIDController")]
 public class PIDController
 {
     private double _ts; // Sample period in seconds

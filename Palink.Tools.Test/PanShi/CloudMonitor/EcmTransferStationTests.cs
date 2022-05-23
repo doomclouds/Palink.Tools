@@ -1,48 +1,48 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Palink.Tools.PanShi.Monitor;
-using Palink.Tools.PanShi.Monitor.Ecm;
+using Palink.Tools.PanShi.Monitor.ECM;
 using Xunit;
 
 namespace Palink.Tools.Test.PanShi.CloudMonitor;
 
 public class EcmTransferStationTests
 {
-    private const string Uri = "http://127.0.0.1/";
+    private const string Uri = "http://15b4487o14.iok.la:13655/api/exhibit/";
+
     [Fact]
     public async void BeatsTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
+        var service = new ECMService(5, exhibitNo, Uri, "EcmCache");
 
         // var ret = service.BeatsInstance(MessageType.Normal)
-        //     .SendDataToEcm();
-        service.AddMessage(EcmMessage.BeatsInstance(exhibitNo));
+        //     .SendDataToECM();
+        service.AddMessage(service.CreateBeats());
 
-        await Task.Delay(3000);
+        await Task.Delay(5000);
     }
 
     [Fact]
     public async void InteractionTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
+        var service = new ECMService(5, exhibitNo, Uri, "EcmCache");
 
-        service.AddMessage(
-            EcmMessage.InteractionInstance(exhibitNo, TimeSpan.FromHours(1)));
+        service.AddMessage(service.CreateInteraction(TimeSpan.FromHours(1)));
 
-        await Task.Delay(3000);
+        await Task.Delay(10000);
     }
 
     [Fact]
     public async void ErrorTest()
     {
         const string exhibitNo = "001001001BH0027-38";
-        var service = new EcmService(5, exhibitNo, Uri, "EcmCache");
+        var service = new ECMService(5, exhibitNo, Uri, "EcmCache");
 
-        service.AddMessage(EcmMessage.MonitorInstance(exhibitNo, "打败守卫测试Error", "E",
+        service.AddMessage(service.CreateMonitor("打败守卫测试Error2", "E",
             TimeSpan.FromMinutes(3), MessageTag.AutoExpire));
 
-        await Task.Delay(3000);
+        await Task.Delay(5000);
     }
 }

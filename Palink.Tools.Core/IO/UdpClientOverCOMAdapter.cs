@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net.Sockets;
 using System.Threading;
@@ -17,7 +16,7 @@ public class UdpClientOverCOMAdapter : IStreamResource
     private readonly byte[] _buffer = new byte[MaxBufferSize];
     private int _bufferOffset;
 
-    [NotNull] private readonly UdpClient? _udpClient;
+    private readonly UdpClient _udpClient;
 
     /// <summary>
     /// UdpClientOverCOMAdapter

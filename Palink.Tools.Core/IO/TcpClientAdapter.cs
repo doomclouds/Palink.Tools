@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 using System.Threading;
 using Palink.Tools.Utility;
@@ -11,7 +10,7 @@ namespace Palink.Tools.IO;
 /// </summary>
 public class TcpClientAdapter : IStreamResource
 {
-    [NotNull]private readonly TcpClient? _tcpClient;
+    private readonly TcpClient _tcpClient;
 
     /// <summary>
     /// TcpClientAdapter

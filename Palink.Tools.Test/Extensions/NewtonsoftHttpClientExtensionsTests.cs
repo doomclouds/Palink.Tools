@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using Newtonsoft.Json;
-using Palink.Tools.Extensions.PLNet;
+using Palink.Tools.Extensions.NetExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

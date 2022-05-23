@@ -1,4 +1,4 @@
-﻿using Palink.Tools.Extensions.PLSerialize;
+﻿using Palink.Tools.Extensions.SerializeExt;
 using Xunit;
 
 namespace Palink.Tools.Test.Extensions;

@@ -1,56 +1,12 @@
 ﻿using System;
 
-namespace Palink.Tools.PanShi.Monitor.Ecm;
+namespace Palink.Tools.PanShi.Monitor.ECM;
 
 /// <summary>
-/// EcmMessage
+/// ECMMessage
 /// </summary>
-public class EcmMessage : Message
+public abstract class ECMMessage : Message
 {
-    /// <summary>
-    /// 心跳实例
-    /// </summary>
-    /// <param name="no">展品编号</param>
-    /// <returns></returns>
-    public static EcmMessage BeatsInstance(string no)
-    {
-        var em = new EcmMessage(no, "M", "001", "心跳", CmdType.Beats,
-            TimeSpan.FromSeconds(5),
-            MessageTag.Once, Guid.NewGuid().ToString("N"));
-        return em;
-    }
-
-    /// <summary>
-    /// 互动实例
-    /// </summary>
-    /// <param name="no">展品编号</param>
-    /// <param name="eTime">消息有效时长</param>
-    /// <returns></returns>
-    public static EcmMessage InteractionInstance(string no, TimeSpan eTime)
-    {
-        var em = new EcmMessage(no, "M", "101", "互动次数", CmdType.Interaction, eTime,
-            MessageTag.Needed, Guid.NewGuid().ToString("N"));
-        return em;
-    }
-
-    /// <summary>
-    /// 监控实例
-    /// </summary>
-    /// <param name="no">展品编号</param>
-    /// <param name="content">消息内容</param>
-    /// <param name="type">消息类型M或E</param>
-    /// <param name="eTime">消息有效时长</param>
-    /// <param name="tag">消息类型，不同类型对应不同策略</param>
-    /// <returns></returns>
-    public static EcmMessage MonitorInstance(string no, string content, string type,
-        TimeSpan eTime,
-        MessageTag tag)
-    {
-        var em = new EcmMessage(no, type, "101", content, CmdType.Monitor, eTime, tag,
-            Guid.NewGuid().ToString("N"));
-        return em;
-    }
-
     /// <summary>
     /// 展品编号
     /// </summary>
@@ -61,9 +17,10 @@ public class EcmMessage : Message
     /// </summary>
     public CmdType CmdType { get; set; }
 
-    private EcmMessage(string no, string infoType, string infoCode,
+    protected ECMMessage(string no, string url, string infoType, string infoCode,
         string infoContent, CmdType cmdType, TimeSpan eTime, MessageTag tag, string guid)
     {
+        Url = url;
         Name = no;
         ETime = eTime;
         Tag = tag;

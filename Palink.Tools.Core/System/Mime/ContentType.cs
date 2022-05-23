@@ -1,6 +1,5 @@
 ﻿namespace Palink.Tools.System.Mime;
 
-#pragma warning disable 1591
 /// <summary>
 /// 默认MIME映射器，可以根据文件扩展名获取标准内容类型。
 /// </summary>
@@ -181,4 +180,3 @@ public static class ContentType
     public const string Z = "application/x-compress";
     public const string Zip = "application/zip";
 }
-#pragma warning restore 1591

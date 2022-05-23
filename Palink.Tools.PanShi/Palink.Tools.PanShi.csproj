@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<RootNamespace>Palink.Tools.PanShi</RootNamespace>
-		<Version>1.0.4</Version>
+		<Version>1.0.5</Version>
 		<Authors>Palink</Authors>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
@@ -17,7 +17,7 @@
 		<RepositoryUrl>https://github.com/doomclouds/Palink.Tools.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>升级对Core项目的依赖</PackageReleaseNotes>
+		<PackageReleaseNotes>增加控制类名称空间，you优化ECM</PackageReleaseNotes>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	</PropertyGroup>
