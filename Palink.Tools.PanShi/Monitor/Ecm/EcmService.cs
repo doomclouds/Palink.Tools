@@ -34,7 +34,6 @@ public class ECMService
     /// <param name="exhibitNo">展品编号</param>
     /// <param name="url">服务器地址</param>
     /// <param name="cacheAppId">缓存位置唯一标识</param>
-    /// <param name="remainCache">是否保留缓存</param>
     public ECMService(double minDelay, string exhibitNo, string url, string cacheAppId)
     {
         IceStorage.ApplicationId = cacheAppId;
