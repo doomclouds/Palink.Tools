@@ -174,6 +174,6 @@ public static class EncryptExtensions
             transform.TransformFinalBlock(encryptedData, 0, encryptedData.Length);
         return Encoding.UTF8.GetString(plainText);
     }
-}
 
-#endregion
+    #endregion
+}

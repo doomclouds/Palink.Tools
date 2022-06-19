@@ -94,7 +94,7 @@ public class LQMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 宏指定模式
+    /// 宏指令模式
     /// </summary>
     /// <param name="isMacro"></param>
     /// <returns></returns>

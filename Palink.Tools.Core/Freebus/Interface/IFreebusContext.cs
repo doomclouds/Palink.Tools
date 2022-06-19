@@ -30,6 +30,11 @@ public interface IFreebusContext
     public bool Succeed { get; set; }
 
     /// <summary>
+    /// 是否打印Hex通讯日志，默认为tue，否则会打印UTF8编码的字符串
+    /// </summary>
+    public bool IsWriteHexLog { get; set; }
+
+    /// <summary>
     /// 获取数据协议单元
     /// </summary>
     /// <returns></returns>

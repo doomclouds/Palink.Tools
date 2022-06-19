@@ -135,7 +135,7 @@ public abstract class FreebusTransport : IFreebusTransport
 
         if (ShouldRetryResponse(context))
         {
-            if (context.NewLine.IsNullOrEmpty())
+            if (context.NewLine.IsNullOrEmpty() || context.IsWriteHexLog)
             {
                 Logger.LogFrameIgnoreRx(context.Dru);
             }
@@ -147,7 +147,7 @@ public abstract class FreebusTransport : IFreebusTransport
         }
         else
         {
-            if (context.NewLine.IsNullOrEmpty())
+            if (context.NewLine.IsNullOrEmpty() || context.IsWriteHexLog)
             {
                 Logger.LogFrameRx(frame);
             }
@@ -156,7 +156,6 @@ public abstract class FreebusTransport : IFreebusTransport
                 Logger.LogFrameRx(context.GetDruString().Replace(context.NewLine, ""));
             }
         }
-
 
         return context;
     }
@@ -198,7 +197,6 @@ public abstract class FreebusTransport : IFreebusTransport
         {
             Logger.LogFrameTx(context.GetPduString().Replace(context.NewLine, ""));
         }
-
 
         StreamResource.Write(frame, 0, frame.Length);
     }

@@ -5,7 +5,7 @@ namespace Palink.Tools.Robots.MultiaxialPlatform;
 public class NkAllController
 {
     public static byte[] BuildFBFDFrame(float xAngle, float yAngle, byte speed = 50,
-        byte flexibility = 10)
+        byte flexibility = 10, float x = 0, float y = 0, float z = 0)
     {
         if (speed > 100)
         {
@@ -38,6 +38,21 @@ public class NkAllController
             0x00, //保留
             0x00 //校验和
         };
+        var xBytes = BitConverter.GetBytes(x);
+        d[2] = xBytes[0];
+        d[3] = xBytes[1];
+        d[4] = xBytes[2];
+        d[5] = xBytes[3];
+        var yBytes = BitConverter.GetBytes(y);
+        d[6] = yBytes[0];
+        d[7] = yBytes[1];
+        d[8] = yBytes[2];
+        d[9] = yBytes[3];
+        var zBytes = BitConverter.GetBytes(z);
+        d[10] = zBytes[0];
+        d[11] = zBytes[1];
+        d[12] = zBytes[2];
+        d[13] = zBytes[3];
         var angleX = BitConverter.GetBytes(xAngle);
         d[14] = angleX[0];
         d[15] = angleX[1];

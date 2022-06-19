@@ -17,9 +17,8 @@ public static class RandomExtensions
     public static int StrictNext(this Random r, int minValue = int.MinValue,
         int maxValue = int.MaxValue)
     {
-        return new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0)).Next(
-            minValue
-            , maxValue);
+        return new Random(BitConverter.ToInt32(Guid.NewGuid().ToByteArray(), 0))
+            .Next(minValue, maxValue);
     }
 
     /// <summary>

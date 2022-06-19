@@ -212,81 +212,53 @@ public static class StringExtensions
     #endregion
 
     #region Format
-
+    
     /// <summary>
     /// FormatWith
     /// </summary>
-    /// <param name="this"></param>
+    /// <param name="format"></param>
     /// <param name="values"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, params object[] values)
+    public static string FormatWith(this string format, params object[] values)
     {
-        return string.Format(@this, values);
+        return string.Format(format, values);
     }
 
     /// <summary>
     /// FormatWith
     /// </summary>
-    /// <param name="this"></param>
+    /// <param name="format"></param>
     /// <param name="arg0"></param>
     /// <param name="arg1"></param>
     /// <param name="arg2"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, object arg0, object arg1,
+    public static string FormatWith(this string format, object arg0, object arg1,
         object arg2)
     {
-        return string.Format(@this, arg0, arg1, arg2);
+        return string.Format(format, arg0, arg1, arg2);
     }
 
     /// <summary>
     /// FormatWith
     /// </summary>
-    /// <param name="this"></param>
+    /// <param name="format"></param>
     /// <param name="arg0"></param>
     /// <param name="arg1"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, object arg0, object arg1)
+    public static string FormatWith(this string format, object arg0, object arg1)
     {
-        return string.Format(@this, arg0, arg1);
+        return string.Format(format, arg0, arg1);
     }
 
     /// <summary>
     /// FormatWith
     /// </summary>
-    /// <param name="this"></param>
+    /// <param name="format"></param>
     /// <param name="arg0"></param>
     /// <returns></returns>
-    public static string FormatWith(this string @this, object arg0)
+    public static string FormatWith(this string format, object arg0)
     {
-        return string.Format(@this, arg0);
-    }
-
-
-    /// <summary>
-    /// 字符串掩码
-    /// </summary>
-    /// <param name="s"></param>
-    /// <param name="mask"></param>
-    /// <returns></returns>
-    public static string? Mask(this string? s, char mask = '*')
-    {
-        if (s.IsNullOrEmpty())
-        {
-            return default;
-        }
-
-        s = s.Trim();
-        var masks = mask.ToString().PadLeft(4, mask);
-        return s.Length switch
-        {
-            >= 11 => Regex.Replace(s, "(.{3}).*(.{4})", $"$1{masks}$2"),
-            10 => Regex.Replace(s, "(.{3}).*(.{3})", $"$1{masks}$2"),
-            9 => Regex.Replace(s, "(.{2}).*(.{3})", $"$1{masks}$2"),
-            8 => Regex.Replace(s, "(.{2}).*(.{2})", $"$1{masks}$2"),
-            7 => Regex.Replace(s, "(.{1}).*(.{2})", $"$1{masks}$2"),
-            6 => Regex.Replace(s, "(.{1}).*(.{1})", $"$1{masks}$2"),
-            _ => Regex.Replace(s, "(.{1}).*", $"$1{masks}")
-        };
+        return string.Format(format, arg0);
     }
 
     #endregion

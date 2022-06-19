@@ -14,7 +14,8 @@ public class NkAllControllerTests
     {
         var udp = new UdpClient();
         const int delay = 1000;
-        var data = NkAllController.BuildFBFDFrame(0, 0);
+        var data = NkAllController.BuildFBFDFrame(0, 0, z:-100);
+        var str = BitConverter.ToString(data).Replace("-", " ");
         await udp.SendAsync(data, data.Length,
             new IPEndPoint(IPAddress.Parse("192.168.1.88"), 20000));
         for (var i = 0; i < 100; i++)
