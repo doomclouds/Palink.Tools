@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Palink.Tools.PanShi.Monitor.ECM;
+namespace Palink.Tools.Monitor.ECM;
 
 public class ECMBeats : ECMMessage
 {

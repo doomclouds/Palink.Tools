@@ -5,11 +5,11 @@ using Palink.Tools.Freebus.IO;
 using Palink.Tools.IO;
 using Palink.Tools.Logging;
 
-namespace Palink.Tools.PanShi.Control.DiskWall;
+namespace Palink.Tools.Robots.DiskWall;
 
 public class DiskWallTransport : FreebusTransport
 {
-    public DiskWallTransport(IStreamResource streamResource, IFreebusLogger logger) :
+    internal DiskWallTransport(IStreamResource streamResource, IFreebusLogger logger) :
         base(streamResource, logger)
     {
     }

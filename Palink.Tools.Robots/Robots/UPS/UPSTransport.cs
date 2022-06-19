@@ -7,7 +7,7 @@ namespace Palink.Tools.Robots.UPS;
 
 public class UPSTransport : FreebusTransport
 {
-    public UPSTransport(IStreamResource streamResource, IFreebusLogger logger) : base(
+    internal UPSTransport(IStreamResource streamResource, IFreebusLogger logger) : base(
         streamResource, logger)
     {
     }

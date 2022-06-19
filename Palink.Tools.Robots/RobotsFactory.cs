@@ -2,14 +2,15 @@
 using Palink.Tools.Logging;
 using Palink.Tools.Robots.Epson;
 using Palink.Tools.Robots.LQ;
+using Palink.Tools.Robots.UPS;
 using Palink.Tools.Robots.YzAim;
 
-namespace Palink.Tools.Freebus;
+namespace Palink.Tools;
 
-public class FreebusFactory
+public class RobotsFactory
 {
     /// <summary>
-    /// CreateEpsonMaster
+    /// 爱普生机械臂控制
     /// </summary>
     /// <param name="streamResource"></param>
     /// <param name="logger"></param>
@@ -29,7 +30,7 @@ public class FreebusFactory
     }
 
     /// <summary>
-    /// CreateYzAimMaster
+    /// YzAim直流伺服控制
     /// </summary>
     /// <param name="streamResource"></param>
     /// <param name="logger"></param>
@@ -49,7 +50,7 @@ public class FreebusFactory
     }
 
     /// <summary>
-    /// CreateLQMaster
+    /// 李群机械臂控制
     /// </summary>
     /// <param name="streamResource"></param>
     /// <param name="logger"></param>
@@ -66,5 +67,45 @@ public class FreebusFactory
         if (waitToRetryMilliseconds.HasValue)
             transport.WaitToRetryMilliseconds = waitToRetryMilliseconds.Value;
         return new LQMaster(transport);
+    }
+
+    /// <summary>
+    /// 山特UPS控制
+    /// </summary>
+    /// <param name="streamResource"></param>
+    /// <param name="logger"></param>
+    /// <param name="retries">重试次数</param>
+    /// <param name="waitToRetryMilliseconds">重试等待时间</param>
+    /// <returns></returns>
+    public static SanTakUPSMaster CreateSanTakUPSMaster(IStreamResource streamResource,
+        IFreebusLogger logger, ushort? retries = 3,
+        ushort? waitToRetryMilliseconds = 50)
+    {
+        var transport = new UPSTransport(streamResource, logger);
+        if (retries.HasValue)
+            transport.Retries = retries.Value;
+        if (waitToRetryMilliseconds.HasValue)
+            transport.WaitToRetryMilliseconds = waitToRetryMilliseconds.Value;
+        return new SanTakUPSMaster(transport);
+    }
+
+    /// <summary>
+    /// 商业UPS控制
+    /// </summary>
+    /// <param name="streamResource"></param>
+    /// <param name="logger"></param>
+    /// <param name="retries">重试次数</param>
+    /// <param name="waitToRetryMilliseconds">重试等待时间</param>
+    /// <returns></returns>
+    public static CPSYUPSMaster CreateCPSYUPSMaster(IStreamResource streamResource,
+        IFreebusLogger logger, ushort? retries = 3,
+        ushort? waitToRetryMilliseconds = 50)
+    {
+        var transport = new UPSTransport(streamResource, logger);
+        if (retries.HasValue)
+            transport.Retries = retries.Value;
+        if (waitToRetryMilliseconds.HasValue)
+            transport.WaitToRetryMilliseconds = waitToRetryMilliseconds.Value;
+        return new CPSYUPSMaster(transport);
     }
 }

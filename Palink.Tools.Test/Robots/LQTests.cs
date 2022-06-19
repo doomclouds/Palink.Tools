@@ -14,7 +14,7 @@ public class LQTests
     {
         var tcp = new TcpClient("192.168.10.120", 2090);
         var adapter = new TcpClientAdapter(tcp);
-        var master = FreebusFactory.CreateLQMaster(adapter, new ConsoleFreebusLogger());
+        var master = RobotsFactory.CreateLQMaster(adapter, new ConsoleFreebusLogger());
 
         var res = master.Logout();
         Assert.True(res);

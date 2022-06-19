@@ -1,6 +1,5 @@
 ﻿using System.Net.Sockets;
 using System.Threading.Tasks;
-using Palink.Tools.Freebus;
 using Palink.Tools.IO;
 using Palink.Tools.Logging;
 using Xunit;
@@ -18,7 +17,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         var ret = epson.Login("");
         Assert.True(ret);
     }
@@ -32,7 +31,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
         var ret = await epson.LogoutAsync();
@@ -48,7 +47,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
         var ret = await epson.StartAsync(1, 3000);
@@ -64,7 +63,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
         await epson.SetMotorsOffAsync();
@@ -87,7 +86,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
         var ret = await epson.GetIOAsync(0);
@@ -106,7 +105,7 @@ public class EpsonTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var epson = FreebusFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
+        var epson = RobotsFactory.CreateEpsonMaster(adapter, new DebugFreebusLogger());
         await epson.LoginAsync("");
         await Task.Delay(1000);
         await epson.ResetAsync();

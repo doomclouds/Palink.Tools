@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Palink.Tools.PanShi.Monitor;
+using Palink.Tools.Monitor;
 using Xunit;
 
 namespace Palink.Tools.Test.PanShi;
@@ -35,7 +35,7 @@ public class PostCacheTests
     }
 }
 
-public class MyMessage : Tools.PanShi.Monitor.Message
+public class MyMessage : Message
 {
     [JsonProperty("hid")] public string Hid { get; set; }
 

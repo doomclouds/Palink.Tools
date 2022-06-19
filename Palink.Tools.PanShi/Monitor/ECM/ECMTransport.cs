@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using Palink.Tools.Extensions.AttributeExt;
 
-namespace Palink.Tools.PanShi.Monitor.ECM;
+namespace Palink.Tools.Monitor.ECM;
 
 /// <summary>
 /// 命令类型

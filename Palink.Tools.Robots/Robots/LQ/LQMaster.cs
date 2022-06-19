@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using Palink.Tools.Extensions.ConvertExt;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
@@ -11,6 +12,8 @@ namespace Palink.Tools.Robots.LQ;
 
 public class LQMaster : FreebusMaster
 {
+    private const int DefaultDelay = 5000;
+
     internal LQMaster(IFreebusTransport transport) : base(transport)
     {
     }
@@ -45,6 +48,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> LoginAsync(int level)
+    {
+        return Task.Run(() => Login(level));
+    }
+
     /// <summary>
     /// 退出
     /// </summary>
@@ -66,6 +74,11 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
+    }
+
+    public Task<bool> LogoutAsync()
+    {
+        return Task.Run(Logout);
     }
 
     /// <summary>
@@ -93,6 +106,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> AutoAsync(bool state)
+    {
+        return Task.Run(() => Auto(state));
+    }
+
     /// <summary>
     /// 宏指令模式
     /// </summary>
@@ -118,6 +136,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> ModeSwitchAsync(bool isMacro = true)
+    {
+        return Task.Run(() => ModeSwitch(isMacro));
+    }
+
     /// <summary>
     /// 上使能
     /// </summary>
@@ -125,7 +148,7 @@ public class LQMaster : FreebusMaster
     /// <param name="id"></param>
     /// <param name="waitTime"></param>
     /// <returns></returns>
-    public bool PowerEnable(bool enable, int id = 1, int waitTime = 5000)
+    public bool PowerEnable(bool enable, int id = 1, int waitTime = DefaultDelay)
     {
         try
         {
@@ -147,6 +170,12 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
+    }
+
+    public Task<bool> PowerEnableAsync(bool enable, int id = 1,
+        int waitTime = DefaultDelay)
+    {
+        return Task.Run(() => PowerEnable(enable, id, waitTime));
     }
 
     /// <summary>
@@ -173,6 +202,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<(bool power, bool homed)> GetStateAsync(int id = 1)
+    {
+        return Task.Run(() => GetState(id));
+    }
+
     /// <summary>
     /// 回零
     /// </summary>
@@ -195,6 +229,11 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
+    }
+
+    public Task<bool> HomeAsync(int id = 1)
+    {
+        return Task.Run(() => Home(id));
     }
 
     /// <summary>
@@ -223,6 +262,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<double> GetSpeedAsync(int id = 1)
+    {
+        return Task.Run(() => GetSpeed(id));
+    }
+
     /// <summary>
     /// 读取系统速度
     /// </summary>
@@ -246,6 +290,11 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return 0;
         }
+    }
+
+    public Task<double> GetSysSpeedAsync()
+    {
+        return Task.Run(GetSysSpeed);
     }
 
     /// <summary>
@@ -273,6 +322,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> SetSpeedAsync(double speed, int id = 1)
+    {
+        return Task.Run(() => SetSpeed(speed, id));
+    }
+
     /// <summary>
     /// 设置系统速度
     /// </summary>
@@ -297,11 +351,16 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> SetSysSpeedAsync(double speed)
+    {
+        return Task.Run(() => SetSysSpeed(speed));
+    }
+
     /// <summary>
     /// 读取位置
     /// </summary>
     /// <param name="id"></param>
-    /// <returns></returns>
+    /// <returns>m表示配置是左手系还是右手系</returns>
     public (double x, double y, double z, double u, double m) GetPosition(int id = 1)
     {
         try
@@ -325,6 +384,12 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return (0, 0, 0, 0, 0);
         }
+    }
+
+    public Task<(double x, double y, double z, double u, double m)> GetPositionAsync(
+        int id = 1)
+    {
+        return Task.Run(() => GetPosition(id));
     }
 
     /// <summary>
@@ -358,6 +423,12 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> RecordPositionAsync(string pName, double x, double y, double z,
+        double u, int id = 1)
+    {
+        return Task.Run(() => RecordPosition(pName, x, y, z, u));
+    }
+
     /// <summary>
     /// 删除点位数据
     /// </summary>
@@ -382,13 +453,18 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> DeletePositionAsync(string pName)
+    {
+        return Task.Run(() => DeletePosition(pName));
+    }
+
     /// <summary>
     /// 执行点位
     /// </summary>
     /// <param name="pName"></param>
     /// <param name="waitTime"></param>
     /// <returns></returns>
-    public bool ExecutePosition(string pName, int waitTime = 5000)
+    public bool ExecutePosition(string pName, int waitTime = DefaultDelay)
     {
         try
         {
@@ -409,6 +485,11 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
+    }
+
+    public Task<bool> ExecutePositionAsync(string pName, int waitTime = DefaultDelay)
+    {
+        return Task.Run(() => ExecutePosition(pName, waitTime));
     }
 
     /// <summary>
@@ -436,6 +517,11 @@ public class LQMaster : FreebusMaster
         }
     }
 
+    public Task<bool> GetIOAsync(uint id)
+    {
+        return Task.Run(() => GetIO(id));
+    }
+
     /// <summary>
     /// 设置IO
     /// </summary>
@@ -461,6 +547,11 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
+    }
+
+    public Task<bool> SetIOAsync(uint id, bool state)
+    {
+        return Task.Run(() => SetIO(id, state));
     }
 }
 

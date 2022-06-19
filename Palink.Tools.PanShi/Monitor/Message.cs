@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Palink.Tools.Extensions.ConvertExt;
 using Palink.Tools.Extensions.StringExt;
 
-namespace Palink.Tools.PanShi.Monitor;
+namespace Palink.Tools.Monitor;
 
 /// <summary>
 /// 消息标签

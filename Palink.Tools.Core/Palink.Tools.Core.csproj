@@ -19,9 +19,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Robots\YzAim\" />
-		<Folder Include="Robots\LQ\" />
-		<Folder Include="Robots\UPS\" />
 		<Folder Include="System\PLTime\" />
 	</ItemGroup>
 
@@ -49,9 +46,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>删掉一些不用的类，增加UPS控制(山特，商宇)，优化部分内容</PackageReleaseNotes>
+		<PackageReleaseNotes>迁移Robots下的类</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.2.6</Version>
+		<Version>1.3.0</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

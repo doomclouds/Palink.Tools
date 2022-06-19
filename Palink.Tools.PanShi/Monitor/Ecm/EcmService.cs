@@ -5,7 +5,7 @@ using System.Timers;
 using Palink.Tools.Extensions.StringExt;
 using Palink.Tools.System.Caching.Local;
 
-namespace Palink.Tools.PanShi.Monitor.ECM;
+namespace Palink.Tools.Monitor.ECM;
 
 /// <summary>
 /// 云监控服务

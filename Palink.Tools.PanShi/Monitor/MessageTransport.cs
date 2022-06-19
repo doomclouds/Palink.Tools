@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Palink.Tools.Extensions.NetExt;
 
-namespace Palink.Tools.PanShi.Monitor;
+namespace Palink.Tools.Monitor;
 
 /// <summary>
 /// MessageTransport

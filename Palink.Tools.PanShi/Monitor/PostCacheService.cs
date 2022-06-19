@@ -3,7 +3,7 @@ using System.Linq;
 using System.Timers;
 using Palink.Tools.System.Caching.Local;
 
-namespace Palink.Tools.PanShi.Monitor;
+namespace Palink.Tools.Monitor;
 
 /// <summary>
 /// CachePostService

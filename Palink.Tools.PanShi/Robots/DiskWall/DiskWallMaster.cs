@@ -6,7 +6,7 @@ using Palink.Tools.Freebus.Interface;
 using Palink.Tools.Freebus.Message;
 using Palink.Tools.Logging;
 
-namespace Palink.Tools.PanShi.Control.DiskWall;
+namespace Palink.Tools.Robots.DiskWall;
 
 public enum DiskWallBaudRate : byte
 {
@@ -49,7 +49,7 @@ public class DiskWallMaster : FreebusMaster
         ReadPwmCount
     }
 
-    public DiskWallMaster(IFreebusTransport transport) : base(transport)
+    internal DiskWallMaster(IFreebusTransport transport) : base(transport)
     {
     }
 

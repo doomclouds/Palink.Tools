@@ -25,7 +25,7 @@ public class YzAimTests
             ReadTimeout = 500,
             WriteTimeout = 500
         };
-        var yzAim = FreebusFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance, 1, 10);
+        var yzAim = RobotsFactory.CreateYzAimMaster(adapter, NullFreebusLogger.Instance, 1, 10);
         // yzAim.CancelAutoZeroing(situation);
         //var ret = yzAim.ModifyId(7, 2);
         // ret = yzAim.ModifyId(100, situation);

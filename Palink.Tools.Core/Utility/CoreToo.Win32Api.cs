@@ -110,8 +110,8 @@ public partial class CoreTool
     /// <summary>
     /// 使窗体置顶
     /// </summary>
-    /// <param name="name">需要置顶的窗体的名字</param>
-    public static void SetTop(string name)
+    /// <param name="name">窗体的名字</param>
+    public static void TopmostWin(string name)
     {
         var customBar = FindWindow(null, name);
         if (customBar.NotNull())
@@ -123,8 +123,8 @@ public partial class CoreTool
     /// <summary>
     /// 取消窗体置顶
     /// </summary>
-    /// <param name="name">需要置顶的窗体的名字</param>
-    public static void SetTopNo(string name)
+    /// <param name="name">窗体的名字</param>
+    public static void UnTopmostWin(string name)
     {
         var customBar = FindWindow(null, name);
         if (customBar.NotNull())
@@ -136,8 +136,8 @@ public partial class CoreTool
     /// <summary>
     /// 显示窗口
     /// </summary>
-    /// <param name="name"></param>
-    public static void SetWinShow(string name)
+    /// <param name="name">窗体的名字</param>
+    public static void ShowWin(string name)
     {
         var customBar = FindWindow(null, name);
         if (customBar.NotNull())
@@ -149,8 +149,8 @@ public partial class CoreTool
     /// <summary>
     /// 隐藏窗口
     /// </summary>
-    /// <param name="name"></param>
-    public static void SetWinHide(string name)
+    /// <param name="name">窗体的名字</param>
+    public static void HideWin(string name)
     {
         var customBar = FindWindow(null, name);
         if (customBar.NotNull())
