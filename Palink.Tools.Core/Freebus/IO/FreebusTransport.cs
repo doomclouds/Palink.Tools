@@ -218,6 +218,8 @@ public abstract class FreebusTransport : IFreebusTransport
 
     public abstract List<string> IgnoreList { get; set; }
 
+    public abstract string? ErrorMessage { get; set; }
+
     /// <summary>
     /// Gets the logger for this instance.
     /// </summary>

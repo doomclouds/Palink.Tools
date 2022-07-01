@@ -16,6 +16,7 @@ public class YzAimTransport : FreebusTransport
     }
 
     public override List<string> IgnoreList { get; set; } = new();
+    public override string? ErrorMessage { get; set; }
 
     public override bool ValidateResponse(IFreebusContext context)
     {

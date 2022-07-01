@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using Palink.Tools.IO;
 using Palink.Tools.Logging;
@@ -149,48 +148,60 @@ public abstract class ModbusTransport : IModbusTransport
                 ValidateResponse(message, response);
                 success = true;
             }
-            catch (SlaveException se)
+            catch (Exception e)
             {
-                if (se.SlaveExceptionCode != SlaveExceptionCodes.SlaveDeviceBusy)
+                Logger.Error(
+                    $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
+
+                if (attempt++ > Retries)
                 {
                     throw;
                 }
-
-                if (SlaveBusyUsesRetryCount && attempt++ > Retries)
-                {
-                    throw;
-                }
-
-                Logger.Warning(
-                    $"Received SLAVE_DEVICE_BUSY exception response, waiting {_waitToRetryMilliseconds} milliseconds and resubmitting request.");
 
                 Sleep(WaitToRetryMilliseconds);
             }
-            catch (Exception e)
-            {
-                if (e is SocketException || e.InnerException is SocketException)
-                {
-                    throw;
-                }
-
-                if (e is FormatException or NotImplementedException or TimeoutException
-                    or IOException)
-                {
-                    Logger.Error(
-                        $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
-
-                    if (attempt++ > Retries)
-                    {
-                        throw;
-                    }
-
-                    Sleep(WaitToRetryMilliseconds);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            // catch (SlaveException se)
+            // {
+            //     if (se.SlaveExceptionCode != SlaveExceptionCodes.SlaveDeviceBusy)
+            //     {
+            //         throw;
+            //     }
+            //
+            //     if (SlaveBusyUsesRetryCount && attempt++ > Retries)
+            //     {
+            //         throw;
+            //     }
+            //
+            //     Logger.Warning(
+            //         $"Received SLAVE_DEVICE_BUSY exception response, waiting {_waitToRetryMilliseconds} milliseconds and resubmitting request.");
+            //
+            //     Sleep(WaitToRetryMilliseconds);
+            // }
+            // catch (Exception e)
+            // {
+            //     if (e is SocketException || e.InnerException is SocketException)
+            //     {
+            //         throw;
+            //     }
+            //
+            //     if (e is FormatException or NotImplementedException or TimeoutException
+            //         or IOException)
+            //     {
+            //         Logger.Error(
+            //             $"{e.GetType().Name}, {(Retries - attempt + 1)} retries remaining - {e}");
+            //
+            //         if (attempt++ > Retries)
+            //         {
+            //             throw;
+            //         }
+            //
+            //         Sleep(WaitToRetryMilliseconds);
+            //     }
+            //     else
+            //     {
+            //         throw;
+            //     }
+            // }
         } while (!success);
 
         return response == null ? new T() : (T)response;

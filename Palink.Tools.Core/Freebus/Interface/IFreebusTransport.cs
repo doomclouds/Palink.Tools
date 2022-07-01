@@ -27,5 +27,7 @@ public interface IFreebusTransport : IDisposable
 
     List<string> IgnoreList { get; set; }
 
+    string? ErrorMessage { get; set; }
+
     IFreebusLogger Logger { get; set; }
 }

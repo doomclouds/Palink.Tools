@@ -18,6 +18,8 @@ public class LQMaster : FreebusMaster
     {
     }
 
+    public string? ErrorMessage { get; set; }
+
     /// <summary>
     /// 机器人登录
     /// </summary>
@@ -553,6 +555,64 @@ public class LQMaster : FreebusMaster
     {
         return Task.Run(() => SetIO(id, state));
     }
+
+    /// <summary>
+    /// 启动线程
+    /// </summary>
+    /// <returns></returns>
+    public bool StartThread()
+    {
+        try
+        {
+            const string cmd = $"[1#{LQCmd.Thread}.{LQSubCmd.Start}]";
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = "]";
+            var ret = ExecuteCustomMessage(context);
+            var res = ret.GetDruString().Split('#')[1].Split(' ')[1];
+            return res == "1";
+        }
+        catch (Exception e)
+        {
+            Transport.Logger.Error(
+                $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
+            return false;
+        }
+    }
+
+    public Task<bool> StartThreadAsync()
+    {
+        return Task.Run(StartThread);
+    }
+
+    /// <summary>
+    /// 终止线程
+    /// </summary>
+    /// <returns></returns>
+    public bool AbortThread()
+    {
+        try
+        {
+            const string cmd = $"[1#{LQCmd.Thread}.{LQSubCmd.Abort}]";
+            var context = new FreebusContext();
+            context.SetPduString(cmd);
+            context.NewLine = "]";
+            var ret = ExecuteCustomMessage(context);
+            var res = ret.GetDruString().Split('#')[1].Split(' ')[1];
+            return res == "1";
+        }
+        catch (Exception e)
+        {
+            Transport.Logger.Error(
+                $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
+            return false;
+        }
+    }
+
+    public Task<bool> AbortThreadAsync()
+    {
+        return Task.Run(AbortThread);
+    }
 }
 
 public static class LQCmd
@@ -566,6 +626,8 @@ public static class LQCmd
     public const string Location = nameof(Location);
 
     public const string IO = nameof(IO);
+
+    public const string Thread = nameof(Thread);
 }
 
 public static class LQSubCmd
@@ -597,6 +659,10 @@ public static class LQSubCmd
     public const string DIN = nameof(DIN);
 
     public const string DOUT = nameof(DOUT);
+
+    public const string Start = nameof(Start);
+
+    public const string Abort = nameof(Abort);
 
     public const int DINStart = 10101;
 

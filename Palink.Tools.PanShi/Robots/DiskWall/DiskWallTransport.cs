@@ -15,6 +15,7 @@ public class DiskWallTransport : FreebusTransport
     }
 
     public override List<string> IgnoreList { get; set; } = new();
+    public override string? ErrorMessage { get; set; }
 
     public override bool ShouldRetryResponse(IFreebusContext context)
     {

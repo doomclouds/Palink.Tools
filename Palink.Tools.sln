@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools.TaskScheduler"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools.Modbus", "Palink.Tools.Modbus\Palink.Tools.Modbus.csproj", "{B353233D-1CD6-4EE1-A5B1-05EBC6980AF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Palink.Tools.Robots", "Palink.Tools.Robots\Palink.Tools.Robots.csproj", "{465607C4-8D36-45CC-9E8E-20C0A01135E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palink.Tools.Robots", "Palink.Tools.Robots\Palink.Tools.Robots.csproj", "{465607C4-8D36-45CC-9E8E-20C0A01135E0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -12,8 +12,8 @@ public class LQTests
     [Fact]
     public void LQTest()
     {
-        var tcp = new TcpClient("192.168.10.120", 2090);
-        var adapter = new TcpClientAdapter(tcp);
+        var udp = new UdpClient("192.168.10.120", 2090);
+        var adapter = new UdpClientOverCOMAdapter(udp);
         var master = RobotsFactory.CreateLQMaster(adapter, new ConsoleFreebusLogger());
 
         var res = master.Logout();

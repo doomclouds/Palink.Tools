@@ -13,4 +13,5 @@ public class UPSTransport : FreebusTransport
     }
 
     public override List<string> IgnoreList { get; set; } = new();
+    public override string? ErrorMessage { get; set; }
 }

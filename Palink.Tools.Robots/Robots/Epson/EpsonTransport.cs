@@ -27,6 +27,8 @@ public class EpsonTransport : FreebusTransport
         "aa bb cc dd ee ff"
     };
 
+    public override string? ErrorMessage { get; set; }
+
     public override bool ShouldRetryResponse(IFreebusContext context)
     {
         var hex = BitConverter.ToString(context.Dru).Replace('-', ' ');
