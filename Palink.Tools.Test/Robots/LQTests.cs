@@ -84,7 +84,7 @@ public class LQTests
     {
         master.DeletePosition("p1");
 
-        master.RecordPosition("p1", x, y, z, u);
+        master.RecordPosition("p1", x, y, z, u, 0);
 
         master.ExecutePosition("p1");
     }

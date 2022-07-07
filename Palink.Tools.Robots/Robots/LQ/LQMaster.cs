@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using Palink.Tools.Extensions.ConvertExt;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
@@ -50,11 +49,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> LoginAsync(int level)
-    {
-        return Task.Run(() => Login(level));
-    }
-
     /// <summary>
     /// 退出
     /// </summary>
@@ -63,7 +57,7 @@ public class LQMaster : FreebusMaster
     {
         try
         {
-            var cmd = $"[1#{LQCmd.System}.{LQSubCmd.Logout}]";
+            const string cmd = $"[1#{LQCmd.System}.{LQSubCmd.Logout}]";
             var context = new FreebusContext();
             context.SetPduString(cmd);
             context.NewLine = "]";
@@ -76,11 +70,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> LogoutAsync()
-    {
-        return Task.Run(Logout);
     }
 
     /// <summary>
@@ -108,11 +97,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> AutoAsync(bool state)
-    {
-        return Task.Run(() => Auto(state));
-    }
-
     /// <summary>
     /// 宏指令模式
     /// </summary>
@@ -136,11 +120,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> ModeSwitchAsync(bool isMacro = true)
-    {
-        return Task.Run(() => ModeSwitch(isMacro));
     }
 
     /// <summary>
@@ -174,12 +153,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> PowerEnableAsync(bool enable, int id = 1,
-        int waitTime = DefaultDelay)
-    {
-        return Task.Run(() => PowerEnable(enable, id, waitTime));
-    }
-
     /// <summary>
     /// 状态
     /// </summary>
@@ -202,11 +175,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return (false, false);
         }
-    }
-
-    public Task<(bool power, bool homed)> GetStateAsync(int id = 1)
-    {
-        return Task.Run(() => GetState(id));
     }
 
     /// <summary>
@@ -232,12 +200,7 @@ public class LQMaster : FreebusMaster
             return false;
         }
     }
-
-    public Task<bool> HomeAsync(int id = 1)
-    {
-        return Task.Run(() => Home(id));
-    }
-
+    
     /// <summary>
     /// 读取速度
     /// </summary>
@@ -264,11 +227,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<double> GetSpeedAsync(int id = 1)
-    {
-        return Task.Run(() => GetSpeed(id));
-    }
-
     /// <summary>
     /// 读取系统速度
     /// </summary>
@@ -277,7 +235,7 @@ public class LQMaster : FreebusMaster
     {
         try
         {
-            var cmd = $"[1#{LQCmd.System}.{LQSubCmd.Speed}]";
+            const string cmd = $"[1#{LQCmd.System}.{LQSubCmd.Speed}]";
             var context = new FreebusContext();
             context.SetPduString(cmd);
             context.NewLine = "]";
@@ -292,11 +250,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return 0;
         }
-    }
-
-    public Task<double> GetSysSpeedAsync()
-    {
-        return Task.Run(GetSysSpeed);
     }
 
     /// <summary>
@@ -324,11 +277,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> SetSpeedAsync(double speed, int id = 1)
-    {
-        return Task.Run(() => SetSpeed(speed, id));
-    }
-
     /// <summary>
     /// 设置系统速度
     /// </summary>
@@ -353,11 +301,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> SetSysSpeedAsync(double speed)
-    {
-        return Task.Run(() => SetSysSpeed(speed));
-    }
-
     /// <summary>
     /// 读取位置
     /// </summary>
@@ -371,14 +314,31 @@ public class LQMaster : FreebusMaster
             var context = new FreebusContext();
             context.SetPduString(cmd);
             context.NewLine = "]";
-            var ret = ExecuteCustomMessage(context);
-            var res = ret.GetDruString().Split('#')[1].Split(' ')[1].Split(',');
-            var x = double.Parse(res[0]);
-            var y = double.Parse(res[1]);
-            var z = double.Parse(res[2]);
-            var u = double.Parse(res[5]);
-            var m = double.Parse(res[6]);
-            return (x, y, z, u, m);
+
+            for (var i = 0; i < Transport.Retries; i++)
+            {
+                try
+                {
+                    var ret = ExecuteCustomMessage(context);
+                    var res = ret.GetDruString()
+                        .Split('#')[1]
+                        .Split(' ')[1]
+                        .Split(',');
+
+                    var x = double.Parse(res[0]);
+                    var y = double.Parse(res[1]);
+                    var z = double.Parse(res[2]);
+                    var u = double.Parse(res[5]);
+                    var m = double.Parse(res[6]);
+                    return (x, y, z, u, m);
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
+            }
+
+            return (0d, 0d, 0d, 0d, 0d);
         }
         catch (Exception e)
         {
@@ -386,12 +346,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return (0, 0, 0, 0, 0);
         }
-    }
-
-    public Task<(double x, double y, double z, double u, double m)> GetPositionAsync(
-        int id = 1)
-    {
-        return Task.Run(() => GetPosition(id));
     }
 
     /// <summary>
@@ -402,15 +356,14 @@ public class LQMaster : FreebusMaster
     /// <param name="y"></param>
     /// <param name="z"></param>
     /// <param name="u"></param>
-    /// <param name="id"></param>
+    /// <param name="m"></param>
     /// <returns></returns>
     public bool RecordPosition(string pName, double x, double y, double z, double u,
-        int id = 1)
+        double m)
     {
         try
         {
-            var p = GetPosition(id);
-            var cmd = $"[1#{LQCmd.Location} {pName} = {x},{y},{z},{0},{180},{u},{p.m}]";
+            var cmd = $"[1#{LQCmd.Location} {pName} = {x},{y},{z},{0},{180},{u},{m}]";
             var context = new FreebusContext();
             context.SetPduString(cmd);
             context.NewLine = "]";
@@ -423,12 +376,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> RecordPositionAsync(string pName, double x, double y, double z,
-        double u, int id = 1)
-    {
-        return Task.Run(() => RecordPosition(pName, x, y, z, u));
     }
 
     /// <summary>
@@ -453,11 +400,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> DeletePositionAsync(string pName)
-    {
-        return Task.Run(() => DeletePosition(pName));
     }
 
     /// <summary>
@@ -489,11 +431,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> ExecutePositionAsync(string pName, int waitTime = DefaultDelay)
-    {
-        return Task.Run(() => ExecutePosition(pName, waitTime));
-    }
-
     /// <summary>
     /// 读取IO
     /// </summary>
@@ -517,11 +454,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> GetIOAsync(uint id)
-    {
-        return Task.Run(() => GetIO(id));
     }
 
     /// <summary>
@@ -551,11 +483,6 @@ public class LQMaster : FreebusMaster
         }
     }
 
-    public Task<bool> SetIOAsync(uint id, bool state)
-    {
-        return Task.Run(() => SetIO(id, state));
-    }
-
     /// <summary>
     /// 启动线程
     /// </summary>
@@ -569,8 +496,7 @@ public class LQMaster : FreebusMaster
             context.SetPduString(cmd);
             context.NewLine = "]";
             var ret = ExecuteCustomMessage(context);
-            var res = ret.GetDruString().Split('#')[1].Split(' ')[1];
-            return res == "1";
+            return ret.Succeed;
         }
         catch (Exception e)
         {
@@ -579,12 +505,7 @@ public class LQMaster : FreebusMaster
             return false;
         }
     }
-
-    public Task<bool> StartThreadAsync()
-    {
-        return Task.Run(StartThread);
-    }
-
+    
     /// <summary>
     /// 终止线程
     /// </summary>
@@ -598,8 +519,7 @@ public class LQMaster : FreebusMaster
             context.SetPduString(cmd);
             context.NewLine = "]";
             var ret = ExecuteCustomMessage(context);
-            var res = ret.GetDruString().Split('#')[1].Split(' ')[1];
-            return res == "1";
+            return ret.Succeed;
         }
         catch (Exception e)
         {
@@ -607,11 +527,6 @@ public class LQMaster : FreebusMaster
                 $"命令{MethodBase.GetCurrentMethod()?.Name}异常：{e.Message}");
             return false;
         }
-    }
-
-    public Task<bool> AbortThreadAsync()
-    {
-        return Task.Run(AbortThread);
     }
 }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
 using Palink.Tools.Freebus.Message;
@@ -36,11 +35,6 @@ public class SanTakUPSMaster : FreebusMaster
         }
     }
 
-    public Task<bool> ShouldCloseAsync()
-    {
-        return Task.Run(ShouldClose);
-    }
-
     public bool AtClosing()
     {
         try
@@ -59,11 +53,6 @@ public class SanTakUPSMaster : FreebusMaster
             Transport.Logger.Error(e.Message);
             return false;
         }
-    }
-
-    public Task<bool> AtClosingAsync()
-    {
-        return Task.Run(AtClosing);
     }
 
     public bool CloseUPS()
@@ -85,11 +74,6 @@ public class SanTakUPSMaster : FreebusMaster
             Transport.Logger.Error(e.Message);
             return false;
         }
-    }
-
-    public Task<bool> CloseUPSAsync()
-    {
-        return Task.Run(CloseUPS);
     }
 }
 
@@ -122,11 +106,6 @@ public class CPSYUPSMaster : FreebusMaster
         }
     }
 
-    public Task<bool> ShouldCloseAsync()
-    {
-        return Task.Run(ShouldClose);
-    }
-
     public bool AtClosing()
     {
         try
@@ -145,11 +124,6 @@ public class CPSYUPSMaster : FreebusMaster
             Transport.Logger.Error(e.Message);
             return false;
         }
-    }
-
-    public Task<bool> AtClosingAsync()
-    {
-        return Task.Run(AtClosing);
     }
 
     /// <summary>
@@ -175,10 +149,5 @@ public class CPSYUPSMaster : FreebusMaster
             Transport.Logger.Error(e.Message);
             return false;
         }
-    }
-
-    public Task<bool> RestartUPSAsync()
-    {
-        return Task.Run(RestartUPS);
     }
 }

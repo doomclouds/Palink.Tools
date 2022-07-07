@@ -46,15 +46,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 机器人登录
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> LoginAsync(string pwd)
-    {
-        return Task.Run(() => Login(pwd));
-    }
-
-    /// <summary>
     /// 机器人退出
     /// </summary>
     /// <returns></returns>
@@ -75,15 +66,6 @@ public class EpsonMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
             return false;
         }
-    }
-
-    /// <summary>
-    /// 机器人退出
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> LogoutAsync()
-    {
-        return Task.Run(Logout);
     }
 
     /// <summary>
@@ -133,16 +115,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 获取机器人状态
-    /// </summary>
-    /// <returns></returns>
-    public Task<(bool running, bool safeguard, bool eStop, bool error, bool ready, bool
-        auto)> GetStatusAsync()
-    {
-        return Task.Run(GetStatus);
-    }
-
-    /// <summary>
     /// 执行Main程序
     /// </summary>
     /// <param name="id"></param>
@@ -168,16 +140,6 @@ public class EpsonMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
             return false;
         }
-    }
-
-    /// <summary>
-    /// 执行Main程序
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="waitTime">等待时间，Start命令必须等待机器人任务完全结束才有返回</param>
-    public Task<bool> StartAsync(int id, int waitTime = DefaultDelay)
-    {
-        return Task.Run(() => Start(id, waitTime));
     }
 
     /// <summary>
@@ -207,15 +169,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 重置机器人
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> ResetAsync()
-    {
-        return Task.Run(Reset);
-    }
-
-    /// <summary>
     /// 停止机器人
     /// </summary>
     /// <returns></returns>
@@ -242,15 +195,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 停止机器人
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> StopAsync()
-    {
-        return Task.Run(Stop);
-    }
-
-    /// <summary>
     /// 机器人使能
     /// </summary>
     /// <returns></returns>
@@ -274,15 +218,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 机器人使能
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> SetMotorsOnAsync(int id = 0)
-    {
-        return Task.Run(() => SetMotorsOn(id));
-    }
-
-    /// <summary>
     /// 机器人下使能
     /// </summary>
     /// <returns></returns>
@@ -303,15 +238,6 @@ public class EpsonMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
             return false;
         }
-    }
-
-    /// <summary>
-    /// 机器人下使能
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> SetMotorsOffAsync(int id = 0)
-    {
-        return Task.Run(() => SetMotorsOff(id));
     }
 
     /// <summary>
@@ -341,15 +267,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 机器人回零
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> HomeAsync(int waitTime = DefaultDelay, int id = 0)
-    {
-        return Task.Run(() => Home(id));
-    }
-
-    /// <summary>
     /// 读取IO
     /// </summary>
     /// <returns></returns>
@@ -371,15 +288,6 @@ public class EpsonMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
             return false;
         }
-    }
-
-    /// <summary>
-    /// 读取IO
-    /// </summary>
-    /// <returns></returns>
-    public Task<bool> GetIOAsync(int id)
-    {
-        return Task.Run(() => GetIO(id));
     }
 
     /// <summary>
@@ -409,17 +317,6 @@ public class EpsonMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 设置IO
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="open"></param>
-    /// <returns></returns>
-    public Task<bool> SetIOAsync(int id, bool open)
-    {
-        return Task.Run(() => SetIO(id, open));
-    }
-
-    /// <summary>
     /// 执行SPEL程序
     /// </summary>
     /// <param name="spel">执行SPEL+语言命令，命令需要用引号</param>
@@ -445,15 +342,5 @@ public class EpsonMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常,{e.Message}");
             return false;
         }
-    }
-
-    /// <summary>
-    /// 执行SPEL程序
-    /// </summary>
-    /// <param name="spel">执行SPEL+语言命令，命令需要用引号</param>
-    /// <param name="waitTime">等待时间，Execute命令必须等待机器人任务完全结束才有返回</param>
-    public Task<bool> ExecuteAsync(string spel, int waitTime = DefaultDelay)
-    {
-        return Task.Run(() => Execute(spel, waitTime));
     }
 }

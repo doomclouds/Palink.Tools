@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using System.Threading.Tasks;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
 using Palink.Tools.Freebus.Message;
@@ -76,12 +75,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task OverturnNoResponseAsync(byte id, string unitData, char split = ',',
-        bool shouldLog = false)
-    {
-        return Task.Run(() => OverturnNoResponse(id, unitData, split, shouldLog));
-    }
-
     public DiskWallResponseStatus Overturn(byte id, string unitData, char split = ',')
     {
         try
@@ -106,12 +99,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task<DiskWallResponseStatus> OverturnAsync(byte id, string unitData,
-        char split = ',')
-    {
-        return Task.Run(() => Overturn(id, unitData, split));
-    }
-
     public bool WriteBaudRate(byte id, DiskWallBaudRate baudRate)
     {
         try
@@ -127,11 +114,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return false;
         }
-    }
-
-    public Task<bool> WriteBaudRateAsync(byte id, DiskWallBaudRate baudRate)
-    {
-        return Task.Run(() => WriteBaudRate(id, baudRate));
     }
 
     public DiskWallBaudRate ReadBaudRate(byte id,
@@ -152,12 +134,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task<DiskWallBaudRate> ReadBaudRateAsync(byte id,
-        DiskWallBaudRate baudRate = DiskWallBaudRate.Br115200)
-    {
-        return Task.Run(() => ReadBaudRate(id, baudRate));
-    }
-
     public DiskWallResponseStatus WriteHoldOnTime(byte id, byte time)
     {
         try
@@ -173,11 +149,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return DiskWallResponseStatus.None;
         }
-    }
-
-    public Task<DiskWallResponseStatus> WriteHoldOnTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => WriteHoldOnTime(id, time));
     }
 
     public byte ReadHoldOnTime(byte id, byte time = 0)
@@ -197,11 +168,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task<byte> ReadHoldOnTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => ReadHoldOnTime(id, time));
-    }
-
     public DiskWallResponseStatus WriteHoldOffTime(byte id, byte time)
     {
         try
@@ -217,11 +183,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return DiskWallResponseStatus.None;
         }
-    }
-
-    public Task<DiskWallResponseStatus> WriteHoldOffTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => WriteHoldOffTime(id, time));
     }
 
     public byte ReadHoldOffTime(byte id, byte time = 0)
@@ -241,11 +202,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task<byte> ReadHoldOffTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => ReadHoldOffTime(id, time));
-    }
-
     public DiskWallResponseStatus WriteDelayTime(byte id, byte time)
     {
         try
@@ -261,11 +217,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return DiskWallResponseStatus.None;
         }
-    }
-
-    public Task<DiskWallResponseStatus> WriteDelayTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => WriteDelayTime(id, time));
     }
 
     public byte ReadDelayTime(byte id, byte time = 0)
@@ -285,11 +236,6 @@ public class DiskWallMaster : FreebusMaster
         }
     }
 
-    public Task<byte> ReadDelayTimeAsync(byte id, byte time)
-    {
-        return Task.Run(() => ReadDelayTime(id, time));
-    }
-
     public DiskWallResponseStatus WritePwmCount(byte id, byte time)
     {
         try
@@ -305,11 +251,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return DiskWallResponseStatus.None;
         }
-    }
-
-    public Task<DiskWallResponseStatus> WritePwmCountAsync(byte id, byte time)
-    {
-        return Task.Run(() => WritePwmCount(id, time));
     }
 
     public byte ReadPwmCount(byte id, byte time = 0)
@@ -328,12 +269,7 @@ public class DiskWallMaster : FreebusMaster
             return 0;
         }
     }
-
-    public Task<byte> ReadPwmCountAsync(byte id, byte time)
-    {
-        return Task.Run(() => ReadPwmCount(id, time));
-    }
-
+    
     public bool Save(byte id)
     {
         try
@@ -349,11 +285,6 @@ public class DiskWallMaster : FreebusMaster
                 $"{MethodBase.GetCurrentMethod()?.Name}命令异常:{ex.Message};{ex.StackTrace}");
             return false;
         }
-    }
-
-    public Task<bool> SaveAsync(byte id)
-    {
-        return Task.Run(() => Save(id));
     }
 
     public IFreebusContext CreateContext((byte id, byte cmd, byte[] frame) noCheckFrame)

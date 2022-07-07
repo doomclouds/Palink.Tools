@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Palink.Tools.Extensions.AttributeExt;
 using Palink.Tools.Freebus.Device;
 using Palink.Tools.Freebus.Interface;
@@ -215,17 +214,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 获取电机参数
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cmd"></param>
-    /// <returns></returns>
-    public Task<ushort?> GetYzAimStatusCmdAsync(byte id, YzAimCmd cmd)
-    {
-        return Task.Run(() => GetYzAimStatusCmd(id, cmd));
-    }
-
-    /// <summary>
     /// 设置电机参数
     /// </summary>
     /// <param name="id"></param>
@@ -236,18 +224,6 @@ public class YzAimMaster : FreebusMaster
     {
         ValidateSetCmd(cmd, value);
         return WriteRegister(id, (ushort)cmd, value, cmd.EnumDescription());
-    }
-
-    /// <summary>
-    /// 设置电机参数
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="cmd"></param>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public Task<bool> SetYzAimStatusCmdAsync(byte id, YzAimCmd cmd, ushort value)
-    {
-        return Task.Run(() => SetYzAimStatusCmd(id, cmd, value));
     }
 
     /// <summary>
@@ -271,17 +247,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 设置电机位置
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="pos"></param>
-    /// <returns></returns>
-    public Task<bool> SetPositionAsync(byte id, int pos)
-    {
-        return Task.Run(() => SetPosition(id, pos));
-    }
-
-    /// <summary>
     /// 获取电机位置
     /// </summary>
     /// <param name="id"></param>
@@ -302,16 +267,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 获取电机位置
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task<int> GetPositionAsync(byte id)
-    {
-        return Task.Run(() => GetPosition(id));
-    }
-
-    /// <summary>
     /// 取消电机自动回零
     /// </summary>
     /// <param name="id"></param>
@@ -320,16 +275,6 @@ public class YzAimMaster : FreebusMaster
     {
         return WriteRegister(id, 0x19, 0, nameof(CancelAutoZeroing)) &&
                SetYzAimStatusCmd(id, YzAimCmd.ParamsSave, 1);
-    }
-
-    /// <summary>
-    /// 取消电机自动回零
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task<bool> CancelAutoZeroingAsync(byte id)
-    {
-        return Task.Run(() => CancelAutoZeroing(id));
     }
 
     /// <summary>
@@ -344,17 +289,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 电机回零
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="mode"></param>
-    /// <returns></returns>
-    public Task<bool> ZeroingAsync(byte id, YzAimZeroingMode mode)
-    {
-        return Task.Run(() => Zeroing(id, mode));
-    }
-
-    /// <summary>
     /// 获取电机实际电流/A
     /// </summary>
     /// <param name="id"></param>
@@ -363,16 +297,6 @@ public class YzAimMaster : FreebusMaster
     {
         const double k = 2000.0;
         return (GetYzAimStatusCmd(id, YzAimCmd.Electricity) ?? 0) / k;
-    }
-
-    /// <summary>
-    /// 获取电机实际电流/A
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task<double> GetActualElectricityAsync(byte id)
-    {
-        return Task.Run(() => GetActualElectricity(id));
     }
 
     /// <summary>
@@ -387,16 +311,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 获取电机实际电压/V
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task<double> GetActualVoltageAsync(byte id)
-    {
-        return Task.Run(() => GetActualVoltage(id));
-    }
-
-    /// <summary>
     /// 获取电机实际转速r/min
     /// </summary>
     /// <param name="id"></param>
@@ -406,16 +320,6 @@ public class YzAimMaster : FreebusMaster
         const double k = 10.0;
         var speed = (short)(ReadRegister(id, 0x10, nameof(GetActualSpeed)) ?? 0);
         return speed / k;
-    }
-
-    /// <summary>
-    /// 获取电机实际转速r/min
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task<double> GetActualSpeedAsync(byte id)
-    {
-        return Task.Run(() => GetActualSpeed(id));
     }
 
     /// <summary>
@@ -440,18 +344,6 @@ public class YzAimMaster : FreebusMaster
         }
 
         return ready;
-    }
-
-    /// <summary>
-    /// 多组到位
-    /// </summary>
-    /// <param name="checkGroup"></param>
-    /// <param name="offset"></param>
-    /// <returns></returns>
-    public Task<bool> AllReadyAsync(List<(byte id, int targetPosition)> checkGroup,
-        int offset = 0)
-    {
-        return Task.Run(() => AllReady(checkGroup, offset));
     }
 
     /// <summary>
@@ -508,16 +400,6 @@ public class YzAimMaster : FreebusMaster
     }
 
     /// <summary>
-    /// 广播位移
-    /// </summary>
-    /// <param name="motionParams"></param>
-    public Task WriteAllMotionParamsAsync(
-        List<(int position, ushort speed, ushort acc)> motionParams)
-    {
-        return Task.Run(() => WriteAllMotionParams(motionParams));
-    }
-
-    /// <summary>
     /// 修改电机Id
     /// </summary>
     /// <param name="id"></param>
@@ -536,16 +418,6 @@ public class YzAimMaster : FreebusMaster
         }
 
         return false;
-    }
-
-    /// <summary>
-    /// 修改电机Id
-    /// </summary>
-    /// <param name="id"></param>
-    /// <param name="targetId"></param>
-    public Task<bool> ModifyIdAsync(byte id, byte targetId)
-    {
-        return Task.Run(() => ModifyId(id, targetId));
     }
 
     private static void ValidateSetCmd(YzAimCmd cmd, ushort value)
