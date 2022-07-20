@@ -84,7 +84,7 @@ public static class ObjectExtensions
             if (arrayType != null && !IsPrimitive(arrayType))
             {
                 var clonedArray = (Array)cloneObject;
-                ArrayExtensions.ForEach(clonedArray, (array, indices) =>
+                clonedArray.ForEach((array, indices) =>
                     array.SetValue(InternalCopy(clonedArray.GetValue(indices), visited),
                         indices));
             }

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Reflection;
 using System.Threading;
-using System.Threading.Tasks;
+// using System.Threading.Tasks;
 
 namespace Palink.Tools.Utility;
 
@@ -34,17 +34,17 @@ public partial class CoreTool
         return false;
     }
 
-    /// <summary>
-    /// 窗口置顶
-    /// </summary>
-    /// <param name="hwnd"></param>
-    /// <param name="delay"></param>
-    public static async void TopMost(IntPtr? hwnd, int delay)
-    {
-        while (hwnd.HasValue)
-        {
-            await Task.Delay(delay);
-            SetForegroundWindow(hwnd.Value);
-        }
-    }
+    // /// <summary>
+    // /// 窗口置顶
+    // /// </summary>
+    // /// <param name="hwnd"></param>
+    // /// <param name="delay"></param>
+    // public static async void TopMost(IntPtr? hwnd, int delay)
+    // {
+    //     while (hwnd.HasValue)
+    //     {
+    //         await Task.Delay(delay);
+    //         SetForegroundWindow(hwnd.Value);
+    //     }
+    // }
 }

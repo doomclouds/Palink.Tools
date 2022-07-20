@@ -14,9 +14,9 @@ public static class NetExtensions
     /// Ping
     /// </summary>
     /// <returns></returns>
-    public static bool Ping(this string ip)
+    public static bool Ping(this string ip, bool checkIp = true)
     {
-        if (!ip.IsIp())
+        if (checkIp && !ip.IsIp())
         {
             throw new Exception("The IP address is invalid");
         }

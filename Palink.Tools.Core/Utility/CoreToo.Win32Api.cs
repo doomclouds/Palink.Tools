@@ -158,4 +158,14 @@ public partial class CoreTool
             ShowWindow(customBar, (int)WindowStatus.SwHide);
         }
     }
+
+    public static void SetWinPos(string name, int x, int y, bool topmost = false)
+    {
+        var customBar = FindWindow(null, name);
+        var t = topmost ? HwndTopmost : HwndNoTopmost;
+        if (customBar.NotNull())
+        {
+            SetWindowPos(customBar, t, x, y, 0, 0, SwpNoSize);
+        }
+    }
 }
