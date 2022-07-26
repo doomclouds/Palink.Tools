@@ -34,8 +34,6 @@ public static class ArrayExtensions
     /// <param name="size"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    /// <exception cref="ArgumentOutOfRangeException"></exception>
     public static IEnumerable<T> Slice<T>(this IEnumerable<T> source, int startIndex,
         int size)
     {

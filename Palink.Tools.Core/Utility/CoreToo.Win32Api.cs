@@ -111,61 +111,48 @@ public partial class CoreTool
     /// 使窗体置顶
     /// </summary>
     /// <param name="name">窗体的名字</param>
-    public static void TopmostWin(string name)
+    public static bool TopmostWin(string name)
     {
         var customBar = FindWindow(null, name);
-        if (customBar.NotNull())
-        {
-            SetWindowPos(customBar, HwndTopmost, 0, 0, 0, 0, SwpNoMove | SwpNoSize);
-        }
+        return customBar.NotNull() && SetWindowPos(customBar, HwndTopmost, 0, 0, 0, 0,
+            SwpNoMove | SwpNoSize);
     }
 
     /// <summary>
     /// 取消窗体置顶
     /// </summary>
     /// <param name="name">窗体的名字</param>
-    public static void UnTopmostWin(string name)
+    public static bool UnTopmostWin(string name)
     {
         var customBar = FindWindow(null, name);
-        if (customBar.NotNull())
-        {
-            SetWindowPos(customBar, HwndNoTopmost, 0, 0, 0, 0, SwpNoMove | SwpNoSize);
-        }
+        return customBar.NotNull() && SetWindowPos(customBar, HwndNoTopmost, 0, 0, 0, 0,
+            SwpNoMove | SwpNoSize);
     }
 
     /// <summary>
     /// 显示窗口
     /// </summary>
     /// <param name="name">窗体的名字</param>
-    public static void ShowWin(string name)
+    public static bool ShowWin(string name)
     {
         var customBar = FindWindow(null, name);
-        if (customBar.NotNull())
-        {
-            ShowWindow(customBar, (int)WindowStatus.SwShow);
-        }
+        return customBar.NotNull() && ShowWindow(customBar, (int)WindowStatus.SwShow);
     }
 
     /// <summary>
     /// 隐藏窗口
     /// </summary>
     /// <param name="name">窗体的名字</param>
-    public static void HideWin(string name)
+    public static bool HideWin(string name)
     {
         var customBar = FindWindow(null, name);
-        if (customBar.NotNull())
-        {
-            ShowWindow(customBar, (int)WindowStatus.SwHide);
-        }
+        return customBar.NotNull() && ShowWindow(customBar, (int)WindowStatus.SwHide);
     }
 
-    public static void SetWinPos(string name, int x, int y, bool topmost = false)
+    public static bool SetWinPos(string name, int x, int y, bool topmost = false)
     {
         var customBar = FindWindow(null, name);
         var t = topmost ? HwndTopmost : HwndNoTopmost;
-        if (customBar.NotNull())
-        {
-            SetWindowPos(customBar, t, x, y, 0, 0, SwpNoSize);
-        }
+        return customBar.NotNull() && SetWindowPos(customBar, t, x, y, 0, 0, SwpNoSize);
     }
 }
