@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net.NetworkInformation;
 using System.Text;
-using Palink.Tools.Extensions.StringExt;
 
 namespace Palink.Tools.Extensions.NetExt;
 
@@ -16,11 +15,6 @@ public static class NetExtensions
     /// <returns></returns>
     public static bool Ping(this string ip, bool checkIp = true)
     {
-        if (checkIp && !ip.IsIp())
-        {
-            throw new Exception("The IP address is invalid");
-        }
-
         try
         {
             var pingSender = new Ping();

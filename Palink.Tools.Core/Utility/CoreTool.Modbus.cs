@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -175,5 +176,32 @@ public partial class CoreTool
         }
 
         return BitConverter.GetBytes(crc);
+    }
+
+    /// <summary>
+    ///     Convert the 32 bit registers to two 16 bit values.
+    /// </summary>
+    public static IEnumerable<ushort> Convert32To16(uint[] registers)
+    {
+        foreach (var register in registers)
+        {
+            // low order value
+            yield return BitConverter.ToUInt16(BitConverter.GetBytes(register), 0);
+
+            // high order value
+            yield return BitConverter.ToUInt16(BitConverter.GetBytes(register), 2);
+        }
+    }
+
+    /// <summary>
+    ///     Convert the 16 bit registers to 32 bit registers.
+    /// </summary>
+    public static IEnumerable<uint> Convert16To32(IReadOnlyList<ushort> registers)
+    {
+        for (var i = 0; i < registers.Count; i++)
+        {
+            yield return CoreTool.GetUInt32(registers[i + 1], registers[i]);
+            i++;
+        }
     }
 }
