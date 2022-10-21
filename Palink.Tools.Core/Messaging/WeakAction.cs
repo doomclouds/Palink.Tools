@@ -7,6 +7,8 @@ namespace Palink.Tools.Messaging;
 
 public class WeakAction
 {
+    public bool ShouldDelete { get; set; }
+
     [NotNull] protected MethodInfo? Method { get; set; }
 
     public virtual string MethodName => Method.Name;
@@ -45,6 +47,7 @@ public class WeakAction
         Reference = null;
         ActionReference = null;
         Method = null;
+        ShouldDelete = true;
     }
 }
 

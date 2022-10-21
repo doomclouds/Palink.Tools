@@ -17,7 +17,7 @@ public class Messenger : IMessenger
         get
         {
             if (_defaultInstance != null) return _defaultInstance;
-            
+
             lock (CreationLock)
             {
                 _defaultInstance ??= new Messenger();
@@ -177,7 +177,7 @@ public class Messenger : IMessenger
             foreach (var list in lists)
             {
                 var recipientsToRemove = list.Value
-                    .Where(item => item.Action == null)
+                    .Where(item => item.Action?.ShouldDelete == true)
                     .ToList();
 
                 foreach (var recipient in recipientsToRemove)
