@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Palink.Tools.System.PLFile;
+namespace Palink.Tools.System.FileExt;
 
 /// <summary>
 /// INIFile

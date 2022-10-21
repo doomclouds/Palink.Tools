@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
+using Palink.Tools.Extensions.AttributeExt;
 using Palink.Tools.Extensions.ConvertExt.Enumeration;
 using Palink.Tools.Extensions.ObjectExt;
 using Palink.Tools.Extensions.SerializeExt;
@@ -189,7 +190,7 @@ public static class ConvertExtensions
     /// </summary>
     /// <param name="enumType"></param>
     /// <returns></returns>
-    public static IEnumerable<EnumResponse> TryToList(this Type enumType)
+    public static List<EnumResponse> TryToList(this Type enumType)
     {
         if (!enumType.IsEnum)
             throw new ArgumentException("must be enum", nameof(enumType));
@@ -253,5 +254,18 @@ public static class ConvertExtensions
     public static string TupleTryToString<T>(this T value) where T : struct
     {
         return value.ToJson();
+    }
+
+    /// <summary>
+    /// enum转dictionary
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static Dictionary<T, string> ToDic<T>(this T value) where T : Enum
+    {
+        return Enum
+            .GetValues(typeof(T)).Cast<T>()
+            .ToDictionary(input => input, input => input.EnumDescription());
     }
 }
