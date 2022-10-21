@@ -69,17 +69,12 @@ public class Messenger : IMessenger
 
     public void Send<TMessage>(TMessage message)
     {
-        SendToTargetOrType(message, null, null);
-    }
-
-    public void Send<TMessage, TTarget>(TMessage message)
-    {
-        SendToTargetOrType(message, typeof(TTarget), null);
+        SendToTargetOrType(message, null);
     }
 
     public void Send<TMessage>(TMessage message, object token)
     {
-        SendToTargetOrType(message, null, token);
+        SendToTargetOrType(message, token);
     }
 
     public void Unregister<TMessage>(object recipient, object? token = default,
@@ -89,8 +84,7 @@ public class Messenger : IMessenger
         Cleanup();
     }
 
-    private void SendToTargetOrType<TMessage>(TMessage message, Type? messageTargetType,
-        object? token)
+    private void SendToTargetOrType<TMessage>(TMessage message, object? token)
     {
         if (_recipientsAction == null) return;
 
@@ -113,15 +107,15 @@ public class Messenger : IMessenger
                 }
             }
 
-            SendToList(message, list, messageTargetType, token);
+            SendToList(message, list, token);
         }
 
         Cleanup();
     }
 
     private static void SendToList<TMessage>(
-        TMessage message, IEnumerable<WeakActionAndToken>? weakActionsAndTokens,
-        Type? messageTargetType, object? token)
+        TMessage message, IEnumerable<WeakActionAndToken>? weakActionsAndTokens
+        , object? token)
     {
         if (weakActionsAndTokens == null || message == null) return;
 
@@ -131,9 +125,6 @@ public class Messenger : IMessenger
         foreach (var item in listClone)
         {
             if (item.Action is IExecuteWithObject executeAction
-                && (messageTargetType == null
-                    || item.Action.Target.GetType() == messageTargetType
-                    || messageTargetType.IsInstanceOfType(item.Action.Target))
                 && ((item.Token == null && token == null)
                     || item.Token != null && item.Token.Equals(token)))
             {

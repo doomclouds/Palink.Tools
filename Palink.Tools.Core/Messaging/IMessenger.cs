@@ -8,8 +8,6 @@ public interface IMessenger
    
     void Send<TMessage>(TMessage message);
 
-    void Send<TMessage, TTarget>(TMessage message);
-
     void Send<TMessage>(TMessage message, object token);
 
     void Unregister<TMessage>(object recipient, object? token = default,
