@@ -46,9 +46,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>全新版本及文档发布</PackageReleaseNotes>
+		<PackageReleaseNotes>增加ReadLineByUTF8以支持中文字符解码</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.4.0</Version>
+		<Version>1.4.1</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

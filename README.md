@@ -1,6 +1,6 @@
-[TOC]
+[源码地址](https://github.com/doomclouds/Palink.Tools)，觉得本库可以帮助到你的小伙伴，麻烦点个小星星。
 
-# version1.4.0
+## version1.4.1
 
 ## Palink.Tools
 
@@ -563,7 +563,8 @@ CoreTool.SoftwareMutex(out var appMutex);
 //以结束符\r\n读取一行数据
 var udp = new UdpClient();
 var adapter = new UdpClientAdapter(udp);
-var data = CoreTool.ReadLine(adapter, "\r\n");
+var data = CoreTool.ReadLine(adapter, "\r\n"); //不支持中文
+var data2 = CoreTool.ReadLineByUTF8(adapter, "\r\n"); //支持中文
 ```
 
 
