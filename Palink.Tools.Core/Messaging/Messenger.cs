@@ -27,7 +27,7 @@ public class Messenger : IMessenger
         }
     }
 
-    public void Register<TMessage>(object recipient, Action<TMessage> action,
+    public Action<TMessage> Register<TMessage>(object recipient, Action<TMessage> action,
         object? token = default)
     {
         lock (_registerLock)
@@ -57,9 +57,11 @@ public class Messenger : IMessenger
         }
 
         Cleanup();
+
+        return action;
     }
 
-    public void Register(object recipient, Action action, object? token = default)
+    public Action Register(object recipient, Action action, object? token = default)
     {
         lock (_registerLock)
         {
@@ -92,6 +94,8 @@ public class Messenger : IMessenger
         }
 
         Cleanup();
+
+        return action;
     }
 
     public void Send(object? token = default)

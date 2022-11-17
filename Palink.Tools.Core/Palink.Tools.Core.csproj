@@ -46,9 +46,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>扩展ReadLine的重载方法，解决Messenger必须使用泛型的问题(匿名函数不能卸载仍未解决)</PackageReleaseNotes>
+		<PackageReleaseNotes>扩展ReadLine的重载方法，解决Messenger必须使用泛型的问题与匿名函数不能卸载的问题</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.4.2</Version>
+		<Version>1.4.3</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
