@@ -10,7 +10,7 @@ public class Messenger : IMessenger
     private static IMessenger? _defaultInstance;
     private readonly object _registerLock = new();
 
-    private Dictionary<Type, List<WeakActionAndToken>>? _recipientsAction;
+    private readonly Dictionary<Type, List<WeakActionAndToken>> _recipientsAction = new();
 
     public static IMessenger Default
     {
@@ -27,32 +27,59 @@ public class Messenger : IMessenger
         }
     }
 
-    public void Register<TMessage>(object recipient, Action<TMessage> action
-        , object? token = default)
+    public void Register<TMessage>(object recipient, Action<TMessage> action,
+        object? token = default)
     {
         lock (_registerLock)
         {
             var messageType = typeof(TMessage);
 
-            _recipientsAction ??= new Dictionary<Type, List<WeakActionAndToken>>();
-
-            var recipients = _recipientsAction;
-
-            lock (recipients)
+            lock (_recipientsAction)
             {
                 List<WeakActionAndToken> list;
 
-                if (!recipients.ContainsKey(messageType))
+                if (!_recipientsAction.ContainsKey(messageType))
                 {
                     list = new List<WeakActionAndToken>();
-                    recipients.Add(messageType, list);
+                    _recipientsAction.Add(messageType, list);
                 }
                 else
                 {
-                    list = recipients[messageType];
+                    list = _recipientsAction[messageType];
                 }
 
                 var weakAction = new WeakAction<TMessage>(recipient, action);
+
+                var item = new WeakActionAndToken(weakAction, token);
+
+                list.Add(item);
+            }
+        }
+
+        Cleanup();
+    }
+
+    public void Register(object recipient, Action action, object? token = default)
+    {
+        lock (_registerLock)
+        {
+            var messageType = typeof(Messenger);
+
+            lock (_recipientsAction)
+            {
+                List<WeakActionAndToken> list;
+
+                if (!_recipientsAction.ContainsKey(messageType))
+                {
+                    list = new List<WeakActionAndToken>();
+                    _recipientsAction.Add(messageType, list);
+                }
+                else
+                {
+                    list = _recipientsAction[messageType];
+                }
+
+                var weakAction = new WeakAction(recipient, action);
 
                 var item = new WeakActionAndToken
                 {
@@ -67,27 +94,31 @@ public class Messenger : IMessenger
         Cleanup();
     }
 
-    public void Send<TMessage>(TMessage message)
+    public void Send(object? token = default)
     {
-        SendToTargetOrType(message, null);
+        SendToTargetOrType(this, token);
     }
 
-    public void Send<TMessage>(TMessage message, object token)
+    public void Send<TMessage>(object? token, TMessage message)
     {
         SendToTargetOrType(message, token);
     }
 
-    public void Unregister<TMessage>(object recipient, object? token = default,
-        Action<TMessage>? action = default)
+    public void Unregister<TMessage>(object recipient, Action<TMessage> action,
+        object? token = default)
     {
-        UnregisterFromLists(recipient, token, action, _recipientsAction);
+        UnregisterFromLists(recipient, action, token, _recipientsAction);
+        Cleanup();
+    }
+
+    public void Unregister(object recipient, Action action, object? token = default)
+    {
+        UnregisterFromLists(recipient, action, token, _recipientsAction);
         Cleanup();
     }
 
     private void SendToTargetOrType<TMessage>(TMessage message, object? token)
     {
-        if (_recipientsAction == null) return;
-
         var messageType = typeof(TMessage);
 
         var listClone =
@@ -95,7 +126,7 @@ public class Messenger : IMessenger
 
         foreach (var type in listClone)
         {
-            List<WeakActionAndToken>? list = null;
+            var list = new List<WeakActionAndToken>();
 
             if (messageType == type)
             {
@@ -114,32 +145,39 @@ public class Messenger : IMessenger
     }
 
     private static void SendToList<TMessage>(
-        TMessage message, IEnumerable<WeakActionAndToken>? weakActionsAndTokens
+        TMessage message, IEnumerable<WeakActionAndToken> weakActionsAndTokens
         , object? token)
     {
-        if (weakActionsAndTokens == null || message == null) return;
+        if (message == null) return;
 
         var list = weakActionsAndTokens.ToList();
         var listClone = list.Take(list.Count).ToList();
 
         foreach (var item in listClone)
         {
-            if (item.Action is IExecuteWithObject executeAction
-                && ((item.Token == null && token == null)
-                    || item.Token != null && item.Token.Equals(token)))
+            switch (item.Action)
             {
-                executeAction.ExecuteWithObject(message);
+                case IExecuteWithObject executeAction
+                    when ((item.Token == null && token == null)
+                          || item.Token != null && item.Token.Equals(token)):
+                    executeAction.ExecuteWithObject(message);
+                    continue;
+                case { } weakAction
+                    when ((item.Token == null && token == null)
+                          || item.Token != null && item.Token.Equals(token)):
+                    weakAction.Execute();
+                    break;
             }
         }
     }
 
     private static void UnregisterFromLists<TMessage>(
-        object recipient, object? token, Action<TMessage>? action,
-        Dictionary<Type, List<WeakActionAndToken>>? lists)
+        object recipient, Action<TMessage> action, object? token,
+        Dictionary<Type, List<WeakActionAndToken>> lists)
     {
         var messageType = typeof(TMessage);
 
-        if (lists == null || !lists.Any() || !lists.ContainsKey(messageType))
+        if (!lists.Any() || !lists.ContainsKey(messageType))
         {
             return;
         }
@@ -150,10 +188,37 @@ public class Messenger : IMessenger
             {
                 if (item.Action is WeakAction<TMessage> weakActionCasted
                     && recipient == weakActionCasted.Target
-                    && (action == null || action.Method.Name == weakActionCasted.MethodName)
-                    && (token == null || token.Equals(item.Token)))
+                    && action.Method.Name == weakActionCasted.MethodName
+                    && ((token == null && item.Token == null)
+                        || token?.Equals(item.Token) == true))
                 {
-                    item.Action?.MarkForDeletion();
+                    item.Action.MarkForDeletion();
+                }
+            }
+        }
+    }
+
+    private static void UnregisterFromLists(object recipient, Action action, object? token,
+        Dictionary<Type, List<WeakActionAndToken>> lists)
+    {
+        var messageType = typeof(Messenger);
+
+        if (!lists.Any() || !lists.ContainsKey(messageType))
+        {
+            return;
+        }
+
+        lock (lists)
+        {
+            foreach (var item in lists[messageType])
+            {
+                if (item.Action is { } weakActionCasted
+                    && recipient == weakActionCasted.Target
+                    && action.Method.Name == weakActionCasted.MethodName
+                    && ((token == null && item.Token == null)
+                        || token?.Equals(item.Token) == true))
+                {
+                    item.Action.MarkForDeletion();
                 }
             }
         }
@@ -177,7 +242,7 @@ public class Messenger : IMessenger
             foreach (var list in lists)
             {
                 var recipientsToRemove = list.Value
-                    .Where(item => item.Action?.ShouldDelete == true)
+                    .Where(item => item.Action.ShouldDelete)
                     .ToList();
 
                 foreach (var recipient in recipientsToRemove)
@@ -200,12 +265,18 @@ public class Messenger : IMessenger
 
     public void Reset()
     {
-        _recipientsAction?.Clear();
+        _recipientsAction.Clear();
     }
 
     private struct WeakActionAndToken
     {
-        public WeakAction? Action;
+        public WeakActionAndToken(WeakAction action, object? token)
+        {
+            Action = action;
+            Token = token;
+        }
+
+        public WeakAction Action;
 
         public object? Token;
     }

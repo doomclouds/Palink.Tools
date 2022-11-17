@@ -46,9 +46,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>增加ReadLineByUTF8以支持中文字符解码</PackageReleaseNotes>
+		<PackageReleaseNotes>扩展ReadLine的重载方法，解决Messenger必须使用泛型的问题(匿名函数不能卸载仍未解决)</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.4.1</Version>
+		<Version>1.4.2</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

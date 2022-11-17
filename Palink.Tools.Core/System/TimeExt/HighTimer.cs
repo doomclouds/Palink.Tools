@@ -22,7 +22,7 @@ public class HighTimer
     /// <summary>
     /// API使用的回调
     /// </summary>
-    public event EventHandler? Timer;
+    public event EventHandler? Elapsed;
 
     public HighTimer()
     {
@@ -121,7 +121,7 @@ public class HighTimer
     private void TimerCallbackMethod(uint id, uint msg, ref uint userCtx, uint rsv1,
         uint rsv2)
     {
-        Timer?.Invoke(this, EventArgs.Empty);
+        Elapsed?.Invoke(this, EventArgs.Empty);
     }
 
     private void CheckDisposed()
@@ -143,7 +143,7 @@ public class HighTimer
 
         if (disposing)
         {
-            Timer = null;
+            Elapsed = null;
             GC.SuppressFinalize(this);
         }
     }

@@ -434,7 +434,7 @@ public class EpsonMaster : FreebusMaster
 
 ### Palink.Tools.Messaging
 
-#### 消息订阅与发送
+#### 消息订阅与发送：现在注册与卸载可以不指定泛型，但是仍然不支持匿名函数的卸载
 
 ```c#
 Messenger.Default.Register<string>(this, Console.WriteLine, token: "palink");
@@ -476,10 +476,10 @@ ini.ClearSection(); //删除ini文件下指定段落下的所有键
 
 ```c#
 var timer = new HighTimer();
-timer.Timer += Timer_Timer;
+timer.Elapsed += Timer_Elapsed;
 timer.Start(1, true);
 
-private void Timer_Timer(object? sender, EventArgs e)
+private void Timer_Elapsed(object? sender, EventArgs e)
 {
     Console.WriteLine("timer");
 }
@@ -560,11 +560,13 @@ CoreTool.SoftwareMutex(out var appMutex);
 #### StreamResource
 
 ```c#
-//以结束符\r\n读取一行数据
 var udp = new UdpClient();
 var adapter = new UdpClientAdapter(udp);
-var data = CoreTool.ReadLine(adapter, "\r\n"); //不支持中文
-var data2 = CoreTool.ReadLineByUTF8(adapter, "\r\n"); //支持中文
+var data = CoreTool.ReadLine(adapter, "\r\n"); //以结束符\r\n读取一行数据不支持中文
+var data2 = CoreTool.ReadLineByUTF8(adapter, "\r\n"); //以结束符\r\n读取一行数据支持中文
+var data3 = CoreTool.ReadLine(adapter, 8); //读取指定字节数的数据
+var tail = new byte[]{0xa5, 0x5a}
+var data4 = CoreTool.ReadLine(adapter, tail); //读取指定结尾的数据
 ```
 
 
