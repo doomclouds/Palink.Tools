@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>netstandard2.0</TargetFrameworks>
 		<Nullable>enable</Nullable>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	</PropertyGroup>
@@ -13,10 +13,6 @@
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="11.0.1" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="System\TimeExt\" />
@@ -46,9 +42,9 @@
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/doomclouds/Palink.Tools.git</PackageProjectUrl>
 		<PackageTags>Palink;Tool;EasyLibrary</PackageTags>
-		<PackageReleaseNotes>扩展ReadLine的重载方法，解决Messenger必须使用泛型的问题与匿名函数不能卸载的问题</PackageReleaseNotes>
+		<PackageReleaseNotes>修复部分已知BUG，修改类库仅支持netstandard2.0，不在依赖任何第三方库，移出对Newtonsoft.Json依赖的代码到Palink.Tools.Json11与Palink.Tools.Json13</PackageReleaseNotes>
 		<RootNamespace>Palink.Tools</RootNamespace>
-		<Version>1.4.3</Version>
+		<Version>1.5.0</Version>
 		<Company>Palink</Company>
 		<Product>Palink.Tools</Product>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

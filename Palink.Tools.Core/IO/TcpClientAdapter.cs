@@ -72,7 +72,12 @@ public class TcpClientAdapter : IStreamResource
     /// </summary>
     public void DiscardInBuffer()
     {
-        _tcpClient.GetStream().Flush();
+        var maxTime = 1024;
+        var buffer = new byte[1];
+        while (_tcpClient.GetStream().Read(buffer, 0, 1) != 0 && maxTime > 0)
+        {
+            maxTime--;
+        }
     }
 
     /// <summary>

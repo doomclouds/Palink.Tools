@@ -200,7 +200,7 @@ public partial class CoreTool
     {
         for (var i = 0; i < registers.Count; i++)
         {
-            yield return CoreTool.GetUInt32(registers[i + 1], registers[i]);
+            yield return GetUInt32(registers[i + 1], registers[i]);
             i++;
         }
     }

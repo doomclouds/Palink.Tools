@@ -5,7 +5,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using Palink.Tools.Extensions.ObjectExt;
-using Palink.Tools.Extensions.SerializeExt;
 using Palink.Tools.Extensions.StringExt;
 
 namespace Palink.Tools.Extensions.ReflectionExt;
@@ -69,7 +68,7 @@ public static class ReflectionExtensions
         return fieldInfos;
     }
 
-    public static string SetProperty(this object? obj, string name, object value)
+    public static void SetProperty(this object? obj, string name, object value)
     {
         if (obj.IsNull())
             throw new ArgumentNullException(nameof(obj), "can not null");
@@ -78,7 +77,7 @@ public static class ReflectionExtensions
         var before = Expression.Lambda(property, parameter).Compile().DynamicInvoke(obj);
         if (value.Equals(before))
         {
-            return value.ToString();
+            return;
         }
 
         if (property.Type.IsGenericType &&
@@ -93,9 +92,6 @@ public static class ReflectionExtensions
             Expression.Lambda(assign, parameter, valueExpression).Compile()
                 .DynamicInvoke(obj, value);
         }
-
-
-        return before.ToJson();
     }
 
     public static T GetProperty<T>(this object? obj, string name)

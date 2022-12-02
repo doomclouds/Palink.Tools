@@ -32,8 +32,8 @@ public class SocketAdapter : IStreamResource
     /// </summary>
     public int ReadTimeout
     {
-        get => _socketClient.SendTimeout;
-        set => _socketClient.SendTimeout = value;
+        get => _socketClient.ReceiveTimeout;
+        set => _socketClient.ReceiveTimeout = value;
     }
 
     /// <summary>
@@ -41,8 +41,8 @@ public class SocketAdapter : IStreamResource
     /// </summary>
     public int WriteTimeout
     {
-        get => _socketClient.ReceiveTimeout;
-        set => _socketClient.ReceiveTimeout = value;
+        get => _socketClient.SendTimeout;
+        set => _socketClient.SendTimeout = value;
     }
 
     /// <summary>
@@ -50,7 +50,12 @@ public class SocketAdapter : IStreamResource
     /// </summary>
     public void DiscardInBuffer()
     {
-        // socket does not hold buffers.
+        var maxTime = 1024;
+        var buffer = new byte[1];
+        while (_socketClient.Receive(buffer) != 0 && maxTime > 0)
+        {
+            maxTime--;
+        }
     }
 
     /// <summary>

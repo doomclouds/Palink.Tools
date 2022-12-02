@@ -6,7 +6,6 @@ using System.Linq;
 using Palink.Tools.Extensions.AttributeExt;
 using Palink.Tools.Extensions.ConvertExt.Enumeration;
 using Palink.Tools.Extensions.ObjectExt;
-using Palink.Tools.Extensions.SerializeExt;
 using Palink.Tools.Extensions.StringExt;
 
 namespace Palink.Tools.Extensions.ConvertExt;
@@ -235,26 +234,6 @@ public static class ConvertExtensions
             .ConvertFromInvariantString(obj.ToString())
         : (T)Convert.ChangeType(obj, typeof(T),
             CultureInfo.InvariantCulture);
-
-    /// <summary>
-    /// json to value tuple
-    /// </summary>
-    /// <param name="valueTupleJson"></param>
-    /// <returns></returns>
-    public static T? TryToValueTuple<T>(this string valueTupleJson)
-    {
-        return valueTupleJson.FromJson<T>();
-    }
-
-    /// <summary>
-    /// tuple to json
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    public static string TupleTryToString<T>(this T value) where T : struct
-    {
-        return value.ToJson();
-    }
 
     /// <summary>
     /// enum转dictionary
