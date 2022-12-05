@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using Palink.Tools.Utility;
@@ -40,12 +39,23 @@ public class UdpClientAdapter : IStreamResource
 
     public void DiscardInBuffer()
     {
-        var maxTime = 1024;
-        var buffer = new byte[1];
-        while (_udpClient.Client.Receive(buffer) != 0 && maxTime > 0)
+        var temp = ReadTimeout;
+        ReadTimeout = 5;
+        try
         {
-            maxTime--;
+            var maxTime = 1024;
+            var buffer = new byte[1];
+            while (_udpClient.Client.Receive(buffer) != 0 && maxTime > 0)
+            {
+                maxTime--;
+            }
         }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+
+        ReadTimeout = temp;
     }
 
     public int Read(byte[] buffer, int offset, int count)
