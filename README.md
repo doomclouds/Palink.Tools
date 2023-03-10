@@ -1,27 +1,10 @@
 [源码地址](https://github.com/doomclouds/Palink.Tools)，觉得本库可以帮助到你的小伙伴，麻烦点个小星星。
 
-## version1.5.1
+## version1.5.4
 
 ## Palink.Tools
 
 ### Palink.Tools.Extensions.ArrayExt
-
-#### 多维数组遍历
-
-```c#
-//二维
-var array = new[,]
-{
-    { 1, 2, 3 },
-    { 4, 5, 6 },
-    { 7, 8, 9 },
-};
-array.ForEach((arr, indices) =>
-              {
-                  var value = arr.GetValue(indices[0], indices[1]);
-                  Console.WriteLine($"[{indices[0]},{indices[1]}] = {value}");
-              });
-```
 
 #### 数组切片
 
