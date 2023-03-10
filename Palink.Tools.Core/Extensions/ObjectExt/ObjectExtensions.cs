@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Palink.Tools.Extensions.ArrayExt;
 
 namespace Palink.Tools.Extensions.ObjectExt;
 
@@ -213,12 +212,12 @@ public static class ObjectExtensions
     /// PropertyDescription
     /// </summary>
     /// <param name="object"></param>
-    /// <param name="name"></param>
+    /// <param name="propName"></param>
     /// <returns></returns>
-    public static string PropertyDescription(this object @object, string name)
+    public static string PropertyDescription(this object @object, string propName)
     {
         var value = @object.ToString();
-        var prop = @object.GetType().GetProperty(name);
+        var prop = @object.GetType().GetProperty(propName);
         var obj =
             prop?.GetCustomAttributes(typeof(DescriptionAttribute), false); //获取描述属性
         if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
@@ -231,12 +230,12 @@ public static class ObjectExtensions
     /// PropertyDisplayName
     /// </summary>
     /// <param name="object"></param>
-    /// <param name="name"></param>
+    /// <param name="propName"></param>
     /// <returns></returns>
-    public static string PropertyDisplayName(this object @object, string name)
+    public static string PropertyDisplayName(this object @object, string propName)
     {
         var value = @object.ToString();
-        var prop = @object.GetType().GetProperty(value);
+        var prop = @object.GetType().GetProperty(propName);
         var obj =
             prop?.GetCustomAttributes(typeof(DisplayNameAttribute), false); //获取显示名称
         if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
@@ -276,6 +275,61 @@ public static class ObjectExtensions
         if (condition)
             action(obj);
         return obj;
+    }
+
+    internal class ArrayTraverse
+    {
+        public int[] Position;
+        private readonly int[] _maxLengths;
+
+        public ArrayTraverse(Array array)
+        {
+            _maxLengths = new int[array.Rank];
+            for (var i = 0; i < array.Rank; ++i)
+            {
+                _maxLengths[i] = array.GetLength(i) - 1;
+            }
+
+            Position = new int[array.Rank];
+        }
+
+        public bool MoveNext()
+        {
+            for (var i = 0; i < Position.Length; ++i)
+            {
+                if (Position[i] >= _maxLengths[i])
+                {
+                    continue;
+                }
+
+                Position[i]++;
+                for (var j = 0; j < i; j++)
+                {
+                    Position[j] = 0;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Iterate Array
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="action"></param>
+    internal static void ForEach(this Array array, Action<Array, int[]> action)
+    {
+        if (array.LongLength == 0)
+        {
+            return;
+        }
+
+        var walker = new ArrayTraverse(array);
+        do action(array, walker.Position);
+        while (walker.MoveNext());
     }
 }
 

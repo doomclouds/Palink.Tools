@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Palink.Tools.Extensions.ObjectExt;
 
 namespace Palink.Tools.Extensions.ArrayExt;
 
@@ -9,23 +10,6 @@ namespace Palink.Tools.Extensions.ArrayExt;
 /// </summary>
 public static class ArrayExtensions
 {
-    /// <summary>
-    /// Iterate Array
-    /// </summary>
-    /// <param name="array"></param>
-    /// <param name="action"></param>
-    public static void ForEach(this Array array, Action<Array, int[]> action)
-    {
-        if (array.LongLength == 0)
-        {
-            return;
-        }
-
-        var walker = new ArrayTraverse(array);
-        do action(array, walker.Position);
-        while (walker.MoveNext());
-    }
-
     /// <summary>
     /// Slice
     /// </summary>
@@ -72,6 +56,54 @@ public static class ArrayExtensions
     public static bool IsIn<T>(this T item, IEnumerable<T> items) =>
         items.Contains(item);
 
+    /// <summary>Check if an item is in a list.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="t"></param>
+    /// <param name="list">List of items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, out T? t, params T[] list) where T : IObjectLike
+    {
+        var obj = list.FirstOrDefault(x => x.Likes(item));
+        t = obj;
+        return obj.NotNull();
+    }
+
+
+    /// <summary>Check if an item is in the given enumerable.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="t"></param>
+    /// <param name="items">Items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, out T? t, IEnumerable<T> items) where T : IObjectLike
+    {
+        var obj = items.FirstOrDefault(x => x.Likes(item));
+        t = obj;
+        return obj.NotNull();
+    }
+
+    /// <summary>Check if an item is in a list.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="manyT"></param>
+    /// <param name="list">List of items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, out IEnumerable<T> manyT, params T[] list) where T : IObjectLike
+    {
+        manyT = list.Where(x => x.Likes(item));
+        return manyT.Any();
+    }
+
+
+    /// <summary>Check if an item is in the given enumerable.</summary>
+    /// <param name="item">Item to check</param>
+    /// <param name="manyT"></param>
+    /// <param name="items">Items</param>
+    /// <typeparam name="T">Type of the items</typeparam>
+    public static bool IsIn<T>(this T item, out IEnumerable<T> manyT, IEnumerable<T> items) where T : IObjectLike
+    {
+        manyT = items.Where(x => x.Likes(item));
+        return manyT.Any();
+    }
+
     /// <summary>
     /// Concatenates the members of a constructed <see cref="T:System.Collections.Generic.IEnumerable`1" /> collection of type System.String, using the specified separator between each member.
     /// This is a shortcut for string.Join(...)
@@ -79,8 +111,7 @@ public static class ArrayExtensions
     /// <param name="source">A collection that contains the strings to concatenate.</param>
     /// <param name="separator">The string to use as a separator. separator is included in the returned string only if values has more than one element.</param>
     /// <returns>A string that consists of the members of values delimited by the separator string. If values has no members, the method returns System.String.Empty.</returns>
-    public static string
-        JoinAsString(this IEnumerable<string> source, string separator) =>
+    public static string JoinAsString(this IEnumerable<string> source, string separator) =>
         string.Join(separator, source);
 
     /// <summary>
@@ -122,43 +153,5 @@ public static class ArrayExtensions
         Func<T, int, bool> predicate)
     {
         return !condition ? source : source.Where(predicate);
-    }
-
-    internal class ArrayTraverse
-    {
-        public int[] Position;
-        private readonly int[] _maxLengths;
-
-        public ArrayTraverse(Array array)
-        {
-            _maxLengths = new int[array.Rank];
-            for (var i = 0; i < array.Rank; ++i)
-            {
-                _maxLengths[i] = array.GetLength(i) - 1;
-            }
-
-            Position = new int[array.Rank];
-        }
-
-        public bool MoveNext()
-        {
-            for (var i = 0; i < Position.Length; ++i)
-            {
-                if (Position[i] >= _maxLengths[i])
-                {
-                    continue;
-                }
-
-                Position[i]++;
-                for (var j = 0; j < i; j++)
-                {
-                    Position[j] = 0;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
     }
 }
