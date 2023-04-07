@@ -25,6 +25,7 @@
 
 	<ItemGroup>
 	  <Folder Include="Extensions\ObjectExt\" />
+	  <Folder Include="Extensions\StringExt\" />
 	</ItemGroup>
 
 </Project>

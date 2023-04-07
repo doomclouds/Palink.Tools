@@ -87,6 +87,17 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// 构建两个字符间匹配的字符串
+    /// </summary>
+    /// <param name="left"></param>
+    /// <param name="right"></param>
+    /// <returns></returns>
+    public static string BuildRegexBetweenLeftToRight(string left = "[", string right = "]")
+    {
+        return @$"(?<=\{left})(.+?)(?=\{right})";
+    }
+
+    /// <summary>
     /// 是否为邮箱名
     /// </summary>
     public static bool IsEmail(this string s)
@@ -212,7 +223,7 @@ public static class StringExtensions
     #endregion
 
     #region Format
-    
+
     /// <summary>
     /// FormatWith
     /// </summary>
