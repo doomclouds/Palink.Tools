@@ -1,4 +1,5 @@
-﻿using Palink.Tools.Extensions.ObjectExt;
+﻿using System.ComponentModel;
+using Palink.Tools.Extensions.ObjectExt;
 
 namespace Palink.Tools.Core.Test.Extensions.ObjectExt;
 
@@ -65,6 +66,23 @@ public class ObjectExtensionsTest
         Assert.NotEqual(school.Classes.Count, newSchool2.Classes.Count);
         Assert.Equal(newSchool1.Classes.Count, newSchool2.Classes.Count);
     }
+
+    [Fact]
+    public void PropAttrTest()
+    {
+        var p = new Person();
+        var name = p.PropertyAttr<DisplayNameAttribute>("Name")?.DisplayName;
+        Assert.NotNull(name);
+    }
+}
+
+public class Person
+{
+    [DisplayName("name")]
+    public string Name { get; set; }
+
+    [DisplayName("age")]
+    public int Age { get; set; }
 }
 
 [Serializable]

@@ -64,9 +64,27 @@ public static class ObjectExtensions
         var obj =
             prop?.GetCustomAttributes(typeof(DescriptionAttribute), false); //获取描述属性
         if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
-            return value;
+            return value ?? "";
         var descriptionAttribute = (DescriptionAttribute)obj[0];
         return descriptionAttribute.Description;
+    }
+
+    public static TAttr? PropertyAttr<TAttr>(this object @object, string propName) where TAttr : Attribute
+    {
+        var prop = @object.GetType().GetProperty(propName);
+        var obj =
+            prop?.GetCustomAttributes(false); //获取描述属性
+        if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
+            return null;
+        foreach (var o in obj)
+        {
+            if (o is TAttr attr)
+            {
+                return attr;
+            }
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -82,7 +100,7 @@ public static class ObjectExtensions
         var obj =
             prop?.GetCustomAttributes(typeof(DisplayNameAttribute), false); //获取显示名称
         if (obj == null || obj.Length == 0) //当描述属性没有时，直接返回名称
-            return value;
+            return value ?? "";
         var displayNameAttribute = (DisplayNameAttribute)obj[0];
         return displayNameAttribute.DisplayName;
     }
