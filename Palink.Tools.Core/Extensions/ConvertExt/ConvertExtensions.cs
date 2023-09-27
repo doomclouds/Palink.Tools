@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using Palink.Tools.Extensions.AttributeExt;
 using Palink.Tools.Extensions.ConvertExt.Enumeration;
-using Palink.Tools.Extensions.ObjectExt;
 using Palink.Tools.Extensions.StringExt;
 
 namespace Palink.Tools.Extensions.ConvertExt;
@@ -15,74 +14,84 @@ namespace Palink.Tools.Extensions.ConvertExt;
 /// </summary>
 public static class ConvertExtensions
 {
-    /// <summary>
-    /// object convert to byte
-    /// </summary>
-    /// <param name="input">input</param>
-    /// <param name="default">default value</param>
-    /// <returns></returns>
-    public static byte ToByte(this object? input, byte @default = 0)
+    public static byte ToByte(this string? input, byte @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return byte.TryParse(input.ToString(), out var num) ? num : @default;
+        return byte.TryParse(input, out var num) ? num : @default;
     }
 
-    /// <summary>
-    /// object convert to int
-    /// </summary>
-    /// <param name="input">input</param>
-    /// <param name="default">default value</param>
-    /// <returns></returns>
-    public static int ToInt(this object? input, int @default = 0)
+    public static sbyte ToSByte(this string? input, sbyte @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return int.TryParse(input.ToString(), out var num) ? num : @default;
+        return sbyte.TryParse(input, out var num) ? num : @default;
     }
 
-    /// <summary>
-    /// object convert to long
-    /// </summary>
-    /// <param name="input">input</param>
-    /// <param name="default">default value</param>
-    /// <returns></returns>
-    public static long ToLong(this object? input, long @default = 0)
+    public static short ToShort(this string? input, short @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return long.TryParse(input.ToString(), out var num) ? num : @default;
+        return short.TryParse(input, out var num) ? num : @default;
     }
 
-    /// <summary>
-    /// object convert to double
-    /// </summary>
-    /// <param name="input">input</param>
-    /// <param name="default">default value</param>
-    /// <returns></returns>
-    public static double ToDouble(this object? input, double @default = 0)
+    public static ushort ToUShort(this string? input, ushort @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return double.TryParse(input.ToString(), out var num) ? num : @default;
+        return ushort.TryParse(input, out var num) ? num : @default;
     }
 
-    /// <summary>
-    /// object convert to decimal
-    /// </summary>
-    /// <param name="input">input</param>
-    /// <param name="default">default value</param>
-    /// <returns></returns>
-    public static decimal ToDecimal(this object? input, decimal @default = 0)
+    public static int ToInt(this string? input, int @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return decimal.TryParse(input.ToString(), out var num) ? num : @default;
+        return int.TryParse(input, out var num) ? num : @default;
+    }
+
+    public static uint ToUInt(this string? input, uint @default = 0)
+    {
+        if (input.IsNullOrEmpty())
+            return @default;
+
+        return uint.TryParse(input, out var num) ? num : @default;
+    }
+
+    public static long ToLong(this string? input, long @default = 0)
+    {
+        if (input.IsNullOrEmpty())
+            return @default;
+
+        return long.TryParse(input, out var num) ? num : @default;
+    }
+
+    public static ulong ToULong(this string? input, ulong @default = 0)
+    {
+        if (input.IsNullOrEmpty())
+            return @default;
+
+        return ulong.TryParse(input, out var num) ? num : @default;
+    }
+
+    public static double ToDouble(this string? input, double @default = 0)
+    {
+        if (input.IsNullOrEmpty())
+            return @default;
+
+        return double.TryParse(input, out var num) ? num : @default;
+    }
+
+    public static decimal ToDecimal(this string? input, decimal @default = 0)
+    {
+        if (input.IsNullOrEmpty())
+            return @default;
+
+        return decimal.TryParse(input, out var num) ? num : @default;
     }
 
     /// <summary>
@@ -91,12 +100,12 @@ public static class ConvertExtensions
     /// <param name="input">input</param>
     /// <param name="default">default value</param>
     /// <returns></returns>
-    public static float ToFloat(this object? input, float @default = 0)
+    public static float ToFloat(this string? input, float @default = 0)
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        return float.TryParse(input.ToString(), out var num) ? num : @default;
+        return float.TryParse(input, out var num) ? num : @default;
     }
 
     /// <summary>
@@ -107,22 +116,21 @@ public static class ConvertExtensions
     /// <param name="trueVal"></param>
     /// <param name="falseVal"></param>
     /// <returns></returns>
-    public static bool ToBool(this object? input, bool @default = false,
+    public static bool ToBool(this string? input, bool @default = false,
         string trueVal = "1",
         string falseVal = "0")
     {
-        if (input.IsNull())
+        if (input.IsNullOrEmpty())
             return @default;
 
-        var str = input.ToString();
-        if (bool.TryParse(str, out var outBool))
+        if (bool.TryParse(input, out var outBool))
             return outBool;
 
         outBool = @default;
 
-        if (trueVal == str)
+        if (trueVal == input)
             return true;
-        return falseVal != str && outBool;
+        return falseVal != input && outBool;
     }
 
     /// <summary>
@@ -239,9 +247,8 @@ public static class ConvertExtensions
     /// enum转dictionary
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <param name="value"></param>
     /// <returns></returns>
-    public static Dictionary<T, string> ToDic<T>(this T value) where T : Enum
+    public static Dictionary<T, string> ToDic<T>(this T _) where T : Enum
     {
         return Enum
             .GetValues(typeof(T)).Cast<T>()

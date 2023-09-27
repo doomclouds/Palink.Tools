@@ -13,7 +13,7 @@ public static class NetExtensions
     /// Ping
     /// </summary>
     /// <returns></returns>
-    public static bool Ping(this string ip, bool checkIp = true)
+    public static bool Ping(this string ip)
     {
         try
         {

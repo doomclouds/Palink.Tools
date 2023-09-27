@@ -14,8 +14,9 @@ public partial class CoreTool
     /// 软件多开锁
     /// </summary>
     /// <param name="appMutex"></param>
+    /// <param name="autoClose">是否自动关闭重复开启的软件</param>
     /// <returns></returns>
-    public static bool SoftwareMutex(out Mutex appMutex)
+    public static bool SoftwareMutex(out Mutex appMutex, bool autoClose = false)
     {
         var name = Assembly.GetEntryAssembly()?.GetName().Name;
         appMutex = new Mutex(true, name, out var createdNew);
@@ -29,7 +30,8 @@ public partial class CoreTool
             break;
         }
 
-        Environment.Exit(0);
+        if (autoClose)
+            Environment.Exit(0);
         return false;
     }
 }
